@@ -1,4 +1,4 @@
-import 'vite/modulepreload-polyfill';
+// import 'vite/modulepreload-polyfill';
 
 import React from 'react';
 import { useEffect } from 'react';
