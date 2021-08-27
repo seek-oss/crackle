@@ -1,0 +1,5 @@
+- Check that routes aren't duplicated/clashing
+- Script for showing all the routes and their source
+- Handle brotli (Safari 10)
+- ESLint plugin to make sure that a page file is correctly set up
+- Add redundant stack checking

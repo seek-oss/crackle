@@ -1,0 +1,21 @@
+{
+  "name": "@elmo/cli",
+  "version": "1.0.0",
+  "main": "dist/elmo-cli.cjs.js",
+  "author": "Matt",
+  "license": "MIT",
+  "files": [
+    "dist",
+    "bin.js"
+  ],
+  "bin": {
+    "elmo": "bin.js"
+  },
+  "dependencies": {
+    "@elmo/build": "^1.0.0",
+    "yargs": "^17.1.1"
+  },
+  "devDependencies": {
+    "@types/yargs": "^17.0.2"
+  }
+}
