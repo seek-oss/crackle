@@ -1,6 +1,6 @@
 import React from 'react';
 import { RouteDataFn } from '@elmo/build/';
-import { Alert, Card, Text } from 'braid-design-system';
+import { Alert, Card, Stack, Text } from 'braid-design-system';
 
 export const routeData: RouteDataFn = () => ({
   route: '/remote',
@@ -8,9 +8,15 @@ export const routeData: RouteDataFn = () => ({
 
 const RemotePage = () => (
   <Card>
-    <Alert tone="info">
-      <Text>This page is not in the pages directory</Text>
-    </Alert>
+    <Stack space="medium">
+      <Alert tone="info">
+        <Text>This page is not in the pages directory</Text>
+      </Alert>
+
+      <Alert tone="positive">
+        <Text>Remote page routing works!</Text>
+      </Alert>
+    </Stack>
   </Card>
 );
 
