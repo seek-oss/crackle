@@ -1,4 +1,5 @@
 import path from 'path';
+import { performance } from 'perf_hooks';
 import express from 'express';
 import { createServer as createViteServer } from 'vite';
 import reactRefresh from '@vitejs/plugin-react-refresh';
