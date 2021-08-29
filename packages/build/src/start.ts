@@ -41,8 +41,10 @@ export const start = async () => {
         'sku/treat': getLocalPath('../src/mocks/treat.ts'),
       },
     },
+    // Vite doesn't scan virtual entries for dependencies, so this needs to be set manually
+    // https://github.com/vitejs/vite/blob/e8c19069984835114084dbc650f2a01335d6365f/packages/vite/src/node/optimizer/scan.ts#L74-L75
     optimizeDeps: {
-      entries: '../src/entries/{client,server}.tsx',
+      entries: '../src/entries/client.tsx',
     },
     define: {
       'process.env.NODE_DEBUG': JSON.stringify(false),
