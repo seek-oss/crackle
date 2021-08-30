@@ -46,7 +46,6 @@ export const build = async () => {
   const output = await viteBuild({
     ...commonBuildConfig,
     build: {
-      minify: false,
       manifest: true,
       rollupOptions: { input: getLocalPath('../src/entries/client.tsx') },
     },
@@ -56,7 +55,6 @@ export const build = async () => {
     ...commonBuildConfig,
     mode: 'development',
     build: {
-      minify: false,
       ssr: true,
       rollupOptions: { input: getLocalPath('../src/entries/render.tsx') },
       outDir: getWorkdirPath('/dist-render'),
