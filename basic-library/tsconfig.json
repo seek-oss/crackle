@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "outFile": "lib/types.d.ts",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "noUnusedLocals": true,
+    "jsx": "preserve",
+    "strict": true,
+    "lib": ["es2015", "dom"],
+    "target": "es5",
+    "paths": {
+      "sku/react-treat": [
+        "/Users/bjervis/dev/fep/project-elmo/packages/build/src/mocks/reactTreat.tsx"
+      ],
+      "sku/treat": [
+        "/Users/bjervis/dev/fep/project-elmo/packages/build/src/mocks/treat.ts"
+      ]
+    }
+  },
+  "include": ["src/entries/*.ts"],
+  "exclude": ["./node_modules"]
+}

@@ -1,0 +1,24 @@
+{
+  "name": "basic-library",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "types": "lib/types.d.ts",
+  "author": "Ben",
+  "license": "MIT",
+  "dependencies": {
+    "braid-design-system": "seek-oss/braid-design-system#5b2c68ba4d8582758893089898ff0bd3df905dcf",
+    "react": "17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@elmo/build": "1.0.0",
+    "@elmo/cli": "1.0.0",
+    "@types/react-dom": "^17"
+  },
+  "scripts": {
+    "package": "elmo package",
+    "serve": "elmo serve",
+    "start": "elmo start"
+  }
+}
