@@ -2,6 +2,8 @@ import React from 'react';
 import type { RouteDataFn } from '@elmo/build';
 import { Card, Stack, Text, TextLink } from 'braid-design-system';
 
+import { JobSummary } from '@elmo-fixtures/single-entry-library';
+
 export const routeData: RouteDataFn = () => ({
   route: '/',
 });
@@ -17,6 +19,8 @@ export default function Home() {
         <Text>
           <TextLink href="/remote">Remote page</TextLink>
         </Text>
+
+        <JobSummary isNew={true} title="Red bordered job" />
       </Stack>
     </Card>
   );

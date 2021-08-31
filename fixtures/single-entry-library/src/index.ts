@@ -1,2 +1,1 @@
-export const add = (a: number, b: number) => a + b;
-export { JobSummary } from './components';
+export { JobSummary } from './components/JobSummary';
