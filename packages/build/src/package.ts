@@ -5,6 +5,7 @@ import path from 'path';
 
 import { getLocalPath, getWorkdirPath } from './utils';
 import typescriptDeclarations from './rollup-plugin-ts-declarations';
+import { addVanillaDebugIds } from './babel-plugin-vanilla-libraries';
 
 export const buildPackage = async () => {
   const entries = await glob(['src/entries/*.ts', 'src/index.ts'], {
@@ -25,6 +26,7 @@ export const buildPackage = async () => {
         name: 'my-package',
         entrypoints: entries.map((entry) => ({ source: entry })),
       }),
+      addVanillaDebugIds,
     ],
     resolve: {
       alias: {
@@ -48,13 +50,24 @@ export const buildPackage = async () => {
       rollupOptions: {
         input: entries,
         output: {
-          chunkFileNames: 'dist/[name].chunk.js',
-          entryFileNames: (chunkInfo) => {
-            const entryName = chunkInfo.facadeModuleId?.includes('src/entries')
-              ? `${path.basename(chunkInfo.facadeModuleId, '.ts')}/index.js`
-              : `dist/${chunkInfo.name}.js`;
-            return entryName;
+          hoistTransitiveImports: false,
+          manualChunks: (id) => {
+            if (id.endsWith('.css.ts')) {
+              const [_projectRoot, localPath] = id.split('src/');
+              return localPath.replace('/', '-').replace('.ts', '.js');
+            }
           },
+          chunkFileNames: (chunkInfo) => {
+            const chunkPath = `dist/${chunkInfo.name}`;
+
+            return chunkPath.endsWith('.css.js')
+              ? chunkPath
+              : `${chunkPath}.chunk.js`;
+          },
+          entryFileNames: (chunkInfo) =>
+            chunkInfo.facadeModuleId?.includes('src/entries')
+              ? `${path.basename(chunkInfo.facadeModuleId, '.ts')}/index.js`
+              : `dist/${chunkInfo.name}.js`,
         },
       },
     },
