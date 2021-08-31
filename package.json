@@ -9,7 +9,7 @@
   },
   "workspaces": [
     "packages/*",
-    "basic-*"
+    "fixtures/*"
   ],
   "dependencies": {
     "@preconstruct/cli": "^2.0.4",

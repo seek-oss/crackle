@@ -1,7 +1,7 @@
 import { Card, Stack, Alert, Text } from 'braid-design-system';
 import React from 'react';
 
-import { JobSummary } from 'basic-multi-entry-library/components';
+import { JobSummary } from '@elmo-fixtures/multi-entry-library/components';
 
 export const RemotePageContent = () => (
   <Card>

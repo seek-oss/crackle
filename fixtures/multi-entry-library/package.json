@@ -1,12 +1,12 @@
 {
-  "name": "basic-fixture",
+  "name": "@elmo-fixtures/multi-entry-library",
   "version": "1.0.0",
   "private": true,
-  "main": "index.js",
+  "type": "module",
+  "main": "dist/index.js",
   "author": "Ben",
   "license": "MIT",
   "dependencies": {
-    "basic-multi-entry-library": "1.0.0",
     "braid-design-system": "seek-oss/braid-design-system#5b2c68ba4d8582758893089898ff0bd3df905dcf",
     "react": "17.0.2",
     "react-dom": "^17.0.2"
@@ -17,7 +17,7 @@
     "@types/react-dom": "^17"
   },
   "scripts": {
-    "build": "elmo build",
+    "package": "elmo package",
     "serve": "elmo serve",
     "start": "elmo start"
   }

@@ -1,5 +1,5 @@
 {
-  "name": "basic-single-entry-library",
+  "name": "@elmo-fixtures/single-entry-library",
   "version": "1.0.0",
   "private": true,
   "type": "module",
