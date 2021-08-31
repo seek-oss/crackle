@@ -26,11 +26,6 @@ const serializePageData = (pageData: any) =>
 export const start = async () => {
   const app = express();
 
-  // Create vite server in middleware mode. This disables Vite's own HTML
-  // serving logic and let the parent server take control.
-  //
-  // If you want to use Vite's own HTML serving logic (using Vite as
-  // a development middleware), using 'html' instead.
   const vite = await createViteServer({
     server: { middlewareMode: 'ssr' },
     plugins: [reactRefresh(), vanillaExtractPlugin()],

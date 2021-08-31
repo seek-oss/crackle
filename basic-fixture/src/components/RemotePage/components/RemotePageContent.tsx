@@ -1,6 +1,8 @@
 import { Card, Stack, Alert, Text } from 'braid-design-system';
 import React from 'react';
 
+import { JobSummary } from 'basic-multi-entry-library/components';
+
 export const RemotePageContent = () => (
   <Card>
     <Stack space="medium">
@@ -11,6 +13,8 @@ export const RemotePageContent = () => (
       <Alert tone="positive">
         <Text>Remote page routing works!</Text>
       </Alert>
+
+      <JobSummary isNew title="Test job" />
     </Stack>
   </Card>
 );

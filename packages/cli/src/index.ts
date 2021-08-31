@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { start, build, serve } from '@elmo/build';
+import { start, build, buildPackage, serve } from '@elmo/build';
 import yargs from 'yargs';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-expressions
@@ -21,6 +21,12 @@ yargs(process.argv.slice(2))
     command: 'serve',
     handler: async () => {
       serve();
+    },
+  })
+  .command({
+    command: 'package',
+    handler: async () => {
+      buildPackage();
     },
   })
   .help()

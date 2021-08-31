@@ -1,6 +1,4 @@
-import type { ReactNode } from 'react';
-
-export const TreatProvider = ({ children }: { children: ReactNode }) =>
+export const TreatProvider = ({ children }: { children: any; theme: any }) =>
   children;
 
 export const useTheme = () => '';
