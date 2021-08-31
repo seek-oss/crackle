@@ -6,6 +6,7 @@
   "author": "Ben",
   "license": "MIT",
   "dependencies": {
+    "basic-multi-entry-library": "1.0.0",
     "braid-design-system": "seek-oss/braid-design-system#5b2c68ba4d8582758893089898ff0bd3df905dcf",
     "react": "17.0.2",
     "react-dom": "^17.0.2"
