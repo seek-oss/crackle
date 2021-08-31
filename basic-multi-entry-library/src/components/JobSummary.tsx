@@ -15,7 +15,8 @@ import {
 } from 'braid-design-system';
 import React from 'react';
 import { logThePhrase } from '../common/commonLogger';
-import { logger } from '../extras';
+import { multiply } from '../common/maths';
+import { calcAndLog, logger } from '../extras';
 
 interface JobSummaryProps {
   title: string;
@@ -24,6 +25,7 @@ interface JobSummaryProps {
 export const JobSummary = ({ title, isNew }: JobSummaryProps) => {
   logger();
   logThePhrase('Job Summary component');
+  calcAndLog(3, 9, multiply);
 
   return (
     <Card>

@@ -1,9 +1,9 @@
 {
-  "name": "basic-library",
+  "name": "basic-multi-entry-library",
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "types": "lib/types.d.ts",
+  "main": "dist/index.js",
   "author": "Ben",
   "license": "MIT",
   "dependencies": {

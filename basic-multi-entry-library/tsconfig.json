@@ -3,7 +3,6 @@
     "moduleResolution": "node",
     "emitDeclarationOnly": true,
     "declaration": true,
-    "outFile": "lib/types.d.ts",
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -22,6 +21,6 @@
       ]
     }
   },
-  "include": ["src/entries/*.ts"],
+  "include": ["./src"],
   "exclude": ["./node_modules"]
 }
