@@ -87,8 +87,10 @@ export const start = async () => {
       const serverEntryPath = getLocalPath('../src/entries/server.tsx');
 
       let template = `
-      <!--critical-css-->
-      <div id="app"><!--ssr-outlet--></div>
+      <div id="app">
+        <!--critical-css-->
+        <!--ssr-outlet-->
+      </div>
       <!--page-data-->
       <script type="module" src="${clientEntryPath}"></script>
       `.trim();

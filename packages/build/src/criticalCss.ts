@@ -24,6 +24,7 @@ export function criticalCss() {
     markCompositionUsed: (className) => {
       usedCompositions.add(className);
     },
+    getIdentOption: () => 'debug',
     onEndFileScope: () => {
       const css = transformCss({
         localClassNames: Array.from(localClassNames),
