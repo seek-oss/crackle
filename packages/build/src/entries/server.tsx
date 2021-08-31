@@ -1,3 +1,6 @@
+// @ts-expect-error
+import AppShell from '__THE_ENTRY';
+
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server';
@@ -5,8 +8,6 @@ import { Routes, Route } from 'react-router-dom';
 
 import type { RenderFn } from '../types';
 
-// @ts-expect-error
-import AppShell from '__THE_ENTRY';
 import { serverPageModules } from './serverPageModules';
 
 const pageData: Record<string, string> = {};

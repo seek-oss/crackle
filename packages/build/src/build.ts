@@ -55,6 +55,7 @@ export const build = async () => {
     ...commonBuildConfig,
     mode: 'development',
     build: {
+      minify: false,
       ssr: true,
       rollupOptions: { input: getLocalPath('../src/entries/render.tsx') },
       outDir: getWorkdirPath('/dist-render'),

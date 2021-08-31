@@ -1,4 +1,6 @@
 // import 'vite/modulepreload-polyfill';
+// @ts-expect-error
+import AppShell from '__THE_ENTRY';
 
 import React from 'react';
 import { useEffect } from 'react';
@@ -6,8 +8,6 @@ import { useState } from 'react';
 import { hydrate } from 'react-dom';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-// @ts-expect-error
-import AppShell from '__THE_ENTRY';
 import { clientPageModules } from './clientPageModules';
 
 const cachedPages: Record<string, React.FC> = {};
