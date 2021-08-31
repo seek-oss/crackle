@@ -6,6 +6,8 @@ import { FatalError } from './errors';
 import { createLanguageServiceHostClass } from './language-service-host';
 import normalizePath from 'normalize-path';
 
+const buildDirectory = 'dist';
+
 interface DeclarationFile {
   name: string;
   content: string;
@@ -54,6 +56,8 @@ async function nonMemoizedGetService(
     configFileName,
     configFileContents,
   );
+
+  result.config.compilerOptions.outDir = '.';
 
   let thing = typescript.parseJsonConfigFileContent(
     result.config,
@@ -112,6 +116,7 @@ export async function createDeclarationCreator(
     dirname,
     typescript.sys.fileExists,
   );
+
   if (!configFileName) {
     throw new FatalError(
       'an entrypoint source file ends with the .ts or tsx extension but no TypeScript config exists, please create one.',
@@ -123,15 +128,23 @@ export async function createDeclarationCreator(
   // and if we keep it, we could run out of memory for large projects
   // if the tsconfig _isn't_ in the package directory though, it's probably fine to memoize it
   // since it should just be a root level tsconfig
-  let { service, options, program } = await (normalizePath(configFileName) ===
+  let {
+    service,
+    options: readOptions,
+    program,
+  } = await (normalizePath(configFileName) ===
   normalizePath(path.join(dirname, 'tsconfig.json'))
     ? nonMemoizedGetService(typescript, configFileName)
     : getService(typescript)(configFileName));
+
+  const options = { ...readOptions, outDir: '.' };
+
   let moduleResolutionCache = typescript.createModuleResolutionCache(
     dirname,
     (x) => x,
     options,
   );
+
   let normalizedDirname = normalizePath(dirname);
 
   return {
@@ -196,7 +209,7 @@ export async function createDeclarationCreator(
           types: {
             name: filename.replace(
               normalizedDirname,
-              normalizePath(path.join(dirname, 'dist', 'declarations')),
+              normalizePath(path.join(dirname, buildDirectory, 'declarations')),
             ),
             content: await fs.readFile(filename, 'utf8'),
           },
@@ -208,7 +221,7 @@ export async function createDeclarationCreator(
           emitted.types = {
             name: name.replace(
               normalizedDirname,
-              normalizePath(path.join(dirname, 'dist', 'declarations')),
+              normalizePath(path.join(dirname, buildDirectory, 'declarations')),
             ),
             content: text,
           };
@@ -218,7 +231,7 @@ export async function createDeclarationCreator(
           emitted.map = {
             name: name.replace(
               normalizedDirname,
-              normalizePath(path.join(dirname, 'dist', 'declarations')),
+              normalizePath(path.join(dirname, buildDirectory, 'declarations')),
             ),
             content: text,
           };

@@ -4,15 +4,12 @@ import glob from 'fast-glob';
 import path from 'path';
 
 import { getLocalPath, getWorkdirPath } from './utils';
+import typescriptDeclarations from './rollup-plugin-ts-declarations';
 
 export const buildPackage = async () => {
   const entries = await glob(['src/entries/*.ts', 'src/index.ts'], {
     absolute: true,
   });
-  console.log('entries: ', entries);
-
-  const entriesPath = getWorkdirPath('src/entries');
-  console.log('entriesPath: ', entriesPath);
 
   await viteBuild({
     plugins: [
@@ -23,6 +20,11 @@ export const buildPackage = async () => {
         }),
         enforce: 'pre',
       },
+      typescriptDeclarations({
+        directory: process.cwd(),
+        name: 'my-package',
+        entrypoints: entries.map((entry) => ({ source: entry })),
+      }),
     ],
     resolve: {
       alias: {
@@ -36,23 +38,22 @@ export const buildPackage = async () => {
       global: JSON.stringify({}),
     },
     build: {
-      emptyOutDir: true,
+      emptyOutDir: false,
       minify: false,
       lib: {
         entry: '',
         formats: ['es'],
       },
-      outDir: getWorkdirPath('lib'),
+      outDir: process.cwd(),
       rollupOptions: {
         input: entries,
         output: {
-          // preserveModules: true,
+          chunkFileNames: 'dist/[name].chunk.js',
           entryFileNames: (chunkInfo) => {
             const entryName = chunkInfo.facadeModuleId?.includes('src/entries')
-              ? path.basename(chunkInfo.facadeModuleId, '.ts')
-              : `lib/${chunkInfo.name}`;
-
-            return `${entryName}/index.js`;
+              ? `${path.basename(chunkInfo.facadeModuleId, '.ts')}/index.js`
+              : `dist/${chunkInfo.name}.js`;
+            return entryName;
           },
         },
       },

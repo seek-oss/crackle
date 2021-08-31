@@ -9,9 +9,10 @@ import normalizePath from 'normalize-path';
 export let isTsPath = (source: string) => /\.tsx?/.test(source);
 
 export default function typescriptDeclarations(pkg: Package): Plugin {
-  if (pkg.entrypoints.some(({ source }) => isTsPath(source))) {
+  if (!pkg.entrypoints.some(({ source }) => isTsPath(source))) {
     return { name: 'typescript-declarations' };
   }
+
   return {
     name: 'typescript-declarations',
     async generateBundle(opts, bundle) {
@@ -25,6 +26,7 @@ export default function typescriptDeclarations(pkg: Package): Plugin {
           let { types, map } = await creator.getDeclarationFiles(dep);
 
           srcFilenameToDtsFilenameMap.set(normalizePath(dep), types.name);
+
           this.emitFile({
             type: 'asset',
             fileName: path.relative(opts.dir!, types.name),
@@ -39,6 +41,7 @@ export default function typescriptDeclarations(pkg: Package): Plugin {
               map.content,
               sourceRoot,
             );
+            console.log('opts.dir!, map.name: ', opts.dir!, map.name);
             this.emitFile({
               type: 'asset',
               fileName: path.relative(opts.dir!, map.name),
@@ -70,7 +73,7 @@ export default function typescriptDeclarations(pkg: Package): Plugin {
           );
         }
 
-        let mainFieldPath = file.fileName.replace(/\.prod\.js$/, '');
+        let mainFieldPath = file.fileName.replace(/\.js$/, '');
         let relativeToSource = path.relative(
           path.dirname(path.join(opts.dir!, file.fileName)),
           dtsFilename.replace(/\.d\.ts$/, ''),
