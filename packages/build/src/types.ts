@@ -5,9 +5,7 @@ interface RenderParams {
   path: string;
 }
 
-export type RenderFn = (
-  params: RenderParams,
-) => {
+export type RenderFn = (params: RenderParams) => {
   html: string;
   pageData: Record<string, string>;
 };
@@ -23,6 +21,7 @@ export interface PageModule {
 
 export type RenderAllPagesFn = (
   manifest: Manifest,
+  publicPath: string,
 ) => Array<{ route: string; html: string }>;
 
 export type ValueType<T> = T extends Promise<infer U> ? U : T;

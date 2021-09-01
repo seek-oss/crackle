@@ -7,6 +7,8 @@ import type { GetArrayType, RenderAllPagesFn, ValueType } from './types';
 type BuildOutput = ValueType<ReturnType<typeof viteBuild>>;
 type RollupOutput = GetArrayType<BuildOutput>;
 
+const PUBLIC_PATH = '/';
+
 const commonBuildConfig: InlineConfig = {
   plugins: [vanillaExtractPlugin({ identifiers: 'short' })],
   resolve: {
@@ -45,6 +47,7 @@ const extractManifestFile = (buildOutput: BuildOutput): Manifest => {
 export const build = async () => {
   const output = await viteBuild({
     ...commonBuildConfig,
+    base: PUBLIC_PATH,
     build: {
       manifest: true,
       rollupOptions: { input: getLocalPath('../src/entries/client.tsx') },
@@ -54,6 +57,7 @@ export const build = async () => {
   await viteBuild({
     ...commonBuildConfig,
     mode: 'development',
+    base: PUBLIC_PATH,
     build: {
       minify: false,
       ssr: true,
@@ -95,7 +99,7 @@ export const build = async () => {
   const renderAllPages = require(getWorkdirPath('dist-render/render'))
     .renderAllPages as RenderAllPagesFn;
 
-  const pages = renderAllPages(manifest);
+  const pages = renderAllPages(manifest, PUBLIC_PATH);
 
   await Promise.all(
     pages.map(async ({ route, html }) => {

@@ -60,17 +60,24 @@ const getImportsFromManifest = (manifest: Manifest, pageName: string) => {
   return { scriptImports, cssImports, entry: entry.file };
 };
 
-const generateScriptPreloadTags = (scriptImports: Set<string>) =>
+const generateScriptPreloadTags = (
+  scriptImports: Set<string>,
+  publicPath: string,
+) =>
   Array.from(scriptImports).map((scriptImport) => (
-    <link rel="modulepreload" href={scriptImport} key={scriptImport} />
+    <link
+      rel="modulepreload"
+      href={publicPath.concat(scriptImport)}
+      key={scriptImport}
+    />
   ));
 
-const generateCssTags = (cssImports: Set<string>) =>
+const generateCssTags = (cssImports: Set<string>, publicPath: string) =>
   Array.from(cssImports).map((css) => (
-    <link rel="stylesheet" href={css} key={css} />
+    <link rel="stylesheet" href={publicPath.concat(css)} key={css} />
   ));
 
-export const renderAllPages: RenderAllPagesFn = (manifest: Manifest) => {
+export const renderAllPages: RenderAllPagesFn = (manifest, publicPath) => {
   let pageModules = [];
 
   for (const [pageName, pageModule] of Object.entries(serverPageModules)) {
@@ -83,8 +90,8 @@ export const renderAllPages: RenderAllPagesFn = (manifest: Manifest) => {
     const html = renderToString(
       <html>
         <head>
-          {generateCssTags(cssImports)}
-          {generateScriptPreloadTags(scriptImports)}
+          {generateCssTags(cssImports, publicPath)}
+          {generateScriptPreloadTags(scriptImports, publicPath)}
         </head>
 
         <body>
@@ -101,7 +108,7 @@ export const renderAllPages: RenderAllPagesFn = (manifest: Manifest) => {
               __html: serializeJavascript(pageData, { isJSON: true }),
             }}
           />
-          <script src={entry} type="module" />
+          <script src={publicPath.concat(entry)} type="module" />
         </body>
       </html>,
     );
