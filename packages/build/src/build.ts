@@ -3,6 +3,7 @@ import { build as viteBuild, InlineConfig, Manifest } from 'vite';
 import { getLocalPath, getWorkdirPath } from './utils';
 import fs from 'fs/promises';
 import type { GetArrayType, RenderAllPagesFn, ValueType } from './types';
+import { setAdapter } from '@vanilla-extract/css/adapter';
 
 type BuildOutput = ValueType<ReturnType<typeof viteBuild>>;
 type RollupOutput = GetArrayType<BuildOutput>;
@@ -95,6 +96,15 @@ export const build = async () => {
   });
 
   const manifest = extractManifestFile(output);
+
+  setAdapter({
+    appendCss: () => {},
+    registerClassName: () => {},
+    onEndFileScope: () => {},
+    registerComposition: () => {},
+    markCompositionUsed: () => {},
+    getIdentOption: () => 'short',
+  });
 
   const renderAllPages = require(getWorkdirPath('dist-render/render'))
     .renderAllPages as RenderAllPagesFn;

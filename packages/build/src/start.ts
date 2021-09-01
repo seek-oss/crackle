@@ -15,8 +15,6 @@ export * from './types';
 const calculateTime = (startTime: number) =>
   Math.round((performance.now() - startTime) * 100) / 100;
 
-const getCriticalStyles = criticalCss();
-
 const serializePageData = (pageData: any) =>
   `<script id="__CRACKLE_PAGE_DATA" type="application/json">${serializeJavascript(
     pageData,
@@ -67,7 +65,10 @@ export const start = async () => {
         'uuid',
         '@vanilla-extract/css',
       ],
-      noExternal: ['braid-design-system'],
+      noExternal: [
+        'braid-design-system',
+        '@crackle-fixtures/single-entry-library',
+      ],
     },
   });
   // use vite's connect instance as middleware
@@ -87,15 +88,19 @@ export const start = async () => {
       const serverEntryPath = getLocalPath('../src/entries/server.tsx');
 
       let template = `
+      <body>
+      <!--critical-css-->
       <div id="app">
-        <!--critical-css-->
         <!--ssr-outlet-->
       </div>
       <!--page-data-->
       <script type="module" src="${clientEntryPath}"></script>
+      </body>
       `.trim();
 
       template = await vite.transformIndexHtml(req.originalUrl, template);
+
+      const getCriticalStyles = criticalCss();
 
       const { render } = (await vite.ssrLoadModule(serverEntryPath)) as {
         render: RenderFn;
