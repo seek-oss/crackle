@@ -1,5 +1,5 @@
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
-import { build as viteBuild, Manifest } from 'vite';
+import { build as viteBuild, InlineConfig, Manifest } from 'vite';
 import { getLocalPath, getWorkdirPath } from './utils';
 import fs from 'fs/promises';
 import type { GetArrayType, RenderAllPagesFn, ValueType } from './types';
@@ -7,7 +7,7 @@ import type { GetArrayType, RenderAllPagesFn, ValueType } from './types';
 type BuildOutput = ValueType<ReturnType<typeof viteBuild>>;
 type RollupOutput = GetArrayType<BuildOutput>;
 
-const commonBuildConfig = {
+const commonBuildConfig: InlineConfig = {
   plugins: [vanillaExtractPlugin({ identifiers: 'short' })],
   resolve: {
     alias: {
