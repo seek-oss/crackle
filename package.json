@@ -5,13 +5,15 @@
   "scripts": {
     "crackle:dev": "preconstruct dev",
     "crackle:build": "preconstruct build",
-    "crackle:watch": "preconstruct watch"
+    "crackle:watch": "preconstruct watch",
+    "release": "changesets release"
   },
   "workspaces": [
     "packages/*",
     "fixtures/*"
   ],
   "dependencies": {
+    "@changesets/cli": "^2.17.0",
     "@preconstruct/cli": "^2.0.4",
     "prettier": "^2.2.1",
     "typescript": "^4.3.0"
