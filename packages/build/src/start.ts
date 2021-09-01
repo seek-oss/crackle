@@ -6,11 +6,13 @@ import reactRefresh from '@vitejs/plugin-react-refresh';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import serializeJavascript from 'serialize-javascript';
 
-import { criticalCss } from './criticalCss';
+import { criticalCss } from './critical-css';
 import { RenderFn } from './types';
 import { getLocalPath } from './utils';
 
 export * from './types';
+
+const getCriticalStyles = criticalCss();
 
 const calculateTime = (startTime: number) =>
   Math.round((performance.now() - startTime) * 100) / 100;
@@ -37,7 +39,7 @@ export const start = async () => {
     // Vite doesn't scan virtual entries for dependencies, so this needs to be set manually
     // https://github.com/vitejs/vite/blob/e8c19069984835114084dbc650f2a01335d6365f/packages/vite/src/node/optimizer/scan.ts#L74-L75
     optimizeDeps: {
-      entries: '../src/entries/client.tsx',
+      entries: getLocalPath('../src/entries/client.tsx'),
     },
     define: {
       'process.env.NODE_DEBUG': JSON.stringify(false),
@@ -90,17 +92,13 @@ export const start = async () => {
       let template = `
       <body>
       <!--critical-css-->
-      <div id="app">
-        <!--ssr-outlet-->
-      </div>
+      <div id="app"><!--ssr-outlet--></div>
       <!--page-data-->
       <script type="module" src="${clientEntryPath}"></script>
       </body>
       `.trim();
 
       template = await vite.transformIndexHtml(req.originalUrl, template);
-
-      const getCriticalStyles = criticalCss();
 
       const { render } = (await vite.ssrLoadModule(serverEntryPath)) as {
         render: RenderFn;
@@ -121,7 +119,7 @@ export const start = async () => {
 
       // 6. Send the rendered HTML back.
       res.status(200).set({ 'Content-Type': 'text/html' }).end(finalHtml);
-    } catch (e) {
+    } catch (e: any) {
       // If an error is caught, let vite fix the stracktrace so it maps back to
       // your actual source code.
       vite.ssrFixStacktrace(e);
