@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
-import { start, build, buildPackage, serve } from '@elmo/build';
+import { start, build, buildPackage, serve } from '@crackle/build';
 import yargs from 'yargs';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-expressions
 yargs(process.argv.slice(2))
-  .scriptName('elmo')
+  .scriptName('crackle')
   .command({
     command: 'start',
     handler: async () => {

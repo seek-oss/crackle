@@ -1,25 +1,25 @@
 {
-  "name": "@elmo-fixtures/web-app",
+  "name": "@crackle-fixtures/web-app",
   "version": "1.0.0",
   "private": true,
   "main": "index.js",
   "author": "Ben",
   "license": "MIT",
   "dependencies": {
-    "@elmo-fixtures/multi-entry-library": "1.0.0",
-    "@elmo-fixtures/single-entry-library": "1.0.0",
+    "@crackle-fixtures/multi-entry-library": "1.0.0",
+    "@crackle-fixtures/single-entry-library": "1.0.0",
     "braid-design-system": "seek-oss/braid-design-system#5b2c68ba4d8582758893089898ff0bd3df905dcf",
     "react": "17.0.2",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@elmo/build": "1.0.0",
-    "@elmo/cli": "1.0.0",
+    "@crackle/build": "1.0.0",
+    "@crackle/cli": "1.0.0",
     "@types/react-dom": "^17"
   },
   "scripts": {
-    "build": "elmo build",
-    "serve": "elmo serve",
-    "start": "elmo start"
+    "build": "crackle build",
+    "serve": "crackle serve",
+    "start": "crackle start"
   }
 }

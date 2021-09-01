@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { RouteDataFn } from '@elmo/build';
+import type { RouteDataFn } from '@crackle/build';
 import { Alert, Card, Text } from 'braid-design-system';
 
 export const routeData: RouteDataFn = () => ({

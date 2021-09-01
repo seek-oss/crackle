@@ -1,7 +1,7 @@
 {
-  "name": "@elmo/cli",
+  "name": "@crackle/cli",
   "version": "1.0.0",
-  "main": "dist/elmo-cli.cjs.js",
+  "main": "dist/crackle-cli.cjs.js",
   "author": "Matt",
   "license": "MIT",
   "files": [
@@ -9,10 +9,10 @@
     "bin.js"
   ],
   "bin": {
-    "elmo": "bin.js"
+    "crackle": "bin.js"
   },
   "dependencies": {
-    "@elmo/build": "^1.0.0",
+    "@crackle/build": "^1.0.0",
     "yargs": "^17.1.1"
   },
   "devDependencies": {

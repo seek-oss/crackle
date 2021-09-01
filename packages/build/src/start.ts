@@ -18,7 +18,7 @@ const calculateTime = (startTime: number) =>
 const getCriticalStyles = criticalCss();
 
 const serializePageData = (pageData: any) =>
-  `<script id="__ELMO_PAGE_DATA" type="application/json">${serializeJavascript(
+  `<script id="__CRACKLE_PAGE_DATA" type="application/json">${serializeJavascript(
     pageData,
     { isJSON: true },
   )}</script>`;

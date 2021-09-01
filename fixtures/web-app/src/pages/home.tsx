@@ -1,8 +1,8 @@
 import React from 'react';
-import type { RouteDataFn } from '@elmo/build';
+import type { RouteDataFn } from '@crackle/build';
 import { Card, Stack, Text, TextLink } from 'braid-design-system';
 
-import { JobSummary } from '@elmo-fixtures/single-entry-library';
+import { JobSummary } from '@crackle-fixtures/single-entry-library';
 
 export const routeData: RouteDataFn = () => ({
   route: '/',

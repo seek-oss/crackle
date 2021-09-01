@@ -12,7 +12,7 @@ import { clientPageModules } from './clientPageModules';
 
 const cachedPages: Record<string, React.FC> = {};
 
-const pageDataElement = document.getElementById('__ELMO_PAGE_DATA');
+const pageDataElement = document.getElementById('__CRACKLE_PAGE_DATA');
 const pageData: Record<string, string> = JSON.parse(
   pageDataElement?.textContent ?? '{}',
 );

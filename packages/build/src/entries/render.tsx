@@ -95,7 +95,7 @@ export const renderAllPages: RenderAllPagesFn = (manifest: Manifest) => {
           </div>
 
           <script
-            id="__ELMO_PAGE_DATA"
+            id="__CRACKLE_PAGE_DATA"
             type="application/json"
             dangerouslySetInnerHTML={{
               __html: serializeJavascript(pageData, { isJSON: true }),

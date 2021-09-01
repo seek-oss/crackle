@@ -1,11 +1,11 @@
 {
-  "name": "project-elmo",
+  "name": "project-crackle",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "elmo:dev": "preconstruct dev",
-    "elmo:build": "preconstruct build",
-    "elmo:watch": "preconstruct watch"
+    "crackle:dev": "preconstruct dev",
+    "crackle:build": "preconstruct build",
+    "crackle:watch": "preconstruct watch"
   },
   "workspaces": [
     "packages/*",

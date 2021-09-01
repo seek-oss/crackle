@@ -1,5 +1,5 @@
 import React from 'react';
-import { RouteDataFn } from '@elmo/build/';
+import { RouteDataFn } from '@crackle/build/';
 
 import { RemotePageContent } from './components/RemotePageContent';
 

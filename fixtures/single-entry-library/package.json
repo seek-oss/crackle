@@ -1,5 +1,5 @@
 {
-  "name": "@elmo-fixtures/single-entry-library",
+  "name": "@crackle-fixtures/single-entry-library",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -13,13 +13,13 @@
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@elmo/build": "1.0.0",
-    "@elmo/cli": "1.0.0",
+    "@crackle/build": "1.0.0",
+    "@crackle/cli": "1.0.0",
     "@types/react-dom": "^17"
   },
   "scripts": {
-    "package": "elmo package",
-    "serve": "elmo serve",
-    "start": "elmo start"
+    "package": "crackle package",
+    "serve": "crackle serve",
+    "start": "crackle start"
   }
 }

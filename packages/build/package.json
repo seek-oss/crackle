@@ -1,7 +1,7 @@
 {
-  "name": "@elmo/build",
+  "name": "@crackle/build",
   "version": "1.0.0",
-  "main": "dist/elmo-build.cjs.js",
+  "main": "dist/crackle-build.cjs.js",
   "author": "Ben",
   "license": "MIT",
   "dependencies": {
