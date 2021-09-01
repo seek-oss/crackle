@@ -1,0 +1,24 @@
+{
+  "name": "@crackle-fixtures/library-with-docs",
+  "version": "1.0.0",
+  "private": true,
+  "main": "dist/index.js",
+  "author": "Ben",
+  "license": "MIT",
+  "dependencies": {
+    "@vanilla-extract/css": "^1.3.0",
+    "braid-design-system": "seek-oss/braid-design-system#5b2c68ba4d8582758893089898ff0bd3df905dcf",
+    "react": "17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@crackle/build": "1.0.0",
+    "@crackle/cli": "1.0.0",
+    "@types/react-dom": "^17"
+  },
+  "scripts": {
+    "build": "crackle build",
+    "serve": "crackle serve",
+    "start": "crackle start"
+  }
+}

@@ -4,12 +4,12 @@ import { StaticRouter } from 'react-router-dom/server';
 import serializeJavascript from 'serialize-javascript';
 import { Manifest } from 'vite';
 
+// @ts-expect-error
+import AppShell from '__THE_ENTRY';
+
 import { serverPageModules } from './serverPageModules';
 
 import type { RenderAllPagesFn } from '../types';
-
-// @ts-expect-error
-import AppShell from '__THE_ENTRY';
 
 const pageData: Record<string, string> = {};
 
