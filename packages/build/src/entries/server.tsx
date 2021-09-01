@@ -15,7 +15,7 @@ const pageData: Record<string, string> = {};
 for (const [pageName, { routeData }] of Object.entries(serverPageModules)) {
   const { route } = routeData();
 
-  pageData[route] = pageName;
+  pageData[route.toLowerCase()] = pageName;
 }
 
 export const render: RenderFn = ({ path }) => {

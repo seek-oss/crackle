@@ -5,6 +5,7 @@ export const serve = () => {
   const server = http.createServer((request, response) =>
     handler(request, response, {
       public: './dist',
+      trailingSlash: false,
       headers: [
         {
           source: '**/*.@(js|css)',

@@ -35,7 +35,7 @@ function Pages() {
   );
 }
 
-const targetPage = pageData[window.location.pathname];
+const targetPage = pageData[window.location.pathname.toLowerCase()];
 let PreviousPage: React.FC;
 
 clientPageModules[targetPage]()
