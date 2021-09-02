@@ -8,7 +8,6 @@ import { FatalError } from './errors';
 // @ts-ignore
 import { createLanguageServiceHostClass } from './language-service-host';
 
-
 const buildDirectory = 'dist';
 
 interface DeclarationFile {
@@ -27,7 +26,7 @@ type Typescript = typeof import('typescript');
 
 const unsafeRequire = require;
 
-const weakMemoize = function <Arg extends object, Return>(
+const weakMemoize = function <Arg extends Record<string, unknown>, Return>(
   func: (arg: Arg) => Return,
 ): (arg: Arg) => Return {
   const cache: WeakMap<Arg, Return> = new WeakMap();
@@ -45,7 +44,9 @@ function memoize<V>(fn: (arg: string) => V): (arg: string) => V {
   const cache: { [key: string]: V } = {};
 
   return (arg: string) => {
-    if (cache[arg] === undefined) {cache[arg] = fn(arg);}
+    if (cache[arg] === undefined) {
+      cache[arg] = fn(arg);
+    }
     return cache[arg];
   };
 }
@@ -91,7 +92,9 @@ async function nonMemoizedGetService(
 }
 
 const getService = weakMemoize((typescript: Typescript) =>
-  memoize(async (configFileName: string) => nonMemoizedGetService(typescript, configFileName)),
+  memoize(async (configFileName: string) =>
+    nonMemoizedGetService(typescript, configFileName),
+  ),
 );
 
 export async function createDeclarationCreator(

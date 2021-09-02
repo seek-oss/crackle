@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { performance } from 'perf_hooks';
 
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
@@ -7,7 +8,6 @@ import serializeJavascript from 'serialize-javascript';
 import { createServer as createViteServer } from 'vite';
 
 import type { RenderFn } from '../entries/types';
-
 
 import { config } from './config';
 import { criticalCss } from './critical-css';

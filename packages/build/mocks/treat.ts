@@ -1,3 +1,3 @@
-export var createTheme = (input: any) => '';
+export const createTheme = (_input: any) => '';
 
 export type Style = any;

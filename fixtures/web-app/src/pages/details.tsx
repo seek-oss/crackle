@@ -9,15 +9,15 @@ export const routeData: RouteDataFn = () => ({
 });
 
 const Details = () => (
-    <Card>
-      <Stack space="medium">
-        <Text>Details page 2</Text>
-        <TestAlert />
-        <Text>
-          <TextLink href="/">Home</TextLink>
-        </Text>
-      </Stack>
-    </Card>
-  );
+  <Card>
+    <Stack space="medium">
+      <Text>Details page 2</Text>
+      <TestAlert />
+      <Text>
+        <TextLink href="/">Home</TextLink>
+      </Text>
+    </Stack>
+  </Card>
+);
 
 export default Details;

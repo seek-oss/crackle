@@ -11,7 +11,7 @@ export const routeData: RouteDataFn = () => ({
 const JobSummaryPage = () => (
   <Card>
     <Stack space="medium">
-      <Text>Here's a job summary component</Text>
+      <Text>Here’s a job summary component</Text>
       <JobSummary title="One for the docs" isNew={true} />
     </Stack>
   </Card>

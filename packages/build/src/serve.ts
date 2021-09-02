@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import http from 'http';
 
 import handler from 'serve-handler';

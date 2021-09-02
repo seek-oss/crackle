@@ -8,7 +8,6 @@ import { FatalError } from './errors';
 import type { Package } from './types/package';
 import { overwriteDeclarationMapSourceRoot, tsTemplate } from './utils';
 
-
 export const isTsPath = (source: string) => /\.tsx?/.test(source);
 
 export default function typescriptDeclarations(pkg: Package): Plugin {
@@ -44,7 +43,6 @@ export default function typescriptDeclarations(pkg: Package): Plugin {
               map.content,
               sourceRoot,
             );
-            console.log('opts.dir!, map.name: ', opts.dir!, map.name);
             this.emitFile({
               type: 'asset',
               fileName: path.relative(opts.dir!, map.name),
@@ -55,6 +53,10 @@ export default function typescriptDeclarations(pkg: Package): Plugin {
       );
 
       for (const n in bundle) {
+        if (!bundle.hasOwnProperty(n)) {
+          continue;
+        }
+
         const file = bundle[n];
         if (
           file.type === 'asset' ||
@@ -88,7 +90,7 @@ export default function typescriptDeclarations(pkg: Package): Plugin {
           file.exports.includes('default'),
           normalizePath(relativeToSource),
         );
-        const tsFileName = `${mainFieldPath  }.d.ts`;
+        const tsFileName = `${mainFieldPath}.d.ts`;
         this.emitFile({
           type: 'asset',
           fileName: tsFileName,

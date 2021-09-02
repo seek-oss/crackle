@@ -104,6 +104,7 @@ export const build = async () => {
     getIdentOption: () => 'short',
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const renderAllPages = require(getWorkdirPath('dist-render/render'))
     .renderAllPages as RenderAllPagesFn;
 
