@@ -1,4 +1,3 @@
-import path from 'path';
 import { performance } from 'perf_hooks';
 import express from 'express';
 import { createServer as createViteServer } from 'vite';
@@ -7,7 +6,9 @@ import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import type { RenderFn } from '../entries/types';
 import serializeJavascript from 'serialize-javascript';
 
+import { config } from './config';
 import { criticalCss } from './critical-css';
+import { commonViteConfig } from './vite-config';
 
 export * from './types';
 
@@ -28,23 +29,13 @@ export const start = async () => {
   const app = express();
 
   const vite = await createViteServer({
-    server: { middlewareMode: 'ssr' },
+    ...commonViteConfig,
+    server: { middlewareMode: 'ssr', port: config.port },
     plugins: [reactRefresh(), vanillaExtractPlugin()],
-    resolve: {
-      alias: {
-        __THE_ENTRY: path.join(process.cwd(), '/src/App.tsx'),
-        'sku/react-treat': require.resolve('../mocks/react-treat.tsx'),
-        'sku/treat': require.resolve('../mocks/treat.ts'),
-      },
-    },
     // Vite doesn't scan virtual entries for dependencies, so this needs to be set manually
     // https://github.com/vitejs/vite/blob/e8c19069984835114084dbc650f2a01335d6365f/packages/vite/src/node/optimizer/scan.ts#L74-L75
     optimizeDeps: {
       entries: clientEntry,
-    },
-    define: {
-      'process.env.NODE_DEBUG': JSON.stringify(false),
-      global: JSON.stringify({}),
     },
     // @ts-expect-error
     ssr: {
@@ -129,7 +120,7 @@ export const start = async () => {
     console.log(`Request completed in ${calculateTime(startTime)}ms`);
   });
 
-  app.listen(3000, () => {
-    console.log('Server running at', 'http://localhost:3000');
+  app.listen(config.port, () => {
+    console.log('Server running at', `http://localhost:${config.port}`);
   });
 };

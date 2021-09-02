@@ -1,6 +1,8 @@
 import handler from 'serve-handler';
 import http from 'http';
 
+import { config } from './config';
+
 export const serve = () => {
   const server = http.createServer((request, response) =>
     handler(request, response, {
@@ -20,10 +22,10 @@ export const serve = () => {
     }),
   );
 
-  server.listen(5000, () => {
+  server.listen(config.port, () => {
     console.log(
       'Serving static build from ./dist at ',
-      'http://localhost:5000',
+      `http://localhost:${config.port}`,
     );
   });
 };

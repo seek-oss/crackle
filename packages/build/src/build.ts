@@ -1,29 +1,20 @@
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import { build as viteBuild, InlineConfig, Manifest } from 'vite';
-import { getWorkdirPath } from './utils';
 import fs from 'fs/promises';
-import type { GetArrayType, ValueType } from './types';
 import { setAdapter } from '@vanilla-extract/css/adapter';
+
+import type { GetArrayType, ValueType } from './types';
+import { getWorkdirPath } from './utils';
 import type { RenderAllPagesFn } from '../entries/types';
+import { commonViteConfig } from './vite-config';
+import { config } from './config';
 
 type BuildOutput = ValueType<ReturnType<typeof viteBuild>>;
 type RollupOutput = GetArrayType<BuildOutput>;
 
-const PUBLIC_PATH = '/';
-
 const commonBuildConfig: InlineConfig = {
+  ...commonViteConfig,
   plugins: [vanillaExtractPlugin({ identifiers: 'short' })],
-  resolve: {
-    alias: {
-      __THE_ENTRY: getWorkdirPath('/src/App.tsx'),
-      'sku/react-treat': require.resolve('../mocks/react-treat.tsx'),
-      'sku/treat': require.resolve('../mocks/treat.ts'),
-    },
-  },
-  define: {
-    'process.env.NODE_DEBUG': JSON.stringify(false),
-    global: JSON.stringify({}),
-  },
 };
 
 const extractManifestFile = (buildOutput: BuildOutput): Manifest => {
@@ -49,7 +40,7 @@ const extractManifestFile = (buildOutput: BuildOutput): Manifest => {
 export const build = async () => {
   const output = await viteBuild({
     ...commonBuildConfig,
-    base: PUBLIC_PATH,
+    base: config.publicPath,
     build: {
       manifest: true,
       rollupOptions: {
@@ -61,7 +52,7 @@ export const build = async () => {
   await viteBuild({
     ...commonBuildConfig,
     mode: 'development',
-    base: PUBLIC_PATH,
+    base: config.publicPath,
     build: {
       minify: false,
       ssr: true,
@@ -114,7 +105,7 @@ export const build = async () => {
   const renderAllPages = require(getWorkdirPath('dist-render/render'))
     .renderAllPages as RenderAllPagesFn;
 
-  const pages = renderAllPages(manifest, PUBLIC_PATH);
+  const pages = renderAllPages(manifest, config.publicPath);
 
   await Promise.all(
     pages.map(async ({ route, html }) => {

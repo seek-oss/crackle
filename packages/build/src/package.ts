@@ -7,6 +7,7 @@ import { cssFileFilter } from '@vanilla-extract/integration';
 import { getWorkdirPath } from './utils';
 import typescriptDeclarations from './rollup-plugin-ts-declarations';
 import { addVanillaDebugIds } from './babel-plugin-vanilla-libraries';
+import { commonViteConfig } from './vite-config';
 
 export const buildPackage = async () => {
   const entries = await glob(['src/entries/*.ts', 'src/index.ts'], {
@@ -14,6 +15,7 @@ export const buildPackage = async () => {
   });
 
   await viteBuild({
+    ...commonViteConfig,
     plugins: [
       {
         ...externals({
@@ -29,17 +31,6 @@ export const buildPackage = async () => {
       }),
       addVanillaDebugIds,
     ],
-    resolve: {
-      alias: {
-        __THE_ENTRY: getWorkdirPath('/src/App.tsx'),
-        'sku/react-treat': require.resolve('@crackle/build/mock-react-treat'),
-        'sku/treat': require.resolve('@crackle/build/mock-treat'),
-      },
-    },
-    define: {
-      'process.env.NODE_DEBUG': JSON.stringify(false),
-      global: JSON.stringify({}),
-    },
     build: {
       emptyOutDir: false,
       minify: false,
