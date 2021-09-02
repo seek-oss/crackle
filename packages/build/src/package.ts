@@ -1,7 +1,8 @@
+import path from 'path';
 import { build as viteBuild } from 'vite';
 import externals from 'rollup-plugin-node-externals';
 import glob from 'fast-glob';
-import path from 'path';
+import { cssFileFilter } from '@vanilla-extract/integration';
 
 import { getLocalPath, getWorkdirPath } from './utils';
 import typescriptDeclarations from './rollup-plugin-ts-declarations';
@@ -49,6 +50,22 @@ export const buildPackage = async () => {
       outDir: process.cwd(),
       rollupOptions: {
         input: entries,
+        treeshake: {
+          moduleSideEffects: (id, external) => {
+            if (external) {
+              return false;
+            }
+
+            if (cssFileFilter.test(id)) {
+              // Mark .css.ts files as side effect free except for reset and atoms as they
+              // need to be hoisted to ensure they are first in the CSS order
+              // TODO: make the reset and atom file checks more specific
+              return id.includes('reset') || id.includes('atoms');
+            }
+
+            return true;
+          },
+        },
         output: {
           hoistTransitiveImports: false,
           manualChunks: (id) => {
