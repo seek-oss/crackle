@@ -6,7 +6,7 @@
     "crackle:dev": "preconstruct dev",
     "crackle:build": "preconstruct build",
     "crackle:watch": "preconstruct watch",
-    "release": "crackle:build && changesets release"
+    "release": "yarn crackle:build && changeset publish"
   },
   "workspaces": [
     "packages/*",

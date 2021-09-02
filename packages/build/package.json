@@ -1,9 +1,12 @@
 {
   "name": "@crackle/build",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist/crackle-build.cjs.js",
   "author": "Ben",
   "license": "MIT",
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@babel/core": "^7.15.0",
     "@vanilla-extract/babel-plugin": "^1.0.1",
