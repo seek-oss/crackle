@@ -65,6 +65,8 @@ function Page({ name }: PageProps) {
         PreviousPage = pageModule.default;
         setPageComponent(() => pageModule.default);
       });
+    } else {
+      PreviousPage = PageComponent;
     }
   }, [name]);
 
