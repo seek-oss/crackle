@@ -8,7 +8,7 @@ const remotePageModules: PageModules = import.meta.globEager(
   '/src/**/*.page.tsx',
 );
 
-export const serverPageModules: PageModules = {
+export const nodePageModules: PageModules = {
   ...pageDirModules,
   ...remotePageModules,
 };

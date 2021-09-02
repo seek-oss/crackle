@@ -7,8 +7,9 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { hydrate } from 'react-dom';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { removeStyles } from 'used-styles/moveStyles';
 
-import { clientPageModules } from './clientPageModules';
+import { browserPageModules } from './page-modules/browser';
 
 const cachedPages: Record<string, React.FC> = {};
 
@@ -38,12 +39,13 @@ function Pages() {
 const targetPage = pageData[window.location.pathname.toLowerCase()];
 let PreviousPage: React.FC;
 
-clientPageModules[targetPage]()
+browserPageModules[targetPage]()
   .then((pageModule) => {
     cachedPages[targetPage] = pageModule.default;
     PreviousPage = pageModule.default;
   })
   .then(() => {
+    removeStyles();
     hydrate(<Pages />, document.getElementById('app'));
   });
 
@@ -55,7 +57,7 @@ function Page({ name }: PageProps) {
 
   useEffect(() => {
     if (!PageComponent) {
-      clientPageModules[name]().then((pageModule) => {
+      browserPageModules[name]().then((pageModule) => {
         cachedPages[name] = pageModule.default;
         PreviousPage = pageModule.default;
         setPageComponent(() => pageModule.default);

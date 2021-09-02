@@ -6,24 +6,16 @@ import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server';
 import { Routes, Route } from 'react-router-dom';
 
-import type { RenderFn } from '../types';
-
-import { serverPageModules } from './serverPageModules';
+import type { RenderFn } from './types';
+import { nodePageModules } from './page-modules/node';
 
 const pageData: Record<string, string> = {};
 
-for (const [pageName, { routeData }] of Object.entries(serverPageModules)) {
+for (const [pageName, { routeData }] of Object.entries(nodePageModules)) {
   const { route } = routeData();
 
   pageData[route.toLowerCase()] = pageName;
 }
-
-export const render: RenderFn = ({ path }) => {
-  return {
-    html: renderToString(<App path={path} />),
-    pageData,
-  };
-};
 
 interface AppProps {
   path: string;
@@ -37,7 +29,7 @@ function App({ path }: AppProps) {
             <Route
               key={pageName}
               path={pagePath}
-              element={React.createElement(serverPageModules[pageName].default)}
+              element={React.createElement(nodePageModules[pageName].default)}
             />
           ))}
         </Routes>
@@ -45,3 +37,10 @@ function App({ path }: AppProps) {
     </StaticRouter>
   );
 }
+
+export const render: RenderFn = ({ path }) => {
+  return {
+    html: renderToString(<App path={path} />),
+    pageData,
+  };
+};

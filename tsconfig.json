@@ -12,7 +12,7 @@
     "strict": true,
     "jsx": "preserve",
     "lib": ["es2015"],
-    "target": "es5"
+    "target": "ES6"
   },
   "include": ["./fixtures"],
   "exclude": ["./node_modules"]

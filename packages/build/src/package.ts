@@ -4,7 +4,7 @@ import externals from 'rollup-plugin-node-externals';
 import glob from 'fast-glob';
 import { cssFileFilter } from '@vanilla-extract/integration';
 
-import { getLocalPath, getWorkdirPath } from './utils';
+import { getWorkdirPath } from './utils';
 import typescriptDeclarations from './rollup-plugin-ts-declarations';
 import { addVanillaDebugIds } from './babel-plugin-vanilla-libraries';
 
@@ -32,8 +32,8 @@ export const buildPackage = async () => {
     resolve: {
       alias: {
         __THE_ENTRY: getWorkdirPath('/src/App.tsx'),
-        'sku/react-treat': getLocalPath('../src/mocks/reactTreat.tsx'),
-        'sku/treat': getLocalPath('../src/mocks/treat.ts'),
+        'sku/react-treat': require.resolve('@crackle/build/mock-react-treat'),
+        'sku/treat': require.resolve('@crackle/build/mock-treat'),
       },
     },
     define: {

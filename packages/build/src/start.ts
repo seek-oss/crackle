@@ -4,13 +4,14 @@ import express from 'express';
 import { createServer as createViteServer } from 'vite';
 import reactRefresh from '@vitejs/plugin-react-refresh';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
+import type { RenderFn } from '../entries/types';
 import serializeJavascript from 'serialize-javascript';
 
 import { criticalCss } from './critical-css';
-import { RenderFn } from './types';
-import { getLocalPath } from './utils';
 
 export * from './types';
+
+const clientEntry = require.resolve('../entries/client.tsx');
 
 const getCriticalStyles = criticalCss();
 
@@ -32,14 +33,14 @@ export const start = async () => {
     resolve: {
       alias: {
         __THE_ENTRY: path.join(process.cwd(), '/src/App.tsx'),
-        'sku/react-treat': getLocalPath('../src/mocks/reactTreat.tsx'),
-        'sku/treat': getLocalPath('../src/mocks/treat.ts'),
+        'sku/react-treat': require.resolve('../mocks/react-treat.tsx'),
+        'sku/treat': require.resolve('../mocks/treat.ts'),
       },
     },
     // Vite doesn't scan virtual entries for dependencies, so this needs to be set manually
     // https://github.com/vitejs/vite/blob/e8c19069984835114084dbc650f2a01335d6365f/packages/vite/src/node/optimizer/scan.ts#L74-L75
     optimizeDeps: {
-      entries: getLocalPath('../src/entries/client.tsx'),
+      entries: clientEntry,
     },
     define: {
       'process.env.NODE_DEBUG': JSON.stringify(false),
@@ -86,21 +87,20 @@ export const start = async () => {
     }
 
     try {
-      const clientEntryPath = getLocalPath('../src/entries/client.tsx');
-      const serverEntryPath = getLocalPath('../src/entries/server.tsx');
-
       let template = `
       <body>
       <!--critical-css-->
       <div id="app"><!--ssr-outlet--></div>
       <!--page-data-->
-      <script type="module" src="${clientEntryPath}"></script>
+      <script type="module" src="${clientEntry}"></script>
       </body>
       `.trim();
 
       template = await vite.transformIndexHtml(req.originalUrl, template);
 
-      const { render } = (await vite.ssrLoadModule(serverEntryPath)) as {
+      const { render } = (await vite.ssrLoadModule(
+        require.resolve('../entries/server.tsx'),
+      )) as {
         render: RenderFn;
       };
 
@@ -114,7 +114,6 @@ export const start = async () => {
       const finalHtml = template
         .replace(`<!--ssr-outlet-->`, html)
         .replace('<!--critical-css-->', styles)
-        .replace(/ data-used-styles="(.|\n)*}"/gm, '')
         .replace('<!--page-data-->', serializePageData(pageData));
 
       // 6. Send the rendered HTML back.

@@ -7,13 +7,12 @@ import { Manifest } from 'vite';
 // @ts-expect-error
 import AppShell from '__THE_ENTRY';
 
-import { serverPageModules } from './serverPageModules';
-
-import type { RenderAllPagesFn } from '../types';
+import type { RenderAllPagesFn } from './types';
+import { nodePageModules } from './page-modules/node';
 
 const pageData: Record<string, string> = {};
 
-for (const [pageName, { routeData }] of Object.entries(serverPageModules)) {
+for (const [pageName, { routeData }] of Object.entries(nodePageModules)) {
   const { route } = routeData();
 
   pageData[route.toLowerCase()] = pageName;
@@ -80,7 +79,7 @@ const generateCssTags = (cssImports: Set<string>, publicPath: string) =>
 export const renderAllPages: RenderAllPagesFn = (manifest, publicPath) => {
   let pageModules = [];
 
-  for (const [pageName, pageModule] of Object.entries(serverPageModules)) {
+  for (const [pageName, pageModule] of Object.entries(nodePageModules)) {
     const { route } = pageModule.routeData();
     const { scriptImports, cssImports, entry } = getImportsFromManifest(
       manifest,

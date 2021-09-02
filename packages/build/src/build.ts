@@ -1,9 +1,10 @@
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import { build as viteBuild, InlineConfig, Manifest } from 'vite';
-import { getLocalPath, getWorkdirPath } from './utils';
+import { getWorkdirPath } from './utils';
 import fs from 'fs/promises';
-import type { GetArrayType, RenderAllPagesFn, ValueType } from './types';
+import type { GetArrayType, ValueType } from './types';
 import { setAdapter } from '@vanilla-extract/css/adapter';
+import type { RenderAllPagesFn } from '../entries/types';
 
 type BuildOutput = ValueType<ReturnType<typeof viteBuild>>;
 type RollupOutput = GetArrayType<BuildOutput>;
@@ -15,8 +16,8 @@ const commonBuildConfig: InlineConfig = {
   resolve: {
     alias: {
       __THE_ENTRY: getWorkdirPath('/src/App.tsx'),
-      'sku/react-treat': getLocalPath('../src/mocks/reactTreat.tsx'),
-      'sku/treat': getLocalPath('../src/mocks/treat.ts'),
+      'sku/react-treat': require.resolve('../mocks/react-treat.tsx'),
+      'sku/treat': require.resolve('../mocks/treat.ts'),
     },
   },
   define: {
@@ -51,7 +52,9 @@ export const build = async () => {
     base: PUBLIC_PATH,
     build: {
       manifest: true,
-      rollupOptions: { input: getLocalPath('../src/entries/client.tsx') },
+      rollupOptions: {
+        input: require.resolve('../entries/client.tsx'),
+      },
     },
   });
 
@@ -62,7 +65,9 @@ export const build = async () => {
     build: {
       minify: false,
       ssr: true,
-      rollupOptions: { input: getLocalPath('../src/entries/render.tsx') },
+      rollupOptions: {
+        input: require.resolve('../entries/render.tsx'),
+      },
       outDir: getWorkdirPath('/dist-render'),
     },
     // @ts-expect-error

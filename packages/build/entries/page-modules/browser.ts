@@ -6,7 +6,7 @@ const pageDirModules: PageModules = import.meta.glob('/src/pages/*.tsx');
 // @ts-expect-error
 const remotePageModules: PageModules = import.meta.glob('/src/**/*.page.tsx');
 
-export const clientPageModules: PageModules = {
+export const browserPageModules: PageModules = {
   ...pageDirModules,
   ...remotePageModules,
 };
