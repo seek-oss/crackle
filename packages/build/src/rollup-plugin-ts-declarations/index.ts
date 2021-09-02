@@ -1,12 +1,15 @@
 import path from 'path';
-import { FatalError } from './errors';
-import { Plugin } from 'rollup';
-import type { Package } from './types/package';
-import { createDeclarationCreator } from './create-generator';
-import { overwriteDeclarationMapSourceRoot, tsTemplate } from './utils';
-import normalizePath from 'normalize-path';
 
-export let isTsPath = (source: string) => /\.tsx?/.test(source);
+import normalizePath from 'normalize-path';
+import { Plugin } from 'rollup';
+
+import { createDeclarationCreator } from './create-generator';
+import { FatalError } from './errors';
+import type { Package } from './types/package';
+import { overwriteDeclarationMapSourceRoot, tsTemplate } from './utils';
+
+
+export const isTsPath = (source: string) => /\.tsx?/.test(source);
 
 export default function typescriptDeclarations(pkg: Package): Plugin {
   if (!pkg.entrypoints.some(({ source }) => isTsPath(source))) {
@@ -16,14 +19,14 @@ export default function typescriptDeclarations(pkg: Package): Plugin {
   return {
     name: 'typescript-declarations',
     async generateBundle(opts, bundle) {
-      let creator = await createDeclarationCreator(pkg.directory, pkg.name);
+      const creator = await createDeclarationCreator(pkg.directory, pkg.name);
 
-      let srcFilenameToDtsFilenameMap = new Map<string, string>();
+      const srcFilenameToDtsFilenameMap = new Map<string, string>();
 
-      let deps = creator.getDeps(pkg.entrypoints.map((x) => x.source));
+      const deps = creator.getDeps(pkg.entrypoints.map((x) => x.source));
       await Promise.all(
         Array.from(deps).map(async (dep) => {
-          let { types, map } = await creator.getDeclarationFiles(dep);
+          const { types, map } = await creator.getDeclarationFiles(dep);
 
           srcFilenameToDtsFilenameMap.set(normalizePath(dep), types.name);
 
@@ -62,7 +65,7 @@ export default function typescriptDeclarations(pkg: Package): Plugin {
         }
         const facadeModuleId = file.facadeModuleId;
 
-        let dtsFilename = srcFilenameToDtsFilenameMap.get(
+        const dtsFilename = srcFilenameToDtsFilenameMap.get(
           normalizePath(facadeModuleId),
         );
 
@@ -73,7 +76,7 @@ export default function typescriptDeclarations(pkg: Package): Plugin {
           );
         }
 
-        let mainFieldPath = file.fileName.replace(/\.js$/, '');
+        const mainFieldPath = file.fileName.replace(/\.js$/, '');
         let relativeToSource = path.relative(
           path.dirname(path.join(opts.dir!, file.fileName)),
           dtsFilename.replace(/\.d\.ts$/, ''),
@@ -81,11 +84,11 @@ export default function typescriptDeclarations(pkg: Package): Plugin {
         if (!relativeToSource.startsWith('.')) {
           relativeToSource = `./${relativeToSource}`;
         }
-        let tsFileSource = tsTemplate(
+        const tsFileSource = tsTemplate(
           file.exports.includes('default'),
           normalizePath(relativeToSource),
         );
-        let tsFileName = mainFieldPath + '.d.ts';
+        const tsFileName = `${mainFieldPath  }.d.ts`;
         this.emitFile({
           type: 'asset',
           fileName: tsFileName,

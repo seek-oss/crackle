@@ -1,6 +1,7 @@
-import React from 'react';
 import { RouteDataFn } from '@crackle/build';
 import { Card, Stack, Text } from 'braid-design-system';
+import React from 'react';
+
 import { JobSummary } from './JobSummary';
 
 export const routeData: RouteDataFn = () => ({

@@ -1,14 +1,14 @@
-import React from 'react';
 import type { RouteDataFn } from '@crackle/build';
 import { Card, Stack, Text, TextLink } from 'braid-design-system';
+import React from 'react';
+
 import { TestAlert } from '../components/TestAlert';
 
 export const routeData: RouteDataFn = () => ({
   route: '/details',
 });
 
-const Details = () => {
-  return (
+const Details = () => (
     <Card>
       <Stack space="medium">
         <Text>Details page 2</Text>
@@ -19,6 +19,5 @@ const Details = () => {
       </Stack>
     </Card>
   );
-};
 
 export default Details;

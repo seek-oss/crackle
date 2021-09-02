@@ -1,10 +1,10 @@
-import { Plugin } from 'vite';
 import {
   transformAsync as babelTransform,
   createConfigItem,
 } from '@babel/core';
-import { cssFileFilter } from '@vanilla-extract/integration';
 import vanillaBabelPlugin from '@vanilla-extract/babel-plugin';
+import { cssFileFilter } from '@vanilla-extract/integration';
+import { Plugin } from 'vite';
 
 export const addVanillaDebugIds: Plugin = {
   name: 'add-vanilla-debug-ids',

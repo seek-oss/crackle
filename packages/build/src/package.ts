@@ -1,12 +1,13 @@
 import path from 'path';
-import { build as viteBuild } from 'vite';
-import externals from 'rollup-plugin-node-externals';
-import glob from 'fast-glob';
-import { cssFileFilter } from '@vanilla-extract/integration';
 
-import { getWorkdirPath } from './utils';
-import typescriptDeclarations from './rollup-plugin-ts-declarations';
+import { cssFileFilter } from '@vanilla-extract/integration';
+import glob from 'fast-glob';
+import externals from 'rollup-plugin-node-externals';
+import { build as viteBuild } from 'vite';
+
 import { addVanillaDebugIds } from './babel-plugin-vanilla-libraries';
+import typescriptDeclarations from './rollup-plugin-ts-declarations';
+import { getWorkdirPath } from './utils';
 import { commonViteConfig } from './vite-config';
 
 export const buildPackage = async () => {

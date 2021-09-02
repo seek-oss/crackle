@@ -1,7 +1,7 @@
+import { JobSummary } from '@crackle-fixtures/multi-entry-library/components';
 import { Card, Stack, Alert, Text } from 'braid-design-system';
 import React from 'react';
 
-import { JobSummary } from '@crackle-fixtures/multi-entry-library/components';
 
 export const RemotePageContent = () => (
   <Card>

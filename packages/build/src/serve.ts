@@ -1,5 +1,6 @@
-import handler from 'serve-handler';
 import http from 'http';
+
+import handler from 'serve-handler';
 
 import { config } from './config';
 

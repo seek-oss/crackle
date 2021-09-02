@@ -23,8 +23,7 @@ interface JobSummaryProps {
   isNew: boolean;
 }
 
-export const JobSummary = ({ title, isNew }: JobSummaryProps) => {
-  return (
+export const JobSummary = ({ title, isNew }: JobSummaryProps) => (
     <Card>
       <Box className={redBorder} id="CUSTOM_STYLED_BOX_COMPONENT">
         <Stack space="gutter">
@@ -64,4 +63,3 @@ export const JobSummary = ({ title, isNew }: JobSummaryProps) => {
       </Box>
     </Card>
   );
-};

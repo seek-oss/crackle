@@ -1,5 +1,5 @@
-import type { Manifest } from 'vite';
 import type React from 'react';
+import type { Manifest } from 'vite';
 
 interface RenderParams {
   path: string;
