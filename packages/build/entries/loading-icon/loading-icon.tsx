@@ -1,38 +1,45 @@
 import React from 'react';
 
+const size = 60;
+
 const animationStyles = `
-.lds-ripple {
+.lds-facebook {
   display: inline-block;
   position: relative;
-  width: 60px;
-  height: 60px;
+  width: ${size}px;
+  height: ${size}px;
 }
-.lds-ripple div {
+.lds-facebook div {
+  display: inline-block;
   position: absolute;
-  border: 4px solid #111;
-  opacity: 1;
-  border-radius: 50%;
-  animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+  left: ${size * 0.1}px;
+  width: ${size * 0.2}px;
+  background: rgba(2,2,2,0.6);
+  animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
 }
-.lds-ripple div:nth-child(2) {
-  animation-delay: -0.5s;
+.lds-facebook div:nth-child(1) {
+  left: ${size * 0.1}px;
+  animation-delay: -0.24s;
 }
-@keyframes lds-ripple {
+.lds-facebook div:nth-child(2) {
+  left: ${size * 0.4}px;
+  animation-delay: -0.12s;
+}
+.lds-facebook div:nth-child(3) {
+  left: ${size * 0.7}px;
+  animation-delay: 0;
+}
+@keyframes lds-facebook {
   0% {
-    top: 27px;
-    left: 27px;
-    width: 0;
-    height: 0;
-    opacity: 1;
+    top: ${size * 0.1}px;
+    height: ${size * 0.8}px;
   }
-  100% {
-    top: 0px;
-    left: 0px;
-    width: 54px;
-    height: 54px;
-    opacity: 0;
+  50%, 100% {
+    top: ${size * 0.3}px;
+    height: ${size * 0.4}px;
   }
-}`;
+}
+`;
 
 export const LoadingIcon = () => (
   <>
@@ -55,10 +62,11 @@ export const LoadingIcon = () => (
         justifyContent: 'center',
       }}
     >
-      <div className="lds-ripple">
+      <div className="lds-facebook">
         <div></div>
         <div></div>
-      </div>{' '}
+        <div></div>
+      </div>
     </div>
   </>
 );
