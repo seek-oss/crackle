@@ -46,6 +46,9 @@ browserPageModules[targetPage]()
   })
   .then(() => {
     removeStyles();
+    document
+      .querySelectorAll('[data-module-loading-icon]')
+      .forEach((e) => e.remove());
     hydrate(<Pages />, document.getElementById('app'));
   });
 

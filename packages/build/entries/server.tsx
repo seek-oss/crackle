@@ -8,6 +8,7 @@ import { Routes, Route } from 'react-router-dom';
 
 import type { RenderFn } from './types';
 import { nodePageModules } from './page-modules/node';
+import { LoadingIcon } from './loading-icon/loading-icon';
 
 const pageData: Record<string, string> = {};
 
@@ -23,6 +24,7 @@ interface AppProps {
 function App({ path }: AppProps) {
   return (
     <StaticRouter location={path}>
+      <LoadingIcon />
       <AppShell>
         <Routes>
           {Object.entries(pageData).map(([pagePath, pageName]) => (
