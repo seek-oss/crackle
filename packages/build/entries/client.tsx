@@ -1,5 +1,7 @@
 // import 'vite/modulepreload-polyfill';
+
 // @ts-expect-error
+// eslint-disable-next-line import/order
 import AppShell from '__THE_ENTRY';
 
 import React from 'react';
@@ -68,6 +70,7 @@ function Page({ name }: PageProps) {
     } else {
       PreviousPage = PageComponent;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name]);
 
   return PageComponent ? <PageComponent /> : <PreviousPage />;

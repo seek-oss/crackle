@@ -1,8 +1,7 @@
-import React from 'react';
+import { JobSummary } from '@crackle-fixtures/single-entry-library';
 import type { RouteDataFn } from '@crackle/build';
 import { Card, Stack, Text, TextLink } from 'braid-design-system';
-
-import { JobSummary } from '@crackle-fixtures/single-entry-library';
+import React from 'react';
 
 export const routeData: RouteDataFn = () => ({
   route: '/',

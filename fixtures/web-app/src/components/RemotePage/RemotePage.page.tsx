@@ -1,5 +1,5 @@
+import { RouteDataFn } from '@crackle/build';
 import React from 'react';
-import { RouteDataFn } from '@crackle/build/';
 
 import { RemotePageContent } from './components/RemotePageContent';
 
