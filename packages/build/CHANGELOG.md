@@ -1,5 +1,11 @@
 # @crackle/build
 
+## 0.0.4
+
+### Patch Changes
+
+- Fix incorrect mock references, Add loading icon for start
+
 ## 0.0.3
 
 ### Patch Changes
