@@ -7,9 +7,9 @@ import { renderToString } from 'react-dom/server';
 import { Routes, Route } from 'react-router-dom';
 import { StaticRouter } from 'react-router-dom/server';
 
+import { LoadingIcon } from './loading-icon/loading-icon';
 import { nodePageModules } from './page-modules/node';
 import type { RenderFn } from './types';
-import { LoadingIcon } from './loading-icon/loading-icon';
 
 const pageData: Record<string, string> = {};
 
