@@ -1,10 +1,11 @@
+/* eslint-disable no-param-reassign */
 import * as fs from 'fs';
 
 export function normalize(fileName: string) {
   return fileName.split('\\').join('/');
 }
 
-export let createLanguageServiceHostClass = (typescript: any) =>
+export const createLanguageServiceHostClass = (typescript: any) =>
   class LanguageServiceHost {
     parsedConfig: any;
     transformers: any;
@@ -41,7 +42,10 @@ export let createLanguageServiceHostClass = (typescript: any) =>
     }
     getScriptSnapshot(fileName: string) {
       fileName = normalize(fileName);
-      if (this.snapshots[fileName]) return this.snapshots[fileName];
+      if (this.snapshots[fileName]) {
+        return this.snapshots[fileName];
+      }
+      // eslint-disable-next-line no-sync
       if (fs.existsSync(fileName)) {
         this.snapshots[fileName] = typescript.ScriptSnapshot.fromString(
           typescript.sys.readFile(fileName),

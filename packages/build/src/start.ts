@@ -1,10 +1,13 @@
+/* eslint-disable no-console */
 import { performance } from 'perf_hooks';
-import express from 'express';
-import { createServer as createViteServer } from 'vite';
-import reactRefresh from '@vitejs/plugin-react-refresh';
+
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
-import type { RenderFn } from '../entries/types';
+import reactRefresh from '@vitejs/plugin-react-refresh';
+import express from 'express';
 import serializeJavascript from 'serialize-javascript';
+import { createServer as createViteServer } from 'vite';
+
+import type { RenderFn } from '../entries/types';
 
 import { config } from './config';
 import { criticalCss } from './critical-css';

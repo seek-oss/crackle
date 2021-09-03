@@ -1,7 +1,6 @@
-import React from 'react';
-
 import type { RouteDataFn } from '@crackle/build';
 import { Alert, Card, Text } from 'braid-design-system';
+import React from 'react';
 
 export const routeData: RouteDataFn = () => ({
   route: '/test',

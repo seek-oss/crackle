@@ -1,13 +1,14 @@
 // @ts-expect-error
+// eslint-disable-next-line import/order
 import AppShell from '__THE_ENTRY';
 
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { StaticRouter } from 'react-router-dom/server';
 import { Routes, Route } from 'react-router-dom';
+import { StaticRouter } from 'react-router-dom/server';
 
-import type { RenderFn } from './types';
 import { nodePageModules } from './page-modules/node';
+import type { RenderFn } from './types';
 
 const pageData: Record<string, string> = {};
 
@@ -38,9 +39,7 @@ function App({ path }: AppProps) {
   );
 }
 
-export const render: RenderFn = ({ path }) => {
-  return {
-    html: renderToString(<App path={path} />),
-    pageData,
-  };
-};
+export const render: RenderFn = ({ path }) => ({
+  html: renderToString(<App path={path} />),
+  pageData,
+});

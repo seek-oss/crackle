@@ -1,14 +1,15 @@
+// @ts-expect-error
+// eslint-disable-next-line import/order
+import AppShell from '__THE_ENTRY';
+
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server';
 import serializeJavascript from 'serialize-javascript';
 import { Manifest } from 'vite';
 
-// @ts-expect-error
-import AppShell from '__THE_ENTRY';
-
-import type { RenderAllPagesFn } from './types';
 import { nodePageModules } from './page-modules/node';
+import type { RenderAllPagesFn } from './types';
 
 const pageData: Record<string, string> = {};
 
@@ -77,7 +78,7 @@ const generateCssTags = (cssImports: Set<string>, publicPath: string) =>
   ));
 
 export const renderAllPages: RenderAllPagesFn = (manifest, publicPath) => {
-  let pageModules = [];
+  const pageModules = [];
 
   for (const [pageName, pageModule] of Object.entries(nodePageModules)) {
     const { route } = pageModule.routeData();

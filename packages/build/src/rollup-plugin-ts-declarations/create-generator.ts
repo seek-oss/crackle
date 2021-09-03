@@ -1,10 +1,12 @@
-import resolveFrom from 'resolve-from';
-import * as fs from 'fs-extra';
 import path from 'path';
+
+import * as fs from 'fs-extra';
+import normalizePath from 'normalize-path';
+import resolveFrom from 'resolve-from';
+
 import { FatalError } from './errors';
 // @ts-ignore
 import { createLanguageServiceHostClass } from './language-service-host';
-import normalizePath from 'normalize-path';
 
 const buildDirectory = 'dist';
 
@@ -22,17 +24,17 @@ interface EmittedDeclarationOutput {
 
 type Typescript = typeof import('typescript');
 
-let unsafeRequire = require;
+const unsafeRequire = require;
 
-let weakMemoize = function <Arg extends object, Return>(
+const weakMemoize = function <Arg extends Record<string, unknown>, Return>(
   func: (arg: Arg) => Return,
 ): (arg: Arg) => Return {
-  let cache: WeakMap<Arg, Return> = new WeakMap();
+  const cache: WeakMap<Arg, Return> = new WeakMap();
   return (arg) => {
     if (cache.has(arg)) {
       return cache.get(arg)!;
     }
-    let ret = func(arg);
+    const ret = func(arg);
     cache.set(arg, ret);
     return ret;
   };
@@ -42,7 +44,9 @@ function memoize<V>(fn: (arg: string) => V): (arg: string) => V {
   const cache: { [key: string]: V } = {};
 
   return (arg: string) => {
-    if (cache[arg] === undefined) cache[arg] = fn(arg);
+    if (cache[arg] === undefined) {
+      cache[arg] = fn(arg);
+    }
     return cache[arg];
   };
 }
@@ -51,7 +55,7 @@ async function nonMemoizedGetService(
   typescript: Typescript,
   configFileName: string,
 ) {
-  let configFileContents = await fs.readFile(configFileName, 'utf8');
+  const configFileContents = await fs.readFile(configFileName, 'utf8');
   const result = typescript.parseConfigFileTextToJson(
     configFileName,
     configFileContents,
@@ -59,7 +63,7 @@ async function nonMemoizedGetService(
 
   result.config.compilerOptions.outDir = '.';
 
-  let thing = typescript.parseJsonConfigFileContent(
+  const thing = typescript.parseJsonConfigFileContent(
     result.config,
     typescript.sys,
     process.cwd(),
@@ -69,16 +73,16 @@ async function nonMemoizedGetService(
   thing.options.declaration = true;
   thing.options.noEmit = false;
 
-  let LanguageServiceHostClass = createLanguageServiceHostClass(typescript);
+  const LanguageServiceHostClass = createLanguageServiceHostClass(typescript);
 
-  let servicesHost = new LanguageServiceHostClass(thing, []);
+  const servicesHost = new LanguageServiceHostClass(thing, []);
 
-  let service = typescript.createLanguageService(
+  const service = typescript.createLanguageService(
     servicesHost,
     typescript.createDocumentRegistry(),
   );
   servicesHost.setLanguageService(service);
-  let program = service.getProgram();
+  const program = service.getProgram();
   if (!program) {
     throw new Error(
       'This is an internal error, please open an issue if you see this: program not found',
@@ -87,10 +91,10 @@ async function nonMemoizedGetService(
   return { service, options: thing.options, program };
 }
 
-let getService = weakMemoize((typescript: Typescript) =>
-  memoize(async (configFileName: string) => {
-    return nonMemoizedGetService(typescript, configFileName);
-  }),
+const getService = weakMemoize((typescript: Typescript) =>
+  memoize(async (configFileName: string) =>
+    nonMemoizedGetService(typescript, configFileName),
+  ),
 );
 
 export async function createDeclarationCreator(
@@ -112,7 +116,7 @@ export async function createDeclarationCreator(
     }
     throw err;
   }
-  let configFileName = typescript.findConfigFile(
+  const configFileName = typescript.findConfigFile(
     dirname,
     typescript.sys.fileExists,
   );
@@ -128,7 +132,7 @@ export async function createDeclarationCreator(
   // and if we keep it, we could run out of memory for large projects
   // if the tsconfig _isn't_ in the package directory though, it's probably fine to memoize it
   // since it should just be a root level tsconfig
-  let {
+  const {
     service,
     options: readOptions,
     program,
@@ -139,18 +143,18 @@ export async function createDeclarationCreator(
 
   const options = { ...readOptions, outDir: '.' };
 
-  let moduleResolutionCache = typescript.createModuleResolutionCache(
+  const moduleResolutionCache = typescript.createModuleResolutionCache(
     dirname,
     (x) => x,
     options,
   );
 
-  let normalizedDirname = normalizePath(dirname);
+  const normalizedDirname = normalizePath(dirname);
 
   return {
     getDeps: (entrypoints: Array<string>) => {
-      let resolvedEntrypointPaths = entrypoints.map((x) => {
-        let { resolvedModule } = typescript.resolveModuleName(
+      const resolvedEntrypointPaths = entrypoints.map((x) => {
+        const { resolvedModule } = typescript.resolveModuleName(
           path.join(path.dirname(x), path.basename(x, path.extname(x))),
           dirname,
           options,
@@ -164,20 +168,20 @@ export async function createDeclarationCreator(
         }
         return resolvedModule.resolvedFileName;
       });
-      let allDeps = new Set<string>(resolvedEntrypointPaths);
+      const allDeps = new Set<string>(resolvedEntrypointPaths);
 
       function searchDeps(deps: Set<string>) {
-        for (let dep of Array.from(deps)) {
-          let sourceFile = program!.getSourceFile(dep);
+        for (const dep of Array.from(deps)) {
+          const sourceFile = program!.getSourceFile(dep);
           if (!sourceFile) {
             throw new FatalError(
               `Could not generate type declarations because ${dep} is not in a TypeScript project. Make sure this file is included in your tsconfig.`,
               pkgName,
             );
           }
-          let internalDeps = new Set<string>();
-          for (let { text } of (sourceFile as any).imports) {
-            let { resolvedModule } = typescript.resolveModuleName(
+          const internalDeps = new Set<string>();
+          for (const { text } of (sourceFile as any).imports) {
+            const { resolvedModule } = typescript.resolveModuleName(
               text,
               dep,
               options,
@@ -215,7 +219,7 @@ export async function createDeclarationCreator(
           },
         };
       }
-      let output = service.getEmitOutput(filename, true, true);
+      const output = service.getEmitOutput(filename, true, true);
       return output.outputFiles.reduce((emitted, { name, text }) => {
         if (name.endsWith('.d.ts')) {
           emitted.types = {

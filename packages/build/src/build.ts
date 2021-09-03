@@ -1,13 +1,15 @@
+import fs from 'fs/promises';
+
+import { setAdapter } from '@vanilla-extract/css/adapter';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import { build as viteBuild, InlineConfig, Manifest } from 'vite';
-import fs from 'fs/promises';
-import { setAdapter } from '@vanilla-extract/css/adapter';
 
+import type { RenderAllPagesFn } from '../entries/types';
+
+import { config } from './config';
 import type { GetArrayType, ValueType } from './types';
 import { getWorkdirPath } from './utils';
-import type { RenderAllPagesFn } from '../entries/types';
 import { commonViteConfig } from './vite-config';
-import { config } from './config';
 
 type BuildOutput = ValueType<ReturnType<typeof viteBuild>>;
 type RollupOutput = GetArrayType<BuildOutput>;
@@ -102,6 +104,7 @@ export const build = async () => {
     getIdentOption: () => 'short',
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const renderAllPages = require(getWorkdirPath('dist-render/render'))
     .renderAllPages as RenderAllPagesFn;
 
