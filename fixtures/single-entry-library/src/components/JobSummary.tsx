@@ -16,6 +16,8 @@ import {
 } from 'braid-design-system';
 import React from 'react';
 
+import { add } from './add-fn';
+
 import { redBorder } from './styles.css';
 
 interface JobSummaryProps {
@@ -34,7 +36,7 @@ export const JobSummary = ({ title, isNew }: JobSummaryProps) => (
               <Heading level="3">{title}</Heading>
               <Inline space="small">
                 <Text tone="secondary">Braid Design Pty Ltd</Text>
-                <Rating rating={4.5} />
+                <Rating rating={add(2, 1)} />
               </Inline>
             </Stack>
           </Column>

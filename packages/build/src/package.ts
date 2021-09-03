@@ -7,8 +7,21 @@ import { build as viteBuild } from 'vite';
 
 import { addVanillaDebugIds } from './babel-plugin-vanilla-libraries';
 import typescriptDeclarations from './rollup-plugin-ts-declarations';
+import type { ManualChunksFn } from './types';
 import { getWorkdirPath } from './utils';
 import { commonViteConfig } from './vite-config';
+
+const manualChunks: ManualChunksFn = (id, { getModuleInfo }) => {
+  if (
+    cssFileFilter.test(id) ||
+    getModuleInfo(id)?.importers.some((importer) =>
+      cssFileFilter.test(importer),
+    )
+  ) {
+    const [_projectRoot, localPath] = id.split('src/');
+    return localPath.replace('/', '-').replace('.ts', '.js');
+  }
+};
 
 export const buildPackage = async () => {
   const entries = await glob(['src/entries/*.ts', 'src/index.ts'], {
@@ -60,16 +73,11 @@ export const buildPackage = async () => {
         },
         output: {
           hoistTransitiveImports: false,
-          manualChunks: (id) => {
-            if (id.endsWith('.css.ts')) {
-              const [_projectRoot, localPath] = id.split('src/');
-              return localPath.replace('/', '-').replace('.ts', '.js');
-            }
-          },
+          manualChunks,
           chunkFileNames: (chunkInfo) => {
             const chunkPath = `dist/${chunkInfo.name}`;
 
-            return chunkPath.endsWith('.css.js')
+            return chunkPath.endsWith('.js')
               ? chunkPath
               : `${chunkPath}.chunk.js`;
           },
