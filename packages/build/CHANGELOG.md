@@ -1,5 +1,11 @@
 # @crackle/build
 
+## 0.0.6
+
+### Patch Changes
+
+- 167646a: Ensure deps of .css.ts files get chunked separately
+
 ## 0.0.5
 
 ### Patch Changes
