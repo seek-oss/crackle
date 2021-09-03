@@ -1,6 +1,6 @@
 {
   "name": "@crackle/cli",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "dist/crackle-cli.cjs.js",
   "author": "Matt",
   "license": "MIT",
@@ -12,7 +12,7 @@
     "crackle": "bin.js"
   },
   "dependencies": {
-    "@crackle/build": "^0.0.4",
+    "@crackle/build": "^0.0.5",
     "yargs": "^17.1.1"
   },
   "devDependencies": {

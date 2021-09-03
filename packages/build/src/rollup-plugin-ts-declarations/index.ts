@@ -52,11 +52,8 @@ export default function typescriptDeclarations(pkg: Package): Plugin {
         }),
       );
 
+      // eslint-disable-next-line guard-for-in
       for (const n in bundle) {
-        if (!bundle.hasOwnProperty(n)) {
-          continue;
-        }
-
         const file = bundle[n];
         if (
           file.type === 'asset' ||
