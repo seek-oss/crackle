@@ -6,8 +6,8 @@
     "crackle:dev": "preconstruct dev",
     "crackle:build": "preconstruct build",
     "crackle:watch": "preconstruct watch",
-    "release": "yarn crackle:build && changeset publish",
-    "lint": "eslint packages fixtures && prettier --check packages fixtures",
+    "release": "yarn lint && yarn crackle:build && changeset publish",
+    "lint": "tsc --noEmit && eslint packages fixtures && prettier --check packages fixtures",
     "format": "eslint --fix packages fixtures && prettier --write packages fixtures"
   },
   "workspaces": [
