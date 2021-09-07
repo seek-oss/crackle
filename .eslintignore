@@ -1,2 +1,6 @@
 dist/
 node_modules/
+
+fixtures/*/components
+fixtures/*/dist
+fixtures/*/extras
