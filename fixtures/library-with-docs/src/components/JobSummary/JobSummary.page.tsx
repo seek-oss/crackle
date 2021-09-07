@@ -1,12 +1,12 @@
-import { RouteDataFn } from '@crackle/build';
+import { createRouteData } from '@crackle/router';
 import { Card, Stack, Text } from 'braid-design-system';
 import React from 'react';
 
 import { JobSummary } from './JobSummary';
 
-export const routeData: RouteDataFn = () => ({
+export const routeData = createRouteData(() => ({
   route: '/JobSummary',
-});
+}));
 
 const JobSummaryPage = () => (
   <Card>
