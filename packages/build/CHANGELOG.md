@@ -1,5 +1,11 @@
 # @crackle/build
 
+## 0.0.7
+
+### Patch Changes
+
+- Refactor2021: Make critical css work with HMR
+
 ## 0.0.6
 
 ### Patch Changes
