@@ -10,3 +10,8 @@ export type ManualChunksFn = NonNullable<
     >
   >['manualChunks']
 >;
+
+type RoutePath = string;
+export type AppShell<MetadataType extends Record<string, any>> = React.FC<{
+  routeMetadata: Record<RoutePath, MetadataType>;
+}>;

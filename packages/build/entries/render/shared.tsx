@@ -9,12 +9,14 @@ import serializeJavascript from 'serialize-javascript';
 
 import { LoadingIcon } from '../loading-icon';
 import { nodePageModules } from '../page-modules/node';
+import { extractRouteMetadata } from '../route-metadata';
+import type { PageData, RouteMap } from '../types';
 
 interface RenderPageProps {
   path: string;
   headTags: React.ReactNode;
   bodyTags: React.ReactNode;
-  pageData: Record<string, any>;
+  pageData: PageData;
   criticalCssPlaceholder?: string;
   children: React.ReactNode;
 }
@@ -25,36 +27,40 @@ export const Page = ({
   pageData,
   criticalCssPlaceholder,
   children,
-}: RenderPageProps) => (
-  <html>
-    <head>{headTags}</head>
-    <body>
-      {criticalCssPlaceholder ?? null}
-      <LoadingIcon />
-      <div id="app">
-        <StaticRouter location={path}>
-          <AppShell>{children}</AppShell>
-        </StaticRouter>
-      </div>
-      <script
-        id="__CRACKLE_PAGE_DATA"
-        type="application/json"
-        dangerouslySetInnerHTML={{
-          __html: serializeJavascript(pageData, { isJSON: true }),
-        }}
-      />
-      {bodyTags}
-    </body>
-  </html>
-);
+}: RenderPageProps) => {
+  const metadata = extractRouteMetadata(pageData.routeMap);
+
+  return (
+    <html>
+      <head>{headTags}</head>
+      <body>
+        {criticalCssPlaceholder ?? null}
+        <LoadingIcon />
+        <div id="app">
+          <StaticRouter location={path}>
+            <AppShell routeMetadata={metadata}>{children}</AppShell>
+          </StaticRouter>
+        </div>
+        <script
+          id="__CRACKLE_PAGE_DATA"
+          type="application/json"
+          dangerouslySetInnerHTML={{
+            __html: serializeJavascript(pageData, { isJSON: true }),
+          }}
+        />
+        {bodyTags}
+      </body>
+    </html>
+  );
+};
 
 export const createRouteMap = () => {
-  const routeMap: Record<string, string> = {};
+  const routeMap: RouteMap = {};
 
   for (const [pageName, { routeData }] of Object.entries(nodePageModules)) {
-    const { route } = routeData();
+    const { route, globalMetadata } = routeData();
 
-    routeMap[route.toLowerCase()] = pageName;
+    routeMap[route.toLowerCase()] = { pageName, globalMetadata };
   }
 
   return routeMap;

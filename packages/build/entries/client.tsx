@@ -12,10 +12,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { removeStyles } from 'used-styles/moveStyles';
 
 import { browserPageModules } from './page-modules/browser';
-
-interface PageData {
-  routeMap: Record<string, string>;
-}
+import { extractRouteMetadata } from './route-metadata';
+import { PageData, RouteMetadata } from './types';
 
 const cachedPages: Record<string, React.FC> = {};
 
@@ -24,12 +22,16 @@ const pageData: PageData = JSON.parse(pageDataElement?.textContent ?? '{}');
 
 const { routeMap } = pageData;
 
-function Pages() {
+interface PagesProps {
+  routeMetadata: RouteMetadata;
+}
+
+function Pages({ routeMetadata }: PagesProps) {
   return (
     <BrowserRouter>
-      <AppShell>
+      <AppShell routeMetadata={routeMetadata}>
         <Routes>
-          {Object.entries(routeMap).map(([path, pageName]) => (
+          {Object.entries(routeMap).map(([path, { pageName }]) => (
             <Route
               key={pageName}
               path={path}
@@ -42,7 +44,7 @@ function Pages() {
   );
 }
 
-const targetPage = routeMap[window.location.pathname.toLowerCase()];
+const targetPage = routeMap[window.location.pathname.toLowerCase()].pageName;
 let PreviousPage: React.FC;
 
 browserPageModules[targetPage]()
@@ -55,7 +57,12 @@ browserPageModules[targetPage]()
     document
       .querySelectorAll('[data-module-loading-icon]')
       .forEach((e) => e.remove());
-    hydrate(<Pages />, document.getElementById('app'));
+
+    const routeMetadata = extractRouteMetadata(pageData.routeMap);
+    hydrate(
+      <Pages routeMetadata={routeMetadata} />,
+      document.getElementById('app'),
+    );
   });
 
 interface PageProps {

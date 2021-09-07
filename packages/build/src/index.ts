@@ -3,4 +3,4 @@ export { buildPackage } from './package';
 export { serve } from './serve';
 export { start } from './start';
 
-export type { RouteDataFn } from './types';
+export type { AppShell } from './types';

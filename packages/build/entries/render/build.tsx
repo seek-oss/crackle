@@ -4,19 +4,7 @@ import { Manifest } from 'vite';
 
 import type { RenderAllPagesFn } from '../types';
 
-import { nodePageModules, Page } from './shared';
-
-const createRouteMap = () => {
-  const routeMap: Record<string, string> = {};
-
-  for (const [pageName, { routeData }] of Object.entries(nodePageModules)) {
-    const { route } = routeData();
-
-    routeMap[route.toLowerCase()] = pageName;
-  }
-
-  return routeMap;
-};
+import { createRouteMap, nodePageModules, Page } from './shared';
 
 const getImportsFromManifest = (manifest: Manifest, pageName: string) => {
   const scriptImports = new Set<string>();
