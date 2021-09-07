@@ -1,11 +1,17 @@
 import { JobSummary } from '@crackle-fixtures/single-entry-library';
-import type { RouteDataFn } from '@crackle/build';
+import { createRouteData } from '@crackle/router';
 import { Card, Stack, Text, TextLink } from 'braid-design-system';
 import React from 'react';
 
-export const routeData: RouteDataFn = () => ({
+import { BraidMetadata } from '../types';
+
+export const routeData = createRouteData<BraidMetadata>(() => ({
   route: '/',
-});
+  globalMetadata: {
+    isDeprecated: false,
+    componentName: 'Home',
+  },
+}));
 
 export default function Home() {
   return (

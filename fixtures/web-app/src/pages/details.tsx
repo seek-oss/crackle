@@ -1,12 +1,17 @@
-import type { RouteDataFn } from '@crackle/build';
+import { createRouteData } from '@crackle/router';
 import { Card, Stack, Text, TextLink } from 'braid-design-system';
 import React from 'react';
 
 import { TestAlert } from '../components/TestAlert';
+import { BraidMetadata } from '../types';
 
-export const routeData: RouteDataFn = () => ({
+export const routeData = createRouteData<BraidMetadata>(() => ({
   route: '/details',
-});
+  globalMetadata: {
+    isDeprecated: true,
+    componentName: 'Details',
+  },
+}));
 
 const Details = () => (
   <Card>

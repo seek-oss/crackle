@@ -1,5 +1,6 @@
 import 'braid-design-system/reset';
 
+import type { AppShell } from '@crackle/build';
 import {
   Box,
   BraidProvider,
@@ -15,6 +16,8 @@ import apac from 'braid-design-system/themes/apac';
 import React from 'react';
 import { Link as ReactRouterLink } from 'react-router-dom';
 
+import { BraidMetadata } from './types';
+
 const CustomLink = makeLinkComponent(({ href, ...restProps }, ref) =>
   href[0] === '/' ? (
     <ReactRouterLink ref={ref} to={href} {...restProps} />
@@ -23,30 +26,34 @@ const CustomLink = makeLinkComponent(({ href, ...restProps }, ref) =>
   ),
 );
 
-const App: React.FC = ({ children }) => (
-  <BraidProvider theme={apac} linkComponent={CustomLink}>
-    <Stack space="medium">
-      <Card tone="promote">
-        <ContentBlock>
-          <Box display="flex" justifyContent="spaceBetween">
-            <Text>Header</Text>
-            <Inline space="small">
-              <Text>
-                <TextLink href="/">Home</TextLink>
-              </Text>
-              <Text>
-                <TextLink href="/details">Detail</TextLink>
-              </Text>
-              <Text>
-                <TextLink href="/test">Test</TextLink>
-              </Text>
-            </Inline>
-          </Box>
-        </ContentBlock>
-      </Card>
-      <ContentBlock>{children}</ContentBlock>
-    </Stack>
-  </BraidProvider>
-);
+const App: AppShell<BraidMetadata> = ({ children, routeMetadata }) => {
+  const navLinks = Object.entries(routeMetadata).map(([route, metadata]) => (
+    <Text key={route}>
+      <TextLink
+        key={route}
+        weight={metadata.isDeprecated ? 'weak' : 'regular'}
+        href={route}
+      >
+        {metadata.componentName}
+      </TextLink>
+    </Text>
+  ));
+
+  return (
+    <BraidProvider theme={apac} linkComponent={CustomLink}>
+      <Stack space="medium">
+        <Card tone="promote">
+          <ContentBlock>
+            <Box display="flex" justifyContent="spaceBetween">
+              <Text>Header</Text>
+              <Inline space="small">{...navLinks}</Inline>
+            </Box>
+          </ContentBlock>
+        </Card>
+        <ContentBlock>{children}</ContentBlock>
+      </Stack>
+    </BraidProvider>
+  );
+};
 
 export default App;
