@@ -13,6 +13,6 @@
     "lib": ["es2015", "dom"],
     "target": "ES6"
   },
-  "include": ["./fixtures"],
+  "include": ["./fixtures", "./packages"],
   "exclude": ["./node_modules"]
 }
