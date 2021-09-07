@@ -13,19 +13,23 @@ import { removeStyles } from 'used-styles/moveStyles';
 
 import { browserPageModules } from './page-modules/browser';
 
+interface PageData {
+  routeMap: Record<string, string>;
+}
+
 const cachedPages: Record<string, React.FC> = {};
 
 const pageDataElement = document.getElementById('__CRACKLE_PAGE_DATA');
-const pageData: Record<string, string> = JSON.parse(
-  pageDataElement?.textContent ?? '{}',
-);
+const pageData: PageData = JSON.parse(pageDataElement?.textContent ?? '{}');
+
+const { routeMap } = pageData;
 
 function Pages() {
   return (
     <BrowserRouter>
       <AppShell>
         <Routes>
-          {Object.entries(pageData).map(([path, pageName]) => (
+          {Object.entries(routeMap).map(([path, pageName]) => (
             <Route
               key={pageName}
               path={path}
@@ -38,7 +42,7 @@ function Pages() {
   );
 }
 
-const targetPage = pageData[window.location.pathname.toLowerCase()];
+const targetPage = routeMap[window.location.pathname.toLowerCase()];
 let PreviousPage: React.FC;
 
 browserPageModules[targetPage]()

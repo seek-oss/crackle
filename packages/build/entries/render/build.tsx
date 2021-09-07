@@ -1,23 +1,22 @@
-// @ts-expect-error
-// eslint-disable-next-line import/order
-import AppShell from '__THE_ENTRY';
-
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { StaticRouter } from 'react-router-dom/server';
-import serializeJavascript from 'serialize-javascript';
 import { Manifest } from 'vite';
 
-import { nodePageModules } from './page-modules/node';
-import type { RenderAllPagesFn } from './types';
+import type { RenderAllPagesFn } from '../types';
 
-const pageData: Record<string, string> = {};
+import { nodePageModules, Page } from './shared';
 
-for (const [pageName, { routeData }] of Object.entries(nodePageModules)) {
-  const { route } = routeData();
+const createRouteMap = () => {
+  const routeMap: Record<string, string> = {};
 
-  pageData[route.toLowerCase()] = pageName;
-}
+  for (const [pageName, { routeData }] of Object.entries(nodePageModules)) {
+    const { route } = routeData();
+
+    routeMap[route.toLowerCase()] = pageName;
+  }
+
+  return routeMap;
+};
 
 const getImportsFromManifest = (manifest: Manifest, pageName: string) => {
   const scriptImports = new Set<string>();
@@ -87,30 +86,20 @@ export const renderAllPages: RenderAllPagesFn = (manifest, publicPath) => {
       pageName,
     );
 
+    const headTags = [
+      ...generateCssTags(cssImports, publicPath),
+      ...generateScriptPreloadTags(scriptImports, publicPath),
+    ];
+
     const html = renderToString(
-      <html>
-        <head>
-          {generateCssTags(cssImports, publicPath)}
-          {generateScriptPreloadTags(scriptImports, publicPath)}
-        </head>
-
-        <body>
-          <div id="app">
-            <StaticRouter location={route}>
-              <AppShell>{React.createElement(pageModule.default)}</AppShell>
-            </StaticRouter>
-          </div>
-
-          <script
-            id="__CRACKLE_PAGE_DATA"
-            type="application/json"
-            dangerouslySetInnerHTML={{
-              __html: serializeJavascript(pageData, { isJSON: true }),
-            }}
-          />
-          <script src={publicPath.concat(entry)} type="module" />
-        </body>
-      </html>,
+      <Page
+        path={route}
+        headTags={headTags}
+        bodyTags={<script src={publicPath.concat(entry)} type="module" />}
+        pageData={{ routeMap: createRouteMap() }}
+      >
+        {React.createElement(pageModule.default)}
+      </Page>,
     );
 
     pageModules.push({ route, html });

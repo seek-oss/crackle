@@ -3,30 +3,21 @@ import { performance } from 'perf_hooks';
 
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import reactRefresh from '@vitejs/plugin-react-refresh';
+import builtinModules from 'builtin-modules';
 import express from 'express';
-import serializeJavascript from 'serialize-javascript';
 import { createServer as createViteServer } from 'vite';
 
-import type { RenderFn } from '../entries/types';
+import type { RenderPageFn } from '../entries/types';
 
 import { config } from './config';
-import { criticalCss } from './critical-css';
 import { commonViteConfig } from './vite-config';
 
 export * from './types';
 
 const clientEntry = require.resolve('../entries/client.tsx');
 
-const getCriticalStyles = criticalCss();
-
 const calculateTime = (startTime: number) =>
   Math.round((performance.now() - startTime) * 100) / 100;
-
-const serializePageData = (pageData: any) =>
-  `<script id="__CRACKLE_PAGE_DATA" type="application/json">${serializeJavascript(
-    pageData,
-    { isJSON: true },
-  )}</script>`;
 
 export const start = async () => {
   const app = express();
@@ -61,6 +52,9 @@ export const start = async () => {
         'utility-types',
         'uuid',
         '@vanilla-extract/css',
+        'used-styles',
+        'serialize-javascript',
+        ...builtinModules,
       ],
       noExternal: [
         'braid-design-system',
@@ -81,37 +75,18 @@ export const start = async () => {
     }
 
     try {
-      let template = `
-      <body>
-      <!--critical-css-->
-      <div id="app"><!--ssr-outlet--></div>
-      <!--page-data-->
-      <script type="module" src="${clientEntry}"></script>
-      </body>
-      `.trim();
-
-      template = await vite.transformIndexHtml(req.originalUrl, template);
-
-      const { render } = (await vite.ssrLoadModule(
-        require.resolve('../entries/server.tsx'),
+      const { renderDevelopmentPage } = (await vite.ssrLoadModule(
+        require.resolve('../entries/render/dev.tsx'),
       )) as {
-        render: RenderFn;
+        renderDevelopmentPage: RenderPageFn;
       };
 
-      const { html: rawHtml, pageData } = await render({
+      const html = await renderDevelopmentPage({
         path: req.originalUrl,
+        entry: clientEntry,
       });
 
-      const { styles, html } = await getCriticalStyles(render, rawHtml);
-
-      // 5. Inject the app-rendered HTML into the template.
-      const finalHtml = template
-        .replace(`<!--ssr-outlet-->`, html)
-        .replace('<!--critical-css-->', styles)
-        .replace('<!--page-data-->', serializePageData(pageData));
-
-      // 6. Send the rendered HTML back.
-      res.status(200).set({ 'Content-Type': 'text/html' }).end(finalHtml);
+      res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
     } catch (e: any) {
       // If an error is caught, let vite fix the stracktrace so it maps back to
       // your actual source code.

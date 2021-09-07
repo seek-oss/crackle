@@ -59,9 +59,9 @@ export const build = async () => {
       minify: false,
       ssr: true,
       rollupOptions: {
-        input: require.resolve('../entries/render.tsx'),
+        input: { render: require.resolve('../entries/render/build.tsx') },
       },
-      outDir: getWorkdirPath('/dist-render'),
+      outDir: getWorkdirPath('dist-render'),
     },
     // @ts-expect-error
     ssr: {
@@ -88,6 +88,7 @@ export const build = async () => {
         'utility-types',
         'uuid',
         '@vanilla-extract/css',
+        'serialize-javascript',
       ],
       noExternal: ['braid-design-system'],
     },
