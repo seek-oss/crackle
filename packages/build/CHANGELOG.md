@@ -1,5 +1,13 @@
 # @crackle/build
 
+## 0.1.0
+
+### Minor Changes
+
+- Add global metadata feature.
+
+  Pages can now export `globalMetadata` in the `routeData`, and that information becomes available to consume as a prop on the app shell.
+
 ## 0.0.7
 
 ### Patch Changes
