@@ -28,7 +28,7 @@ export type RouteMap = Record<
   string,
   {
     pageName: string;
-    globalMetadata: Record<string, unknown>;
+    globalMetadata?: Record<string, unknown>;
   }
 >;
 

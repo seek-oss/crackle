@@ -27,8 +27,6 @@ export const renderDevelopmentPage: RenderPageFn = ({ path, entry }) => {
     routeMap,
   };
 
-  const headTags = [];
-
   const bodyTags = [
     <script
       key="react-refresh"
@@ -42,7 +40,7 @@ export const renderDevelopmentPage: RenderPageFn = ({ path, entry }) => {
   const html = renderToString(
     <Page
       path={path}
-      headTags={headTags}
+      headTags={null}
       bodyTags={bodyTags}
       pageData={pageData}
       criticalCssPlaceholder={criticalCssPlaceholder}

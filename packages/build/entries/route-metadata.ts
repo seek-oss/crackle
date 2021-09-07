@@ -2,7 +2,7 @@ import { RouteMap } from './types';
 
 function mapValues<Input extends Record<string, any>, OutputValue>(
   input: Input,
-  fn: (value: Input[keyof Input]) => OutputValue,
+  fn: (value: Input[keyof Input]) => NonNullable<OutputValue>,
 ): Record<keyof Input, OutputValue> {
   const result: any = {};
 
@@ -16,4 +16,4 @@ function mapValues<Input extends Record<string, any>, OutputValue>(
 }
 
 export const extractRouteMetadata = (routeMap: RouteMap) =>
-  mapValues(routeMap, ({ globalMetadata }) => globalMetadata);
+  mapValues(routeMap, ({ globalMetadata }) => globalMetadata ?? {});

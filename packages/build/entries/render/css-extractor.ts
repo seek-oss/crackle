@@ -70,7 +70,7 @@ export const inlineCriticalCss = async (
 
   const styleDefs = loadStyleDefinitions(
     () => Array.from(cssByFileScope.keys()),
-    (fileScopeKey) => cssByFileScope.get(fileScopeKey),
+    (fileScopeKey) => cssByFileScope.get(fileScopeKey) ?? '',
   );
 
   await styleDefs;
