@@ -1,0 +1,18 @@
+{
+  "name": "@crackle/router",
+  "version": "0.0.1",
+  "main": "dist/crackle-router.cjs.js",
+  "module": "dist/crackle-router.esm.js",
+  "author": "Ben",
+  "license": "MIT",
+  "files": [
+    "/dist"
+  ],
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-router-dom": "^6.0.0-beta.2"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.19"
+  }
+}
