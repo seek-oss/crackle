@@ -1,5 +1,11 @@
 # @crackle/build
 
+## 0.1.1
+
+### Patch Changes
+
+- 6fba012: Fix the dependency prebundling when installed
+
 ## 0.1.0
 
 ### Minor Changes
