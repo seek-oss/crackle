@@ -1,5 +1,11 @@
 /* eslint-disable no-console */
-import { start, build, buildPackage, serve } from '@crackle/build';
+import {
+  start,
+  build,
+  buildPackage,
+  serve,
+  getAllRoutes,
+} from '@crackle/build';
 import yargs from 'yargs';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-expressions
@@ -27,6 +33,12 @@ yargs(process.argv.slice(2))
     command: 'package',
     handler: async () => {
       buildPackage();
+    },
+  })
+  .command({
+    command: 'routes',
+    handler: async () => {
+      getAllRoutes();
     },
   })
   .help()

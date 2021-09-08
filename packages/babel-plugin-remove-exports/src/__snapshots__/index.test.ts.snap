@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`babel-plugin-remove-exports 1. babel-plugin-remove-exports: 1. babel-plugin-remove-exports 1`] = `
+"
+import { createRouteData } from '@crackle/router';
+import React from 'react';
+
+import { Something } from '../Somewhere';
+
+export const routeData = createRouteData<BraidMetadata>(() => ({
+  route: '/details',
+  globalMetadata: {
+    isDeprecated: true,
+    componentName: 'Details',
+  },
+}));
+
+export default function () {
+  return <Something />;
+}
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import { createRouteData } from '@crackle/router';
+import React from 'react';
+import { Something } from '../Somewhere';
+export const routeData = createRouteData<BraidMetadata>(() => ({
+  route: '/details',
+  globalMetadata: {
+    isDeprecated: true,
+    componentName: 'Details'
+  }
+}));
+export default function () {
+  return <Something />;
+}
+"
+`;
