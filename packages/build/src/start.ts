@@ -26,10 +26,11 @@ export const start = async () => {
     ...commonViteConfig,
     server: { middlewareMode: 'ssr', port: config.port },
     plugins: [reactRefresh(), vanillaExtractPlugin()],
-    // Vite doesn't scan virtual entries for dependencies, so this needs to be set manually
-    // https://github.com/vitejs/vite/blob/e8c19069984835114084dbc650f2a01335d6365f/packages/vite/src/node/optimizer/scan.ts#L74-L75
-    optimizeDeps: {
-      entries: clientEntry,
+    // Vite doesn't allow dependency bundling if the entry file is inside node_modules. Rollup options is not bound by that constraint.
+    // https://github.com/vitejs/vite/blob/bf0b631e7479ed70d02b98b780cf7e4b02d0344b/packages/vite/src/node/optimizer/scan.ts#L56-L61
+    // https://github.com/vitejs/vite/blob/bf0b631e7479ed70d02b98b780cf7e4b02d0344b/packages/vite/src/node/optimizer/scan.ts#L124-L125
+    build: {
+      rollupOptions: { input: clientEntry },
     },
     // @ts-expect-error
     ssr: {

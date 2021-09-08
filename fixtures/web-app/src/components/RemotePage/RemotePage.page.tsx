@@ -6,7 +6,7 @@ import { BraidMetadata } from '../../types';
 import { RemotePageContent } from './components/RemotePageContent';
 
 export const routeData = createRouteData<BraidMetadata>(() => ({
-  route: '/remote',
+  route: '/remote/page',
   globalMetadata: {
     isDeprecated: false,
     componentName: 'Remote page',
