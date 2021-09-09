@@ -7,15 +7,21 @@ const tests = [
 import { createRouteData } from '@crackle/router';
 import React from 'react';
 
+import { routeSetterUpper, unusedFunctions } from './internalRoutingLogic';
+
 import { Something } from '../Somewhere';
 
-export const routeData = createRouteData<BraidMetadata>(() => ({
-  route: '/details',
-  globalMetadata: {
-    isDeprecated: true,
-    componentName: 'Details',
-  },
-}));
+export const routeData = createRouteData<BraidMetadata>(() => {
+  const myRoute = '/details';
+  return {
+    route: myRoute,
+    someDetail: routeSetterUpper(),
+    globalMetadata: {
+      isDeprecated: true,
+      componentName: 'Details',
+    },
+  }
+});
 
 export default function () {
   return <Something />;

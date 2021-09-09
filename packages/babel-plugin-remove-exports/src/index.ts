@@ -1,14 +1,49 @@
 import { types as t, PluginObj, PluginPass } from '@babel/core';
+import { Visitor } from '@babel/traverse';
 
-type Context = PluginPass;
+interface Context extends PluginPass {
+  identifiersToKeep: string[];
+}
+
+const identifierIdentifier: Visitor<Context> = {
+  Identifier(path) {
+    if (!t.isObjectProperty(path.parent) && !t.isTSType(path.parent)) {
+      const identifier = path.node.name;
+      const binding = path.scope.getBinding(identifier);
+
+      if (!binding) {
+        return;
+      }
+
+      const programScope = binding.scope.getProgramParent();
+      if (programScope.hasBinding(identifier)) {
+        this.identifiersToKeep.push(path.node.name);
+      }
+    }
+  },
+};
 
 export default function (): PluginObj<Context> {
   return {
+    pre() {
+      this.identifiersToKeep = ['routeData'];
+    },
     visitor: {
       Program: {
         exit(path) {
-          // path.scope.getAllBindings().filter(binding => {
-          // })
+          const bodyPath = path.get('body');
+
+          for (const statement of bodyPath) {
+            const identifiers = statement.getBindingIdentifiers(false);
+
+            if (
+              !Object.keys(identifiers).some((name) =>
+                this.identifiersToKeep.includes(name),
+              )
+            ) {
+              statement.remove();
+            }
+          }
         },
       },
       ExportNamedDeclaration(path) {
@@ -18,16 +53,14 @@ export default function (): PluginObj<Context> {
             name: 'routeData',
           })
         ) {
-          console.log(path.scope.bindings.routeData.referencePaths);
+          let declarationPath = path.get('declaration.declarations.0.init');
+
+          if (Array.isArray(declarationPath)) {
+            declarationPath = declarationPath[0];
+          }
+
+          declarationPath.traverse(identifierIdentifier, this);
         }
-
-        // path.traverse({
-        //   FunctionDeclaration(functionPath) {
-        //     console.log(functionPath.scope.getAllBindings());
-        //   },
-        // });
-
-        // path.remove();
       },
     },
   };

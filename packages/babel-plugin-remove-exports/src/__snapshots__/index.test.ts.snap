@@ -5,15 +5,21 @@ exports[`babel-plugin-remove-exports 1. babel-plugin-remove-exports: 1. babel-pl
 import { createRouteData } from '@crackle/router';
 import React from 'react';
 
+import { routeSetterUpper, unusedFunctions } from './internalRoutingLogic';
+
 import { Something } from '../Somewhere';
 
-export const routeData = createRouteData<BraidMetadata>(() => ({
-  route: '/details',
-  globalMetadata: {
-    isDeprecated: true,
-    componentName: 'Details',
-  },
-}));
+export const routeData = createRouteData<BraidMetadata>(() => {
+  const myRoute = '/details';
+  return {
+    route: myRoute,
+    someDetail: routeSetterUpper(),
+    globalMetadata: {
+      isDeprecated: true,
+      componentName: 'Details',
+    },
+  }
+});
 
 export default function () {
   return <Something />;
@@ -22,17 +28,17 @@ export default function () {
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import { createRouteData } from '@crackle/router';
-import React from 'react';
-import { Something } from '../Somewhere';
-export const routeData = createRouteData<BraidMetadata>(() => ({
-  route: '/details',
-  globalMetadata: {
-    isDeprecated: true,
-    componentName: 'Details'
-  }
-}));
-export default function () {
-  return <Something />;
-}
+import { routeSetterUpper, unusedFunctions } from './internalRoutingLogic';
+export const routeData = createRouteData<BraidMetadata>(() => {
+  const myRoute = '/details';
+  return {
+    route: myRoute,
+    someDetail: routeSetterUpper(),
+    globalMetadata: {
+      isDeprecated: true,
+      componentName: 'Details'
+    }
+  };
+});
 "
 `;
