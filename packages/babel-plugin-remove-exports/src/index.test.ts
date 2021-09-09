@@ -158,6 +158,28 @@ const tests = [
       export { routeData };`,
   },
   {
+    title: 'Renamed export',
+    code: `
+      import { createRouteData } from '@crackle/router';
+      import React from 'react';
+
+      const routes = createRouteData<BraidMetadata>(() => ({
+        route: '/details',
+        globalMetadata: {
+          isDeprecated: true,
+          componentName: 'Details',
+        },
+      }));
+
+      const MyComponent = () => <div />;
+
+      export default function () {
+        return <MyComponent />;
+      }
+
+      export { routes as routeData };`,
+  },
+  {
     title: 'Local variable used in an imported function',
     code: `
       import { createRouteData } from '@crackle/router';

@@ -132,6 +132,41 @@ export const routeData = createRouteData<BraidMetadata>(() => ({
 "
 `;
 
+exports[`babel-plugin-remove-exports Renamed export: Renamed export 1`] = `
+"
+import { createRouteData } from '@crackle/router';
+import React from 'react';
+
+const routes = createRouteData<BraidMetadata>(() => ({
+  route: '/details',
+  globalMetadata: {
+    isDeprecated: true,
+    componentName: 'Details',
+  },
+}));
+
+const MyComponent = () => <div />;
+
+export default function () {
+  return <MyComponent />;
+}
+
+export { routes as routeData };
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import { createRouteData } from '@crackle/router';
+const routes = createRouteData<BraidMetadata>(() => ({
+  route: '/details',
+  globalMetadata: {
+    isDeprecated: true,
+    componentName: 'Details'
+  }
+}));
+export { routes as routeData };
+"
+`;
+
 exports[`babel-plugin-remove-exports Separated named export: Separated named export 1`] = `
 "
 import { createRouteData } from '@crackle/router';
