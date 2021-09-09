@@ -14,7 +14,7 @@ import { commonViteConfig } from './vite-config';
 
 export * from './types';
 
-const clientEntry = require.resolve('../entries/client.tsx');
+const clientEntry = require.resolve('../../entries/client.tsx');
 
 const calculateTime = (startTime: number) =>
   Math.round((performance.now() - startTime) * 100) / 100;
@@ -77,7 +77,7 @@ export const start = async () => {
 
     try {
       const { renderDevelopmentPage } = (await vite.ssrLoadModule(
-        require.resolve('../entries/render/dev.tsx'),
+        require.resolve('../../entries/render/dev.tsx'),
       )) as {
         renderDevelopmentPage: RenderPageFn;
       };

@@ -46,7 +46,7 @@ export const build = async () => {
     build: {
       manifest: true,
       rollupOptions: {
-        input: require.resolve('../entries/client.tsx'),
+        input: require.resolve('../../entries/client.tsx'),
       },
     },
   });
@@ -59,7 +59,7 @@ export const build = async () => {
       minify: false,
       ssr: true,
       rollupOptions: {
-        input: { render: require.resolve('../entries/render/build.tsx') },
+        input: { render: require.resolve('../../entries/render/build.tsx') },
       },
       outDir: getWorkdirPath('dist-render'),
     },
