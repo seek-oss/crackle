@@ -21,6 +21,11 @@ const criticalCssPlaceholder = '__CRACKLE_CRITICAL_CSS__';
 
 export const renderDevelopmentPage: RenderPageFn = ({ path, entry }) => {
   const routeMap = createRouteMap();
+
+  if (!routeMap[path]) {
+    throw new Error(`Unable to find path ${path}`);
+  }
+
   const { default: PageComponent } = nodePageModules[routeMap[path].pageName];
 
   const pageData = {

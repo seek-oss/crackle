@@ -89,11 +89,15 @@ export const start = async () => {
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
     } catch (e: any) {
-      // If an error is caught, let vite fix the stracktrace so it maps back to
-      // your actual source code.
-      vite.ssrFixStacktrace(e);
-      console.error(e);
-      res.status(500).end(e.message);
+      if (e instanceof Error && e.message.startsWith('Unable to find path')) {
+        res.status(404).end(e.message);
+      } else {
+        // If an error is caught, let vite fix the stracktrace so it maps back to
+        // your actual source code.
+        vite.ssrFixStacktrace(e);
+        console.error(e);
+        res.status(500).end(e.message);
+      }
     }
 
     console.log(`Request completed in ${calculateTime(startTime)}ms`);
