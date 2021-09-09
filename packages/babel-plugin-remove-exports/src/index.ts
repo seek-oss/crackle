@@ -1,24 +1,30 @@
 import { types as t, PluginObj, PluginPass } from '@babel/core';
-import { Visitor } from '@babel/traverse';
+import { NodePath, Visitor } from '@babel/traverse';
 
 interface Context extends PluginPass {
-  identifiersToKeep: string[];
+  identifiersToKeep: Set<string>;
 }
 
 const identifierIdentifier: Visitor<Context> = {
   Identifier(path) {
-    if (!t.isObjectProperty(path.parent) && !t.isTSType(path.parent)) {
-      const identifier = path.node.name;
-      const binding = path.scope.getBinding(identifier);
+    const identifier = path.node.name;
+    if (this.identifiersToKeep.has(identifier)) {
+      return;
+    }
 
-      if (!binding) {
-        return;
-      }
+    const binding = path.scope.getBinding(identifier);
 
-      const programScope = binding.scope.getProgramParent();
-      if (programScope.hasBinding(identifier)) {
-        this.identifiersToKeep.push(path.node.name);
-      }
+    if (!binding) {
+      return;
+    }
+
+    const programScope = binding.scope.getProgramParent();
+    const programBinding = programScope.getBinding(identifier);
+
+    if (programBinding) {
+      this.identifiersToKeep.add(path.node.name);
+
+      programBinding.path.traverse(identifierIdentifier, this);
     }
   },
 };
@@ -26,7 +32,7 @@ const identifierIdentifier: Visitor<Context> = {
 export default function (): PluginObj<Context> {
   return {
     pre() {
-      this.identifiersToKeep = ['routeData'];
+      this.identifiersToKeep = new Set<string>();
     },
     visitor: {
       Program: {
@@ -36,10 +42,22 @@ export default function (): PluginObj<Context> {
           for (const statement of bodyPath) {
             const identifiers = statement.getBindingIdentifiers(false);
 
+            const statementBindsKeptIdentifier = Object.keys(identifiers).some(
+              (name) => this.identifiersToKeep.has(name),
+            );
+
+            const statementNode = statement.node;
+            const statementExportsKeptIdentifier =
+              t.isExportNamedDeclaration(statementNode) &&
+              statementNode.specifiers.some(
+                (specifier) =>
+                  t.isExportSpecifier(specifier) &&
+                  this.identifiersToKeep.has(specifier.local.name),
+              );
+
             if (
-              !Object.keys(identifiers).some((name) =>
-                this.identifiersToKeep.includes(name),
-              )
+              !statementBindsKeptIdentifier &&
+              !statementExportsKeptIdentifier
             ) {
               statement.remove();
             }
@@ -47,13 +65,25 @@ export default function (): PluginObj<Context> {
         },
       },
       ExportNamedDeclaration(path) {
+        const specifiers = path.get('specifiers');
+
+        if (specifiers && specifiers.length > 0) {
+          const routeDataSpecifier = specifiers.find((specifier) =>
+            t.isIdentifier(specifier.node.exported, { name: 'routeData' }),
+          ) as NodePath<t.ExportSpecifier> | undefined;
+
+          if (routeDataSpecifier) {
+            routeDataSpecifier.traverse(identifierIdentifier, this);
+          }
+        }
+
         if (
           t.isVariableDeclaration(path.node.declaration) &&
           t.isIdentifier(path.node.declaration.declarations[0].id, {
             name: 'routeData',
           })
         ) {
-          let declarationPath = path.get('declaration.declarations.0.init');
+          let declarationPath = path.get('declaration');
 
           if (Array.isArray(declarationPath)) {
             declarationPath = declarationPath[0];
