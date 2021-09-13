@@ -6,18 +6,12 @@ import { build as viteBuild, InlineConfig as ViteConfig, Manifest } from 'vite';
 
 import type { RenderAllPagesFn } from '../entries/types';
 
-import { getConfig, InlineConfig } from './config';
+import { getConfig, PartialConfig } from './config';
 import type { GetArrayType, ValueType } from './types';
-import { getWorkdirPath } from './utils';
 import { commonViteConfig } from './vite-config';
 
 type BuildOutput = ValueType<ReturnType<typeof viteBuild>>;
 type RollupOutput = GetArrayType<BuildOutput>;
-
-const commonBuildConfig: ViteConfig = {
-  ...commonViteConfig,
-  plugins: [vanillaExtractPlugin({ identifiers: 'short' })],
-};
 
 const extractManifestFile = (buildOutput: BuildOutput): Manifest => {
   if (Array.isArray(buildOutput)) {
@@ -39,8 +33,13 @@ const extractManifestFile = (buildOutput: BuildOutput): Manifest => {
   return JSON.parse(manifestString.source as string) as Manifest;
 };
 
-export const build = async (inlineConfig?: InlineConfig) => {
+export const build = async (inlineConfig?: PartialConfig) => {
   const config = getConfig(inlineConfig);
+
+  const commonBuildConfig: ViteConfig = {
+    ...commonViteConfig(config),
+    plugins: [vanillaExtractPlugin({ identifiers: 'short' })],
+  };
 
   const output = await viteBuild({
     ...commonBuildConfig,
@@ -63,7 +62,7 @@ export const build = async (inlineConfig?: InlineConfig) => {
       rollupOptions: {
         input: { render: require.resolve('../../entries/render/build.tsx') },
       },
-      outDir: getWorkdirPath('dist-render'),
+      outDir: config.resolveFromRoot('dist-render'),
     },
     // @ts-expect-error
     ssr: {
@@ -108,7 +107,7 @@ export const build = async (inlineConfig?: InlineConfig) => {
   });
 
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const renderAllPages = require(getWorkdirPath('dist-render/render'))
+  const renderAllPages = require(config.resolveFromRoot('dist-render/render'))
     .renderAllPages as RenderAllPagesFn;
 
   const pages = renderAllPages(manifest, config.publicPath);

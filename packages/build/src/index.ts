@@ -4,4 +4,5 @@ export { serve } from './serve';
 export { start } from './start';
 export { getAllRoutes } from './route-data';
 
-export type { AppShell } from './types';
+export type { PartialConfig } from './config';
+export type { AppShell, CrackleServer } from './types';

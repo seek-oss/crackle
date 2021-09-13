@@ -1,13 +1,14 @@
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import type { InlineConfig } from 'vite';
 
-import { getWorkdirPath } from './utils';
+import { Config } from './config';
 
-export const commonViteConfig: InlineConfig = {
+export const commonViteConfig = (config: Config): InlineConfig => ({
+  root: config.root,
   plugins: [vanillaExtractPlugin({ identifiers: 'short' })],
   resolve: {
     alias: {
-      __THE_ENTRY: getWorkdirPath('/src/App.tsx'),
+      __THE_ENTRY: config.resolveFromRoot('/src/App.tsx'),
       'sku/react-treat': require.resolve('../mocks/react-treat.tsx'),
       'sku/treat': require.resolve('../mocks/treat.ts'),
     },
@@ -16,4 +17,4 @@ export const commonViteConfig: InlineConfig = {
     'process.env.NODE_DEBUG': JSON.stringify(false),
     global: JSON.stringify({}),
   },
-};
+});

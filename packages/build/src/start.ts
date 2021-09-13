@@ -10,7 +10,8 @@ import { createServer as createViteServer } from 'vite';
 
 import type { RenderDevPageFn } from '../entries/types';
 
-import { getConfig, Config } from './config';
+import { getConfig, PartialConfig } from './config';
+import type { CrackleServer } from './types';
 import { commonViteConfig } from './vite-config';
 
 export * from './types';
@@ -20,12 +21,14 @@ const clientEntry = require.resolve('../../entries/client.tsx');
 const calculateTime = (startTime: number) =>
   Math.round((performance.now() - startTime) * 100) / 100;
 
-export const start = async (inlineConfig?: Config) => {
+export const start = async (
+  inlineConfig?: PartialConfig,
+): Promise<CrackleServer> => {
   const config = getConfig(inlineConfig);
   const app = express();
 
   const vite = await createViteServer({
-    ...commonViteConfig,
+    ...commonViteConfig(config),
     server: { middlewareMode: 'ssr', port: config.port },
     plugins: [reactRefresh(), vanillaExtractPlugin()],
     // Vite doesn't allow dependency bundling if the entry file is inside node_modules. Rollup options is not bound by that constraint.
@@ -106,7 +109,23 @@ export const start = async (inlineConfig?: Config) => {
     console.log(`Request completed in ${calculateTime(startTime)}ms`);
   });
 
-  app.listen(config.port, () => {
-    console.log('Server running at', `http://localhost:${config.port}`);
+  const url = `http://localhost:${config.port}`;
+
+  const server = app.listen(config.port, () => {
+    console.log('Server running at', url);
   });
+
+  return {
+    url,
+    close: () =>
+      new Promise<void>((res, rej) => {
+        server.close((err) => {
+          if (err) {
+            return rej(err);
+          }
+
+          res();
+        });
+      }),
+  };
 };

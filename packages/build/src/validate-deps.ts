@@ -2,10 +2,11 @@ import fs from 'fs';
 
 import { listDuplicates } from 'yarn-deduplicate';
 
-import { getWorkdirPath } from './utils';
+import { getConfig } from './config';
 
 export const validateDeps = () => {
-  const lockfileLocation = getWorkdirPath('yarn.lock');
+  const config = getConfig();
+  const lockfileLocation = config.resolveFromRoot('yarn.lock');
   // eslint-disable-next-line no-sync
   if (fs.existsSync(lockfileLocation)) {
     const duplicates = listDuplicates(lockfileLocation, {

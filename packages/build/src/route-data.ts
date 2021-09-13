@@ -3,6 +3,8 @@ import removeExportsPlugin from '@crackle/babel-plugin-remove-exports';
 import { build as esbuild } from 'esbuild';
 import glob from 'fast-glob';
 
+import { getConfig } from './config';
+
 const routesEntryName = 'ROUTES_ENTRY';
 const routeEntryNs = 'ROUTES_ENTRY_NAMESPACE';
 
@@ -27,7 +29,7 @@ const transformWithBabel = async (path: string) => {
 };
 
 export const getAllRoutes = async () => {
-  const root = process.cwd();
+  const { root } = getConfig();
 
   const pageFiles = await glob(['src/pages/*.tsx', 'src/**/*.page.tsx']);
 

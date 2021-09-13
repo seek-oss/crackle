@@ -5,9 +5,9 @@ import glob from 'fast-glob';
 import externals from 'rollup-plugin-node-externals';
 import { build as viteBuild } from 'vite';
 
+import { getConfig, PartialConfig } from './config';
 import typescriptDeclarations from './rollup-plugin-ts-declarations';
 import type { ManualChunksFn } from './types';
-import { getWorkdirPath } from './utils';
 import { commonViteConfig } from './vite-config';
 import { addVanillaDebugIds } from './vite-plugin-vanilla-libraries';
 
@@ -23,23 +23,25 @@ const manualChunks: ManualChunksFn = (id, { getModuleInfo }) => {
   }
 };
 
-export const buildPackage = async () => {
+export const buildPackage = async (inlineConfig?: PartialConfig) => {
+  const config = getConfig(inlineConfig);
   const entries = await glob(['src/entries/*.ts', 'src/index.ts'], {
     absolute: true,
+    cwd: config.root,
   });
 
   await viteBuild({
-    ...commonViteConfig,
+    ...commonViteConfig(config),
     plugins: [
       {
         ...externals({
           deps: true,
-          packagePath: getWorkdirPath('./package.json'),
+          packagePath: config.resolveFromRoot('./package.json'),
         }),
         enforce: 'pre',
       },
       typescriptDeclarations({
-        directory: process.cwd(),
+        directory: config.root,
         name: 'my-package',
         entrypoints: entries.map((entry) => ({ source: entry })),
       }),
@@ -52,7 +54,7 @@ export const buildPackage = async () => {
         entry: '',
         formats: ['es'],
       },
-      outDir: process.cwd(),
+      outDir: config.root,
       rollupOptions: {
         input: entries,
         treeshake: {
