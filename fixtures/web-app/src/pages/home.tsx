@@ -22,7 +22,7 @@ export default function Home() {
           <TextLink href="/details">Details</TextLink>
         </Text>
         <Text>
-          <TextLink href={crackleLink('/remote')}>Remote page</TextLink>
+          <TextLink href={crackleLink('/remote/page')}>Remote page</TextLink>
         </Text>
 
         <JobSummary isNew={true} title="Red bordered job" />

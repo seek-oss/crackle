@@ -2,6 +2,7 @@ import 'braid-design-system/reset';
 
 import type { AppShell } from '@crackle/build';
 import { Link } from '@crackle/router';
+import type { ValidRoute } from '@crackle/router';
 import {
   Box,
   BraidProvider,
@@ -20,7 +21,7 @@ import { BraidMetadata } from './types';
 
 const CustomLink = makeLinkComponent(({ href, ...restProps }, ref) =>
   href[0] === '/' ? (
-    <Link ref={ref} to={href} {...restProps} />
+    <Link ref={ref} to={href as ValidRoute} {...restProps} />
   ) : (
     <a ref={ref} href={href} {...restProps} />
   ),
