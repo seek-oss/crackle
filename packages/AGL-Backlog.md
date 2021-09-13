@@ -1,8 +1,0 @@
-- Check that routes aren't duplicated/clashing
-- Script for showing all the routes and their source
-- Handle brotli (Safari 10)
-- ESLint plugin to make sure that a page file is correctly set up
-- Add redundant stack checking
-- Multi entry libraries should autoupdate their gitignore
-- Page flicker is back on static render
-- Investigate the Three Refreshes
