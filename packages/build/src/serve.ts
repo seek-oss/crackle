@@ -3,9 +3,10 @@ import http from 'http';
 
 import handler from 'serve-handler';
 
-import { config } from './config';
+import { getConfig, InlineConfig } from './config';
 
-export const serve = () => {
+export const serve = (inlineConfig?: InlineConfig) => {
+  const config = getConfig(inlineConfig);
   const server = http.createServer((request, response) =>
     handler(request, response, {
       public: './dist',

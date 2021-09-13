@@ -10,7 +10,7 @@ import { createServer as createViteServer } from 'vite';
 
 import type { RenderDevPageFn } from '../entries/types';
 
-import { config } from './config';
+import { getConfig, Config } from './config';
 import { commonViteConfig } from './vite-config';
 
 export * from './types';
@@ -20,7 +20,8 @@ const clientEntry = require.resolve('../../entries/client.tsx');
 const calculateTime = (startTime: number) =>
   Math.round((performance.now() - startTime) * 100) / 100;
 
-export const start = async () => {
+export const start = async (inlineConfig?: Config) => {
+  const config = getConfig(inlineConfig);
   const app = express();
 
   const vite = await createViteServer({

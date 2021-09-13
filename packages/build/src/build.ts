@@ -2,11 +2,11 @@ import fs from 'fs/promises';
 
 import { setAdapter } from '@vanilla-extract/css/adapter';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
-import { build as viteBuild, InlineConfig, Manifest } from 'vite';
+import { build as viteBuild, InlineConfig as ViteConfig, Manifest } from 'vite';
 
 import type { RenderAllPagesFn } from '../entries/types';
 
-import { config } from './config';
+import { getConfig, InlineConfig } from './config';
 import type { GetArrayType, ValueType } from './types';
 import { getWorkdirPath } from './utils';
 import { commonViteConfig } from './vite-config';
@@ -14,7 +14,7 @@ import { commonViteConfig } from './vite-config';
 type BuildOutput = ValueType<ReturnType<typeof viteBuild>>;
 type RollupOutput = GetArrayType<BuildOutput>;
 
-const commonBuildConfig: InlineConfig = {
+const commonBuildConfig: ViteConfig = {
   ...commonViteConfig,
   plugins: [vanillaExtractPlugin({ identifiers: 'short' })],
 };
@@ -39,7 +39,9 @@ const extractManifestFile = (buildOutput: BuildOutput): Manifest => {
   return JSON.parse(manifestString.source as string) as Manifest;
 };
 
-export const build = async () => {
+export const build = async (inlineConfig?: InlineConfig) => {
+  const config = getConfig(inlineConfig);
+
   const output = await viteBuild({
     ...commonBuildConfig,
     base: config.publicPath,
