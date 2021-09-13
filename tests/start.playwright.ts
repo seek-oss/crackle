@@ -1,7 +1,7 @@
 import path from 'path';
 
-import { start as startCrackle } from '@crackle/build/start';
-import type { CrackleServer } from '@crackle/build';
+import type { CrackleServer } from '@crackle/core';
+import { start as startCrackle } from '@crackle/core/start';
 import { test, expect } from '@playwright/test';
 
 let server: CrackleServer;

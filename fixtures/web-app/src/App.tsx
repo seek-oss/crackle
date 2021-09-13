@@ -1,6 +1,6 @@
 import 'braid-design-system/reset';
 
-import type { AppShell } from '@crackle/build';
+import type { AppShell } from '@crackle/core';
 import { Link } from '@crackle/router';
 import type { ValidRoute } from '@crackle/router';
 import {

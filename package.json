@@ -6,7 +6,7 @@
     "dev": "preconstruct dev",
     "build": "preconstruct build",
     "watch": "preconstruct watch",
-    "release": "yarn lint && yarn crackle:build && changeset publish",
+    "release": "yarn lint && yarn build && yarn test && changeset publish",
     "lint": "tsc --noEmit && eslint packages fixtures && prettier --check packages fixtures",
     "format": "eslint --fix packages fixtures && prettier --write packages fixtures",
     "test": "yarn test:jest && yarn test:playwright",

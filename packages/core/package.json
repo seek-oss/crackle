@@ -1,7 +1,7 @@
 {
-  "name": "@crackle/build",
+  "name": "@crackle/core",
   "version": "0.1.1",
-  "main": "dist/crackle-build.cjs.js",
+  "main": "dist/crackle-core.cjs.js",
   "author": "Ben",
   "license": "MIT",
   "files": [

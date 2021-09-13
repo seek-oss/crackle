@@ -7,35 +7,35 @@ yargs(process.argv.slice(2))
   .command({
     command: 'start',
     handler: async () => {
-      const { start } = await import('@crackle/build/start');
+      const { start } = await import('@crackle/core/start');
       await start();
     },
   })
   .command({
     command: 'build',
     handler: async () => {
-      const { build } = await import('@crackle/build/build');
+      const { build } = await import('@crackle/core/build');
       await build();
     },
   })
   .command({
     command: 'serve',
     handler: async () => {
-      const { serve } = await import('@crackle/build/serve');
+      const { serve } = await import('@crackle/core/serve');
       await serve();
     },
   })
   .command({
     command: 'package',
     handler: async () => {
-      const { buildPackage } = await import('@crackle/build/package');
+      const { buildPackage } = await import('@crackle/core/package');
       await buildPackage();
     },
   })
   .command({
     command: 'routes',
     handler: async () => {
-      const { getAllRoutes } = await import('@crackle/build/route-data');
+      const { getAllRoutes } = await import('@crackle/core/route-data');
       const pages = await getAllRoutes();
       console.table(pages);
     },

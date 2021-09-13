@@ -1,6 +1,6 @@
 import path from 'path';
 
-import { build, serve, CrackleServer, PartialConfig } from '@crackle/build';
+import { build, serve, CrackleServer, PartialConfig } from '@crackle/core';
 import { test, expect } from '@playwright/test';
 
 let server: CrackleServer;
