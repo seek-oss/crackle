@@ -5,7 +5,7 @@ import { inlineCriticalCss } from './css-extractor';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 
-import type { RenderPageFn } from '../types';
+import type { RenderDevPageFn } from '../types';
 
 import { Page, createRouteMap, nodePageModules } from './shared';
 
@@ -19,7 +19,10 @@ window.__vite_plugin_react_preamble_installed__ = true
 
 const criticalCssPlaceholder = '__CRACKLE_CRITICAL_CSS__';
 
-export const renderDevelopmentPage: RenderPageFn = ({ path, entry }) => {
+export const renderDevelopmentPage: RenderDevPageFn = async ({
+  path,
+  entry,
+}) => {
   const routeMap = createRouteMap();
 
   if (!routeMap[path]) {
@@ -54,5 +57,8 @@ export const renderDevelopmentPage: RenderPageFn = ({ path, entry }) => {
     </Page>,
   );
 
-  return inlineCriticalCss(html, criticalCssPlaceholder);
+  return {
+    html: await inlineCriticalCss(html, criticalCssPlaceholder),
+    routes: Object.keys(routeMap),
+  };
 };

@@ -1,0 +1,4 @@
+{
+  "main": "dist/crackle-router-routes.cjs.js",
+  "module": "dist/crackle-router-routes.esm.js"
+}

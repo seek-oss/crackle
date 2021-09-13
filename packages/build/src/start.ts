@@ -1,13 +1,14 @@
 /* eslint-disable no-console */
 import { performance } from 'perf_hooks';
 
+import { defineRoutes } from '@crackle/router/routes';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import reactRefresh from '@vitejs/plugin-react-refresh';
 import builtinModules from 'builtin-modules';
 import express from 'express';
 import { createServer as createViteServer } from 'vite';
 
-import type { RenderPageFn } from '../entries/types';
+import type { RenderDevPageFn } from '../entries/types';
 
 import { config } from './config';
 import { commonViteConfig } from './vite-config';
@@ -79,15 +80,16 @@ export const start = async () => {
       const { renderDevelopmentPage } = (await vite.ssrLoadModule(
         require.resolve('../../entries/render/dev.tsx'),
       )) as {
-        renderDevelopmentPage: RenderPageFn;
+        renderDevelopmentPage: RenderDevPageFn;
       };
 
-      const html = await renderDevelopmentPage({
+      const { html, routes } = await renderDevelopmentPage({
         path: req.originalUrl,
         entry: clientEntry,
       });
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
+      defineRoutes(routes);
     } catch (e: any) {
       if (e instanceof Error && e.message.startsWith('Unable to find path')) {
         res.status(404).end(e.message);
