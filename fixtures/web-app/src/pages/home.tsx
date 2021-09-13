@@ -1,5 +1,5 @@
 import { JobSummary } from '@crackle-fixtures/single-entry-library';
-import { createRouteData } from '@crackle/router';
+import { createRouteData, crackleLink } from '@crackle/router';
 import { Card, Stack, Text, TextLink } from 'braid-design-system';
 import React from 'react';
 
@@ -22,7 +22,7 @@ export default function Home() {
           <TextLink href="/details">Details</TextLink>
         </Text>
         <Text>
-          <TextLink href="/remote">Remote page</TextLink>
+          <TextLink href={crackleLink('/remote/page')}>Remote page</TextLink>
         </Text>
 
         <JobSummary isNew={true} title="Red bordered job" />

@@ -5,11 +5,11 @@ import glob from 'fast-glob';
 import externals from 'rollup-plugin-node-externals';
 import { build as viteBuild } from 'vite';
 
-import { addVanillaDebugIds } from './babel-plugin-vanilla-libraries';
 import typescriptDeclarations from './rollup-plugin-ts-declarations';
 import type { ManualChunksFn } from './types';
 import { getWorkdirPath } from './utils';
 import { commonViteConfig } from './vite-config';
+import { addVanillaDebugIds } from './vite-plugin-vanilla-libraries';
 
 const manualChunks: ManualChunksFn = (id, { getModuleInfo }) => {
   if (

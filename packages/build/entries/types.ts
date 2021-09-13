@@ -12,6 +12,9 @@ interface RenderParams {
   entry: string;
 }
 export type RenderPageFn = (params: RenderParams) => Promise<string>;
+export type RenderDevPageFn = (
+  params: RenderParams,
+) => Promise<{ html: string; routes: string[] }>;
 
 export type RouteDataFn<Metadata extends Record<string, any>> =
   () => RouteData<Metadata>;
@@ -25,7 +28,7 @@ type Route = string;
 export type RouteMetadata = Record<Route, Record<string, unknown>>;
 
 export type RouteMap = Record<
-  string,
+  Route,
   {
     pageName: string;
     globalMetadata?: Record<string, unknown>;

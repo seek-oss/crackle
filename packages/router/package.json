@@ -6,8 +6,16 @@
   "author": "Ben",
   "license": "MIT",
   "files": [
-    "/dist"
+    "/dist",
+    "/routes",
+    "valid-routes.d.ts"
   ],
+  "preconstruct": {
+    "entrypoints": [
+      "index.ts",
+      "routes.ts"
+    ]
+  },
   "dependencies": {
     "react": "^17.0.2",
     "react-router-dom": "^6.0.0-beta.2"

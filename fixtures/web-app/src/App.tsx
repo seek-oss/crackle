@@ -1,6 +1,8 @@
 import 'braid-design-system/reset';
 
 import type { AppShell } from '@crackle/build';
+import { Link } from '@crackle/router';
+import type { ValidRoute } from '@crackle/router';
 import {
   Box,
   BraidProvider,
@@ -14,13 +16,12 @@ import {
 } from 'braid-design-system';
 import apac from 'braid-design-system/themes/apac';
 import React from 'react';
-import { Link as ReactRouterLink } from 'react-router-dom';
 
 import { BraidMetadata } from './types';
 
 const CustomLink = makeLinkComponent(({ href, ...restProps }, ref) =>
   href[0] === '/' ? (
-    <ReactRouterLink ref={ref} to={href} {...restProps} />
+    <Link ref={ref} to={href as ValidRoute} {...restProps} />
   ) : (
     <a ref={ref} href={href} {...restProps} />
   ),

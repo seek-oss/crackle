@@ -8,7 +8,8 @@
     "crackle:watch": "preconstruct watch",
     "release": "yarn lint && yarn crackle:build && changeset publish",
     "lint": "tsc --noEmit && eslint packages fixtures && prettier --check packages fixtures",
-    "format": "eslint --fix packages fixtures && prettier --write packages fixtures"
+    "format": "eslint --fix packages fixtures && prettier --write packages fixtures",
+    "test": "jest"
   },
   "workspaces": [
     "packages/*",
@@ -20,6 +21,7 @@
     "@babel/preset-typescript": "^7.15.0",
     "@changesets/cli": "^2.17.0",
     "@preconstruct/cli": "^2.0.4",
+    "jest": "^27.1.0",
     "prettier": "^2.3.2",
     "typescript": "^4.3.0"
   },
