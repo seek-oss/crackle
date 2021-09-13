@@ -52,73 +52,80 @@ export const build = async (inlineConfig?: PartialConfig) => {
     },
   });
 
-  await viteBuild({
-    ...commonBuildConfig,
-    mode: 'development',
-    base: config.publicPath,
-    build: {
-      minify: false,
-      ssr: true,
-      rollupOptions: {
-        input: { render: require.resolve('../../entries/render/build.tsx') },
+  try {
+    await viteBuild({
+      ...commonBuildConfig,
+      mode: 'development',
+      base: config.publicPath,
+      build: {
+        minify: false,
+        ssr: true,
+        rollupOptions: {
+          input: {
+            render: require.resolve('../../entries/render/build.tsx'),
+          },
+        },
+        outDir: config.resolveFromRoot('dist-render'),
       },
-      outDir: config.resolveFromRoot('dist-render'),
-    },
-    // @ts-expect-error
-    ssr: {
-      external: [
-        'assert',
-        'autosuggest-highlight',
-        'capsize',
-        'clsx',
-        'csstype',
-        'dedent',
-        'gradient-parser',
-        'is-mobile',
-        'lodash',
-        'polished',
-        'react',
-        'react-element-to-jsx-string',
-        'react-focus-lock',
-        'react-keyed-flatten-children',
-        'react-popper-tooltip',
-        'react-remove-scroll',
-        'react-router',
-        'react-router-dom',
-        'serialize-javascript',
-        'utility-types',
-        'uuid',
-        '@vanilla-extract/css',
-        'serialize-javascript',
-      ],
-      noExternal: ['braid-design-system'],
-    },
-  });
+      // @ts-expect-error
+      ssr: {
+        external: [
+          'assert',
+          'autosuggest-highlight',
+          'capsize',
+          'clsx',
+          'csstype',
+          'dedent',
+          'gradient-parser',
+          'is-mobile',
+          'lodash',
+          'polished',
+          'react',
+          'react-element-to-jsx-string',
+          'react-focus-lock',
+          'react-keyed-flatten-children',
+          'react-popper-tooltip',
+          'react-remove-scroll',
+          'react-router',
+          'react-router-dom',
+          'serialize-javascript',
+          'utility-types',
+          'uuid',
+          '@vanilla-extract/css',
+          'serialize-javascript',
+        ],
+        noExternal: ['braid-design-system'],
+      },
+    });
 
-  const manifest = extractManifestFile(output);
+    const manifest = extractManifestFile(output);
 
-  setAdapter({
-    appendCss: () => {},
-    registerClassName: () => {},
-    onEndFileScope: () => {},
-    registerComposition: () => {},
-    markCompositionUsed: () => {},
-    getIdentOption: () => 'short',
-  });
+    setAdapter({
+      appendCss: () => {},
+      registerClassName: () => {},
+      onEndFileScope: () => {},
+      registerComposition: () => {},
+      markCompositionUsed: () => {},
+      getIdentOption: () => 'short',
+    });
 
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const renderAllPages = require(config.resolveFromRoot('dist-render/render'))
-    .renderAllPages as RenderAllPagesFn;
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const renderAllPages = require(config.resolveFromRoot('dist-render/render'))
+      .renderAllPages as RenderAllPagesFn;
 
-  const pages = renderAllPages(manifest, config.publicPath);
+    const pages = renderAllPages(manifest, config.publicPath);
 
-  await Promise.all(
-    pages.map(async ({ route, html }) => {
-      const dir = `dist/${route}`;
-      await fs.mkdir(dir, { recursive: true });
-      return fs.writeFile(`${dir}/index.html`, html);
-    }),
-  );
-
-  await fs.rm('dist-render', { recursive: true, force: true });
+    await Promise.all(
+      pages.map(async ({ route, html }) => {
+        const dir = `dist/${route}`;
+        await fs.mkdir(dir, { recursive: true });
+        return fs.writeFile(`${dir}/index.html`, html);
+      }),
+    );
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log('Error while building:', error);
+  } finally {
+    await fs.rm('dist-render', { recursive: true, force: true });
+  }
 };
