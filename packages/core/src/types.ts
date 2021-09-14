@@ -1,3 +1,4 @@
+import type React from 'react';
 import type { InlineConfig } from 'vite';
 
 export type ValueType<T> = T extends Promise<infer U> ? U : T;
@@ -12,9 +13,13 @@ export type ManualChunksFn = NonNullable<
 >;
 
 type RoutePath = string;
-export type AppShell<MetadataType extends Record<string, any>> = React.FC<{
-  routeMetadata: Record<RoutePath, MetadataType>;
-}>;
+export type AppShell<
+  MetadataType extends Record<string, any> | undefined = undefined,
+> = MetadataType extends undefined
+  ? React.FC
+  : React.FC<{
+      routeMetadata: Record<RoutePath, MetadataType>;
+    }>;
 
 export interface CrackleServer {
   url: string;
