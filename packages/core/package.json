@@ -1,6 +1,6 @@
 {
   "name": "@crackle/core",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "main": "dist/crackle-core.cjs.js",
   "author": "Ben",
   "license": "MIT",
@@ -30,7 +30,7 @@
   "dependencies": {
     "@babel/core": "^7.15.0",
     "@crackle/babel-plugin-remove-exports": "0.0.1",
-    "@crackle/router": "0.0.1",
+    "@crackle/router": "0.1.0",
     "@vanilla-extract/babel-plugin": "^1.0.1",
     "@vanilla-extract/css": "^1.2.3",
     "@vanilla-extract/integration": "^1.2.0",
