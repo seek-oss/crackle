@@ -10,8 +10,6 @@ export const addPageRoots = (config: Config): Plugin => ({
       return;
     }
 
-    const newCode = code.replace(/__PAGE_ROOTS/g, config.pageRoots.join(','));
-    console.log('newCode: ', newCode);
-    return newCode;
+    return code.replace(/__PAGE_ROOTS/g, config.pageRoots.join(','));
   },
 });

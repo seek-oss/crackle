@@ -8,7 +8,7 @@ export const routeData = createRouteData<BraidMetadata>(() => ({
   route: '/nope',
   globalMetadata: {
     isDeprecated: false,
-    componentName: 'Should not be a pape',
+    componentName: 'Should not be a page',
   },
 }));
 
