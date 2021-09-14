@@ -1,5 +1,13 @@
 # @crackle/cli
 
+## 0.1.1
+
+### Patch Changes
+
+- bfe0faf: getAllRoutes function now respects the config file for pageRoots
+- Updated dependencies [bfe0faf]
+  - @crackle/core@0.2.3
+
 ## 0.1.0
 
 ### Minor Changes
