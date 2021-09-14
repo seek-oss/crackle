@@ -1,4 +1,5 @@
 dist/
+CHANGELOG.md
 
 fixtures/*/components
 fixtures/*/dist
