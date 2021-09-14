@@ -1,4 +1,16 @@
-# @crackle/build
+# @crackle/core
+
+## 0.2.0
+
+### Minor Changes
+
+- 2ec1ec2: Change package name from build to core
+- a259cdb: Multiple page roots can now be specified to determine where to look for .page.tsx files. The implicit inclusion of the src/pages directory is gone, every page file must have the extension now.
+- 72e74fc: Support `crackle.config.ts` files
+
+### Patch Changes
+
+- dd09753: Allowing passing of config to top level commands
 
 ## 0.1.1
 

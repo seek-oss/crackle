@@ -1,5 +1,19 @@
 # @crackle/cli
 
+## 0.1.0
+
+### Minor Changes
+
+- 72e74fc: Support `crackle.config.ts` files
+
+### Patch Changes
+
+- Updated dependencies [2ec1ec2]
+- Updated dependencies [a259cdb]
+- Updated dependencies [72e74fc]
+- Updated dependencies [dd09753]
+  - @crackle/core@0.2.0
+
 ## 0.0.8
 
 ### Patch Changes
