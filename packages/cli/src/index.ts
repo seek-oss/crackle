@@ -60,7 +60,7 @@ yargs(process.argv.slice(2))
     handler: async () => {
       const config = await resolveConfig();
 
-      const { buildPackage } = await import('@crackle/core/package');
+      const { buildPackage } = await import('@crackle/core/build-package');
       await buildPackage(config);
     },
   })

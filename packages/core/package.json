@@ -10,7 +10,7 @@
     "/entries",
     "/index",
     "/mocks",
-    "/package",
+    "/build-package",
     "/resolve-config",
     "/route-data",
     "/serve",
@@ -21,7 +21,7 @@
       "build.ts",
       "resolve-config.ts",
       "index.ts",
-      "package.ts",
+      "build-package.ts",
       "route-data.ts",
       "serve.ts",
       "start.ts"

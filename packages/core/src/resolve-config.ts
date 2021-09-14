@@ -31,7 +31,9 @@ export const resolveConfig = async ({
 
   if (!configFilePath) {
     // eslint-disable-next-line no-console
-    console.log('Unable to locate a crackle.config.ts file.');
+    console.log(
+      'Unable to locate a crackle.config.ts file, using default configuration.',
+    );
     return {};
   }
 
