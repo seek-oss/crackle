@@ -10,7 +10,8 @@ import { createServer as createViteServer } from 'vite';
 
 import type { RenderDevPageFn } from '../entries/types';
 
-import { getConfig, PartialConfig } from './config';
+import type { PartialConfig } from './config';
+import { getConfig } from './config';
 import { clientEntry } from './constants';
 import type { CrackleServer } from './types';
 import { commonViteConfig } from './vite-config';

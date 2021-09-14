@@ -1,4 +1,4 @@
-import { RouteData } from './types';
+import type { RouteData } from './types';
 
 export interface CrackleContext {
   site: 'en' | 'jobsdb';

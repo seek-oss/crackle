@@ -1,6 +1,6 @@
-import { Plugin } from 'vite';
+import type { Plugin } from 'vite';
 
-import { Config } from './config';
+import type { Config } from './config';
 
 export const addPageRoots = (config: Config): Plugin => ({
   enforce: 'pre',

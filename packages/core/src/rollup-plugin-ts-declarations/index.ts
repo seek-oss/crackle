@@ -1,7 +1,7 @@
 import path from 'path';
 
 import normalizePath from 'normalize-path';
-import { Plugin } from 'rollup';
+import type { Plugin } from 'rollup';
 
 import { createDeclarationCreator } from './create-generator';
 import { FatalError } from './errors';

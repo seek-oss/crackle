@@ -3,7 +3,8 @@ import http from 'http';
 
 import handler from 'serve-handler';
 
-import { getConfig, PartialConfig } from './config';
+import type { PartialConfig } from './config';
+import { getConfig } from './config';
 import type { CrackleServer } from './types';
 
 export const serve = (inlineConfig?: PartialConfig): CrackleServer => {

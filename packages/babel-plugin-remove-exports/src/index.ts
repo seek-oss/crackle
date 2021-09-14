@@ -1,5 +1,6 @@
-import { types as t, PluginObj, PluginPass } from '@babel/core';
-import { NodePath, Visitor } from '@babel/traverse';
+import type { PluginObj, PluginPass } from '@babel/core';
+import { types as t } from '@babel/core';
+import type { NodePath, Visitor } from '@babel/traverse';
 
 interface Context extends PluginPass {
   identifiersToKeep: Set<string>;

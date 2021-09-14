@@ -1,6 +1,6 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { Manifest } from 'vite';
+import type { Manifest } from 'vite';
 
 import type { RenderAllPagesFn } from '../types';
 

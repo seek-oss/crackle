@@ -13,7 +13,7 @@ import { removeStyles } from 'used-styles/moveStyles';
 
 import { browserPageModules } from './page-modules/browser';
 import { extractRouteMetadata } from './route-metadata';
-import { PageData, RouteMetadata } from './types';
+import type { PageData, RouteMetadata } from './types';
 
 const cachedPages: Record<string, React.FC> = {};
 

@@ -5,7 +5,8 @@ import glob from 'fast-glob';
 import externals from 'rollup-plugin-node-externals';
 import { build as viteBuild } from 'vite';
 
-import { getConfig, PartialConfig } from './config';
+import type { PartialConfig } from './config';
+import { getConfig } from './config';
 import typescriptDeclarations from './rollup-plugin-ts-declarations';
 import type { ManualChunksFn } from './types';
 import { commonViteConfig } from './vite-config';

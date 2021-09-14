@@ -1,7 +1,7 @@
 import { createRouteData } from '@crackle/router';
 import React from 'react';
 
-import { BraidMetadata } from '../../types';
+import type { BraidMetadata } from '../../types';
 
 import { RemotePageContent } from './components/RemotePageContent';
 

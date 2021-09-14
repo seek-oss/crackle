@@ -22,6 +22,7 @@ interface EmittedDeclarationOutput {
   map?: DeclarationFile;
 }
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 type Typescript = typeof import('typescript');
 
 const unsafeRequire = require;

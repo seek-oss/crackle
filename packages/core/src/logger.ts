@@ -1,4 +1,4 @@
-import { Logger } from 'vite';
+import type { Logger } from 'vite';
 
 // eslint-disable-next-line no-console
 const log = (level: string, msg: string) => console.log(`[${level}]`, msg);

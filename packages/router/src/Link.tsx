@@ -1,7 +1,8 @@
-import React from 'react';
-import { Link as ReactRouterLink, LinkProps } from 'react-router-dom';
+import type React from 'react';
+import type { LinkProps } from 'react-router-dom';
+import { Link as ReactRouterLink } from 'react-router-dom';
 
-import { ValidRoute } from './valid-routes';
+import type { ValidRoute } from './valid-routes';
 
 type CrackleLinkProps = Exclude<LinkProps, 'to'> & {
   to: ValidRoute;

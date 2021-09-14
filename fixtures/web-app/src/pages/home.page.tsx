@@ -3,7 +3,7 @@ import { createRouteData, crackleLink } from '@crackle/router';
 import { Card, Stack, Text, TextLink } from 'braid-design-system';
 import React from 'react';
 
-import { BraidMetadata } from '../types';
+import type { BraidMetadata } from '../types';
 
 export const routeData = createRouteData<BraidMetadata>(() => ({
   route: '/',

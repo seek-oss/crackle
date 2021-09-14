@@ -2,7 +2,7 @@ import { createRouteData } from '@crackle/router';
 import { Text } from 'braid-design-system';
 import React from 'react';
 
-import { BraidMetadata } from '../types';
+import type { BraidMetadata } from '../types';
 
 export const routeData = createRouteData<BraidMetadata>(() => ({
   route: '/nope',

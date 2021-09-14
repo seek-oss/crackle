@@ -1,4 +1,4 @@
-import { RouteMap } from './types';
+import type { RouteMap } from './types';
 
 function mapValues<Input extends Record<string, any>, OutputValue>(
   input: Input,

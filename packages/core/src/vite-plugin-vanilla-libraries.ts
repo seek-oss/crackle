@@ -4,7 +4,7 @@ import {
 } from '@babel/core';
 import vanillaBabelPlugin from '@vanilla-extract/babel-plugin';
 import { cssFileFilter } from '@vanilla-extract/integration';
-import { Plugin } from 'vite';
+import type { Plugin } from 'vite';
 
 export const addVanillaDebugIds: Plugin = {
   name: 'add-vanilla-debug-ids',

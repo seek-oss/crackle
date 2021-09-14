@@ -1,4 +1,4 @@
-import { PageModule } from '../types';
+import type { PageModule } from '../types';
 
 type PageModules = Record<string, () => Promise<PageModule>>;
 // @ts-expect-error

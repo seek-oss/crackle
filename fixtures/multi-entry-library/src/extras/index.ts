@@ -1,5 +1,5 @@
 import { logThePhrase } from '../common/commonLogger';
-import { MathsFn } from '../common/maths';
+import type { MathsFn } from '../common/maths';
 
 export const logger = () => {
   logThePhrase('This is a logger');

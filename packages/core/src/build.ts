@@ -2,11 +2,13 @@ import fs from 'fs/promises';
 
 import { setAdapter } from '@vanilla-extract/css/adapter';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
-import { build as viteBuild, InlineConfig as ViteConfig, Manifest } from 'vite';
+import type { InlineConfig as ViteConfig, Manifest } from 'vite';
+import { build as viteBuild } from 'vite';
 
 import type { RenderAllPagesFn } from '../entries/types';
 
-import { getConfig, PartialConfig } from './config';
+import type { PartialConfig } from './config';
+import { getConfig } from './config';
 import { clientEntry } from './constants';
 import type { GetArrayType, ValueType } from './types';
 import { commonViteConfig } from './vite-config';
