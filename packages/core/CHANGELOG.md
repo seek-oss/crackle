@@ -1,5 +1,11 @@
 # @crackle/core
 
+## 0.2.4
+
+### Patch Changes
+
+- 6a3cde3: Change the entrypoint for package command, to avoid importing the package.json file.
+
 ## 0.2.3
 
 ### Patch Changes
