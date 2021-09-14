@@ -8,7 +8,7 @@ export const commonViteConfig = (config: EnhancedConfig): InlineConfig => ({
   plugins: [vanillaExtractPlugin({ identifiers: 'short' })],
   resolve: {
     alias: {
-      __THE_ENTRY: config.resolveFromRoot('/src/App.tsx'),
+      __THE_ENTRY: config.resolveFromRoot(config.appShell),
       'sku/react-treat': require.resolve('../mocks/react-treat.tsx'),
       'sku/treat': require.resolve('../mocks/treat.ts'),
     },

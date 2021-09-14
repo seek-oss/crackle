@@ -1,5 +1,11 @@
 # @crackle/core
 
+## 0.2.1
+
+### Patch Changes
+
+- Add `appShell` config item
+
 ## 0.2.0
 
 ### Minor Changes

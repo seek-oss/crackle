@@ -24,6 +24,12 @@ export interface Config {
    * @default ['src']
    */
   pageRoots: string[];
+
+  /**
+   * Path to the App shell component
+   * @default 'src/App.tsx'
+   */
+  appShell: `${string}.tsx`;
 }
 
 export interface EnhancedConfig extends Config {
@@ -37,6 +43,7 @@ export const defaultConfig: Config = {
   publicPath: '/',
   root: process.cwd(),
   pageRoots: ['src'],
+  appShell: 'src/App.tsx',
 };
 
 export const getConfig = (inlineConfig?: PartialConfig): EnhancedConfig => {
