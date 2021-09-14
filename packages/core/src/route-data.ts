@@ -31,7 +31,7 @@ const transformWithBabel = async (path: string) => {
 export const getAllRoutes = async () => {
   const { root } = getConfig();
 
-  const pageFiles = await glob(['src/pages/*.tsx', 'src/**/*.page.tsx']);
+  const pageFiles = await glob(['src/**/*.page.tsx']);
 
   const pageImports = pageFiles
     .map(

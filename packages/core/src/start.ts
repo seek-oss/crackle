@@ -11,12 +11,11 @@ import { createServer as createViteServer } from 'vite';
 import type { RenderDevPageFn } from '../entries/types';
 
 import { getConfig, PartialConfig } from './config';
+import { clientEntry } from './constants';
 import type { CrackleServer } from './types';
 import { commonViteConfig } from './vite-config';
 
 export * from './types';
-
-const clientEntry = require.resolve('../../entries/client.tsx');
 
 const calculateTime = (startTime: number) =>
   Math.round((performance.now() - startTime) * 100) / 100;
