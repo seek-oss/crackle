@@ -4,6 +4,7 @@ export interface CompleteConfig {
   port: number;
   publicPath: string;
   root: string;
+  pageRoots: string[];
 }
 
 export interface Config extends CompleteConfig {
@@ -16,6 +17,7 @@ export const defaultConfig: CompleteConfig = {
   port: 5000,
   publicPath: '/',
   root: process.cwd(),
+  pageRoots: ['src/pages'],
 };
 
 export const getConfig = (inlineConfig?: PartialConfig): Config => {

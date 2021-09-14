@@ -8,7 +8,9 @@ yargs(process.argv.slice(2))
     command: 'start',
     handler: async () => {
       const { start } = await import('@crackle/core/start');
-      await start();
+      await start({
+        pageRoots: ['src/pages', 'src/components/RemotePage'],
+      });
     },
   })
   .command({
