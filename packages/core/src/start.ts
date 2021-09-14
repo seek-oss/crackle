@@ -11,12 +11,12 @@ import { createServer as createViteServer } from 'vite';
 import type { RenderDevPageFn } from '../entries/types';
 
 import { getConfig, PartialConfig } from './config';
+import { clientEntry } from './constants';
 import type { CrackleServer } from './types';
 import { commonViteConfig } from './vite-config';
+import { addPageRoots } from './vite-plugin-page-roots';
 
 export * from './types';
-
-const clientEntry = require.resolve('../../entries/client.tsx');
 
 const calculateTime = (startTime: number) =>
   Math.round((performance.now() - startTime) * 100) / 100;
@@ -30,7 +30,7 @@ export const start = async (
   const vite = await createViteServer({
     ...commonViteConfig(config),
     server: { middlewareMode: 'ssr', port: config.port },
-    plugins: [reactRefresh(), vanillaExtractPlugin()],
+    plugins: [reactRefresh(), vanillaExtractPlugin(), addPageRoots(config)],
     // Vite doesn't allow dependency bundling if the entry file is inside node_modules. Rollup options is not bound by that constraint.
     // https://github.com/vitejs/vite/blob/bf0b631e7479ed70d02b98b780cf7e4b02d0344b/packages/vite/src/node/optimizer/scan.ts#L56-L61
     // https://github.com/vitejs/vite/blob/bf0b631e7479ed70d02b98b780cf7e4b02d0344b/packages/vite/src/node/optimizer/scan.ts#L124-L125

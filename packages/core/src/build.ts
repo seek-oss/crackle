@@ -7,6 +7,7 @@ import { build as viteBuild, InlineConfig as ViteConfig, Manifest } from 'vite';
 import type { RenderAllPagesFn } from '../entries/types';
 
 import { getConfig, PartialConfig } from './config';
+import { clientEntry } from './constants';
 import type { GetArrayType, ValueType } from './types';
 import { commonViteConfig } from './vite-config';
 
@@ -46,9 +47,7 @@ export const build = async (inlineConfig?: PartialConfig) => {
     base: config.publicPath,
     build: {
       manifest: true,
-      rollupOptions: {
-        input: require.resolve('../../entries/client.tsx'),
-      },
+      rollupOptions: { input: clientEntry },
     },
   });
 
