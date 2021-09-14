@@ -127,6 +127,9 @@ export const build = async (inlineConfig?: PartialConfig) => {
     // eslint-disable-next-line no-console
     console.log('Error while building:', error);
   } finally {
-    await fs.rm('dist-render', { recursive: true, force: true });
+    await fs.rm(config.resolveFromRoot('dist-render'), {
+      recursive: true,
+      force: true,
+    });
   }
 };
