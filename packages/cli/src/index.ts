@@ -67,8 +67,9 @@ yargs(process.argv.slice(2))
   .command({
     command: 'routes',
     handler: async () => {
+      const config = await resolveConfig();
       const { getAllRoutes } = await import('@crackle/core/route-data');
-      const pages = await getAllRoutes();
+      const pages = await getAllRoutes(config);
       console.table(pages);
     },
   })

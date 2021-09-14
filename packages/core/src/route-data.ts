@@ -3,6 +3,7 @@ import removeExportsPlugin from '@crackle/babel-plugin-remove-exports';
 import { build as esbuild } from 'esbuild';
 import glob from 'fast-glob';
 
+import type { PartialConfig } from './config';
 import { getConfig } from './config';
 
 const routesEntryName = 'ROUTES_ENTRY';
@@ -28,10 +29,12 @@ const transformWithBabel = async (path: string) => {
   } as const;
 };
 
-export const getAllRoutes = async () => {
-  const { root } = getConfig();
+export const getAllRoutes = async (inlineConfig?: PartialConfig) => {
+  const { root, pageRoots } = getConfig(inlineConfig);
 
-  const pageFiles = await glob(['src/**/*.page.tsx']);
+  const pageFiles = await glob(
+    pageRoots.map((pageRoot) => `${pageRoot}/**/*.page.tsx`),
+  );
 
   const pageImports = pageFiles
     .map(
