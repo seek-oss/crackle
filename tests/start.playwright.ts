@@ -2,14 +2,17 @@ import path from 'path';
 
 import type { CrackleServer } from '@crackle/core';
 import { start as startCrackle } from '@crackle/core/start';
+import { resolveConfig } from '@crackle/core/resolve-config';
 import { test, expect } from '@playwright/test';
 
 let server: CrackleServer;
 
 test.beforeAll(async () => {
+  const cwd = path.join(__dirname, '../fixtures/web-app');
+  const config = await resolveConfig({ cwd });
   server = await startCrackle({
+    ...config,
     port: 9000,
-    root: path.join(__dirname, '../fixtures/web-app'),
   });
 });
 

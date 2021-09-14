@@ -118,15 +118,19 @@ export const start = async (
 
   return {
     url,
-    close: () =>
-      new Promise<void>((res, rej) => {
-        server.close((err) => {
-          if (err) {
-            return rej(err);
-          }
+    close: async () => {
+      await Promise.all([
+        vite.close(),
+        new Promise<void>((res, rej) => {
+          server.close((err) => {
+            if (err) {
+              return rej(err);
+            }
 
-          res();
-        });
-      }),
+            res();
+          });
+        }),
+      ]);
+    },
   };
 };

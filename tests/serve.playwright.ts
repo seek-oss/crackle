@@ -1,18 +1,22 @@
 import path from 'path';
 
-import { build, serve, CrackleServer, PartialConfig } from '@crackle/core';
+import type { CrackleServer } from '@crackle/core';
+import { build } from '@crackle/core/build';
+import { resolveConfig } from '@crackle/core/resolve-config';
+import { serve } from '@crackle/core/serve';
 import { test, expect } from '@playwright/test';
 
 let server: CrackleServer;
 
 test.beforeAll(async () => {
-  const config: PartialConfig = {
-    root: path.join(__dirname, '../fixtures/web-app'),
-    port: 10000,
-  };
+  const cwd = path.join(__dirname, '../fixtures/web-app');
+  const config = await resolveConfig({ cwd });
 
   await build(config);
-  server = serve(config);
+  server = serve({
+    ...config,
+    port: 10000,
+  });
 });
 
 test.afterAll(async () => {
