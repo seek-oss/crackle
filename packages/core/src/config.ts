@@ -1,30 +1,45 @@
 import path from 'path';
 
-export interface CompleteConfig {
+export interface Config {
+  /**
+   * Port for the server used in `start` and `serve`.
+   * @default 5000
+   */
   port: number;
+
+  /**
+   * The path that static assets will be served from in production.
+   * @default  '/'
+   */
   publicPath: string;
+
+  /**
+   * The root of the application that all paths are resolved relative to.
+   * @default process.cwd
+   */
   root: string;
+
   /**
    * Directories that crackle should search to find .page.tsx files.
-   * @default {['src']}
+   * @default ['src']
    */
   pageRoots: string[];
 }
 
-export interface Config extends CompleteConfig {
+export interface EnhancedConfig extends Config {
   resolveFromRoot: (filePath: string) => string;
 }
 
-export type PartialConfig = Partial<CompleteConfig>;
+export type PartialConfig = Partial<Config>;
 
-export const defaultConfig: CompleteConfig = {
+export const defaultConfig: Config = {
   port: 5000,
   publicPath: '/',
   root: process.cwd(),
   pageRoots: ['src'],
 };
 
-export const getConfig = (inlineConfig?: PartialConfig): Config => {
+export const getConfig = (inlineConfig?: PartialConfig): EnhancedConfig => {
   const config = {
     ...defaultConfig,
     ...inlineConfig,

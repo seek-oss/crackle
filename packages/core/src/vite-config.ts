@@ -1,9 +1,9 @@
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import type { InlineConfig } from 'vite';
 
-import { Config } from './config';
+import type { EnhancedConfig } from './config';
 
-export const commonViteConfig = (config: Config): InlineConfig => ({
+export const commonViteConfig = (config: EnhancedConfig): InlineConfig => ({
   root: config.root,
   plugins: [vanillaExtractPlugin({ identifiers: 'short' })],
   resolve: {
