@@ -11,6 +11,7 @@
     "/index",
     "/mocks",
     "/package",
+    "/resolve-config",
     "/route-data",
     "/serve",
     "/start"
@@ -18,6 +19,7 @@
   "preconstruct": {
     "entrypoints": [
       "build.ts",
+      "resolve-config.ts",
       "index.ts",
       "package.ts",
       "route-data.ts",
@@ -27,8 +29,8 @@
   },
   "dependencies": {
     "@babel/core": "^7.15.0",
-    "@crackle/router": "0.0.1",
     "@crackle/babel-plugin-remove-exports": "0.0.1",
+    "@crackle/router": "0.0.1",
     "@vanilla-extract/babel-plugin": "^1.0.1",
     "@vanilla-extract/css": "^1.2.3",
     "@vanilla-extract/integration": "^1.2.0",
@@ -38,6 +40,7 @@
     "esbuild": "^0.12.25",
     "express": "^4.17.1",
     "fast-glob": "^3.2.7",
+    "find-up": "^5.0.0",
     "fs-extra": "^10.0.0",
     "history": "^5.0.1",
     "normalize-path": "^3.0.0",
