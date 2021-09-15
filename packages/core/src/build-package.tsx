@@ -1,11 +1,14 @@
+/* eslint-disable no-console */
 import path from 'path';
 
 import { cssFileFilter } from '@vanilla-extract/integration';
 import glob from 'fast-glob';
+import { render, Text, Box } from 'ink';
+import React, { useEffect, useState } from 'react';
 import externals from 'rollup-plugin-node-externals';
 import { build as viteBuild } from 'vite';
 
-import type { PartialConfig } from './config';
+import type { PartialConfig, EnhancedConfig } from './config';
 import { getConfig } from './config';
 import typescriptDeclarations from './rollup-plugin-ts-declarations';
 import type { ManualChunksFn } from './types';
@@ -24,8 +27,7 @@ const manualChunks: ManualChunksFn = (id, { getModuleInfo }) => {
   }
 };
 
-export const buildPackage = async (inlineConfig?: PartialConfig) => {
-  const config = getConfig(inlineConfig);
+const buildPackage = async (config: EnhancedConfig, packageName: string) => {
   const entries = await glob(['src/entries/*.ts', 'src/index.ts'], {
     absolute: true,
     cwd: config.root,
@@ -43,11 +45,12 @@ export const buildPackage = async (inlineConfig?: PartialConfig) => {
       },
       typescriptDeclarations({
         directory: config.root,
-        name: 'my-package',
+        name: packageName,
         entrypoints: entries.map((entry) => ({ source: entry })),
       }),
       addVanillaDebugIds,
     ],
+    logLevel: 'silent',
     build: {
       emptyOutDir: false,
       minify: false,
@@ -93,3 +96,84 @@ export const buildPackage = async (inlineConfig?: PartialConfig) => {
     },
   });
 };
+
+export const buildPackages = async (partialConfig?: PartialConfig) => {
+  const config = getConfig(partialConfig);
+
+  const monorepoPackages = await glob(['packages/*/package.json'], {
+    cwd: config.root,
+    absolute: true,
+  });
+
+  const isMonorepo = monorepoPackages.length > 0;
+
+  const allPackageJsons = isMonorepo
+    ? monorepoPackages
+    : [config.resolveFromRoot('package.json')];
+  const packagesToBuild = allPackageJsons.map((packageJsonPath) => ({
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    name: require(packageJsonPath).name,
+    filePath: path.dirname(packageJsonPath),
+  }));
+
+  render(<App config={config} packages={packagesToBuild} />);
+};
+
+interface AppProps {
+  config: EnhancedConfig;
+  packages: Array<{ name: string; filePath: string }>;
+}
+function App({ packages, config }: AppProps) {
+  return (
+    <>
+      {packages.map((pkg) => (
+        <Package key={pkg.name} config={config} {...pkg} />
+      ))}
+    </>
+  );
+}
+interface PackageProps {
+  name: string;
+  filePath: string;
+  config: EnhancedConfig;
+}
+function Package({ name, filePath, config }: PackageProps) {
+  const [status, setStatus] = useState<BuildStatusProps['status']>('Building');
+
+  useEffect(() => {
+    const packageConfig = getConfig({ ...config, root: filePath });
+
+    buildPackage(packageConfig, name)
+      .then(() => {
+        setStatus('Done');
+      })
+      .catch(() => {
+        setStatus('Failed');
+      });
+  }, [config, filePath, name]);
+
+  return (
+    <Box>
+      <Box width={12}>
+        <BuildStatus status={status} />
+      </Box>
+      <Text color="blue">{name}</Text>
+    </Box>
+  );
+}
+
+interface BuildStatusProps {
+  status: 'Building' | 'Done' | 'Failed';
+}
+function BuildStatus({ status }: BuildStatusProps) {
+  const colorMap = { Building: 'yellow', Done: 'green', Failed: 'red' };
+  const padding = ''.padStart((10 - status.length) / 2, ' ');
+
+  return (
+    <Text inverse color={colorMap[status]}>
+      {padding}
+      {status}
+      {padding}
+    </Text>
+  );
+}

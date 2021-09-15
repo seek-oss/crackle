@@ -1,0 +1,7 @@
+{
+  "name": "crackle-fixtures-monorepo",
+  "license": "MIT",
+  "scripts": {
+    "package": "crackle package"
+  }
+}

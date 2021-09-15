@@ -43,6 +43,7 @@ export default function typescriptDeclarations(pkg: Package): Plugin {
               map.content,
               sourceRoot,
             );
+
             this.emitFile({
               type: 'asset',
               fileName: path.relative(opts.dir!, map.name),
