@@ -4,7 +4,7 @@ import path from 'path';
 import { cssFileFilter } from '@vanilla-extract/integration';
 import glob from 'fast-glob';
 import { render, Text, Box } from 'ink';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useReducer, useContext } from 'react';
 import externals from 'rollup-plugin-node-externals';
 import { build as viteBuild } from 'vite';
 
@@ -119,17 +119,86 @@ export const buildPackages = async (partialConfig?: PartialConfig) => {
   render(<App config={config} packages={packagesToBuild} />);
 };
 
+interface AppState {
+  packages: AppProps['packages'];
+  config: AppProps['config'];
+  buildFailures: FailedBuild[];
+  completedBuilds: number;
+}
+
+type Action =
+  | { type: 'BUILD_FAILED'; payload: FailedBuild }
+  | { type: 'BUILD_COMPLETED' };
+
+const reducer: React.Reducer<AppState, Action> = (prevState, action) => {
+  if (action.type === 'BUILD_FAILED') {
+    return {
+      ...prevState,
+      buildFailures: [...prevState.buildFailures, action.payload],
+      completedBuilds: prevState.completedBuilds + 1,
+    };
+  }
+
+  if (action.type === 'BUILD_COMPLETED') {
+    return {
+      ...prevState,
+      completedBuilds: prevState.completedBuilds + 1,
+    };
+  }
+
+  return prevState;
+};
+
+interface FailedBuild {
+  packageName: string;
+  err: Error;
+}
+
 interface AppProps {
   config: EnhancedConfig;
   packages: Array<{ name: string; filePath: string }>;
 }
+
+const StateContext = React.createContext<
+  [AppState, React.Dispatch<Action>] | null
+>(null);
+
 function App({ packages, config }: AppProps) {
+  const reducerProps = useReducer(reducer, {
+    packages,
+    config,
+    buildFailures: [],
+    completedBuilds: 0,
+  });
+
+  const [state] = reducerProps;
+
   return (
-    <>
-      {packages.map((pkg) => (
-        <Package key={pkg.name} config={config} {...pkg} />
-      ))}
-    </>
+    <StateContext.Provider value={reducerProps}>
+      <Box flexDirection="column">
+        {packages.map((pkg) => (
+          <Package key={pkg.name} config={config} {...pkg} />
+        ))}
+
+        {state.buildFailures.length < 1 ||
+        state.completedBuilds < packages.length ? null : (
+          <Box
+            flexDirection="column"
+            borderColor="red"
+            borderStyle="round"
+            marginTop={1}
+          >
+            <Text color="red">Failed builds</Text>
+            {state.buildFailures.map((failedBuild, index) => (
+              <Box key={index} marginTop={1} flexDirection="column">
+                <Text dimColor>{failedBuild.packageName}</Text>
+                <Text>{failedBuild.err.stack}</Text>
+              </Box>
+            ))}
+          </Box>
+        )}
+      </Box>
+    </StateContext.Provider>
   );
 }
 interface PackageProps {
@@ -140,17 +209,24 @@ interface PackageProps {
 function Package({ name, filePath, config }: PackageProps) {
   const [status, setStatus] = useState<BuildStatusProps['status']>('Building');
 
+  const [_state, dispatch] = useContext(StateContext)!;
+
   useEffect(() => {
     const packageConfig = getConfig({ ...config, root: filePath });
 
     buildPackage(packageConfig, name)
       .then(() => {
         setStatus('Done');
+        dispatch({ type: 'BUILD_COMPLETED' });
       })
-      .catch(() => {
+      .catch((err) => {
         setStatus('Failed');
+        dispatch({
+          type: 'BUILD_FAILED',
+          payload: { packageName: name, err },
+        });
       });
-  }, [config, filePath, name]);
+  }, [config, dispatch, filePath, name]);
 
   return (
     <Box>
@@ -171,9 +247,7 @@ function BuildStatus({ status }: BuildStatusProps) {
 
   return (
     <Text inverse color={colorMap[status]}>
-      {padding}
-      {status}
-      {padding}
+      {[padding, status, padding]}
     </Text>
   );
 }
