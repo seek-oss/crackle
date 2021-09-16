@@ -1,4 +1,5 @@
 import fs from 'fs/promises';
+import path from 'path';
 
 import { setAdapter } from '@vanilla-extract/css/adapter';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
@@ -10,8 +11,10 @@ import type { RenderAllPagesFn } from '../entries/types';
 import type { PartialConfig } from './config';
 import { getConfig } from './config';
 import { clientEntry } from './constants';
+import { createBuildReporter } from './reporters/build';
 import type { GetArrayType, ValueType } from './types';
 import { commonViteConfig } from './vite-config';
+import { addPageRoots } from './vite-plugin-page-roots';
 
 type BuildOutput = ValueType<ReturnType<typeof viteBuild>>;
 type RollupOutput = GetArrayType<BuildOutput>;
@@ -37,11 +40,18 @@ const extractManifestFile = (buildOutput: BuildOutput): Manifest => {
 };
 
 export const build = async (inlineConfig?: PartialConfig) => {
+  const dispatchEvent = await createBuildReporter();
+  dispatchEvent({ type: 'BUILD_CLIENT_STARTED' });
+
   const config = getConfig(inlineConfig);
 
   const commonBuildConfig: ViteConfig = {
     ...commonViteConfig(config),
-    plugins: [vanillaExtractPlugin({ identifiers: 'short' })],
+    plugins: [
+      vanillaExtractPlugin({ identifiers: 'short' }),
+      addPageRoots(config),
+    ],
+    logLevel: 'silent',
   };
 
   const output = await viteBuild({
@@ -53,7 +63,10 @@ export const build = async (inlineConfig?: PartialConfig) => {
     },
   });
 
+  dispatchEvent({ type: 'BUILD_CLIENT_COMPLETE' });
+
   try {
+    dispatchEvent({ type: 'BUILD_RENDERER_STARTED' });
     await viteBuild({
       ...commonBuildConfig,
       mode: 'development',
@@ -99,6 +112,8 @@ export const build = async (inlineConfig?: PartialConfig) => {
       },
     });
 
+    dispatchEvent({ type: 'BUILD_RENDERER_COMPLETE' });
+
     const manifest = extractManifestFile(output);
 
     setAdapter({
@@ -114,15 +129,20 @@ export const build = async (inlineConfig?: PartialConfig) => {
     const renderAllPages = require(config.resolveFromRoot('dist-render/render'))
       .renderAllPages as RenderAllPagesFn;
 
-    const pages = renderAllPages(manifest, config.publicPath);
+    const pages = await renderAllPages(
+      manifest,
+      config.publicPath,
+      dispatchEvent,
+    );
 
     await Promise.all(
       pages.map(async ({ route, html }) => {
-        const dir = `dist/${route}`;
+        const dir = config.resolveFromRoot(path.join('dist', route));
         await fs.mkdir(dir, { recursive: true });
         return fs.writeFile(`${dir}/index.html`, html);
       }),
     );
+    dispatchEvent({ type: 'RENDER_PAGES_COMPLETE' });
   } catch (error) {
     // eslint-disable-next-line no-console
     console.log('Error while building:', error);

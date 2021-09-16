@@ -8,8 +8,8 @@ import { build as viteBuild } from 'vite';
 
 import type { PartialConfig, EnhancedConfig } from './config';
 import { getConfig } from './config';
-import { createInkReporter } from './ink-reporter';
-import type { ReporterHandler } from './reporter';
+import { createPackageReporter } from './reporters/package';
+import type { PackageReporter } from './reporters/package';
 import typescriptDeclarations from './rollup-plugin-ts-declarations';
 import type { ManualChunksFn } from './types';
 import { commonViteConfig } from './vite-config';
@@ -30,7 +30,7 @@ const manualChunks: ManualChunksFn = (id, { getModuleInfo }) => {
 const buildPackage = async (
   config: EnhancedConfig,
   packageName: string,
-  dispatchEvent: ReporterHandler,
+  dispatchEvent: PackageReporter,
 ) => {
   dispatchEvent({ type: 'BUILD_STARTED', packageName });
 
@@ -108,7 +108,7 @@ const buildPackage = async (
 export const buildPackages = async (partialConfig?: PartialConfig) => {
   const config = getConfig(partialConfig);
 
-  const dispatchEvent = createInkReporter();
+  const dispatchEvent = createPackageReporter();
 
   const monorepoPackages = await glob(['packages/*/package.json'], {
     cwd: config.root,
@@ -128,23 +128,20 @@ export const buildPackages = async (partialConfig?: PartialConfig) => {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       const packageName = require(packageJsonPath).name;
 
-      return buildPackage(
-        packageName.includes('package-b') ? config : packageConfig,
-        packageName,
-        dispatchEvent,
-      ).catch((err) => {
-        console.log('err: ', err);
-        dispatchEvent({
-          type: 'BUILD_FAILED',
-          packageName,
-          error: err.loc
-            ? {
-                ...err,
-                location: path.relative(config.root, err.loc.file),
-              }
-            : err,
-        });
-      });
+      return buildPackage(packageConfig, packageName, dispatchEvent).catch(
+        (err) => {
+          dispatchEvent({
+            type: 'BUILD_FAILED',
+            packageName,
+            error: err.loc
+              ? {
+                  ...err,
+                  location: path.relative(config.root, err.loc.file),
+                }
+              : err,
+          });
+        },
+      );
     }),
   );
 };

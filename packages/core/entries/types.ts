@@ -2,10 +2,13 @@ import type { RouteData } from '@crackle/router';
 import type React from 'react';
 import type { Manifest } from 'vite';
 
+import type { BuildReporter } from '../src/reporters/build';
+
 export type RenderAllPagesFn = (
   manifest: Manifest,
   publicPath: string,
-) => Array<{ route: string; html: string }>;
+  dispatchEvent: BuildReporter,
+) => Promise<Array<{ route: string; html: string }>>;
 
 interface RenderParams {
   path: string;
