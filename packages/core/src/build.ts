@@ -41,7 +41,6 @@ const extractManifestFile = (buildOutput: BuildOutput): Manifest => {
 
 export const build = async (inlineConfig?: PartialConfig) => {
   const dispatchEvent = await createBuildReporter();
-  dispatchEvent({ type: 'BUILD_CLIENT_STARTED' });
 
   const config = getConfig(inlineConfig);
 
@@ -54,16 +53,34 @@ export const build = async (inlineConfig?: PartialConfig) => {
     logLevel: 'silent',
   };
 
-  const output = await viteBuild({
-    ...commonBuildConfig,
-    base: config.publicPath,
-    build: {
-      manifest: true,
-      rollupOptions: { input: clientEntry },
-    },
-  });
+  type UnPromise<T> = T extends Promise<infer K> ? K : never;
 
-  dispatchEvent({ type: 'BUILD_CLIENT_COMPLETE' });
+  let output: UnPromise<ReturnType<typeof viteBuild>>;
+
+  try {
+    dispatchEvent({ type: 'BUILD_CLIENT_STARTED' });
+    output = await viteBuild({
+      ...commonBuildConfig,
+      base: config.publicPath,
+      build: {
+        manifest: true,
+        rollupOptions: { input: clientEntry },
+      },
+    });
+
+    dispatchEvent({ type: 'BUILD_CLIENT_COMPLETE' });
+  } catch (error: any) {
+    dispatchEvent({
+      type: 'BUILD_CLIENT_FAILED',
+      error: error.loc
+        ? {
+            ...error,
+            location: path.relative(config.root, error.loc.file),
+          }
+        : error,
+    });
+    return;
+  }
 
   try {
     dispatchEvent({ type: 'BUILD_RENDERER_STARTED' });
@@ -143,9 +160,17 @@ export const build = async (inlineConfig?: PartialConfig) => {
       }),
     );
     dispatchEvent({ type: 'RENDER_PAGES_COMPLETE' });
-  } catch (error) {
+  } catch (error: any) {
     // eslint-disable-next-line no-console
-    console.log('Error while building:', error);
+    dispatchEvent({
+      type: 'RENDER_PAGES_FAILED',
+      error: error.loc
+        ? {
+            ...error,
+            location: path.relative(config.root, error.loc.file),
+          }
+        : error,
+    });
   } finally {
     await fs.rm(config.resolveFromRoot('dist-render'), {
       recursive: true,
