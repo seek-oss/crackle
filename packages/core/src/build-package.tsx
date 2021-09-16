@@ -3,13 +3,13 @@ import path from 'path';
 
 import { cssFileFilter } from '@vanilla-extract/integration';
 import glob from 'fast-glob';
-import { render, Text, Box } from 'ink';
-import React, { useEffect, useState, useReducer, useContext } from 'react';
 import externals from 'rollup-plugin-node-externals';
 import { build as viteBuild } from 'vite';
 
 import type { PartialConfig, EnhancedConfig } from './config';
 import { getConfig } from './config';
+import { createInkReporter } from './ink-reporter';
+import type { ReporterHandler, PackageError } from './reporter';
 import typescriptDeclarations from './rollup-plugin-ts-declarations';
 import type { ManualChunksFn } from './types';
 import { commonViteConfig } from './vite-config';
@@ -27,7 +27,13 @@ const manualChunks: ManualChunksFn = (id, { getModuleInfo }) => {
   }
 };
 
-const buildPackage = async (config: EnhancedConfig, packageName: string) => {
+const buildPackage = async (
+  config: EnhancedConfig,
+  packageName: string,
+  dispatchEvent: ReporterHandler,
+) => {
+  dispatchEvent({ type: 'BUILD_STARTED', packageName });
+
   const entries = await glob(['src/entries/*.ts', 'src/index.ts'], {
     absolute: true,
     cwd: config.root,
@@ -95,10 +101,14 @@ const buildPackage = async (config: EnhancedConfig, packageName: string) => {
       },
     },
   });
+
+  dispatchEvent({ type: 'BUILD_COMPLETED', packageName });
 };
 
 export const buildPackages = async (partialConfig?: PartialConfig) => {
   const config = getConfig(partialConfig);
+
+  const dispatchEvent = createInkReporter();
 
   const monorepoPackages = await glob(['packages/*/package.json'], {
     cwd: config.root,
@@ -110,144 +120,31 @@ export const buildPackages = async (partialConfig?: PartialConfig) => {
   const allPackageJsons = isMonorepo
     ? monorepoPackages
     : [config.resolveFromRoot('package.json')];
-  const packagesToBuild = allPackageJsons.map((packageJsonPath) => ({
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    name: require(packageJsonPath).name,
-    filePath: path.dirname(packageJsonPath),
-  }));
 
-  render(<App config={config} packages={packagesToBuild} />);
-};
+  await Promise.all(
+    allPackageJsons.map((packageJsonPath) => {
+      const filePath = path.dirname(packageJsonPath);
+      const packageConfig = getConfig({ ...config, root: filePath });
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const packageName = require(packageJsonPath).name;
 
-interface AppState {
-  packages: AppProps['packages'];
-  config: AppProps['config'];
-  buildFailures: FailedBuild[];
-  completedBuilds: number;
-}
-
-type Action =
-  | { type: 'BUILD_FAILED'; payload: FailedBuild }
-  | { type: 'BUILD_COMPLETED' };
-
-const reducer: React.Reducer<AppState, Action> = (prevState, action) => {
-  if (action.type === 'BUILD_FAILED') {
-    return {
-      ...prevState,
-      buildFailures: [...prevState.buildFailures, action.payload],
-      completedBuilds: prevState.completedBuilds + 1,
-    };
-  }
-
-  if (action.type === 'BUILD_COMPLETED') {
-    return {
-      ...prevState,
-      completedBuilds: prevState.completedBuilds + 1,
-    };
-  }
-
-  return prevState;
-};
-
-interface FailedBuild {
-  packageName: string;
-  err: Error;
-}
-
-interface AppProps {
-  config: EnhancedConfig;
-  packages: Array<{ name: string; filePath: string }>;
-}
-
-const StateContext = React.createContext<
-  [AppState, React.Dispatch<Action>] | null
->(null);
-
-function App({ packages, config }: AppProps) {
-  const reducerProps = useReducer(reducer, {
-    packages,
-    config,
-    buildFailures: [],
-    completedBuilds: 0,
-  });
-
-  const [state] = reducerProps;
-
-  return (
-    <StateContext.Provider value={reducerProps}>
-      <Box flexDirection="column">
-        {packages.map((pkg) => (
-          <Package key={pkg.name} config={config} {...pkg} />
-        ))}
-
-        {state.buildFailures.length < 1 ||
-        state.completedBuilds < packages.length ? null : (
-          <Box
-            flexDirection="column"
-            borderColor="red"
-            borderStyle="round"
-            marginTop={1}
-          >
-            <Text color="red">Failed builds</Text>
-            {state.buildFailures.map((failedBuild, index) => (
-              <Box key={index} marginTop={1} flexDirection="column">
-                <Text dimColor>{failedBuild.packageName}</Text>
-                <Text>{failedBuild.err.stack}</Text>
-              </Box>
-            ))}
-          </Box>
-        )}
-      </Box>
-    </StateContext.Provider>
-  );
-}
-interface PackageProps {
-  name: string;
-  filePath: string;
-  config: EnhancedConfig;
-}
-function Package({ name, filePath, config }: PackageProps) {
-  const [status, setStatus] = useState<BuildStatusProps['status']>('Building');
-
-  const [_state, dispatch] = useContext(StateContext)!;
-
-  useEffect(() => {
-    const packageConfig = getConfig({ ...config, root: filePath });
-
-    buildPackage(packageConfig, name)
-      .then(() => {
-        setStatus('Done');
-        dispatch({ type: 'BUILD_COMPLETED' });
-      })
-      .catch((err) => {
-        setStatus('Failed');
-        dispatch({
+      return buildPackage(
+        packageName.includes('package-b') ? config : packageConfig,
+        packageName,
+        dispatchEvent,
+      ).catch((err) => {
+        console.log('err: ', err);
+        dispatchEvent({
           type: 'BUILD_FAILED',
-          payload: { packageName: name, err },
+          packageName,
+          error: err.loc
+            ? {
+                ...err,
+                location: path.relative(config.root, err.loc.file),
+              }
+            : err,
         });
       });
-  }, [config, dispatch, filePath, name]);
-
-  return (
-    <Box>
-      <Box width={12}>
-        <BuildStatus status={status} />
-      </Box>
-      <Text color="blue">{name}</Text>
-    </Box>
+    }),
   );
-}
-
-interface BuildStatusProps {
-  status: 'Building' | 'Done' | 'Failed';
-}
-function BuildStatus({ status }: BuildStatusProps) {
-  const colorMap = { Building: 'yellow', Done: 'green', Failed: 'red' };
-  const padding = ''.padStart((10 - status.length) / 2, ' ');
-
-  return (
-    <Text inverse color={colorMap[status]}>
-      {[padding, status, padding]}
-    </Text>
-  );
-}
+};

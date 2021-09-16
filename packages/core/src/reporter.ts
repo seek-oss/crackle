@@ -1,23 +1,21 @@
-type ReporterEvent = { type: 'BUILD_PACKAGE'; packageName: string };
+import type { RollupError } from 'rollup';
 
-type ReporterHandler = (event: ReporterEvent) => void;
+export type BuildStatus = 'Building' | 'Done' | 'Failed';
+type PackageName = string;
 
-export interface Reporter {
-  send(event: ReporterEvent): void;
-  on(cb: ReporterHandler): void;
-}
+export type BuildError = RollupError & { location: string };
 
-export const createReporter = (): Reporter => {
-  const handlers: Array<ReporterHandler> = [];
+export type PackageError = Error | BuildError;
 
-  return {
-    on: (cb) => {
-      handlers.push(cb);
-    },
-    send: (event: ReporterEvent) => {
-      for (const handler of handlers) {
-        handler(event);
-      }
-    },
-  };
+export type PackageState = {
+  name: PackageName;
+  buildStatus: BuildStatus;
+  error?: PackageError;
 };
+
+export type ReporterEvent =
+  | { type: 'BUILD_FAILED'; packageName: string; error: PackageError }
+  | { type: 'BUILD_COMPLETED'; packageName: string }
+  | { type: 'BUILD_STARTED'; packageName: string };
+
+export type ReporterHandler = (event: ReporterEvent) => void;
