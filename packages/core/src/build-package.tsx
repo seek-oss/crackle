@@ -9,7 +9,7 @@ import { build as viteBuild } from 'vite';
 import type { PartialConfig, EnhancedConfig } from './config';
 import { getConfig } from './config';
 import { createInkReporter } from './ink-reporter';
-import type { ReporterHandler, PackageError } from './reporter';
+import type { ReporterHandler } from './reporter';
 import typescriptDeclarations from './rollup-plugin-ts-declarations';
 import type { ManualChunksFn } from './types';
 import { commonViteConfig } from './vite-config';
