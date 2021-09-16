@@ -160,27 +160,41 @@ export function App({ registerHandler }: AppProps) {
       <Task name="Build renderer" {...state.buildRenderer} />
       <Box>
         <Task name="Render pages" {...state.renderPages} />
-        {/* {state.renderPages.totalPages ? (
+        {state.renderPages.totalPages ? (
           <Box paddingLeft={2}>
             <ProgressBar
-              percentage={
-                state.renderPages.renderedPages / state.renderPages.totalPages
-              }
+              current={state.renderPages.renderedPages}
+              total={state.renderPages.totalPages}
+              width={50}
             />
           </Box>
-        ) : null} */}
+        ) : null}
       </Box>
     </StateContext.Provider>
   );
 }
 
-// interface ProgressBarProps {
-//   current: number;
-//   total: number;
-// }
-// function ProgressBar({ current, total }: ProgressBarProps) {
-//   return <Text />;
-// }
+interface ProgressBarProps {
+  current: number;
+  total: number;
+  width?: number;
+}
+
+function ProgressBar({ current, total, width = 30 }: ProgressBarProps) {
+  const progressLength = Math.floor(width * (current / total));
+  const spaceLength = width - progressLength;
+
+  const progress = ''.padStart(progressLength, '=');
+  const space = ''.padStart(spaceLength, ' ');
+
+  const loaderString = [progress, space].join('');
+
+  return (
+    <Text>
+      [{loaderString}] {current}/{total}
+    </Text>
+  );
+}
 
 interface TaskProps {
   name: string;
@@ -197,7 +211,11 @@ function Task({ name, status, startTime, endTime }: TaskProps) {
       <Box width={16}>
         <Text color="blue">{name}</Text>
       </Box>
-      {startTime ? <Timer startTime={startTime} endTime={endTime} /> : null}
+      {startTime ? (
+        <Box width={6}>
+          <Timer startTime={startTime} endTime={endTime} />
+        </Box>
+      ) : null}
     </Box>
   );
 }
@@ -231,17 +249,24 @@ interface StatusProps {
   status: Status;
 }
 function StatusIndicator({ status }: StatusProps) {
+  const totalLength = 10;
+
   const colorMap = {
-    Pending: 'white',
+    Pending: 'gray',
     Running: 'yellow',
     Complete: 'green',
     Failed: 'red',
   };
-  const padding = ''.padStart((10 - status.length) / 2, ' ');
+
+  const startPadLength = Math.floor((totalLength - status.length) / 2);
+  const endPadLength = totalLength - status.length - startPadLength;
+
+  const startPadding = ''.padStart(startPadLength, ' ');
+  const endPadding = ''.padStart(endPadLength, ' ');
 
   return (
     <Text inverse color={colorMap[status]} bold>
-      {[padding, status, padding]}
+      {[startPadding, status, endPadding]}
     </Text>
   );
 }
