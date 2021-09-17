@@ -1,6 +1,6 @@
-import type { BuildError, Status } from '../shared/types';
+import type { BuildError, Reporter, Status } from '../shared/types';
 
-export type ReporterEvent =
+export type BuildEvent =
   | { type: 'BUILD_CLIENT_STARTED' }
   | { type: 'BUILD_CLIENT_COMPLETE' }
   | { type: 'BUILD_CLIENT_FAILED'; error: BuildError }
@@ -11,7 +11,7 @@ export type ReporterEvent =
   | { type: 'RENDER_PAGES_COMPLETE' }
   | { type: 'RENDERED_PAGE' };
 
-export type BuildReporter = (event: ReporterEvent) => void;
+export type BuildReporter = Reporter<BuildEvent>;
 
 export interface AppState {
   buildClient: {

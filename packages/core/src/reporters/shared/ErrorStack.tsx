@@ -8,9 +8,10 @@ const isBuildError = (error: BuildError): error is RollupError =>
 
 interface ErrorStackProps {
   error: BuildError;
+  title?: string;
 }
 
-export const ErrorStack = ({ error }: ErrorStackProps) => (
+export const ErrorStack = ({ error, title }: ErrorStackProps) => (
   <Box marginTop={1}>
     <Box
       paddingX={2}
@@ -18,6 +19,7 @@ export const ErrorStack = ({ error }: ErrorStackProps) => (
       borderColor="red"
       borderStyle="round"
     >
+      <Text color="red">{title}</Text>
       {isBuildError(error) ? (
         <>
           <Box marginBottom={1}>

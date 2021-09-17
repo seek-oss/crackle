@@ -10,14 +10,21 @@ interface TaskProps {
   status: Status;
   startTime?: number;
   endTime?: number;
+  width?: number;
 }
 
-export const Task = ({ name, status, startTime, endTime }: TaskProps) => (
+export const Task = ({
+  name,
+  status,
+  startTime,
+  endTime,
+  width = 16,
+}: TaskProps) => (
   <Box>
     <Box width={12}>
       <StatusIndicator status={status} />
     </Box>
-    <Box width={16}>
+    <Box width={width + 2}>
       <Text color="blue">{name}</Text>
     </Box>
     {startTime ? (

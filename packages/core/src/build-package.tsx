@@ -108,7 +108,7 @@ const buildPackage = async (
 export const buildPackages = async (partialConfig?: PartialConfig) => {
   const config = getConfig(partialConfig);
 
-  const dispatchEvent = createPackageReporter();
+  const dispatchEvent = await createPackageReporter();
 
   const monorepoPackages = await glob(['packages/*/package.json'], {
     cwd: config.root,

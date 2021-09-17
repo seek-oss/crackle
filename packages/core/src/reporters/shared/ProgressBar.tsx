@@ -10,7 +10,7 @@ interface ProgressBarProps {
 export const ProgressBar = ({
   current,
   total,
-  width = 30,
+  width = 25,
 }: ProgressBarProps) => {
   const progressLength = Math.floor(width * (current / total));
   const spaceLength = width - progressLength;

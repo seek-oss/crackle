@@ -3,6 +3,11 @@ import prettyMs from 'pretty-ms';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 
+const prettMsConfig: Parameters<typeof prettyMs>[1] = {
+  secondsDecimalDigits: 1,
+  keepDecimalsOnWholeSeconds: true,
+};
+
 interface TimerProps {
   startTime: number;
   endTime?: number;
@@ -22,10 +27,8 @@ export const Timer = ({ startTime, endTime }: TimerProps) => {
   }, [endTime]);
 
   if (endTime) {
-    return (
-      <Text>{prettyMs(endTime - startTime, { colonNotation: true })}</Text>
-    );
+    return <Text>{prettyMs(endTime - startTime, prettMsConfig)}</Text>;
   }
 
-  return <Text>{prettyMs(performance.now() - startTime)}</Text>;
+  return <Text>{prettyMs(performance.now() - startTime, prettMsConfig)}</Text>;
 };
