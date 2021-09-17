@@ -1,3 +1,5 @@
+import { performance } from 'perf_hooks';
+
 import { Text } from 'ink';
 import prettyMs from 'pretty-ms';
 import React, { useState } from 'react';

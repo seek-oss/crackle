@@ -1,3 +1,5 @@
+import { performance } from 'perf_hooks';
+
 import type { AppState, BuildEvent } from './types';
 
 const createStateUpdater =
