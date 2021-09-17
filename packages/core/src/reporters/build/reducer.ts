@@ -1,4 +1,4 @@
-import type { AppState, ReporterEvent } from './types';
+import type { AppState, BuildEvent } from './types';
 
 const createStateUpdater =
   <State>(state: State) =>
@@ -7,10 +7,7 @@ const createStateUpdater =
     [key]: { ...state[key], ...newState },
   });
 
-export const reducer: React.Reducer<AppState, ReporterEvent> = (
-  state,
-  action,
-) => {
+export const reducer: React.Reducer<AppState, BuildEvent> = (state, action) => {
   const updateState = createStateUpdater(state);
 
   if (action.type === 'BUILD_CLIENT_STARTED') {

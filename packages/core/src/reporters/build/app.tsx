@@ -5,10 +5,10 @@ import { Task, ProgressBar, createReporter } from '../shared';
 import { ErrorStack } from '../shared/ErrorStack';
 
 import { reducer } from './reducer';
-import type { AppState, BuildReporter, ReporterEvent } from './types';
+import type { AppState, BuildReporter, BuildEvent } from './types';
 
 const StateContext = React.createContext<
-  [AppState, React.Dispatch<ReporterEvent>] | null
+  [AppState, React.Dispatch<BuildEvent>] | null
 >(null);
 
 interface AppProps {
