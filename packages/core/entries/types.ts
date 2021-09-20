@@ -14,7 +14,7 @@ interface RenderParams {
 }
 export type RenderDevPageFn = (
   params: RenderParams,
-) => Promise<{ html: string; routes: string[] }>;
+) => Promise<{ html: string; routes: string[]; statusCode: number }>;
 
 type Route = string;
 export type RouteMetadata = Record<Route, Record<string, unknown>>;

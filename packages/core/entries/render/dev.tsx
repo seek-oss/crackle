@@ -7,6 +7,7 @@ import { renderToString } from 'react-dom/server';
 
 import type { RenderDevPageFn } from '../types';
 
+import { NotFoundPage } from './NotFoundPage';
 import { Page, createRouteMap, nodePageModules } from './shared';
 
 const reactRefresh = `
@@ -25,15 +26,22 @@ export const renderDevelopmentPage: RenderDevPageFn = async ({
 }) => {
   const routeMap = createRouteMap();
 
+  const routes = Object.keys(routeMap);
+
   if (!routeMap[path]) {
-    throw new Error(`Unable to find path ${path}`);
+    const html = renderToString(
+      <NotFoundPage attemptedPath={path} routeMap={routeMap} />,
+    );
+    return {
+      html: await inlineCriticalCss(html, criticalCssPlaceholder),
+      routes,
+      statusCode: 404,
+    };
   }
 
   const { default: PageComponent } = nodePageModules[routeMap[path].pageName];
 
-  const pageData = {
-    routeMap,
-  };
+  const pageData = { routeMap };
 
   const bodyTags = [
     <script
@@ -59,6 +67,7 @@ export const renderDevelopmentPage: RenderDevPageFn = async ({
 
   return {
     html: await inlineCriticalCss(html, criticalCssPlaceholder),
-    routes: Object.keys(routeMap),
+    routes,
+    statusCode: 200,
   };
 };
