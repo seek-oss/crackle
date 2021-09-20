@@ -15,7 +15,7 @@ const serverTest = test.extend<
       const cwd = path.join(__dirname, '../fixtures/web-app');
       const config = await resolveConfig({ cwd });
 
-      await build(config);
+      await build(config, { patchConsole: false });
       const server = await serve({
         ...config,
         port: 10000,

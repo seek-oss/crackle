@@ -1,3 +1,4 @@
+/* eslint-disable import/order */
 declare module '__NODE_PAGE_MODULES' {
   import type { RouteData } from '@crackle/router';
   import type React from 'react';
@@ -15,6 +16,9 @@ declare module '__NODE_PAGE_MODULES' {
 }
 
 declare module '__BROWSER_PAGE_MODULES' {
+  import type { RouteData } from '@crackle/router';
+  import type React from 'react';
+
   type RouteDataFn<Metadata extends Record<string, any>> =
     () => RouteData<Metadata>;
 

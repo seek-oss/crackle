@@ -13,9 +13,14 @@ type AppComponent<EventType> = React.FC<{
   registerHandler: (handler: Reporter<EventType>) => void;
 }>;
 
+export interface ReporterOptions {
+  patchConsole?: boolean;
+}
 export const createReporter =
   <EventType>(App: AppComponent<EventType>) =>
-  (): Promise<Reporter<EventType>> =>
+  ({ patchConsole = true }: ReporterOptions = {}): Promise<
+    Reporter<EventType>
+  > =>
     new Promise((res) => {
       const setHandler = (handler: Reporter<EventType>) => {
         res((event: EventType) => {
@@ -23,5 +28,7 @@ export const createReporter =
         });
       };
 
-      render(React.createElement(App, { registerHandler: setHandler }));
+      render(React.createElement(App, { registerHandler: setHandler }), {
+        patchConsole,
+      });
     });

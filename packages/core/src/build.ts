@@ -39,8 +39,14 @@ const extractManifestFile = (buildOutput: BuildOutput): Manifest => {
   return JSON.parse(manifestString.source as string) as Manifest;
 };
 
-export const build = async (inlineConfig?: PartialConfig) => {
-  const dispatchEvent = await createBuildReporter();
+interface Options {
+  patchConsole?: boolean;
+}
+export const build = async (
+  inlineConfig?: PartialConfig,
+  { patchConsole }: Options = {},
+) => {
+  const dispatchEvent = await createBuildReporter({ patchConsole });
 
   const config = getConfig(inlineConfig);
 
