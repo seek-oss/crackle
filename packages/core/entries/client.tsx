@@ -1,8 +1,11 @@
 // import 'vite/modulepreload-polyfill';
 
+// The AppShell must be imported before the __NODE_PAGE_MODULES to ensure CSS order consistancy
 // @ts-expect-error
 // eslint-disable-next-line import/order
 import AppShell from '__THE_ENTRY';
+// eslint-disable-next-line import/order
+import browserPageModules from '__BROWSER_PAGE_MODULES';
 
 import React from 'react';
 import { useEffect } from 'react';
@@ -11,7 +14,6 @@ import { hydrate } from 'react-dom';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { removeStyles } from 'used-styles/moveStyles';
 
-import { browserPageModules } from './page-modules/browser';
 import { extractRouteMetadata } from './route-metadata';
 import type { PageData, RouteMetadata } from './types';
 

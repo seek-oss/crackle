@@ -13,7 +13,7 @@ import type { PackageReporter } from './reporters/package';
 import typescriptDeclarations from './rollup-plugin-ts-declarations';
 import type { ManualChunksFn } from './types';
 import { commonViteConfig } from './vite-config';
-import { addVanillaDebugIds } from './vite-plugin-vanilla-libraries';
+import { addVanillaDebugIds } from './vite-plugins/vanilla-extract-debug-ids';
 
 const manualChunks: ManualChunksFn = (id, { getModuleInfo }) => {
   if (

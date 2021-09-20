@@ -17,7 +17,7 @@ import { getConfig } from './config';
 import { clientEntry } from './constants';
 import type { CrackleServer } from './types';
 import { commonViteConfig } from './vite-config';
-import { addPageRoots } from './vite-plugin-page-roots';
+import { addPageRoots } from './vite-plugins/page-roots';
 
 export * from './types';
 
@@ -36,7 +36,7 @@ export const start = async (
 
   const vite = await createViteServer({
     ...commonViteConfig(config),
-    server: { middlewareMode: 'ssr', port: config.port, force: true },
+    server: { middlewareMode: 'ssr', port: config.port },
     plugins: [reactRefresh(), vanillaExtractPlugin(), addPageRoots(config)],
     build: {
       rollupOptions: { input: clientEntry },

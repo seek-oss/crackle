@@ -7,7 +7,7 @@ import { cssFileFilter } from '@vanilla-extract/integration';
 import type { Plugin } from 'vite';
 
 export const addVanillaDebugIds: Plugin = {
-  name: 'add-vanilla-debug-ids',
+  name: 'crackle:vanilla-extract-debug-ids',
   async transform(code, id) {
     if (!cssFileFilter.test(id)) {
       return;

@@ -14,7 +14,7 @@ import { clientEntry } from './constants';
 import { createBuildReporter } from './reporters/build';
 import type { GetArrayType, ValueType } from './types';
 import { commonViteConfig } from './vite-config';
-import { addPageRoots } from './vite-plugin-page-roots';
+import { addPageRoots } from './vite-plugins/page-roots';
 
 type BuildOutput = ValueType<ReturnType<typeof viteBuild>>;
 type RollupOutput = GetArrayType<BuildOutput>;

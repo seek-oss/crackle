@@ -2,17 +2,27 @@ import path from 'path';
 
 import type { Plugin } from 'vite';
 
-import type { EnhancedConfig } from './config';
+import type { EnhancedConfig } from '../config';
 
 const pageGlobSuffix = '/**/*.page.tsx';
 
+const browserPageModules = '__BROWSER_PAGE_MODULES';
+const nodePageModules = '__NODE_PAGE_MODULES';
+
 export const addPageRoots = (config: EnhancedConfig): Plugin => ({
   enforce: 'pre',
-  name: 'add-page-roots',
-  async transform(code, id) {
-    if (!id.includes('core/entries/page-modules')) {
+  name: 'crackle:page-roots',
+  resolveId(source) {
+    if (source === browserPageModules || source === nodePageModules) {
+      return source;
+    }
+  },
+  load(id) {
+    if (id !== browserPageModules && id !== nodePageModules) {
       return;
     }
+
+    const globMethod = id === browserPageModules ? 'glob' : 'globEager';
 
     const combinedPageRoots = config.pageRoots
       // Remove any leading/trailing slash, e.g. /src/pages
@@ -26,6 +36,6 @@ export const addPageRoots = (config: EnhancedConfig): Plugin => ({
 
     const glob = path.join('/', output, pageGlobSuffix);
 
-    return code.replace(/\/__PAGE_ROOTS/g, glob);
+    return `export default import.meta.${globMethod}('${glob}');`;
   },
 });
