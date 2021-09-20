@@ -6,25 +6,30 @@ import { resolveConfig } from '@crackle/core/resolve-config';
 import { serve } from '@crackle/core/serve';
 import { test, expect } from '@playwright/test';
 
-let server: CrackleServer;
+const serverTest = test.extend<
+  Record<never, unknown>,
+  { server: CrackleServer }
+>({
+  server: [
+    async ({}, use) => {
+      const cwd = path.join(__dirname, '../fixtures/web-app');
+      const config = await resolveConfig({ cwd });
 
-test.beforeAll(async () => {
-  const cwd = path.join(__dirname, '../fixtures/web-app');
-  const config = await resolveConfig({ cwd });
+      await build(config, { patchConsole: false });
+      const server = await serve({
+        ...config,
+        port: 10000,
+      });
+      await use(server);
 
-  await build(config);
-  server = serve({
-    ...config,
-    port: 10000,
-  });
-});
-
-test.afterAll(async () => {
-  await server.close();
+      await server.close();
+    },
+    { scope: 'worker' },
+  ],
 });
 
 ['/', '/details', '/remote/page'].forEach((route) => {
-  test(`should return valid page: ${route}`, async ({ page }) => {
+  serverTest(`should return valid page: ${route}`, async ({ page, server }) => {
     const errors = [];
     page.on('pageerror', (error) => {
       errors.push(error);

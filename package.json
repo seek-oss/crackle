@@ -15,7 +15,8 @@
   },
   "workspaces": [
     "packages/*",
-    "fixtures/*"
+    "fixtures/*",
+    "fixtures/monorepo/packages/*"
   ],
   "dependencies": {
     "@babel/preset-env": "^7.15.0",

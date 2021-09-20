@@ -64,7 +64,16 @@ const generateCssTags = (cssImports: Set<string>, publicPath: string) =>
     <link rel="stylesheet" href={publicPath.concat(css)} key={css} />
   ));
 
-export const renderAllPages: RenderAllPagesFn = (manifest, publicPath) => {
+export const renderAllPages: RenderAllPagesFn = async (
+  manifest,
+  publicPath,
+  dispatchEvent,
+) => {
+  dispatchEvent({
+    type: 'RENDER_PAGES_STARTED',
+    totalPages: Object.keys(nodePageModules).length,
+  });
+
   const pageModules = [];
 
   for (const [pageName, pageModule] of Object.entries(nodePageModules)) {
@@ -91,6 +100,13 @@ export const renderAllPages: RenderAllPagesFn = (manifest, publicPath) => {
     );
 
     pageModules.push({ route, html });
+    dispatchEvent({ type: 'RENDERED_PAGE' });
+
+    await new Promise<void>((res) => {
+      setTimeout(() => {
+        res();
+      }, 500);
+    });
   }
 
   return pageModules;

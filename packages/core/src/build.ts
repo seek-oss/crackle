@@ -1,4 +1,5 @@
 import fs from 'fs/promises';
+import path from 'path';
 
 import { setAdapter } from '@vanilla-extract/css/adapter';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
@@ -10,8 +11,10 @@ import type { RenderAllPagesFn } from '../entries/types';
 import type { PartialConfig } from './config';
 import { getConfig } from './config';
 import { clientEntry } from './constants';
+import { createBuildReporter } from './reporters/build';
 import type { GetArrayType, ValueType } from './types';
 import { commonViteConfig } from './vite-config';
+import { addPageRoots } from './vite-plugins/page-roots';
 
 type BuildOutput = ValueType<ReturnType<typeof viteBuild>>;
 type RollupOutput = GetArrayType<BuildOutput>;
@@ -36,24 +39,57 @@ const extractManifestFile = (buildOutput: BuildOutput): Manifest => {
   return JSON.parse(manifestString.source as string) as Manifest;
 };
 
-export const build = async (inlineConfig?: PartialConfig) => {
+interface Options {
+  patchConsole?: boolean;
+}
+export const build = async (
+  inlineConfig?: PartialConfig,
+  { patchConsole }: Options = {},
+) => {
+  const dispatchEvent = await createBuildReporter({ patchConsole });
+
   const config = getConfig(inlineConfig);
 
   const commonBuildConfig: ViteConfig = {
     ...commonViteConfig(config),
-    plugins: [vanillaExtractPlugin({ identifiers: 'short' })],
+    plugins: [
+      vanillaExtractPlugin({ identifiers: 'short' }),
+      addPageRoots(config),
+    ],
+    logLevel: 'silent',
   };
 
-  const output = await viteBuild({
-    ...commonBuildConfig,
-    base: config.publicPath,
-    build: {
-      manifest: true,
-      rollupOptions: { input: clientEntry },
-    },
-  });
+  type UnPromise<T> = T extends Promise<infer K> ? K : never;
+
+  let output: UnPromise<ReturnType<typeof viteBuild>>;
 
   try {
+    dispatchEvent({ type: 'BUILD_CLIENT_STARTED' });
+    output = await viteBuild({
+      ...commonBuildConfig,
+      base: config.publicPath,
+      build: {
+        manifest: true,
+        rollupOptions: { input: clientEntry },
+      },
+    });
+
+    dispatchEvent({ type: 'BUILD_CLIENT_COMPLETE' });
+  } catch (error: any) {
+    dispatchEvent({
+      type: 'BUILD_CLIENT_FAILED',
+      error: error.loc
+        ? {
+            ...error,
+            location: path.relative(config.root, error.loc.file),
+          }
+        : error,
+    });
+    return;
+  }
+
+  try {
+    dispatchEvent({ type: 'BUILD_RENDERER_STARTED' });
     await viteBuild({
       ...commonBuildConfig,
       mode: 'development',
@@ -99,6 +135,8 @@ export const build = async (inlineConfig?: PartialConfig) => {
       },
     });
 
+    dispatchEvent({ type: 'BUILD_RENDERER_COMPLETE' });
+
     const manifest = extractManifestFile(output);
 
     setAdapter({
@@ -114,18 +152,31 @@ export const build = async (inlineConfig?: PartialConfig) => {
     const renderAllPages = require(config.resolveFromRoot('dist-render/render'))
       .renderAllPages as RenderAllPagesFn;
 
-    const pages = renderAllPages(manifest, config.publicPath);
+    const pages = await renderAllPages(
+      manifest,
+      config.publicPath,
+      dispatchEvent,
+    );
 
     await Promise.all(
       pages.map(async ({ route, html }) => {
-        const dir = `dist/${route}`;
+        const dir = config.resolveFromRoot(path.join('dist', route));
         await fs.mkdir(dir, { recursive: true });
         return fs.writeFile(`${dir}/index.html`, html);
       }),
     );
-  } catch (error) {
+    dispatchEvent({ type: 'RENDER_PAGES_COMPLETE' });
+  } catch (error: any) {
     // eslint-disable-next-line no-console
-    console.log('Error while building:', error);
+    dispatchEvent({
+      type: 'RENDER_PAGES_FAILED',
+      error: error.loc
+        ? {
+            ...error,
+            location: path.relative(config.root, error.loc.file),
+          }
+        : error,
+    });
   } finally {
     await fs.rm(config.resolveFromRoot('dist-render'), {
       recursive: true,

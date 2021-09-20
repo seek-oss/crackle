@@ -62,8 +62,6 @@ async function nonMemoizedGetService(
     configFileContents,
   );
 
-  result.config.compilerOptions.outDir = '.';
-
   const thing = typescript.parseJsonConfigFileContent(
     result.config,
     typescript.sys,

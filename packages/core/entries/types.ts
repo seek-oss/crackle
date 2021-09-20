@@ -1,28 +1,20 @@
-import type { RouteData } from '@crackle/router';
-import type React from 'react';
 import type { Manifest } from 'vite';
+
+import type { BuildReporter } from '../src/reporters/build';
 
 export type RenderAllPagesFn = (
   manifest: Manifest,
   publicPath: string,
-) => Array<{ route: string; html: string }>;
+  dispatchEvent: BuildReporter,
+) => Promise<Array<{ route: string; html: string }>>;
 
 interface RenderParams {
   path: string;
   entry: string;
 }
-export type RenderPageFn = (params: RenderParams) => Promise<string>;
 export type RenderDevPageFn = (
   params: RenderParams,
 ) => Promise<{ html: string; routes: string[] }>;
-
-export type RouteDataFn<Metadata extends Record<string, any>> =
-  () => RouteData<Metadata>;
-
-export interface PageModule {
-  routeData: RouteDataFn<Record<string, unknown>>;
-  default: React.FC;
-}
 
 type Route = string;
 export type RouteMetadata = Record<Route, Record<string, unknown>>;

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import path from 'path';
 
 import { cssFileFilter } from '@vanilla-extract/integration';
@@ -5,12 +6,14 @@ import glob from 'fast-glob';
 import externals from 'rollup-plugin-node-externals';
 import { build as viteBuild } from 'vite';
 
-import type { PartialConfig } from './config';
+import type { PartialConfig, EnhancedConfig } from './config';
 import { getConfig } from './config';
+import { createPackageReporter } from './reporters/package';
+import type { PackageReporter } from './reporters/package';
 import typescriptDeclarations from './rollup-plugin-ts-declarations';
 import type { ManualChunksFn } from './types';
 import { commonViteConfig } from './vite-config';
-import { addVanillaDebugIds } from './vite-plugin-vanilla-libraries';
+import { addVanillaDebugIds } from './vite-plugins/vanilla-extract-debug-ids';
 
 const manualChunks: ManualChunksFn = (id, { getModuleInfo }) => {
   if (
@@ -24,8 +27,13 @@ const manualChunks: ManualChunksFn = (id, { getModuleInfo }) => {
   }
 };
 
-export const buildPackage = async (inlineConfig?: PartialConfig) => {
-  const config = getConfig(inlineConfig);
+const buildPackage = async (
+  config: EnhancedConfig,
+  packageName: string,
+  dispatchEvent: PackageReporter,
+) => {
+  dispatchEvent({ type: 'BUILD_STARTED', packageName });
+
   const entries = await glob(['src/entries/*.ts', 'src/index.ts'], {
     absolute: true,
     cwd: config.root,
@@ -43,11 +51,12 @@ export const buildPackage = async (inlineConfig?: PartialConfig) => {
       },
       typescriptDeclarations({
         directory: config.root,
-        name: 'my-package',
+        name: packageName,
         entrypoints: entries.map((entry) => ({ source: entry })),
       }),
       addVanillaDebugIds,
     ],
+    logLevel: 'silent',
     build: {
       emptyOutDir: false,
       minify: false,
@@ -92,4 +101,47 @@ export const buildPackage = async (inlineConfig?: PartialConfig) => {
       },
     },
   });
+
+  dispatchEvent({ type: 'BUILD_COMPLETED', packageName });
+};
+
+export const buildPackages = async (partialConfig?: PartialConfig) => {
+  const config = getConfig(partialConfig);
+
+  const dispatchEvent = await createPackageReporter();
+
+  const monorepoPackages = await glob(['packages/*/package.json'], {
+    cwd: config.root,
+    absolute: true,
+  });
+
+  const isMonorepo = monorepoPackages.length > 0;
+
+  const allPackageJsons = isMonorepo
+    ? monorepoPackages
+    : [config.resolveFromRoot('package.json')];
+
+  await Promise.all(
+    allPackageJsons.map((packageJsonPath) => {
+      const filePath = path.dirname(packageJsonPath);
+      const packageConfig = getConfig({ ...config, root: filePath });
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const packageName = require(packageJsonPath).name;
+
+      return buildPackage(packageConfig, packageName, dispatchEvent).catch(
+        (err) => {
+          dispatchEvent({
+            type: 'BUILD_FAILED',
+            packageName,
+            error: err.loc
+              ? {
+                  ...err,
+                  location: path.relative(config.root, err.loc.file),
+                }
+              : err,
+          });
+        },
+      );
+    }),
+  );
 };

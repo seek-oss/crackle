@@ -1,4 +1,6 @@
 /* eslint-disable no-console */
+import type http from 'http';
+import path from 'path';
 import { performance } from 'perf_hooks';
 
 import { defineRoutes } from '@crackle/router/routes';
@@ -15,9 +17,11 @@ import { getConfig } from './config';
 import { clientEntry } from './constants';
 import type { CrackleServer } from './types';
 import { commonViteConfig } from './vite-config';
-import { addPageRoots } from './vite-plugin-page-roots';
+import { addPageRoots } from './vite-plugins/page-roots';
 
 export * from './types';
+
+type Socket = http.IncomingMessage['socket'];
 
 const calculateTime = (startTime: number) =>
   Math.round((performance.now() - startTime) * 100) / 100;
@@ -28,15 +32,27 @@ export const start = async (
   const config = getConfig(inlineConfig);
   const app = express();
 
+  const connections = new Map<string, Socket>();
+
   const vite = await createViteServer({
     ...commonViteConfig(config),
     server: { middlewareMode: 'ssr', port: config.port },
     plugins: [reactRefresh(), vanillaExtractPlugin(), addPageRoots(config)],
-    // Vite doesn't allow dependency bundling if the entry file is inside node_modules. Rollup options is not bound by that constraint.
-    // https://github.com/vitejs/vite/blob/bf0b631e7479ed70d02b98b780cf7e4b02d0344b/packages/vite/src/node/optimizer/scan.ts#L56-L61
-    // https://github.com/vitejs/vite/blob/bf0b631e7479ed70d02b98b780cf7e4b02d0344b/packages/vite/src/node/optimizer/scan.ts#L124-L125
     build: {
       rollupOptions: { input: clientEntry },
+    },
+    optimizeDeps: {
+      entries: [
+        ...config.pageRoots.map((pageRoot) =>
+          path.join(pageRoot, '/**/*.page.tsx'),
+        ),
+        config.resolveFromRoot(config.appShell),
+      ],
+      // Vite doesn't allow dependency bundling if the entry file is inside node_modules, so our client entry file is not scanned for deps.
+      // https://github.com/vitejs/vite/blob/bf0b631e7479ed70d02b98b780cf7e4b02d0344b/packages/vite/src/node/optimizer/scan.ts#L56-L61
+      // https://github.com/vitejs/vite/blob/bf0b631e7479ed70d02b98b780cf7e4b02d0344b/packages/vite/src/node/optimizer/scan.ts#L124-L125
+      // We can force include our internal dependencies here, so that they also get prebundled.
+      include: ['react-dom', 'used-styles/moveStyles'],
     },
     // @ts-expect-error
     ssr: {
@@ -116,19 +132,27 @@ export const start = async (
     console.log('Server running at', url);
   });
 
+  // HTTP1.1 connections with keep-alive will prevent the server shutting down.
+  // If we keep track of connections, we can terminate them manually
+  server.on('connection', (conn) => {
+    const key = [conn.remoteAddress, conn.remotePort].join(':');
+
+    connections.set(key, conn);
+
+    conn.on('close', () => connections.delete(key));
+  });
+
   return {
     url,
     close: async () => {
+      for (const [_key, conn] of connections) {
+        conn.destroy();
+      }
+
       await Promise.all([
         vite.close(),
         new Promise<void>((res, rej) => {
-          server.close((err) => {
-            if (err) {
-              return rej(err);
-            }
-
-            res();
-          });
+          server.close((err) => (err ? rej(err) : res()));
         }),
       ]);
     },

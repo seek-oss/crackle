@@ -1,14 +1,16 @@
-// The AppShell must be imported before the nodePageModules to ensure CSS order consistancy
+// The AppShell must be imported before the __NODE_PAGE_MODULES to ensure CSS order consistancy
 // @ts-expect-error
 // eslint-disable-next-line import/order
 import AppShell from '__THE_ENTRY';
+
+// eslint-disable-next-line import/order
+import nodePageModules from '__NODE_PAGE_MODULES';
 
 import React from 'react';
 import { StaticRouter } from 'react-router-dom/server';
 import serializeJavascript from 'serialize-javascript';
 
 import { LoadingIcon } from '../loading-icon';
-import { nodePageModules } from '../page-modules/node';
 import { extractRouteMetadata } from '../route-metadata';
 import type { PageData, RouteMap } from '../types';
 
