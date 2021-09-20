@@ -26,6 +26,6 @@ export const addPageRoots = (config: EnhancedConfig): Plugin => ({
 
     const glob = path.join('/', output, pageGlobSuffix);
 
-    return code.replace(/\/__PAGE_ROOTS/g, glob);
+    return code.replace(/__PAGE_ROOTS/g, glob);
   },
 });
