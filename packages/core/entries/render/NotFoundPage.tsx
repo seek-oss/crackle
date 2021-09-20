@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { RouteMap } from '../types';
+import type { RouteMap } from '../types';
 
 interface NotFoundPageProps {
   attemptedPath: string;
@@ -28,14 +28,16 @@ export const NotFoundPage = ({
           <th>Route</th>
           <th>Defined in</th>
         </tr>
-        {Object.entries(routeMap).map(([route, pageData]) => (
-          <tr key={route}>
-            <td>
-              <a href={route}>{route}</a>
-            </td>
-            <td>{pageData.pageName}</td>
-          </tr>
-        ))}
+        {Object.entries(routeMap)
+          .sort((a, b) => (a[0] > b[0] ? 1 : -1))
+          .map(([route, pageData]) => (
+            <tr key={route}>
+              <td>
+                <a href={route}>{route}</a>
+              </td>
+              <td>{pageData.pageName}</td>
+            </tr>
+          ))}
       </table>
     </p>
     <p>
