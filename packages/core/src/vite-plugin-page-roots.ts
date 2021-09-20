@@ -1,6 +1,10 @@
+import path from 'path';
+
 import type { Plugin } from 'vite';
 
 import type { EnhancedConfig } from './config';
+
+const pageGlobSuffix = '/**/*.page.tsx';
 
 export const addPageRoots = (config: EnhancedConfig): Plugin => ({
   enforce: 'pre',
@@ -10,6 +14,18 @@ export const addPageRoots = (config: EnhancedConfig): Plugin => ({
       return;
     }
 
-    return code.replace(/__PAGE_ROOTS/g, config.pageRoots.join(','));
+    const combinedPageRoots = config.pageRoots
+      // Remove any leading/trailing slash, e.g. /src/pages
+      .map((pageRoot) => pageRoot.replace(/^\/+|\/$/g, ''))
+      .join(',');
+
+    const output =
+      config.pageRoots.length > 1
+        ? `{${combinedPageRoots}}`
+        : combinedPageRoots;
+
+    const glob = path.join('/', output, pageGlobSuffix);
+
+    return code.replace(/__PAGE_ROOTS/g, glob);
   },
 });

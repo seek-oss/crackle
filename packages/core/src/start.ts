@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import type http from 'http';
 import { performance } from 'perf_hooks';
 
 import { defineRoutes } from '@crackle/router/routes';
@@ -19,6 +20,8 @@ import { addPageRoots } from './vite-plugin-page-roots';
 
 export * from './types';
 
+type Socket = http.IncomingMessage['socket'];
+
 const calculateTime = (startTime: number) =>
   Math.round((performance.now() - startTime) * 100) / 100;
 
@@ -27,6 +30,8 @@ export const start = async (
 ): Promise<CrackleServer> => {
   const config = getConfig(inlineConfig);
   const app = express();
+
+  const connections = new Map<string, Socket>();
 
   const vite = await createViteServer({
     ...commonViteConfig(config),
@@ -116,19 +121,27 @@ export const start = async (
     console.log('Server running at', url);
   });
 
+  // HTTP1.1 connections with keep-alive will prevent the server shutting down.
+  // If we keep track of connections, we can terminate them manually
+  server.on('connection', (conn) => {
+    const key = [conn.remoteAddress, conn.remotePort].join(':');
+
+    connections.set(key, conn);
+
+    conn.on('close', () => connections.delete(key));
+  });
+
   return {
     url,
     close: async () => {
+      for (const [_key, conn] of connections) {
+        conn.destroy();
+      }
+
       await Promise.all([
         vite.close(),
         new Promise<void>((res, rej) => {
-          server.close((err) => {
-            if (err) {
-              return rej(err);
-            }
-
-            res();
-          });
+          server.close((err) => (err ? rej(err) : res()));
         }),
       ]);
     },
