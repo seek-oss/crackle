@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import type http from 'http';
+import path from 'path';
 import { performance } from 'perf_hooks';
 
 import { defineRoutes } from '@crackle/router/routes';
@@ -35,13 +36,23 @@ export const start = async (
 
   const vite = await createViteServer({
     ...commonViteConfig(config),
-    server: { middlewareMode: 'ssr', port: config.port },
+    server: { middlewareMode: 'ssr', port: config.port, force: true },
     plugins: [reactRefresh(), vanillaExtractPlugin(), addPageRoots(config)],
-    // Vite doesn't allow dependency bundling if the entry file is inside node_modules. Rollup options is not bound by that constraint.
-    // https://github.com/vitejs/vite/blob/bf0b631e7479ed70d02b98b780cf7e4b02d0344b/packages/vite/src/node/optimizer/scan.ts#L56-L61
-    // https://github.com/vitejs/vite/blob/bf0b631e7479ed70d02b98b780cf7e4b02d0344b/packages/vite/src/node/optimizer/scan.ts#L124-L125
     build: {
       rollupOptions: { input: clientEntry },
+    },
+    optimizeDeps: {
+      entries: [
+        ...config.pageRoots.map((pageRoot) =>
+          path.join(pageRoot, '/**/*.page.tsx'),
+        ),
+        config.resolveFromRoot(config.appShell),
+      ],
+      // Vite doesn't allow dependency bundling if the entry file is inside node_modules, so our client entry file is not scanned for deps.
+      // https://github.com/vitejs/vite/blob/bf0b631e7479ed70d02b98b780cf7e4b02d0344b/packages/vite/src/node/optimizer/scan.ts#L56-L61
+      // https://github.com/vitejs/vite/blob/bf0b631e7479ed70d02b98b780cf7e4b02d0344b/packages/vite/src/node/optimizer/scan.ts#L124-L125
+      // We can force include our internal dependencies here, so that they also get prebundled.
+      include: ['react-dom', 'used-styles/moveStyles'],
     },
     // @ts-expect-error
     ssr: {
