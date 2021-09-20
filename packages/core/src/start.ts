@@ -104,23 +104,19 @@ export const start = async (
         renderDevelopmentPage: RenderDevPageFn;
       };
 
-      const { html, routes } = await renderDevelopmentPage({
+      const { html, routes, statusCode } = await renderDevelopmentPage({
         path: req.originalUrl,
         entry: clientEntry,
       });
 
-      res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
+      res.status(statusCode).set({ 'Content-Type': 'text/html' }).end(html);
       defineRoutes(routes);
     } catch (e: any) {
-      if (e instanceof Error && e.message.startsWith('Unable to find path')) {
-        res.status(404).end(e.message);
-      } else {
-        // If an error is caught, let vite fix the stracktrace so it maps back to
-        // your actual source code.
-        vite.ssrFixStacktrace(e);
-        console.error(e);
-        res.status(500).end(e.message);
-      }
+      // If an error is caught, let vite fix the stracktrace so it maps back to
+      // your actual source code.
+      vite.ssrFixStacktrace(e);
+      console.error(e);
+      res.status(500).end(e.message);
     }
 
     console.log(`Request completed in ${calculateTime(startTime)}ms`);

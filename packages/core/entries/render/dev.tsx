@@ -26,42 +26,48 @@ export const renderDevelopmentPage: RenderDevPageFn = async ({
 }) => {
   const routeMap = createRouteMap();
 
-  let html = '';
+  const routes = Object.keys(routeMap);
 
   if (!routeMap[path]) {
-    html = renderToString(
+    const html = renderToString(
       <NotFoundPage attemptedPath={path} routeMap={routeMap} />,
     );
-  } else {
-    const { default: PageComponent } = nodePageModules[routeMap[path].pageName];
-
-    const pageData = { routeMap };
-
-    const bodyTags = [
-      <script
-        key="react-refresh"
-        type="module"
-        dangerouslySetInnerHTML={{ __html: reactRefresh }}
-      />,
-      <script key="vite-client" type="module" src="/@vite/client" />,
-      <script key="entry" type="module" src={entry} />,
-    ];
-
-    html = renderToString(
-      <Page
-        path={path}
-        headTags={null}
-        bodyTags={bodyTags}
-        pageData={pageData}
-        criticalCssPlaceholder={criticalCssPlaceholder}
-      >
-        <PageComponent />
-      </Page>,
-    );
+    return {
+      html: await inlineCriticalCss(html, criticalCssPlaceholder),
+      routes,
+      statusCode: 404,
+    };
   }
+
+  const { default: PageComponent } = nodePageModules[routeMap[path].pageName];
+
+  const pageData = { routeMap };
+
+  const bodyTags = [
+    <script
+      key="react-refresh"
+      type="module"
+      dangerouslySetInnerHTML={{ __html: reactRefresh }}
+    />,
+    <script key="vite-client" type="module" src="/@vite/client" />,
+    <script key="entry" type="module" src={entry} />,
+  ];
+
+  const html = renderToString(
+    <Page
+      path={path}
+      headTags={null}
+      bodyTags={bodyTags}
+      pageData={pageData}
+      criticalCssPlaceholder={criticalCssPlaceholder}
+    >
+      <PageComponent />
+    </Page>,
+  );
 
   return {
     html: await inlineCriticalCss(html, criticalCssPlaceholder),
-    routes: Object.keys(routeMap),
+    routes,
+    statusCode: 200,
   };
 };
