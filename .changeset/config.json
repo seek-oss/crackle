@@ -2,7 +2,7 @@
   "$schema": "https://unpkg.com/@changesets/config@1.6.1/schema.json",
   "changelog": "@changesets/cli/changelog",
   "commit": false,
-  "linked": [],
+  "linked": [["@crackle/core", "@crackle/cli", "@crackle/router"]],
   "access": "public",
   "baseBranch": "master",
   "updateInternalDependencies": "patch",
