@@ -37,7 +37,11 @@ export const start = async (
   const vite = await createViteServer({
     ...commonViteConfig(config),
     server: { middlewareMode: 'ssr', port: config.port },
-    plugins: [reactRefresh(), vanillaExtractPlugin(), addPageRoots(config)],
+    plugins: [
+      reactRefresh(),
+      vanillaExtractPlugin({ devStyleRuntime: 'vanilla-extract' }),
+      addPageRoots(config),
+    ],
     build: {
       rollupOptions: { input: clientEntry },
     },
@@ -46,13 +50,19 @@ export const start = async (
         ...config.pageRoots.map((pageRoot) =>
           path.join(pageRoot, '/**/*.page.tsx'),
         ),
-        config.resolveFromRoot(config.appShell),
+        config.appShell,
       ],
       // Vite doesn't allow dependency bundling if the entry file is inside node_modules, so our client entry file is not scanned for deps.
       // https://github.com/vitejs/vite/blob/bf0b631e7479ed70d02b98b780cf7e4b02d0344b/packages/vite/src/node/optimizer/scan.ts#L56-L61
       // https://github.com/vitejs/vite/blob/bf0b631e7479ed70d02b98b780cf7e4b02d0344b/packages/vite/src/node/optimizer/scan.ts#L124-L125
       // We can force include our internal dependencies here, so that they also get prebundled.
-      include: ['react-dom', 'used-styles/moveStyles'],
+      include: [
+        'gradient-parser',
+        'lodash/mapValues',
+        'lodash/merge',
+        'lodash/omit',
+        'react-dom',
+      ],
     },
     // @ts-expect-error
     ssr: {
