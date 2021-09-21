@@ -14,8 +14,8 @@
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@crackle/cli": "0.1.2",
-    "@crackle/core": "0.2.4",
+    "@crackle/cli": "0.3.0",
+    "@crackle/core": "0.3.0",
     "@types/react-dom": "^17"
   },
   "scripts": {

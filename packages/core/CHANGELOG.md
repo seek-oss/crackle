@@ -1,5 +1,11 @@
 # @crackle/core
 
+## 0.3.0
+
+### Minor Changes
+
+- eeb9611: Improve things
+
 ## 0.2.4
 
 ### Patch Changes
