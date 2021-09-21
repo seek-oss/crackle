@@ -1,4 +1,5 @@
 {
   "name": "@crackle-fixtures-monorepo/package-b",
+  "private": true,
   "main": "dist/index.js"
 }
