@@ -59,15 +59,6 @@ export const inlineCriticalCss = async (
   html: string,
   criticalCssPlaceholder: string,
 ) => {
-  const unusedCompositions = composedClassLists
-    .filter(({ identifier }) => !usedCompositions.has(identifier))
-    .map(({ identifier }) => identifier);
-
-  const unusedCompositionRegex =
-    unusedCompositions.length > 0
-      ? RegExp(`(${unusedCompositions.join('|')})\\s`, 'g')
-      : null;
-
   const styleDefs = loadStyleDefinitions(
     () => Array.from(cssByFileScope.keys()),
     (fileScopeKey) => cssByFileScope.get(fileScopeKey) ?? '',
@@ -77,9 +68,5 @@ export const inlineCriticalCss = async (
 
   const styles = getCriticalStyles(html, styleDefs);
 
-  const cleanedHtml = unusedCompositionRegex
-    ? html.replace(unusedCompositionRegex, '')
-    : html;
-
-  return cleanedHtml.replace(criticalCssPlaceholder, styles);
+  return html.replace(criticalCssPlaceholder, styles);
 };
