@@ -12,7 +12,6 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { hydrate } from 'react-dom';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { removeStyles } from 'used-styles/moveStyles';
 
 import { extractRouteMetadata } from './route-metadata';
 import type { PageData, RouteMetadata } from './types';
@@ -55,9 +54,8 @@ browserPageModules[targetPage]()
     PreviousPage = pageModule.default;
   })
   .then(() => {
-    removeStyles();
     document
-      .querySelectorAll('[data-module-loading-icon]')
+      .querySelectorAll('[data-module-loading-icon],[data-used-styles]')
       .forEach((e) => e.remove());
 
     const routeMetadata = extractRouteMetadata(pageData.routeMap);
