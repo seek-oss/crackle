@@ -8,7 +8,8 @@ export const commonViteConfig = (config: EnhancedConfig): InlineConfig => ({
   plugins: [vanillaExtractPlugin({ identifiers: 'short' })],
   resolve: {
     alias: {
-      __THE_ENTRY: config.resolveFromRoot(config.appShell),
+      // eslint-disable-next-line no-sync
+      __THE_ENTRY: config.appShell,
       'sku/react-treat': require.resolve('../mocks/react-treat.tsx'),
       'sku/treat': require.resolve('../mocks/treat.ts'),
     },

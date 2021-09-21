@@ -1,3 +1,4 @@
+import fs from 'fs';
 import path from 'path';
 
 export interface Config {
@@ -46,14 +47,41 @@ export const defaultConfig: Config = {
   appShell: 'src/App.tsx',
 };
 
+const determineAppShell = (
+  inlineConfig: PartialConfig | undefined,
+  resolveFromRoot: (filePath: string) => string,
+) => {
+  if (inlineConfig?.appShell) {
+    return resolveFromRoot(inlineConfig.appShell);
+  }
+
+  const defaultAppShellPath = resolveFromRoot(defaultConfig.appShell);
+
+  // eslint-disable-next-line no-sync
+  if (fs.existsSync(defaultAppShellPath)) {
+    return defaultAppShellPath;
+  }
+
+  return require.resolve('../entries/default-app-shell.tsx');
+};
+
 export const getConfig = (inlineConfig?: PartialConfig): EnhancedConfig => {
   const config = {
     ...defaultConfig,
     ...inlineConfig,
   };
 
+  const resolveFromRoot = (filePath: string) =>
+    path.join(config.root, filePath);
+
+  const appShell = determineAppShell(
+    inlineConfig,
+    resolveFromRoot,
+  ) as `${string}.tsx`;
+
   return {
     ...config,
-    resolveFromRoot: (filePath: string) => path.join(config.root, filePath),
+    appShell,
+    resolveFromRoot,
   };
 };
