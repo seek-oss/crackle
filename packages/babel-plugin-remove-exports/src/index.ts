@@ -4,40 +4,55 @@ import type { NodePath, Visitor } from '@babel/traverse';
 
 interface Context extends PluginPass {
   identifiersToKeep: Set<string>;
+  opts: {
+    retainExports?: Array<string>;
+    retainDefault?: boolean;
+    retainIdentifiers?: Array<string>;
+  };
 }
 
-const identifierIdentifier: Visitor<Context> = {
+const handleIdentifier = (
+  path: NodePath<t.Identifier | t.JSXIdentifier>,
+  identifiersToKeep: Set<string>,
+) => {
+  const identifier = path.node.name;
+  if (identifiersToKeep.has(identifier)) {
+    return;
+  }
+
+  const binding = path.scope.getBinding(identifier);
+
+  if (!binding) {
+    return;
+  }
+
+  const programScope = binding.scope.getProgramParent();
+  const programBinding = programScope.getBinding(identifier);
+
+  if (programBinding) {
+    identifiersToKeep.add(path.node.name);
+
+    programBinding.path.traverse(identifierVisitor, { identifiersToKeep });
+  }
+};
+
+const identifierVisitor: Visitor<{ identifiersToKeep: Set<string> }> = {
   Identifier(path) {
-    const identifier = path.node.name;
-    if (this.identifiersToKeep.has(identifier)) {
-      return;
-    }
-
-    const binding = path.scope.getBinding(identifier);
-
-    if (!binding) {
-      return;
-    }
-
-    const programScope = binding.scope.getProgramParent();
-    const programBinding = programScope.getBinding(identifier);
-
-    if (programBinding) {
-      this.identifiersToKeep.add(path.node.name);
-
-      programBinding.path.traverse(identifierIdentifier, this);
-    }
+    handleIdentifier(path, this.identifiersToKeep);
+  },
+  JSXIdentifier(path) {
+    handleIdentifier(path, this.identifiersToKeep);
   },
 };
 
 export default function (): PluginObj<Context> {
   return {
     pre() {
-      this.identifiersToKeep = new Set<string>();
+      this.identifiersToKeep = new Set<string>(this.opts.retainIdentifiers);
     },
     visitor: {
       Program: {
-        exit(path) {
+        exit(path, { opts }) {
           const bodyPath = path.get('body');
 
           for (const statement of bodyPath) {
@@ -58,31 +73,36 @@ export default function (): PluginObj<Context> {
 
             if (
               !statementBindsKeptIdentifier &&
-              !statementExportsKeptIdentifier
+              !(
+                statementExportsKeptIdentifier ||
+                (opts.retainDefault && t.isExportDefaultDeclaration(statement))
+              )
             ) {
               statement.remove();
             }
           }
         },
       },
-      ExportNamedDeclaration(path) {
+      ExportNamedDeclaration(path, { opts }) {
+        const { retainExports = [] } = opts;
         const specifiers = path.get('specifiers');
 
         if (specifiers && specifiers.length > 0) {
-          const routeDataSpecifier = specifiers.find((specifier) =>
-            t.isIdentifier(specifier.node.exported, { name: 'routeData' }),
+          const retainExportSpecifier = specifiers.find(
+            (specifier) =>
+              t.isIdentifier(specifier.node.exported) &&
+              retainExports.includes(specifier.node.exported.name),
           ) as NodePath<t.ExportSpecifier> | undefined;
 
-          if (routeDataSpecifier) {
-            routeDataSpecifier.traverse(identifierIdentifier, this);
+          if (retainExportSpecifier) {
+            retainExportSpecifier.traverse(identifierVisitor, this);
           }
         }
 
         if (
           t.isVariableDeclaration(path.node.declaration) &&
-          t.isIdentifier(path.node.declaration.declarations[0].id, {
-            name: 'routeData',
-          })
+          t.isIdentifier(path.node.declaration.declarations[0].id) &&
+          retainExports.includes(path.node.declaration.declarations[0].id.name)
         ) {
           let declarationPath = path.get('declaration');
 
@@ -90,8 +110,17 @@ export default function (): PluginObj<Context> {
             declarationPath = declarationPath[0];
           }
 
-          declarationPath.traverse(identifierIdentifier, this);
+          declarationPath.traverse(identifierVisitor, this);
         }
+      },
+      ExportDefaultDeclaration(path, { opts }) {
+        if (!opts.retainDefault) {
+          return;
+        }
+
+        path.traverse(identifierVisitor, {
+          identifiersToKeep: this.identifiersToKeep,
+        });
       },
     },
   };

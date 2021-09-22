@@ -18,6 +18,7 @@ import { clientEntry } from './constants';
 import type { CrackleServer } from './types';
 import { commonViteConfig } from './vite-config';
 import { addPageRoots } from './vite-plugins/page-roots';
+import { stripRouteData } from './vite-plugins/strip-route-data';
 
 export * from './types';
 
@@ -38,6 +39,7 @@ export const start = async (
     ...commonViteConfig(config),
     server: { middlewareMode: 'ssr', port: config.port },
     plugins: [
+      stripRouteData(),
       reactRefresh(),
       vanillaExtractPlugin({ devStyleRuntime: 'vanilla-extract' }),
       addPageRoots(config),

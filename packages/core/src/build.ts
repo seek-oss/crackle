@@ -15,6 +15,7 @@ import { createBuildReporter } from './reporters/build';
 import type { GetArrayType, ValueType } from './types';
 import { commonViteConfig } from './vite-config';
 import { addPageRoots } from './vite-plugins/page-roots';
+import { stripRouteData } from './vite-plugins/strip-route-data';
 
 type BuildOutput = ValueType<ReturnType<typeof viteBuild>>;
 type RollupOutput = GetArrayType<BuildOutput>;
@@ -53,6 +54,7 @@ export const build = async (
   const commonBuildConfig: ViteConfig = {
     ...commonViteConfig(config),
     plugins: [
+      stripRouteData(),
       vanillaExtractPlugin({ identifiers: 'short' }),
       addPageRoots(config),
     ],

@@ -1,5 +1,4 @@
 import { transformFileAsync as babelTransform } from '@babel/core';
-import removeExportsPlugin from '@crackle/babel-plugin-remove-exports';
 import { build as esbuild } from 'esbuild';
 import glob from 'fast-glob';
 
@@ -12,11 +11,15 @@ const routeEntryNs = 'ROUTES_ENTRY_NAMESPACE';
 const transformWithBabel = async (path: string) => {
   const transformedContents = await babelTransform(path, {
     plugins: [
-      removeExportsPlugin,
+      [
+        '@crackle/babel-plugin-remove-exports',
+        { retainExports: ['routeData'] },
+      ],
       '@babel/plugin-syntax-jsx',
       ['@babel/plugin-syntax-typescript', { isTSX: true }],
     ],
     babelrc: false,
+    configFile: false,
   });
 
   if (!transformedContents?.code) {
@@ -34,6 +37,7 @@ export const getAllRoutes = async (inlineConfig?: PartialConfig) => {
 
   const pageFiles = await glob(
     pageRoots.map((pageRoot) => `${pageRoot}/**/*.page.tsx`),
+    { cwd: root },
   );
 
   const pageImports = pageFiles
