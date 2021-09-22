@@ -1,5 +1,12 @@
 # @crackle/cli
 
+## 0.4.0
+
+### Patch Changes
+
+- Updated dependencies [a4dc0f9]
+  - @crackle/core@0.4.0
+
 ## 0.3.0
 
 ### Patch Changes

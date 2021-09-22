@@ -1,5 +1,18 @@
 # @crackle/core
 
+## 0.4.0
+
+### Minor Changes
+
+- a4dc0f9: Strip route data from pages files in client builds
+
+  This will make sure `routeData` dependencies don't end up in the client bundle, as well as allowing react fast-refresh to work on `.page.tsx` files in development.
+
+### Patch Changes
+
+- Updated dependencies [a4dc0f9]
+  - @crackle/babel-plugin-remove-exports@0.1.0
+
 ## 0.3.0
 
 ### Minor Changes
