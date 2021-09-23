@@ -1,5 +1,12 @@
 # @crackle/core
 
+## 0.4.1
+
+### Patch Changes
+
+- Updated dependencies [8e80af5]
+  - @crackle/router@0.1.1
+
 ## 0.4.0
 
 ### Minor Changes
