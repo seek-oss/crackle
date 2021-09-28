@@ -64,12 +64,13 @@ export const start = async (
         // https://github.com/vitejs/vite/blob/bf0b631e7479ed70d02b98b780cf7e4b02d0344b/packages/vite/src/node/optimizer/scan.ts#L124-L125
         // We can force include our internal dependencies here, so that they also get prebundled.
         include: [
+          '@vanilla-extract/css',
+          '@vanilla-extract/css/fileScope',
           'gradient-parser',
           'lodash/mapValues',
           'lodash/merge',
           'lodash/omit',
           'react-dom',
-          'dedent',
         ],
       },
       // @ts-expect-error
