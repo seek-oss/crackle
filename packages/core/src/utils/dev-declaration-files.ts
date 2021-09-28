@@ -4,10 +4,13 @@ import path from 'path';
 import type { EnhancedConfig } from '../config';
 
 import { getPackages, getPackageEntryPoints } from './get-packages';
+import { promiseMap } from './promise-map';
+
+const exportDefaultRegex = /^export default/m;
 
 const hasDefaultExport = async (filePath: string) => {
   const fileContents = await fs.readFile(filePath, 'utf-8');
-  return new RegExp('^export default', 'm').test(fileContents);
+  return exportDefaultRegex.test(fileContents);
 };
 
 export const generateDevDeclarationFiles = async (config: EnhancedConfig) => {
@@ -17,8 +20,9 @@ export const generateDevDeclarationFiles = async (config: EnhancedConfig) => {
       packageRoot: pkg.root,
     });
 
-    const declarationFiles = await Promise.all(
-      entryPaths.subEntries.map(async (entryPath) => {
+    const declarationFiles = await promiseMap(
+      entryPaths.subEntries,
+      async (entryPath) => {
         const entryName = path.basename(entryPath, '.ts');
 
         const declarationLines = [
@@ -35,7 +39,7 @@ export const generateDevDeclarationFiles = async (config: EnhancedConfig) => {
           dirPath: path.join(pkg.root, entryName),
           fileContents: declarationLines.join('\n'),
         };
-      }),
+      },
     );
 
     if (entryPaths.defaultEntry) {
@@ -53,12 +57,10 @@ export const generateDevDeclarationFiles = async (config: EnhancedConfig) => {
       });
     }
 
-    await Promise.all(
-      declarationFiles.map(async (declarationFile) => {
-        const fileName = path.join(declarationFile.dirPath, 'index.d.ts');
-        await fs.mkdir(declarationFile.dirPath, { recursive: true });
-        return fs.writeFile(fileName, declarationFile.fileContents, 'utf-8');
-      }),
-    );
+    await promiseMap(declarationFiles, async (declarationFile) => {
+      const fileName = path.join(declarationFile.dirPath, 'index.d.ts');
+      await fs.mkdir(declarationFile.dirPath, { recursive: true });
+      return fs.writeFile(fileName, declarationFile.fileContents, 'utf-8');
+    });
   }
 };

@@ -3,6 +3,8 @@ import path from 'path';
 import normalizePath from 'normalize-path';
 import type { Plugin } from 'rollup';
 
+import { promiseMap } from '../utils/promise-map';
+
 import { createDeclarationCreator } from './create-generator';
 import { FatalError } from './errors';
 import type { Package } from './types/package';
@@ -23,35 +25,33 @@ export default function typescriptDeclarations(pkg: Package): Plugin {
       const srcFilenameToDtsFilenameMap = new Map<string, string>();
 
       const deps = creator.getDeps(pkg.entrypoints.map((x) => x.source));
-      await Promise.all(
-        Array.from(deps).map(async (dep) => {
-          const { types, map } = await creator.getDeclarationFiles(dep);
+      await promiseMap(Array.from(deps), async (dep) => {
+        const { types, map } = await creator.getDeclarationFiles(dep);
 
-          srcFilenameToDtsFilenameMap.set(normalizePath(dep), types.name);
+        srcFilenameToDtsFilenameMap.set(normalizePath(dep), types.name);
+
+        this.emitFile({
+          type: 'asset',
+          fileName: path.relative(opts.dir!, types.name),
+          source: types.content,
+        });
+
+        if (map) {
+          const sourceRoot = normalizePath(
+            path.dirname(path.relative(path.dirname(map.name), dep)),
+          );
+          const source = overwriteDeclarationMapSourceRoot(
+            map.content,
+            sourceRoot,
+          );
 
           this.emitFile({
             type: 'asset',
-            fileName: path.relative(opts.dir!, types.name),
-            source: types.content,
+            fileName: path.relative(opts.dir!, map.name),
+            source,
           });
-
-          if (map) {
-            const sourceRoot = normalizePath(
-              path.dirname(path.relative(path.dirname(map.name), dep)),
-            );
-            const source = overwriteDeclarationMapSourceRoot(
-              map.content,
-              sourceRoot,
-            );
-
-            this.emitFile({
-              type: 'asset',
-              fileName: path.relative(opts.dir!, map.name),
-              source,
-            });
-          }
-        }),
-      );
+        }
+      });
 
       // eslint-disable-next-line guard-for-in
       for (const n in bundle) {

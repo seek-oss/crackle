@@ -13,6 +13,7 @@ import { getConfig } from './config';
 import { clientEntry } from './constants';
 import { createBuildReporter } from './reporters/build';
 import type { GetArrayType, ValueType } from './types';
+import { promiseMap } from './utils/promise-map';
 import { commonViteConfig } from './vite-config';
 import { internalPackageResolution } from './vite-plugins/internal-package-resolution';
 import { addPageRoots } from './vite-plugins/page-roots';
@@ -162,13 +163,11 @@ export const build = async (
       dispatchEvent,
     );
 
-    await Promise.all(
-      pages.map(async ({ route, html }) => {
-        const dir = config.resolveFromRoot(path.join('dist', route));
-        await fs.mkdir(dir, { recursive: true });
-        return fs.writeFile(`${dir}/index.html`, html);
-      }),
-    );
+    await promiseMap(pages, async ({ route, html }) => {
+      const dir = config.resolveFromRoot(path.join('dist', route));
+      await fs.mkdir(dir, { recursive: true });
+      return fs.writeFile(`${dir}/index.html`, html);
+    });
     dispatchEvent({ type: 'RENDER_PAGES_COMPLETE' });
   } catch (error: any) {
     // eslint-disable-next-line no-console

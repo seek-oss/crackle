@@ -13,6 +13,7 @@ import type { PackageReporter } from './reporters/package';
 import typescriptDeclarations from './rollup-plugin-ts-declarations';
 import type { ManualChunksFn } from './types';
 import { getPackages } from './utils/get-packages';
+import { promiseMap } from './utils/promise-map';
 import { commonViteConfig } from './vite-config';
 import { addVanillaDebugIds } from './vite-plugins/vanilla-extract-debug-ids';
 
@@ -113,24 +114,20 @@ export const buildPackages = async (partialConfig?: PartialConfig) => {
 
   const packages = await getPackages(config);
 
-  await Promise.all(
-    Array.from(packages.values()).map((pkg) => {
-      const packageConfig = getConfig({ ...config, root: pkg.root });
+  await promiseMap(Array.from(packages.values()), (pkg) => {
+    const packageConfig = getConfig({ ...config, root: pkg.root });
 
-      return buildPackage(packageConfig, pkg.name, dispatchEvent).catch(
-        (err) => {
-          dispatchEvent({
-            type: 'BUILD_FAILED',
-            packageName: pkg.name,
-            error: err.loc
-              ? {
-                  ...err,
-                  location: path.relative(config.root, err.loc.file),
-                }
-              : err,
-          });
-        },
-      );
-    }),
-  );
+    return buildPackage(packageConfig, pkg.name, dispatchEvent).catch((err) => {
+      dispatchEvent({
+        type: 'BUILD_FAILED',
+        packageName: pkg.name,
+        error: err.loc
+          ? {
+              ...err,
+              location: path.relative(config.root, err.loc.file),
+            }
+          : err,
+      });
+    });
+  });
 };
