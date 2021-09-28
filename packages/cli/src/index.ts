@@ -73,5 +73,13 @@ yargs(process.argv.slice(2))
       console.table(pages);
     },
   })
+  .command({
+    command: 'dev',
+    handler: async () => {
+      const config = await resolveConfig();
+      const { dev } = await import('@crackle/core/dev');
+      await dev(config);
+    },
+  })
   .help()
   .wrap(72).argv;

@@ -6,6 +6,7 @@
   "license": "MIT",
   "files": [
     "/build",
+    "/dev",
     "/dist",
     "/entries",
     "/index",
@@ -19,6 +20,7 @@
   "preconstruct": {
     "entrypoints": [
       "build.ts",
+      "dev.ts",
       "resolve-config.ts",
       "index.ts",
       "build-package.tsx",
