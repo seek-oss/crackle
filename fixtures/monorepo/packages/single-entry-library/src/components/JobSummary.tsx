@@ -56,7 +56,7 @@ export const JobSummary = ({ title, isNew }: JobSummaryProps) => (
           </Text>
         </Stack>
         <Text>
-          Long description of card details providing more information.
+          Long description of card details providing more information. Hi ben
         </Text>
         <Text size="xsmall" tone="secondary">
           2d ago

@@ -12,6 +12,7 @@ import { createPackageReporter } from './reporters/package';
 import type { PackageReporter } from './reporters/package';
 import typescriptDeclarations from './rollup-plugin-ts-declarations';
 import type { ManualChunksFn } from './types';
+import { getPackages } from './utils/get-packages';
 import { commonViteConfig } from './vite-config';
 import { addVanillaDebugIds } from './vite-plugins/vanilla-extract-debug-ids';
 
@@ -110,29 +111,17 @@ export const buildPackages = async (partialConfig?: PartialConfig) => {
 
   const dispatchEvent = await createPackageReporter();
 
-  const monorepoPackages = await glob(['packages/*/package.json'], {
-    cwd: config.root,
-    absolute: true,
-  });
-
-  const isMonorepo = monorepoPackages.length > 0;
-
-  const allPackageJsons = isMonorepo
-    ? monorepoPackages
-    : [config.resolveFromRoot('package.json')];
+  const packages = await getPackages(config);
 
   await Promise.all(
-    allPackageJsons.map((packageJsonPath) => {
-      const filePath = path.dirname(packageJsonPath);
-      const packageConfig = getConfig({ ...config, root: filePath });
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const packageName = require(packageJsonPath).name;
+    Array.from(packages.values()).map((pkg) => {
+      const packageConfig = getConfig({ ...config, root: pkg.root });
 
-      return buildPackage(packageConfig, packageName, dispatchEvent).catch(
+      return buildPackage(packageConfig, pkg.name, dispatchEvent).catch(
         (err) => {
           dispatchEvent({
             type: 'BUILD_FAILED',
-            packageName,
+            packageName: pkg.name,
             error: err.loc
               ? {
                   ...err,

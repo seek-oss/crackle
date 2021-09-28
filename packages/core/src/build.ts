@@ -14,6 +14,7 @@ import { clientEntry } from './constants';
 import { createBuildReporter } from './reporters/build';
 import type { GetArrayType, ValueType } from './types';
 import { commonViteConfig } from './vite-config';
+import { internalPackageResolution } from './vite-plugins/internal-package-resolution';
 import { addPageRoots } from './vite-plugins/page-roots';
 import { stripRouteData } from './vite-plugins/strip-route-data';
 
@@ -57,6 +58,7 @@ export const build = async (
       stripRouteData(),
       vanillaExtractPlugin({ identifiers: 'short' }),
       addPageRoots(config),
+      internalPackageResolution(config),
     ],
     logLevel: 'silent',
   };

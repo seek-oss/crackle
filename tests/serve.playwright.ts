@@ -12,7 +12,7 @@ const serverTest = test.extend<
 >({
   server: [
     async ({}, use) => {
-      const cwd = path.join(__dirname, '../fixtures/web-app');
+      const cwd = path.join(__dirname, '../fixtures/monorepo');
       const config = await resolveConfig({ cwd });
 
       await build(config, { patchConsole: false });

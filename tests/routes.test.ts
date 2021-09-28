@@ -4,7 +4,7 @@ import { resolveConfig } from '@crackle/core/resolve-config';
 import { getAllRoutes } from '@crackle/core/route-data';
 
 test('getAllRoutes', async () => {
-  const cwd = path.join(__dirname, '../fixtures/web-app');
+  const cwd = path.join(__dirname, '../fixtures/monorepo');
   const config = await resolveConfig({ cwd });
 
   expect(await getAllRoutes(config)).toMatchInlineSnapshot(`
@@ -14,7 +14,7 @@ Array [
       "componentName": "Details",
       "isDeprecated": true,
     },
-    "path": "src/pages/details.page.tsx",
+    "path": "site/src/pages/details.page.tsx",
     "route": "/details",
   },
   Object {
@@ -22,7 +22,7 @@ Array [
       "componentName": "Home",
       "isDeprecated": false,
     },
-    "path": "src/pages/home.page.tsx",
+    "path": "site/src/pages/home.page.tsx",
     "route": "/",
   },
   Object {
@@ -30,7 +30,7 @@ Array [
       "componentName": "Test",
       "isDeprecated": false,
     },
-    "path": "src/pages/testPage.page.tsx",
+    "path": "site/src/pages/testPage.page.tsx",
     "route": "/test",
   },
   Object {
@@ -38,7 +38,7 @@ Array [
       "componentName": "ExtraPage",
       "isDeprecated": false,
     },
-    "path": "src/components/RemotePage/ErrorPage.page.tsx",
+    "path": "site/src/components/RemotePage/ErrorPage.page.tsx",
     "route": "/extra",
   },
   Object {
@@ -46,7 +46,7 @@ Array [
       "componentName": "Remote page",
       "isDeprecated": false,
     },
-    "path": "src/components/RemotePage/RemotePage.page.tsx",
+    "path": "site/src/components/RemotePage/RemotePage.page.tsx",
     "route": "/remote/page",
   },
 ]
