@@ -1,4 +1,4 @@
-import fs from 'fs/promises';
+import fs from 'fs';
 import path from 'path';
 
 import glob from 'fast-glob';
@@ -30,7 +30,7 @@ export const getPackages = async (
 
   for (const packageJsonPath of allPackageJsons) {
     const packageJson = JSON.parse(
-      await fs.readFile(packageJsonPath, { encoding: 'utf-8' }),
+      await fs.promises.readFile(packageJsonPath, { encoding: 'utf-8' }),
     );
 
     packages.set(packageJson.name, {
@@ -40,4 +40,26 @@ export const getPackages = async (
   }
 
   return packages;
+};
+
+export const getPackageEntryPoints = async ({
+  packageRoot,
+}: {
+  packageRoot: string;
+}) => {
+  const entryPaths = await glob('src/entries/*.ts', {
+    cwd: packageRoot,
+  });
+
+  const defaultEntryFile = 'src/index.ts';
+
+  // eslint-disable-next-line no-sync
+  const defaultEntry = fs.existsSync(path.join(packageRoot, defaultEntryFile))
+    ? defaultEntryFile
+    : undefined;
+
+  return {
+    defaultEntry,
+    subEntries: entryPaths,
+  };
 };

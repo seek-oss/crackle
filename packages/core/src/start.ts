@@ -16,6 +16,7 @@ import type { PartialConfig } from './config';
 import { getConfig } from './config';
 import { clientEntry } from './constants';
 import type { CrackleServer } from './types';
+import { generateDevDeclarationFiles } from './utils/dev-declaration-files';
 import { commonViteConfig } from './vite-config';
 import { internalPackageResolution } from './vite-plugins/internal-package-resolution';
 import { addPageRoots } from './vite-plugins/page-roots';
@@ -36,70 +37,73 @@ export const start = async (
 
   const connections = new Map<string, Socket>();
 
-  const vite = await createViteServer({
-    ...commonViteConfig(config),
-    server: { middlewareMode: 'ssr', port: config.port },
-    plugins: [
-      stripRouteData(),
-      reactRefresh(),
-      vanillaExtractPlugin({ devStyleRuntime: 'vanilla-extract' }),
-      addPageRoots(config),
-      internalPackageResolution(config),
-    ],
-    build: {
-      rollupOptions: { input: clientEntry },
-    },
-    optimizeDeps: {
-      entries: [
-        ...config.pageRoots.map((pageRoot) =>
-          path.join(pageRoot, '/**/*.page.tsx'),
-        ),
-        config.appShell,
+  const [_entryPaths, vite] = await Promise.all([
+    generateDevDeclarationFiles(config),
+    createViteServer({
+      ...commonViteConfig(config),
+      server: { middlewareMode: 'ssr', port: config.port },
+      plugins: [
+        stripRouteData(),
+        reactRefresh(),
+        vanillaExtractPlugin({ devStyleRuntime: 'vanilla-extract' }),
+        addPageRoots(config),
+        internalPackageResolution(config),
       ],
-      // Vite doesn't allow dependency bundling if the entry file is inside node_modules, so our client entry file is not scanned for deps.
-      // https://github.com/vitejs/vite/blob/bf0b631e7479ed70d02b98b780cf7e4b02d0344b/packages/vite/src/node/optimizer/scan.ts#L56-L61
-      // https://github.com/vitejs/vite/blob/bf0b631e7479ed70d02b98b780cf7e4b02d0344b/packages/vite/src/node/optimizer/scan.ts#L124-L125
-      // We can force include our internal dependencies here, so that they also get prebundled.
-      include: [
-        'gradient-parser',
-        'lodash/mapValues',
-        'lodash/merge',
-        'lodash/omit',
-        'react-dom',
-        'dedent',
-      ],
-    },
-    // @ts-expect-error
-    ssr: {
-      external: [
-        'assert',
-        'autosuggest-highlight',
-        'capsize',
-        'clsx',
-        'csstype',
-        'dedent',
-        'gradient-parser',
-        'is-mobile',
-        'lodash',
-        'polished',
-        'react-element-to-jsx-string',
-        'react-focus-lock',
-        'react-keyed-flatten-children',
-        'react-popper-tooltip',
-        'react-remove-scroll',
-        'utility-types',
-        'uuid',
-        '@vanilla-extract/css',
-        'used-styles',
-        'serialize-javascript',
-        ...builtinModules,
-      ],
-      noExternal: [
-        'braid-design-system',
-        '@crackle-fixtures/single-entry-library',
-      ],
-    },
-  });
+      build: {
+        rollupOptions: { input: clientEntry },
+      },
+      optimizeDeps: {
+        entries: [
+          ...config.pageRoots.map((pageRoot) =>
+            path.join(pageRoot, '/**/*.page.tsx'),
+          ),
+          config.appShell,
+        ],
+        // Vite doesn't allow dependency bundling if the entry file is inside node_modules, so our client entry file is not scanned for deps.
+        // https://github.com/vitejs/vite/blob/bf0b631e7479ed70d02b98b780cf7e4b02d0344b/packages/vite/src/node/optimizer/scan.ts#L56-L61
+        // https://github.com/vitejs/vite/blob/bf0b631e7479ed70d02b98b780cf7e4b02d0344b/packages/vite/src/node/optimizer/scan.ts#L124-L125
+        // We can force include our internal dependencies here, so that they also get prebundled.
+        include: [
+          'gradient-parser',
+          'lodash/mapValues',
+          'lodash/merge',
+          'lodash/omit',
+          'react-dom',
+          'dedent',
+        ],
+      },
+      // @ts-expect-error
+      ssr: {
+        external: [
+          'assert',
+          'autosuggest-highlight',
+          'capsize',
+          'clsx',
+          'csstype',
+          'dedent',
+          'gradient-parser',
+          'is-mobile',
+          'lodash',
+          'polished',
+          'react-element-to-jsx-string',
+          'react-focus-lock',
+          'react-keyed-flatten-children',
+          'react-popper-tooltip',
+          'react-remove-scroll',
+          'utility-types',
+          'uuid',
+          '@vanilla-extract/css',
+          'used-styles',
+          'serialize-javascript',
+          ...builtinModules,
+        ],
+        noExternal: [
+          'braid-design-system',
+          '@crackle-fixtures/single-entry-library',
+        ],
+      },
+    }),
+  ]);
   // use vite's connect instance as middleware
   app.use(vite.middlewares);
 
