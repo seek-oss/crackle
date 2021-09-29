@@ -3,7 +3,6 @@ import type http from 'http';
 import path from 'path';
 import { performance } from 'perf_hooks';
 
-import { defineRoutes } from '@crackle/router/routes';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import reactRefresh from '@vitejs/plugin-react-refresh';
 import builtinModules from 'builtin-modules';
@@ -15,9 +14,7 @@ import type { RenderDevPageFn } from '../entries/types';
 import type { PartialConfig } from './config';
 import { getConfig } from './config';
 import { clientEntry } from './constants';
-import { fixViteVanillaExtractDepScanPlugin } from './esbuild-plugins/fix-vite-vanilla-extract-dep-scan';
 import type { CrackleServer } from './types';
-import { generateDevDeclarationFiles } from './utils/dev-declaration-files';
 import { commonViteConfig } from './vite-config';
 import { internalPackageResolution } from './vite-plugins/internal-package-resolution';
 import { addPageRoots } from './vite-plugins/page-roots';
