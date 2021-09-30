@@ -101,12 +101,6 @@ export const renderAllPages: RenderAllPagesFn = async (
 
     pageModules.push({ route, html });
     dispatchEvent({ type: 'RENDERED_PAGE' });
-
-    await new Promise<void>((res) => {
-      setTimeout(() => {
-        res();
-      }, 500);
-    });
   }
 
   return pageModules;
