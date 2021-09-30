@@ -6,12 +6,18 @@ export type PackageState = {
   error?: BuildError;
   startTime?: number;
   endTime?: number;
+  diffs?: string[];
 };
 
 export type PackageEvent =
   | { type: 'BUILD_FAILED'; packageName: string; error: BuildError }
   | { type: 'BUILD_COMPLETED'; packageName: string }
-  | { type: 'BUILD_STARTED'; packageName: string };
+  | { type: 'BUILD_STARTED'; packageName: string }
+  | {
+      type: 'PACKAGE_JSON_VALIDATION_FAILED';
+      packageName: string;
+      diffs: string[];
+    };
 
 export type PackageReporter = Reporter<PackageEvent>;
 

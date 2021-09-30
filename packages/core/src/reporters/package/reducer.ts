@@ -11,7 +11,7 @@ const createStateUpdater =
     return {
       packages: {
         ...packages,
-        [packageName]: { ...packageDetails, ...newState },
+        [packageName]: { ...packageDetails, name: packageName, ...newState },
       },
     };
   };
@@ -39,9 +39,16 @@ export const reducer: React.Reducer<AppState, PackageEvent> = (
 
   if (action.type === 'BUILD_STARTED') {
     return updateState(action.packageName, {
-      name: action.packageName,
       status: 'Running',
       startTime: performance.now(),
+    });
+  }
+
+  if (action.type === 'PACKAGE_JSON_VALIDATION_FAILED') {
+    return updateState(action.packageName, {
+      status: 'Failed',
+      endTime: performance.now(),
+      diffs: action.diffs,
     });
   }
 

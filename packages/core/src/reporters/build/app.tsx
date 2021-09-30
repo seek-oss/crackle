@@ -2,7 +2,7 @@ import { Box } from 'ink';
 import React, { useReducer, useEffect } from 'react';
 
 import { Task, ProgressBar, createReporter } from '../shared';
-import { ErrorStack } from '../shared/ErrorStack';
+import { ErrorStack } from '../shared/Errors';
 
 import { reducer } from './reducer';
 import type { AppState, BuildReporter, BuildEvent } from './types';

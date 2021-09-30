@@ -1,7 +1,7 @@
 import { Box } from 'ink';
 import React, { useContext, useReducer, useEffect } from 'react';
 
-import { createReporter, Task, ErrorStack } from '../shared';
+import { createReporter, Task, ErrorStack, ValidationError } from '../shared';
 
 import { reducer } from './reducer';
 import type { AppState, PackageEvent, PackageReporter } from './types';
@@ -26,7 +26,11 @@ export function App({ registerHandler }: AppProps) {
   }, [dispatch, registerHandler]);
 
   const failingBuilds = Object.values(state.packages).filter(
-    (pkg) => pkg.status === 'Failed',
+    (pkg) => pkg.status === 'Failed' && pkg.error,
+  );
+
+  const invalidBuilds = Object.values(state.packages).filter(
+    (pkg) => pkg.status === 'Failed' && Array.isArray(pkg.diffs),
   );
 
   const allBuildsComplete = Object.values(state.packages).every(
@@ -52,6 +56,12 @@ export function App({ registerHandler }: AppProps) {
           ? null
           : failingBuilds.map(({ name, error }) => (
               <ErrorStack key={name} title={name} error={error!} />
+            ))}
+
+        {invalidBuilds.length < 1 || !allBuildsComplete
+          ? null
+          : invalidBuilds.map(({ name, diffs }) => (
+              <ValidationError key={name} title={name} diffs={diffs!} />
             ))}
       </Box>
     </StateContext.Provider>

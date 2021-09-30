@@ -3,7 +3,7 @@ import React from 'react';
 
 import type { Reporter } from './types';
 
-export { ErrorStack } from './ErrorStack';
+export * from './Errors';
 export { ProgressBar } from './ProgressBar';
 export { StatusIndicator } from './StatusIndicator';
 export { Task } from './Task';
