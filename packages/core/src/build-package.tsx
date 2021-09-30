@@ -13,6 +13,7 @@ import packageEntries from './rollup-plugin-package-entries';
 import typescriptDeclarations from './rollup-plugin-ts-declarations';
 import { getPackageEntryPoints, getPackages } from './utils/get-packages';
 import { promiseMap } from './utils/promise-map';
+import { validatePackageJson } from './utils/setup-package-json';
 import { commonViteConfig } from './vite-config';
 import { addVanillaDebugIds } from './vite-plugins/vanilla-extract-debug-ids';
 
@@ -54,6 +55,19 @@ const buildPackage = async (
     packageRoot: config.root,
     absolute: true,
   });
+
+  const packageDiffs = await validatePackageJson(config.root, entries);
+
+  if (packageDiffs.length) {
+    dispatchEvent({
+      type: 'PACKAGE_JSON_VALIDATION_FAILED',
+      packageName,
+      diffs: packageDiffs,
+    });
+
+    process.exitCode = 1;
+    return;
+  }
 
   await viteBuild({
     ...commonViteConfig(config),
