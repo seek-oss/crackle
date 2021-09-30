@@ -1,7 +1,6 @@
 import path from 'path';
 
 import { cssFileFilter } from '@vanilla-extract/integration';
-import glob from 'fast-glob';
 import type { OutputOptions } from 'rollup';
 import externals from 'rollup-plugin-node-externals';
 import { build as viteBuild } from 'vite';
@@ -12,7 +11,7 @@ import { createPackageReporter } from './reporters/package';
 import type { PackageReporter } from './reporters/package';
 import packageEntries from './rollup-plugin-package-entries';
 import typescriptDeclarations from './rollup-plugin-ts-declarations';
-import { getPackages } from './utils/get-packages';
+import { getPackageEntryPoints, getPackages } from './utils/get-packages';
 import { promiseMap } from './utils/promise-map';
 import { commonViteConfig } from './vite-config';
 import { addVanillaDebugIds } from './vite-plugins/vanilla-extract-debug-ids';
@@ -51,9 +50,9 @@ const buildPackage = async (
 ) => {
   dispatchEvent({ type: 'BUILD_STARTED', packageName });
 
-  const entries = await glob(['src/entries/*.ts', 'src/index.ts'], {
+  const entries = await getPackageEntryPoints({
+    packageRoot: config.root,
     absolute: true,
-    cwd: config.root,
   });
 
   await viteBuild({
@@ -69,7 +68,7 @@ const buildPackage = async (
       typescriptDeclarations({
         directory: config.root,
         name: packageName,
-        entrypoints: entries.map((entry) => ({ source: entry })),
+        entrypoints: entries.map(({ entryPath }) => ({ source: entryPath })),
       }),
       packageEntries(),
       addVanillaDebugIds,
@@ -84,7 +83,7 @@ const buildPackage = async (
       },
       outDir: config.root,
       rollupOptions: {
-        input: entries,
+        input: entries.map(({ entryPath }) => entryPath),
         treeshake: {
           moduleSideEffects: (id, external) => {
             if (external) {
