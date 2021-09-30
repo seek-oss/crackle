@@ -1,6 +1,6 @@
 {
   "name": "@crackle/core",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "main": "dist/crackle-core.cjs.js",
   "author": "Ben",
   "license": "MIT",
