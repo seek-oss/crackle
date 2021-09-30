@@ -25,3 +25,8 @@ export interface CrackleServer {
   url: string;
   close: () => Promise<void>;
 }
+
+export interface PackageEntryPoint {
+  entryPath: string;
+  isDefaultEntry: boolean;
+}

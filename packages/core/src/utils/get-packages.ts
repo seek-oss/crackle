@@ -4,6 +4,7 @@ import path from 'path';
 import glob from 'fast-glob';
 
 import type { EnhancedConfig } from '../config';
+import type { PackageEntryPoint } from '../types';
 
 export interface Package {
   name: string;
@@ -50,7 +51,7 @@ interface GetPackageEntryPointsOpts {
 export const getPackageEntryPoints = async ({
   packageRoot,
   absolute = false,
-}: GetPackageEntryPointsOpts) => {
+}: GetPackageEntryPointsOpts): Promise<PackageEntryPoint[]> => {
   const entryPaths = await glob(['src/index.ts', 'src/entries/*.ts'], {
     cwd: packageRoot,
     absolute,
