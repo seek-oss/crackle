@@ -2,6 +2,7 @@ import path from 'path';
 
 import { cssFileFilter } from '@vanilla-extract/integration';
 import glob from 'fast-glob';
+import type { OutputOptions } from 'rollup';
 import externals from 'rollup-plugin-node-externals';
 import { build as viteBuild } from 'vite';
 
@@ -9,24 +10,39 @@ import type { PartialConfig, EnhancedConfig } from './config';
 import { getConfig } from './config';
 import { createPackageReporter } from './reporters/package';
 import type { PackageReporter } from './reporters/package';
+import packageEntries from './rollup-plugin-package-entries';
 import typescriptDeclarations from './rollup-plugin-ts-declarations';
-import type { ManualChunksFn } from './types';
 import { getPackages } from './utils/get-packages';
 import { promiseMap } from './utils/promise-map';
 import { commonViteConfig } from './vite-config';
 import { addVanillaDebugIds } from './vite-plugins/vanilla-extract-debug-ids';
 
-const manualChunks: ManualChunksFn = (id, { getModuleInfo }) => {
-  if (
-    cssFileFilter.test(id) ||
-    getModuleInfo(id)?.importers.some((importer) =>
-      cssFileFilter.test(importer),
-    )
-  ) {
-    const [_projectRoot, localPath] = id.split('src/');
-    return localPath.replace('/', '-').replace('.ts', '.js');
-  }
-};
+const createRollupOutputOptions = (format: 'esm' | 'cjs'): OutputOptions => ({
+  format,
+  hoistTransitiveImports: false,
+  manualChunks: (id, { getModuleInfo }) => {
+    if (
+      cssFileFilter.test(id) ||
+      getModuleInfo(id)?.importers.some((importer) =>
+        cssFileFilter.test(importer),
+      )
+    ) {
+      const [_projectRoot, localPath] = id.split('src/');
+      return localPath.replace('/', '-').replace('.ts', '.js');
+    }
+  },
+  chunkFileNames: (chunkInfo) => {
+    const chunkPath = `dist/${chunkInfo.name}`;
+
+    return chunkPath.endsWith('.js')
+      ? chunkPath
+      : `${chunkPath}.chunk.${format}.js`;
+  },
+  entryFileNames: (chunkInfo) =>
+    chunkInfo.facadeModuleId?.includes('src/entries')
+      ? `${path.basename(chunkInfo.facadeModuleId, '.ts')}/index.${format}.js`
+      : `dist/${chunkInfo.name}.${format}.js`,
+});
 
 const buildPackage = async (
   config: EnhancedConfig,
@@ -55,6 +71,7 @@ const buildPackage = async (
         name: packageName,
         entrypoints: entries.map((entry) => ({ source: entry })),
       }),
+      packageEntries(),
       addVanillaDebugIds,
     ],
     logLevel: 'silent',
@@ -63,7 +80,7 @@ const buildPackage = async (
       minify: false,
       lib: {
         entry: '',
-        formats: ['es'],
+        formats: [],
       },
       outDir: config.root,
       rollupOptions: {
@@ -84,21 +101,10 @@ const buildPackage = async (
             return true;
           },
         },
-        output: {
-          hoistTransitiveImports: false,
-          manualChunks,
-          chunkFileNames: (chunkInfo) => {
-            const chunkPath = `dist/${chunkInfo.name}`;
-
-            return chunkPath.endsWith('.js')
-              ? chunkPath
-              : `${chunkPath}.chunk.js`;
-          },
-          entryFileNames: (chunkInfo) =>
-            chunkInfo.facadeModuleId?.includes('src/entries')
-              ? `${path.basename(chunkInfo.facadeModuleId, '.ts')}/index.js`
-              : `dist/${chunkInfo.name}.js`,
-        },
+        output: [
+          createRollupOutputOptions('cjs'),
+          createRollupOutputOptions('esm'),
+        ],
       },
     },
   });

@@ -20,6 +20,10 @@ export default function typescriptDeclarations(pkg: Package): Plugin {
   return {
     name: 'typescript-declarations',
     async generateBundle(opts, bundle) {
+      if (opts.format === 'es') {
+        return;
+      }
+
       const creator = await createDeclarationCreator(pkg.directory, pkg.name);
 
       const srcFilenameToDtsFilenameMap = new Map<string, string>();
