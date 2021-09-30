@@ -15,6 +15,7 @@ export const fix = async (inlineConfig?: PartialConfig) => {
       absolute: true,
     });
     const diffs = await fixPackageJson(pkg.root, entries);
+    // eslint-disable-next-line no-console
     console.log('diffs: ', diffs);
   });
 };

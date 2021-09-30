@@ -1,6 +1,5 @@
-dist/
+dist
 node_modules/
 
-fixtures/*/components
-fixtures/*/dist
-fixtures/*/extras
+fixtures/monorepo/packages/multi-entry-library/components
+fixtures/monorepo/packages/multi-entry-library/extras
