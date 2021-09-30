@@ -5,6 +5,7 @@ import type { EnhancedConfig } from '../config';
 
 import { getPackages, getPackageEntryPoints } from './get-packages';
 import { promiseMap } from './promise-map';
+import { writeFile } from './write-file';
 
 const exportDefaultRegex = /^export default/m;
 
@@ -21,46 +22,37 @@ export const generateDevDeclarationFiles = async (config: EnhancedConfig) => {
     });
 
     const declarationFiles = await promiseMap(
-      entryPaths.subEntries,
-      async (entryPath) => {
+      entryPaths,
+      async ({ entryPath, isDefaultEntry }) => {
         const entryName = path.basename(entryPath, '.ts');
 
         const declarationLines = [
-          `export * from "../src/entries/${entryName}";`,
+          isDefaultEntry
+            ? 'export * from "../src/index";'
+            : `export * from "../src/entries/${entryName}";`,
         ];
 
         if (await hasDefaultExport(path.join(pkg.root, entryPath))) {
           declarationLines.push(
-            `export { default } from "../src/entries/${entryName}";`,
+            isDefaultEntry
+              ? 'export { default } from "../src/index";'
+              : `export { default } from "../src/entries/${entryName}";`,
           );
         }
 
         return {
-          dirPath: path.join(pkg.root, entryName),
+          dirPath: path.join(pkg.root, isDefaultEntry ? 'dist' : entryName),
           fileContents: declarationLines.join('\n'),
         };
       },
     );
 
-    if (entryPaths.defaultEntry) {
-      const declarationLines = ['export * from "../src/index";'];
-
-      if (
-        await hasDefaultExport(path.join(pkg.root, entryPaths.defaultEntry))
-      ) {
-        declarationLines.push('export { default } from "../src/index";');
-      }
-
-      declarationFiles.push({
-        dirPath: path.join(pkg.root, 'dist'),
-        fileContents: declarationLines.join('\n'),
-      });
-    }
-
-    await promiseMap(declarationFiles, async (declarationFile) => {
-      const fileName = path.join(declarationFile.dirPath, 'index.d.ts');
-      await fs.mkdir(declarationFile.dirPath, { recursive: true });
-      return fs.writeFile(fileName, declarationFile.fileContents, 'utf-8');
-    });
+    await promiseMap(declarationFiles, async (declarationFile) =>
+      writeFile({
+        dir: declarationFile.dirPath,
+        fileName: 'index.cjs.d.ts',
+        contents: declarationFile.fileContents,
+      }),
+    );
   }
 };

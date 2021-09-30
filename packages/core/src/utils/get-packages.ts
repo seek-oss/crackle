@@ -42,24 +42,22 @@ export const getPackages = async (
   return packages;
 };
 
+interface GetPackageEntryPointsOpts {
+  packageRoot: string;
+  absolute?: boolean;
+}
+
 export const getPackageEntryPoints = async ({
   packageRoot,
-}: {
-  packageRoot: string;
-}) => {
-  const entryPaths = await glob('src/entries/*.ts', {
+  absolute = false,
+}: GetPackageEntryPointsOpts) => {
+  const entryPaths = await glob(['src/index.ts', 'src/entries/*.ts'], {
     cwd: packageRoot,
+    absolute,
   });
 
-  const defaultEntryFile = 'src/index.ts';
-
-  // eslint-disable-next-line no-sync
-  const defaultEntry = fs.existsSync(path.join(packageRoot, defaultEntryFile))
-    ? defaultEntryFile
-    : undefined;
-
-  return {
-    defaultEntry,
-    subEntries: entryPaths,
-  };
+  return entryPaths.map((entryPath) => ({
+    entryPath,
+    isDefaultEntry: entryPath.includes('src/index.ts'),
+  }));
 };
