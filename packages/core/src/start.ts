@@ -65,6 +65,7 @@ export const start = async (
         'lodash/merge',
         'lodash/omit',
         'react-dom',
+        'react-router-dom',
         '@vanilla-extract/css/fileScope',
       ],
       esbuildOptions: {
