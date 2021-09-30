@@ -5,13 +5,14 @@
   "author": "Ben",
   "license": "MIT",
   "files": [
+    "/build-package",
     "/build",
     "/dev",
     "/dist",
     "/entries",
+    "/fix",
     "/index",
     "/mocks",
-    "/build-package",
     "/resolve-config",
     "/route-data",
     "/serve",
@@ -19,11 +20,12 @@
   ],
   "preconstruct": {
     "entrypoints": [
+      "build-package.tsx",
       "build.ts",
       "dev.ts",
-      "resolve-config.ts",
+      "fix.ts",
       "index.ts",
-      "build-package.tsx",
+      "resolve-config.ts",
       "route-data.ts",
       "serve.ts",
       "start.ts"
