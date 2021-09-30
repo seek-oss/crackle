@@ -1,3 +1,4 @@
+import type { Difference } from '../../utils/setup-package-json';
 import type { BuildError, Reporter, Status } from '../shared/types';
 
 export type PackageState = {
@@ -6,7 +7,7 @@ export type PackageState = {
   error?: BuildError;
   startTime?: number;
   endTime?: number;
-  diffs?: string[];
+  diffs?: Difference[];
 };
 
 export type PackageEvent =
@@ -16,7 +17,7 @@ export type PackageEvent =
   | {
       type: 'PACKAGE_JSON_VALIDATION_FAILED';
       packageName: string;
-      diffs: string[];
+      diffs: NonNullable<PackageState['diffs']>;
     };
 
 export type PackageReporter = Reporter<PackageEvent>;

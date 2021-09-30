@@ -3,12 +3,16 @@ import path from 'path';
 
 import type { PackageEntryPoint } from '../types';
 
+type FromToDifference = { key: 'main' | 'module'; from?: string; to?: string };
+type AdditionsDifference = { key: 'files'; additions: string[] };
+export type Difference = FromToDifference | AdditionsDifference;
+
 const setupPackageJson =
   (write: boolean) =>
   async (
     packageRoot: string,
     entries: PackageEntryPoint[],
-  ): Promise<string[]> => {
+  ): Promise<Difference[]> => {
     const packagePath = path.join(packageRoot, 'package.json');
     const packageJson = JSON.parse(await fs.readFile(packagePath, 'utf-8'));
 
@@ -29,45 +33,46 @@ const setupPackageJson =
     }
 
     const filesArray = Array.from(files);
-    const diffs: string[] = [];
+    const diffs: Difference[] = [];
 
     if (main !== packageJson.main) {
-      diffs.push(
-        `The main entry is pointing at "${packageJson.main}"", but should be "${main}".`,
-      );
+      diffs.push({
+        key: 'main',
+        from: packageJson.main,
+        to: main,
+      });
     }
 
     if (module !== packageJson.module) {
-      diffs.push(
-        `The module entry is pointing at "${packageJson.module}", but should be "${module}".`,
-      );
+      diffs.push({
+        key: 'module',
+        from: packageJson.module,
+        to: module,
+      });
     }
 
     if (files.size !== packageJson.files.length) {
-      const missingFiles = filesArray
-        .filter((file) => !packageJson.files.includes(file))
-        .map((missingFile) => `"${missingFile}"`)
-        .join(', ');
-      diffs.push(`The files array is missing ${missingFiles}.`);
+      const missingFiles = filesArray.filter(
+        (file) => !packageJson.files.includes(file),
+      );
+      diffs.push({ key: 'files', additions: missingFiles });
     }
 
     if (diffs.length > 0) {
       packageJson.main = main;
       packageJson.module = module;
-      packageJson.files = Array.from(files).sort((a, b) => (a > b ? 1 : -1));
+      packageJson.files = filesArray.sort((a, b) => (a > b ? 1 : -1));
 
-      if (!write) {
-        return diffs;
+      if (write) {
+        await fs.writeFile(
+          packagePath,
+          JSON.stringify(packageJson, null, 2).concat('\n'),
+          'utf-8',
+        );
       }
-
-      await fs.writeFile(
-        packagePath,
-        JSON.stringify(packageJson, null, 2).concat('\n'),
-        'utf-8',
-      );
     }
 
-    return [];
+    return diffs;
   };
 
 export const validatePackageJson = setupPackageJson(false);

@@ -1,6 +1,10 @@
+/* eslint-disable react/no-unescaped-entities */
 import { Box, Text } from 'ink';
 import React from 'react';
 import { Fragment } from 'react';
+
+import type { Difference } from '../../utils/setup-package-json';
+import type { PackageState } from '../package/types';
 
 import { Stack } from './Stack';
 import type { BuildError, RollupError } from './types';
@@ -50,8 +54,40 @@ export const ErrorStack = ({ error, title }: ErrorStackProps) => (
   </ErrorBox>
 );
 
+const Diff = ({ diff }: { diff: Difference }) => {
+  if (diff.key === 'files') {
+    const missingFiles = diff.additions.map((addition) => (
+      <Text key={addition} color="blueBright">
+        {addition}
+      </Text>
+    ));
+    return <Text>- "files" is missing {missingFiles}</Text>;
+  }
+
+  if (diff.from && !diff.to) {
+    return (
+      <Text>
+        - "{diff.key}" needs to be removed (currently{' '}
+        <Text color="yellow">{diff.from}</Text>).
+      </Text>
+    );
+  }
+
+  return (
+    <Text>
+      - "{diff.key}" should be <Text color="blueBright">{diff.to}</Text>
+      {diff.from ? (
+        <>
+          {' '}
+          (currently <Text color="yellow">{diff.from}</Text>)
+        </>
+      ) : null}
+    </Text>
+  );
+};
+
 interface ValidationErrorProps {
-  diffs: string[];
+  diffs: PackageState['diffs'];
   title: string;
 }
 
@@ -61,8 +97,8 @@ export const ValidationError = ({ title, diffs }: ValidationErrorProps) => (
       <Text>The package.json is out of sync and needs to be fixed.</Text>
 
       <Fragment>
-        {diffs.map((diff) => (
-          <Text key={diff}>- {diff}</Text>
+        {diffs?.map((diff) => (
+          <Diff key={diff.key} diff={diff} />
         ))}
       </Fragment>
 

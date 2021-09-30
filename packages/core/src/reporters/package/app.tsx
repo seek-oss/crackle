@@ -30,7 +30,7 @@ export function App({ registerHandler }: AppProps) {
   );
 
   const invalidBuilds = Object.values(state.packages).filter(
-    (pkg) => pkg.status === 'Failed' && Array.isArray(pkg.diffs),
+    (pkg) => pkg.status === 'Failed' && pkg.diffs?.length,
   );
 
   const allBuildsComplete = Object.values(state.packages).every(
