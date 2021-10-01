@@ -26,8 +26,14 @@ const createRollupOutputOptions = (format: 'esm' | 'cjs'): OutputOptions => ({
         cssFileFilter.test(importer),
       )
     ) {
-      const [_projectRoot, localPath] = id.split('src/');
-      return localPath.replace('/', '-').replace('.ts', `.${format}.js`);
+      const [_projectRoot, rawLocalPath] = id.split('src/');
+      const localPath = rawLocalPath.replace('/', '-');
+
+      if (cssFileFilter.test(id)) {
+        return localPath.replace(cssFileFilter, `.${format}.css.js`);
+      }
+
+      return localPath.replace(/\.(ts|tsx|js|mjs|cjs|jsx)$/, `.${format}.js`);
     }
   },
   chunkFileNames: (chunkInfo) => {
