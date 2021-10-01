@@ -28,7 +28,7 @@ const createRollupOutputOptions = (format: 'esm' | 'cjs'): OutputOptions => ({
       )
     ) {
       const [_projectRoot, localPath] = id.split('src/');
-      return localPath.replace('/', '-').replace('.ts', '.js');
+      return localPath.replace('/', '-').replace('.ts', `.${format}.js`);
     }
   },
   chunkFileNames: (chunkInfo) => {
