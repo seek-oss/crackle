@@ -3,7 +3,7 @@ import path from 'path';
 import normalizePath from 'normalize-path';
 import type { Plugin } from 'rollup';
 
-import { promiseMap } from '../utils/promise-map';
+import { promiseMap } from '../../utils/promise-map';
 
 import { createDeclarationCreator } from './create-generator';
 import { FatalError } from './errors';
