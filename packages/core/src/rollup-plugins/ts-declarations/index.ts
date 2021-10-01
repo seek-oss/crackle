@@ -12,7 +12,7 @@ import { overwriteDeclarationMapSourceRoot, tsTemplate } from './utils';
 
 export const isTsPath = (source: string) => /\.tsx?/.test(source);
 
-export default function typescriptDeclarations(pkg: Package): Plugin {
+export function typescriptDeclarations(pkg: Package): Plugin {
   if (!pkg.entrypoints.some(({ source }) => isTsPath(source))) {
     return { name: 'typescript-declarations' };
   }

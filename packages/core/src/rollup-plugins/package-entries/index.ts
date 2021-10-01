@@ -2,9 +2,9 @@ import path from 'path';
 
 import type { Plugin } from 'rollup';
 
-import { writeFile } from '../utils/write-file';
+import { writeFile } from '../../utils/write-file';
 
-export default function packageEntries(): Plugin {
+export function packageEntries(): Plugin {
   return {
     name: 'package-entries',
     async generateBundle(opts, bundle) {
