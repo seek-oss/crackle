@@ -12,27 +12,29 @@ export default function packageEntries(): Plugin {
         return;
       }
 
-      if (opts.dir?.includes('multi-entry-library')) {
-        for (const chunk of Object.values(bundle)) {
-          if (
-            chunk.type === 'chunk' &&
-            chunk.facadeModuleId?.includes('src/entries')
-          ) {
-            const packageContents = JSON.stringify(
-              {
-                main: 'index.cjs.js',
-                module: 'index.esm.js',
-              },
-              null,
-              2,
-            );
+      if (!opts.dir) {
+        throw new Error(`opts.dir is unexpectedly undefined for ${opts.name}`);
+      }
 
-            await writeFile({
-              dir: path.join(opts.dir, path.dirname(chunk.fileName)),
-              fileName: 'package.json',
-              contents: packageContents,
-            });
-          }
+      for (const chunk of Object.values(bundle)) {
+        if (
+          chunk.type === 'chunk' &&
+          chunk.facadeModuleId?.includes('src/entries')
+        ) {
+          const packageContents = JSON.stringify(
+            {
+              main: 'index.cjs.js',
+              module: 'index.esm.js',
+            },
+            null,
+            2,
+          );
+
+          await writeFile({
+            dir: path.join(opts.dir, path.dirname(chunk.fileName)),
+            fileName: 'package.json',
+            contents: packageContents,
+          });
         }
       }
     },
