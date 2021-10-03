@@ -2,7 +2,7 @@ import path from 'path';
 
 import type { Plugin } from 'vite';
 
-import type { EnhancedConfig } from '../config';
+import type { EnhancedConfig } from '../../config';
 
 const pageGlobSuffix = '/**/*.page.tsx';
 

@@ -2,7 +2,7 @@ import path from 'path';
 
 import type { Plugin } from 'rollup';
 
-import { writeFile } from '../../utils/write-file';
+import { writeFile } from '../../../utils/write-file';
 
 export function packageEntries(): Plugin {
   return {
