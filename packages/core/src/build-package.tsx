@@ -8,7 +8,7 @@ import { build as viteBuild } from 'vite';
 import type { PartialConfig, EnhancedConfig } from './config';
 import { getConfig } from './config';
 import { packageEntries, typescriptDeclarations } from './plugins/rollup';
-import { addVanillaDebugIds } from './plugins/vite/vanilla-extract-debug-ids';
+import { addVanillaDebugIds } from './plugins/vite';
 import { createPackageReporter } from './reporters/package';
 import type { PackageReporter } from './reporters/package';
 import { getPackageEntryPoints, getPackages } from './utils/get-packages';
