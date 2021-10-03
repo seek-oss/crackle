@@ -14,11 +14,11 @@ import type { RenderDevPageFn } from '../entries/types';
 import type { PartialConfig } from './config';
 import { getConfig } from './config';
 import { clientEntry } from './constants';
+import { internalPackageResolution } from './plugins/vite/internal-package-resolution';
+import { addPageRoots } from './plugins/vite/page-roots';
+import { stripRouteData } from './plugins/vite/strip-route-data';
 import type { CrackleServer } from './types';
 import { commonViteConfig } from './vite-config';
-import { internalPackageResolution } from './vite-plugins/internal-package-resolution';
-import { addPageRoots } from './vite-plugins/page-roots';
-import { stripRouteData } from './vite-plugins/strip-route-data';
 
 export * from './types';
 
