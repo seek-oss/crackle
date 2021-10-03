@@ -11,13 +11,13 @@ import type { RenderAllPagesFn } from '../entries/types';
 import type { PartialConfig } from './config';
 import { getConfig } from './config';
 import { clientEntry } from './constants';
+import { internalPackageResolution } from './plugins/vite/internal-package-resolution';
+import { addPageRoots } from './plugins/vite/page-roots';
+import { stripRouteData } from './plugins/vite/strip-route-data';
 import { createBuildReporter } from './reporters/build';
 import type { GetArrayType, ValueType } from './types';
 import { promiseMap } from './utils/promise-map';
 import { commonViteConfig } from './vite-config';
-import { internalPackageResolution } from './vite-plugins/internal-package-resolution';
-import { addPageRoots } from './vite-plugins/page-roots';
-import { stripRouteData } from './vite-plugins/strip-route-data';
 
 type BuildOutput = ValueType<ReturnType<typeof viteBuild>>;
 type RollupOutput = GetArrayType<BuildOutput>;
