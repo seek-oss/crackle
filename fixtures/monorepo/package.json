@@ -4,5 +4,8 @@
   "license": "MIT",
   "scripts": {
     "package": "crackle package"
+  },
+  "dependencies": {
+    "braid-design-system": "file:.yalc/braid-design-system"
   }
 }

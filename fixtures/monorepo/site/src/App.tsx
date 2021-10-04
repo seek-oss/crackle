@@ -14,7 +14,7 @@ import {
   Text,
   TextLink,
 } from 'braid-design-system';
-import apac from 'braid-design-system/themes/apac';
+import { apac } from 'braid-design-system/themes';
 import React from 'react';
 
 import type { BraidMetadata } from './types';
