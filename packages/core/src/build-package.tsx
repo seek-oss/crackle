@@ -7,14 +7,14 @@ import { build as viteBuild } from 'vite';
 
 import type { PartialConfig, EnhancedConfig } from './config';
 import { getConfig } from './config';
+import { packageEntries, typescriptDeclarations } from './plugins/rollup';
+import { addVanillaDebugIds } from './plugins/vite';
 import { createPackageReporter } from './reporters/package';
 import type { PackageReporter } from './reporters/package';
-import { packageEntries, typescriptDeclarations } from './rollup-plugins';
 import { getPackageEntryPoints, getPackages } from './utils/get-packages';
 import { promiseMap } from './utils/promise-map';
 import { validatePackageJson } from './utils/setup-package-json';
 import { commonViteConfig } from './vite-config';
-import { addVanillaDebugIds } from './vite-plugins/vanilla-extract-debug-ids';
 
 const createRollupOutputOptions = (format: 'esm' | 'cjs'): OutputOptions => ({
   format,

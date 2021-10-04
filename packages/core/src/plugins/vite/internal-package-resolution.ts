@@ -4,9 +4,9 @@ import glob from 'fast-glob';
 import type { Plugin } from 'vite';
 import { normalizePath } from 'vite';
 
-import type { EnhancedConfig } from '../config';
-import { getPackages } from '../utils/get-packages';
-import type { Packages } from '../utils/get-packages';
+import type { EnhancedConfig } from '../../config';
+import { getPackages } from '../../utils/get-packages';
+import type { Packages } from '../../utils/get-packages';
 
 export const internalPackageResolution = (config: EnhancedConfig): Plugin => {
   let packages: Packages | undefined;
