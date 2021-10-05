@@ -14,6 +14,7 @@ import type { RenderDevPageFn } from '../entries/types';
 import type { PartialConfig } from './config';
 import { getConfig } from './config';
 import { clientEntry } from './constants';
+import { fixViteVanillaExtractDepScanPlugin } from './plugins/esbuild/fix-vite-vanilla-extract-dep-scan';
 import {
   addPageRoots,
   internalPackageResolution,
@@ -39,7 +40,7 @@ export const start = async (
 
   const vite = await createViteServer({
     ...commonViteConfig(config),
-    server: { middlewareMode: 'ssr', port: config.port, force: true },
+    server: { middlewareMode: 'ssr', port: config.port },
     plugins: [
       stripRouteData(),
       reactRefresh(),
@@ -62,46 +63,21 @@ export const start = async (
       // https://github.com/vitejs/vite/blob/bf0b631e7479ed70d02b98b780cf7e4b02d0344b/packages/vite/src/node/optimizer/scan.ts#L124-L125
       // We can force include our internal dependencies here, so that they also get prebundled.
       include: [
-        'gradient-parser',
-        'lodash/mapValues',
-        'lodash/merge',
-        'lodash/omit',
         'react-dom',
         'react-router-dom',
         '@vanilla-extract/css/fileScope',
       ],
       esbuildOptions: {
-        // plugins: [fixViteVanillaExtractDepScanPlugin()],
+        plugins: [fixViteVanillaExtractDepScanPlugin()],
       },
     },
     // @ts-expect-error
     ssr: {
       external: [
-        'assert',
-        'autosuggest-highlight',
-        'capsize',
-        'clsx',
-        'csstype',
-        'dedent',
-        'gradient-parser',
-        'is-mobile',
-        'lodash',
-        'polished',
-        'react-element-to-jsx-string',
-        'react-focus-lock',
-        'react-keyed-flatten-children',
-        'react-popper-tooltip',
-        'react-remove-scroll',
-        'utility-types',
-        'uuid',
         '@vanilla-extract/css',
-        'used-styles',
         'serialize-javascript',
+        'used-styles',
         ...builtinModules,
-      ],
-      noExternal: [
-        'braid-design-system',
-        '@crackle-fixtures/single-entry-library',
       ],
     },
   });
