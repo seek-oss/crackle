@@ -11,5 +11,4 @@ dist/
 !.yarn/versions
 .pnp.*
 
-.yalc
 yalc.lock
