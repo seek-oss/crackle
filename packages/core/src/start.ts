@@ -44,7 +44,7 @@ export const start = async (
     plugins: [
       stripRouteData(),
       reactRefresh(),
-      vanillaExtractPlugin({ devStyleRuntime: 'vanilla-extract' }),
+      vanillaExtractPlugin(),
       addPageRoots(config),
       internalPackageResolution(config),
     ],
@@ -75,6 +75,8 @@ export const start = async (
     ssr: {
       external: [
         '@vanilla-extract/css',
+        '@vanilla-extract/css/fileScope',
+        '@vanilla-extract/adapter',
         'serialize-javascript',
         'used-styles',
         ...builtinModules,
