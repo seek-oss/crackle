@@ -3,7 +3,6 @@ import type http from 'http';
 import path from 'path';
 import { performance } from 'perf_hooks';
 
-import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import reactRefresh from '@vitejs/plugin-react-refresh';
 import builtinModules from 'builtin-modules';
 import express from 'express';
@@ -20,6 +19,7 @@ import {
   internalPackageResolution,
   stripRouteData,
 } from './plugins/vite';
+import { vanillaExtractPlugin } from './plugins/vite/vanilla-extract-experiment';
 import type { CrackleServer } from './types';
 import { commonViteConfig } from './vite-config';
 
