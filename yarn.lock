@@ -2083,10 +2083,10 @@
   resolved "https://registry.yarnpkg.com/@vanilla-extract/sprinkles/-/sprinkles-0.4.4.tgz#067364a997f71f152286a160f45babd06afbc24e"
   integrity sha512-uz77Up4oFXYM2jXg3F+Oqz4dnvOTBan28T8mVK1u0i3DTJHV9MuStknP89gcsPMa1irOsgxv06P7aVEg0QR5xQ==
 
-"@vanilla-extract/vite-plugin@^2.1.1":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@vanilla-extract/vite-plugin/-/vite-plugin-2.1.1.tgz#c7f2e328ef18f2a2853b7ebf4b9b7955ea7555e8"
-  integrity sha512-HjfWiOnuJLyQgV6BugYsZljl9SJKuqm4s6gZPHAdb2tQNEj7eImy2cp5CUE4do5iynjlpjiAN3E9UGrYtV9dGg==
+"@vanilla-extract/vite-plugin@^2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@vanilla-extract/vite-plugin/-/vite-plugin-2.1.2.tgz#8ed225032f30d7f1966f51e11c1d70021009ada4"
+  integrity sha512-RL/mzXb5IKI7nCMT7t3KN8yKH2XyY7pX0NYTvN7MPcn2JREvMXDOj2KcU1b0myWOYyoPLyoBaskgt3AV+jSm+A==
   dependencies:
     "@vanilla-extract/integration" "^1.4.2"
 
