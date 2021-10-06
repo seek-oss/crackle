@@ -111,35 +111,6 @@ export const build = async (
         },
         outDir: config.resolveFromRoot('dist-render'),
       },
-      // @ts-expect-error
-      ssr: {
-        external: [
-          'assert',
-          'autosuggest-highlight',
-          'capsize',
-          'clsx',
-          'csstype',
-          'dedent',
-          'gradient-parser',
-          'is-mobile',
-          'lodash',
-          'polished',
-          'react',
-          'react-element-to-jsx-string',
-          'react-focus-lock',
-          'react-keyed-flatten-children',
-          'react-popper-tooltip',
-          'react-remove-scroll',
-          'react-router',
-          'react-router-dom',
-          'serialize-javascript',
-          'utility-types',
-          'uuid',
-          '@vanilla-extract/css',
-          'serialize-javascript',
-        ],
-        noExternal: ['braid-design-system'],
-      },
     });
 
     dispatchEvent({ type: 'BUILD_RENDERER_COMPLETE' });
