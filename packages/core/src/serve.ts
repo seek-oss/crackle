@@ -11,7 +11,7 @@ export const serve = (inlineConfig?: PartialConfig): CrackleServer => {
   const config = getConfig(inlineConfig);
   const server = http.createServer((request, response) =>
     handler(request, response, {
-      public: './dist',
+      public: config.resolveFromRoot('dist'),
       trailingSlash: false,
       headers: [
         {
