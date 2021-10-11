@@ -1,9 +1,12 @@
 {
   "name": "crackle-fixtures-monorepo",
+  "version": "1.0.0",
   "private": true,
   "license": "MIT",
   "scripts": {
-    "package": "crackle package"
+    "build": "crackle build",
+    "package": "crackle package",
+    "start": "crackle start"
   },
   "dependencies": {
     "braid-design-system": "file:.yalc/braid-design-system"
