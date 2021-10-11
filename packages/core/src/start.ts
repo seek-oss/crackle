@@ -3,6 +3,7 @@ import type http from 'http';
 import path from 'path';
 import { performance } from 'perf_hooks';
 
+import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import reactRefresh from '@vitejs/plugin-react-refresh';
 import builtinModules from 'builtin-modules';
 import express from 'express';
@@ -19,7 +20,6 @@ import {
   internalPackageResolution,
   stripRouteData,
 } from './plugins/vite';
-import { vanillaExtractPlugin } from './plugins/vite/vanilla-extract-experiment';
 import type { CrackleServer } from './types';
 import { commonViteConfig } from './vite-config';
 
@@ -44,7 +44,7 @@ export const start = async (
     plugins: [
       stripRouteData(),
       reactRefresh(),
-      vanillaExtractPlugin(),
+      vanillaExtractPlugin({ devStyleRuntime: 'vanilla-extract' }),
       addPageRoots(config),
       internalPackageResolution(config),
     ],
@@ -62,25 +62,14 @@ export const start = async (
       // https://github.com/vitejs/vite/blob/bf0b631e7479ed70d02b98b780cf7e4b02d0344b/packages/vite/src/node/optimizer/scan.ts#L56-L61
       // https://github.com/vitejs/vite/blob/bf0b631e7479ed70d02b98b780cf7e4b02d0344b/packages/vite/src/node/optimizer/scan.ts#L124-L125
       // We can force include our internal dependencies here, so that they also get prebundled.
-      include: [
-        'react-dom',
-        'react-router-dom',
-        '@vanilla-extract/css/fileScope',
-      ],
+      include: ['react-dom', 'react-router-dom'],
       esbuildOptions: {
         plugins: [fixViteVanillaExtractDepScanPlugin()],
       },
     },
     // @ts-expect-error
     ssr: {
-      external: [
-        '@vanilla-extract/css',
-        '@vanilla-extract/css/fileScope',
-        '@vanilla-extract/adapter',
-        'serialize-javascript',
-        'used-styles',
-        ...builtinModules,
-      ],
+      external: ['serialize-javascript', 'used-styles', ...builtinModules],
     },
   });
   // use vite's connect instance as middleware
