@@ -5,6 +5,7 @@ import type { Plugin } from 'vite';
 import { normalizePath } from 'vite';
 
 import type { EnhancedConfig } from '../../config';
+import { basename } from '../../utils/basename';
 import { getPackages } from '../../utils/get-packages';
 import type { Packages } from '../../utils/get-packages';
 
@@ -41,7 +42,7 @@ export const internalPackageResolution = (config: EnhancedConfig): Plugin => {
           await glob(['src/entries/*.ts'], {
             cwd: root,
           })
-        ).map((entryPath) => path.basename(entryPath, '.ts'));
+        ).map((entryPath) => basename(entryPath));
 
         for (const entry of entries) {
           if (source === `${packageName}/${entry}`) {
