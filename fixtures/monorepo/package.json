@@ -9,6 +9,6 @@
     "start": "crackle start"
   },
   "dependencies": {
-    "braid-design-system": "file:.yalc/braid-design-system"
+    "braid-design-system": "file:../../.yalc/braid-design-system"
   }
 }
