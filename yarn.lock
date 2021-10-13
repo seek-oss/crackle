@@ -2030,21 +2030,21 @@
     "@typescript-eslint/types" "4.30.0"
     eslint-visitor-keys "^2.0.0"
 
-"@vanilla-extract/babel-plugin@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@vanilla-extract/babel-plugin/-/babel-plugin-1.1.1.tgz#efbd286554a885f77be85f17a3eab5b0626fd28b"
-  integrity sha512-77i1pvgkL1ViKFr0dJQhzWG7ouR5la2S/d8Yha6eNbUCwaZPq9m8yQWTBFJxJQt+xC7MO3XydME2sBDYtDqUPw==
+"@vanilla-extract/babel-plugin@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@vanilla-extract/babel-plugin/-/babel-plugin-1.1.2.tgz#2433642db1b7179ce030c07d525da42abd97279a"
+  integrity sha512-+h2NC8WstgfNNszEB3GgT3WcsyFVAvxGgtN9oiIVLjgGfacB6hxJz+ep7Akk7nj+BH4ix9MYcFk4/IIdRM66tw==
   dependencies:
     "@babel/core" "^7.13.10"
     "@babel/template" "^7.12.13"
-    "@vanilla-extract/integration" "^1.4.0"
+    "@vanilla-extract/integration" "^1.4.3"
 
 "@vanilla-extract/css-utils@^0.1.1":
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/@vanilla-extract/css-utils/-/css-utils-0.1.1.tgz#f4f58f85347d8a841ef74c60db111ec264011860"
   integrity sha512-9fDV8IhSfzgDd9Z+64jVcS38S2dVc6c1eOd+hgO8zPMRba6rEB8kEjg5+AQ3xPCdzl1m8olqFHnfQRNOn1OXuA==
 
-"@vanilla-extract/css@^1.0.0", "@vanilla-extract/css@^1.3.0", "@vanilla-extract/css@^1.5.0", "@vanilla-extract/css@^1.6.1":
+"@vanilla-extract/css@^1.0.0":
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/@vanilla-extract/css/-/css-1.6.1.tgz#39c3b58f2b5f1b728e901b059c5021b8769d5a99"
   integrity sha512-MTR8pHVV80/B4H37JqyUwC8GUwA6DMdClcjgrU98svLrnmWq2Y8BWox9OQAOovoOwGtZwkJhjTQUmPkK0D13Bw==
@@ -2059,19 +2059,34 @@
     deep-object-diff "^1.1.0"
     deepmerge "^4.2.2"
 
-"@vanilla-extract/integration@^1.4.0", "@vanilla-extract/integration@^1.4.2":
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/@vanilla-extract/integration/-/integration-1.4.2.tgz#3ea74c65ba9ea968dc29f84fc9e82291a382e383"
-  integrity sha512-XSQkWpNUIbuHfelp6fOsk5/WjKdE/OnsFth/xWvBpYMSuB+C7KCupGy+pQUKHh1ZAQybG3RH2L6C+oS8oW8eEw==
+"@vanilla-extract/css@^1.6.2":
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@vanilla-extract/css/-/css-1.6.2.tgz#5deea31f2d55be206bc2dc7bece956f115517cbe"
+  integrity sha512-khWHNQ0KLLn68jt54Xp2GqKzViyBE0xGU8dlv9JVqOlTX06FG7MqDL0FbZW1/nvOGcHZv94WZzp6cayk+rjokA==
   dependencies:
-    "@vanilla-extract/css" "^1.5.0"
+    "@emotion/hash" "^0.8.0"
+    "@vanilla-extract/private" "^1.0.1"
     chalk "^4.1.1"
-    dedent "^0.7.0"
+    css-what "^5.0.1"
+    cssesc "^3.0.0"
+    csstype "^3.0.7"
+    deep-object-diff "^1.1.0"
+    deepmerge "^4.2.2"
+    outdent "^0.8.0"
+
+"@vanilla-extract/integration@^1.4.3":
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/@vanilla-extract/integration/-/integration-1.4.3.tgz#cb195f9b3083a54c267a0dbabf5f1fb19939f086"
+  integrity sha512-Jax0lADpx8LYwwOyiob9+koGm3H4xSMkWOD+pGTeI87YquALUcp9tqlhZOSPX3X5Jdlpyw2Gxxmo6wa47UEWHA==
+  dependencies:
+    "@vanilla-extract/css" "^1.6.2"
+    chalk "^4.1.1"
     esbuild "^0.11.16"
     eval "^0.1.6"
     find-up "^5.0.0"
     javascript-stringify "^2.0.1"
     lodash "^4.17.21"
+    outdent "^0.8.0"
 
 "@vanilla-extract/private@^1.0.1":
   version "1.0.1"
@@ -2083,12 +2098,13 @@
   resolved "https://registry.yarnpkg.com/@vanilla-extract/sprinkles/-/sprinkles-0.4.4.tgz#067364a997f71f152286a160f45babd06afbc24e"
   integrity sha512-uz77Up4oFXYM2jXg3F+Oqz4dnvOTBan28T8mVK1u0i3DTJHV9MuStknP89gcsPMa1irOsgxv06P7aVEg0QR5xQ==
 
-"@vanilla-extract/vite-plugin@^2.1.2":
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/@vanilla-extract/vite-plugin/-/vite-plugin-2.1.2.tgz#8ed225032f30d7f1966f51e11c1d70021009ada4"
-  integrity sha512-RL/mzXb5IKI7nCMT7t3KN8yKH2XyY7pX0NYTvN7MPcn2JREvMXDOj2KcU1b0myWOYyoPLyoBaskgt3AV+jSm+A==
+"@vanilla-extract/vite-plugin@^2.1.3":
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/@vanilla-extract/vite-plugin/-/vite-plugin-2.1.3.tgz#386253c30ebfa8bd37078cc9c1d639988266702f"
+  integrity sha512-e6kk7J082x79svYmR6/IBNCsZTII3Qq2jv+Di9d4SjqbDi8PbHz2CJhXauN0YJeb9ArgQNlumw7ICkBApqALgw==
   dependencies:
-    "@vanilla-extract/integration" "^1.4.2"
+    "@vanilla-extract/integration" "^1.4.3"
+    outdent "^0.8.0"
 
 "@vitejs/plugin-react-refresh@^1.3.6":
   version "1.3.6"
@@ -2499,7 +2515,7 @@ braces@^3.0.1:
   dependencies:
     "@capsizecss/core" "^3.0.0"
     "@capsizecss/vanilla-extract" "^1.0.0"
-    "@vanilla-extract/css" "^1.0.0"
+    "@vanilla-extract/css" "^1.6.2"
     "@vanilla-extract/css-utils" "^0.1.1"
     "@vanilla-extract/sprinkles" "^0.4.3"
     assert "^2.0.0"
@@ -5728,6 +5744,11 @@ outdent@^0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/outdent/-/outdent-0.5.0.tgz#9e10982fdc41492bb473ad13840d22f9655be2ff"
   integrity sha512-/jHxFIzoMXdqPzTaCpFzAAWhpkSjZPF4Vsn6jAfNpmbH/ymsmd7Qc6VE9BGn0L6YMj6uwpQLxCECpus4ukKS9Q==
+
+outdent@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/outdent/-/outdent-0.8.0.tgz#2ebc3e77bf49912543f1008100ff8e7f44428eb0"
+  integrity sha512-KiOAIsdpUTcAXuykya5fnVVT+/5uS0Q1mrkRHcF89tpieSmY33O/tmc54CqwA+bfhbtEfZUNLHaPUiB9X3jt1A==
 
 p-each-series@^2.1.0:
   version "2.2.0"

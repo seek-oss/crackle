@@ -11,7 +11,7 @@
     "jsx": "preserve",
     "strict": true,
     "lib": ["es2015", "dom"],
-    "target": "es5",
+    "target": "es6",
     "paths": {
       "sku/react-treat": [
         "/Users/bjervis/dev/fep/project-elmo/packages/build/src/mocks/reactTreat.tsx"
