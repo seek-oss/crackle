@@ -1,5 +1,20 @@
 # @crackle/core
 
+## 0.6.0
+
+### Minor Changes
+
+- 32e7785: Support packaged .css.js files
+
+### Patch Changes
+
+- 59f6d7b: Update to the new vanilla runtime.
+
+  This means that the vanilla specific deps items in start can be removed, as vanilla inserts them itself.
+
+- b50b2b7: Provide better terminal experience for "fix" cli command
+- c7ad544: Fix serve when not run from correct CWD
+
 ## 0.5.1
 
 ### Patch Changes
