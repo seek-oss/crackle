@@ -3,6 +3,8 @@ import path from 'path';
 
 import type { PackageEntryPoint } from '../types';
 
+import { basename } from './basename';
+
 type FromToDifference = { key: 'main' | 'module'; from?: string; to?: string };
 type AdditionsDifference = { key: 'files'; additions: string[] };
 export type Difference = FromToDifference | AdditionsDifference;
@@ -27,7 +29,7 @@ const setupPackageJson =
         module = 'dist/index.esm.js';
         files.add('/dist');
       } else {
-        const entryName = path.basename(entryPoint.entryPath, '.ts');
+        const entryName = basename(entryPoint.entryPath);
         files.add(`/${entryName}`);
       }
     }

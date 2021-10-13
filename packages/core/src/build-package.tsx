@@ -11,6 +11,7 @@ import { packageEntries, typescriptDeclarations } from './plugins/rollup';
 import { addVanillaDebugIds } from './plugins/vite';
 import { createPackageReporter } from './reporters/package';
 import type { PackageReporter } from './reporters/package';
+import { basename } from './utils/basename';
 import { getPackageEntryPoints, getPackages } from './utils/get-packages';
 import { promiseMap } from './utils/promise-map';
 import { validatePackageJson } from './utils/setup-package-json';
@@ -45,7 +46,7 @@ const createRollupOutputOptions = (format: 'esm' | 'cjs'): OutputOptions => ({
   },
   entryFileNames: (chunkInfo) =>
     chunkInfo.facadeModuleId?.includes('src/entries')
-      ? `${path.basename(chunkInfo.facadeModuleId, '.ts')}/index.${format}.js`
+      ? `${basename(chunkInfo.facadeModuleId)}/index.${format}.js`
       : `dist/${chunkInfo.name}.${format}.js`,
 });
 
