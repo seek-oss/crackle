@@ -7,6 +7,7 @@
   "files": [
     "/build-package",
     "/build",
+    "/configure",
     "/dev",
     "/dist",
     "/entries",
@@ -22,6 +23,7 @@
     "entrypoints": [
       "build-package.tsx",
       "build.ts",
+      "configure.ts",
       "dev.ts",
       "fix.ts",
       "index.ts",
