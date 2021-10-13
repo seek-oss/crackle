@@ -3,6 +3,7 @@ import path from 'path';
 
 import type { EnhancedConfig } from '../config';
 
+import { basename } from './basename';
 import { getPackages, getPackageEntryPoints } from './get-packages';
 import { promiseMap } from './promise-map';
 import { writeFile } from './write-file';
@@ -24,7 +25,7 @@ export const generateDevDeclarationFiles = async (config: EnhancedConfig) => {
     const declarationFiles = await promiseMap(
       entryPaths,
       async ({ entryPath, isDefaultEntry }) => {
-        const entryName = path.basename(entryPath, '.ts');
+        const entryName = basename(entryPath);
 
         const declarationLines = [
           isDefaultEntry
