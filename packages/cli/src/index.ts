@@ -89,5 +89,13 @@ yargs(process.argv.slice(2))
       await fix(config);
     },
   })
+  .command({
+    command: 'configure',
+    handler: async () => {
+      const config = await resolveConfig();
+      const { configure } = await import('@crackle/core/configure');
+      await configure(config);
+    },
+  })
   .help()
   .wrap(72).argv;
