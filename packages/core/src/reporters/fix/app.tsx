@@ -6,10 +6,13 @@ import { Fragment } from 'react';
 import { partition } from '../../utils/partition';
 import { Stack } from '../shared/Stack';
 
+import type { PackageDiffDetails } from './components/PackageDiff';
 import { PackageDiff } from './components/PackageDiff';
 
+export type { PackageDiffDetails };
+
 interface AppProps {
-  packageDiffs: PackageDiff[];
+  packageDiffs: PackageDiffDetails[];
 }
 
 const App = ({ packageDiffs }: AppProps) => {
@@ -54,6 +57,6 @@ const App = ({ packageDiffs }: AppProps) => {
   );
 };
 
-export const renderApp = (packageDiffs: PackageDiff[]) => {
+export const renderApp = (packageDiffs: PackageDiffDetails[]) => {
   render(<App packageDiffs={packageDiffs} />);
 };

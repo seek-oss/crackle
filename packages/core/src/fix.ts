@@ -1,6 +1,6 @@
 import type { PartialConfig } from './config';
 import { getConfig } from './config';
-import type { PackageDiff } from './reporters/fix/app';
+import type { PackageDiffDetails } from './reporters/fix/app';
 import { renderApp } from './reporters/fix/app';
 import { getPackageEntryPoints, getPackages } from './utils/get-packages';
 import { promiseMap } from './utils/promise-map';
@@ -11,7 +11,7 @@ export const fix = async (inlineConfig?: PartialConfig) => {
   const packages = await getPackages(config);
   const packageList = Array.from(packages.values());
 
-  const packageDiffs: PackageDiff[] = [];
+  const packageDiffs: PackageDiffDetails[] = [];
 
   await promiseMap(packageList, async (pkg) => {
     const entries = await getPackageEntryPoints({

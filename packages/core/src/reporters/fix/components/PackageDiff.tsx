@@ -7,13 +7,13 @@ import { Stack } from '../../shared/Stack';
 
 import { Diff } from './Diff';
 
-export interface PackageDiff {
+export interface PackageDiffDetails {
   packageName: string;
   diffs: Difference[];
 }
 
 interface PackageDiffProps {
-  packageDiff: PackageDiff;
+  packageDiff: PackageDiffDetails;
 }
 
 export const PackageDiff = ({ packageDiff }: PackageDiffProps) => (
