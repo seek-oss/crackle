@@ -1,12 +1,11 @@
-import { getPackageEntryPoints } from './get-packages';
+import type { PackageEntryPoint } from '../types';
+
 import { promiseMap } from './promise-map';
 import { writeFile } from './write-file';
 
-export const createEntryPackageJsons = async (packageRoot: string) => {
-  const entryPoints = await getPackageEntryPoints({
-    packageRoot,
-  });
-
+export const createEntryPackageJsons = async (
+  entryPoints: PackageEntryPoint[],
+) => {
   const packageContents = JSON.stringify(
     {
       main: 'index.cjs.js',

@@ -3,6 +3,7 @@ import fs from 'fs/promises';
 import type { EnhancedConfig } from '../config';
 
 import { basename } from './basename';
+import { createEntryPackageJsons } from './create-entry-package-json';
 import { getPackages, getPackageEntryPoints } from './get-packages';
 import { promiseMap } from './promise-map';
 import { writeFile } from './write-file';
@@ -47,5 +48,7 @@ export const generateDevDeclarationFiles = async (config: EnhancedConfig) => {
         });
       },
     );
+
+    await createEntryPackageJsons(entryPaths);
   }
 };
