@@ -59,7 +59,6 @@ const buildPackage = async (
 
   const entries = await getPackageEntryPoints({
     packageRoot: config.root,
-    absolute: true,
   });
 
   const packageDiffs = await validatePackageJson(config.root, entries);
