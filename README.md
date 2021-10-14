@@ -1,3 +1,5 @@
-# Project Elmo
+# 💥 Crackle
 
-![elmo fire](https://i.kym-cdn.com/photos/images/original/000/930/949/fb4.gif)
+A build tool for apps and packages, mono- and multi-repos, static and server-rendered sites.
+
+Built on [vite](https://vitejs.dev/), so it's super speedy.
