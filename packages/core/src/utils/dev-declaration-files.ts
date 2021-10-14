@@ -1,12 +1,12 @@
 import fs from 'fs/promises';
-import path from 'path';
 
 import type { EnhancedConfig } from '../config';
 
 import { basename } from './basename';
+import { createEntryPackageJsons } from './create-entry-package-json';
 import { getPackages, getPackageEntryPoints } from './get-packages';
 import { promiseMap } from './promise-map';
-import { writeFile } from './write-file';
+import { writeIfRequired } from './write-file';
 
 const exportDefaultRegex = /^export default/m;
 
@@ -22,9 +22,9 @@ export const generateDevDeclarationFiles = async (config: EnhancedConfig) => {
       packageRoot: pkg.root,
     });
 
-    const declarationFiles = await promiseMap(
+    await promiseMap(
       entryPaths,
-      async ({ entryPath, isDefaultEntry }) => {
+      async ({ entryPath, isDefaultEntry, outputDir }) => {
         const entryName = basename(entryPath);
 
         const declarationLines = [
@@ -33,7 +33,7 @@ export const generateDevDeclarationFiles = async (config: EnhancedConfig) => {
             : `export * from "../src/entries/${entryName}";`,
         ];
 
-        if (await hasDefaultExport(path.join(pkg.root, entryPath))) {
+        if (await hasDefaultExport(entryPath)) {
           declarationLines.push(
             isDefaultEntry
               ? 'export { default } from "../src/index";'
@@ -41,19 +41,14 @@ export const generateDevDeclarationFiles = async (config: EnhancedConfig) => {
           );
         }
 
-        return {
-          dirPath: path.join(pkg.root, isDefaultEntry ? 'dist' : entryName),
-          fileContents: declarationLines.join('\n'),
-        };
+        await writeIfRequired({
+          dir: outputDir,
+          fileName: 'index.cjs.d.ts',
+          contents: declarationLines.join('\n'),
+        });
       },
     );
 
-    await promiseMap(declarationFiles, async (declarationFile) =>
-      writeFile({
-        dir: declarationFile.dirPath,
-        fileName: 'index.cjs.d.ts',
-        contents: declarationFile.fileContents,
-      }),
-    );
+    await createEntryPackageJsons(entryPaths);
   }
 };

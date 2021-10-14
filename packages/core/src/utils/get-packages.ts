@@ -6,6 +6,8 @@ import glob from 'fast-glob';
 import type { EnhancedConfig } from '../config';
 import type { PackageEntryPoint } from '../types';
 
+import { basename } from './basename';
+
 export interface Package {
   name: string;
   root: string;
@@ -45,20 +47,22 @@ export const getPackages = async (
 
 interface GetPackageEntryPointsOpts {
   packageRoot: string;
-  absolute?: boolean;
 }
 
 export const getPackageEntryPoints = async ({
   packageRoot,
-  absolute = false,
 }: GetPackageEntryPointsOpts): Promise<PackageEntryPoint[]> => {
   const entryPaths = await glob(['src/index.ts', 'src/entries/*.ts'], {
     cwd: packageRoot,
-    absolute,
+    absolute: true,
   });
 
-  return entryPaths.map((entryPath) => ({
-    entryPath,
-    isDefaultEntry: entryPath.includes('src/index.ts'),
-  }));
+  return entryPaths.map((entryPath) => {
+    const isDefaultEntry = entryPath.includes('src/index.ts');
+    const outputLocalPath = isDefaultEntry ? 'dist' : basename(entryPath);
+
+    const outputDir = path.join(packageRoot, outputLocalPath);
+
+    return { entryPath, outputDir, isDefaultEntry };
+  });
 };
