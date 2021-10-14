@@ -6,7 +6,7 @@ import { basename } from './basename';
 import { createEntryPackageJsons } from './create-entry-package-json';
 import { getPackages, getPackageEntryPoints } from './get-packages';
 import { promiseMap } from './promise-map';
-import { writeFile } from './write-file';
+import { writeIfRequired } from './write-file';
 
 const exportDefaultRegex = /^export default/m;
 
@@ -41,7 +41,7 @@ export const generateDevDeclarationFiles = async (config: EnhancedConfig) => {
           );
         }
 
-        await writeFile({
+        await writeIfRequired({
           dir: outputDir,
           fileName: 'index.cjs.d.ts',
           contents: declarationLines.join('\n'),

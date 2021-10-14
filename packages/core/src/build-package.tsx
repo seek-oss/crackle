@@ -7,11 +7,12 @@ import { build as viteBuild } from 'vite';
 
 import type { PartialConfig, EnhancedConfig } from './config';
 import { getConfig } from './config';
-import { packageEntries, typescriptDeclarations } from './plugins/rollup';
+import { typescriptDeclarations } from './plugins/rollup';
 import { addVanillaDebugIds } from './plugins/vite';
 import { createPackageReporter } from './reporters/package';
 import type { PackageReporter } from './reporters/package';
 import { basename } from './utils/basename';
+import { createEntryPackageJsons } from './utils/create-entry-package-json';
 import { getPackageEntryPoints, getPackages } from './utils/get-packages';
 import { promiseMap } from './utils/promise-map';
 import { validatePackageJson } from './utils/setup-package-json';
@@ -89,7 +90,6 @@ const buildPackage = async (
         name: packageName,
         entrypoints: entries.map(({ entryPath }) => ({ source: entryPath })),
       }),
-      packageEntries(),
       addVanillaDebugIds,
     ],
     logLevel: 'silent',
@@ -126,6 +126,8 @@ const buildPackage = async (
       },
     },
   });
+
+  await createEntryPackageJsons(entries);
 
   dispatchEvent({ type: 'BUILD_COMPLETED', packageName });
 };
