@@ -28,5 +28,6 @@ export interface CrackleServer {
 
 export interface PackageEntryPoint {
   entryPath: string;
+  outputDir: string;
   isDefaultEntry: boolean;
 }

@@ -16,7 +16,6 @@ export const fix = async (inlineConfig?: PartialConfig) => {
   await promiseMap(packageList, async (pkg) => {
     const entries = await getPackageEntryPoints({
       packageRoot: pkg.root,
-      absolute: true,
     });
     const diffs = await fixPackageJson(pkg.root, entries);
     packageDiffs.push({
