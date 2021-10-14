@@ -1,7 +1,7 @@
 import type { PackageEntryPoint } from '../types';
 
 import { promiseMap } from './promise-map';
-import { writeFile } from './write-file';
+import { writeIfRequired } from './write-file';
 
 export const createEntryPackageJsons = async (
   entryPoints: PackageEntryPoint[],
@@ -17,7 +17,7 @@ export const createEntryPackageJsons = async (
 
   await promiseMap(entryPoints, async (entryPoint) => {
     if (!entryPoint.isDefaultEntry) {
-      await writeFile({
+      await writeIfRequired({
         dir: entryPoint.outputDir,
         fileName: 'package.json',
         contents: packageContents,
