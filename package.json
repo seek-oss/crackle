@@ -10,7 +10,8 @@
     "format": "eslint --fix packages fixtures && prettier --write packages fixtures",
     "test": "yarn test:jest && yarn test:playwright",
     "test:jest": "jest",
-    "test:playwright": "playwright test"
+    "test:playwright": "playwright test",
+    "dev-fixtures": "node scripts/dev-fixtures.js"
   },
   "workspaces": [
     "packages/*",
