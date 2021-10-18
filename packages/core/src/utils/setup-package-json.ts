@@ -4,6 +4,7 @@ import path from 'path';
 import type { PackageEntryPoint } from '../types';
 
 import { basename } from './basename';
+import { writeFile } from './write-file';
 
 type FromToDifference = { key: 'main' | 'module'; from?: string; to?: string };
 type AdditionsDifference = { key: 'files'; additions: string[] };
@@ -66,11 +67,11 @@ const setupPackageJson =
       packageJson.files = filesArray.sort((a, b) => (a > b ? 1 : -1));
 
       if (write) {
-        await fs.writeFile(
-          packagePath,
-          JSON.stringify(packageJson, null, 2).concat('\n'),
-          'utf-8',
-        );
+        await writeFile({
+          dir: packageRoot,
+          fileName: 'package.json',
+          contents: JSON.stringify(packageJson, null, 2).concat('\n'),
+        });
       }
     }
 
