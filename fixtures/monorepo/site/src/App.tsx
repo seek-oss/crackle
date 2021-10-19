@@ -8,6 +8,7 @@ import {
   BraidProvider,
   Card,
   ContentBlock,
+  Heading,
   Inline,
   makeLinkComponent,
   Stack,
@@ -16,6 +17,7 @@ import {
 } from 'braid-design-system';
 import { apac } from 'braid-design-system/themes';
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 
 import type { BraidMetadata } from './types';
 
@@ -28,25 +30,42 @@ const CustomLink = makeLinkComponent(({ href, ...restProps }, ref) =>
 );
 
 const App: AppShell<BraidMetadata> = ({ children, routeMetadata }) => {
-  const navLinks = Object.entries(routeMetadata).map(([route, metadata]) => (
-    <Text key={route}>
-      <TextLink
+  const { pathname } = useLocation();
+
+  const navLinks = Object.entries(routeMetadata).map(([route, metadata]) => {
+    const isActiveLink = pathname === route;
+
+    return (
+      <Box
         key={route}
-        weight={metadata.isDeprecated ? 'weak' : 'regular'}
-        href={route}
+        padding="small"
+        background={isActiveLink ? 'formAccentSoft' : 'card'}
+        borderRadius="standard"
       >
-        {metadata.componentName}
-      </TextLink>
-    </Text>
-  ));
+        <Text tone={metadata.isDeprecated ? 'secondary' : 'link'}>
+          <TextLink
+            key={route}
+            weight={metadata.isDeprecated ? 'weak' : 'regular'}
+            href={route}
+          >
+            {metadata.componentName}
+          </TextLink>
+        </Text>
+      </Box>
+    );
+  });
 
   return (
     <BraidProvider theme={apac} linkComponent={CustomLink}>
       <Stack space="medium">
         <Card tone="promote">
           <ContentBlock>
-            <Box display="flex" justifyContent="spaceBetween">
-              <Text>Header</Text>
+            <Box
+              display="flex"
+              justifyContent="spaceBetween"
+              alignItems="center"
+            >
+              <Heading level="2">Header</Heading>
               <Inline space="small">{...navLinks}</Inline>
             </Box>
           </ContentBlock>
