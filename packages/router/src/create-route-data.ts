@@ -4,11 +4,11 @@ export interface CrackleContext {
   site: 'en' | 'jobsdb';
 }
 
-type ContextCallback<T> = (crackleContext: CrackleContext) => RouteData<T>;
+type RouteDataFunction<T> = (crackleContext: CrackleContext) => RouteData<T>;
 
 interface CreateRouteData {
-  <T>(routeData: RouteData<T>): ContextCallback<T>;
-  <T>(contextCallback: ContextCallback<T>): ContextCallback<T>;
+  <T>(routeData: RouteData<T>): RouteDataFunction<T>;
+  <T>(contextCallback: RouteDataFunction<T>): RouteDataFunction<T>;
 }
 
 export const createRouteData: CreateRouteData = (input) => {
