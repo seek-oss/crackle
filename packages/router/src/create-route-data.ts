@@ -7,16 +7,14 @@ export interface CrackleContext {
 type ContextCallback<T> = (crackleContext: CrackleContext) => RouteData<T>;
 
 interface CreateRouteData {
-  <T>(routeData: RouteData<T>): RouteData<T>;
-  <T>(contextCallback: ContextCallback<T>): RouteData<T>;
+  <T>(routeData: RouteData<T>): ContextCallback<T>;
+  <T>(contextCallback: ContextCallback<T>): ContextCallback<T>;
 }
 
 export const createRouteData: CreateRouteData = (input) => {
-  const fakeContext = { site: 'en' } as const;
-
   if (typeof input === 'function') {
-    return input(fakeContext);
+    return input;
   }
 
-  return input;
+  return () => input;
 };
