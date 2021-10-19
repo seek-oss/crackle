@@ -1,7 +1,7 @@
-import { OptionalTitle } from '../../components/icons/SVGTypes';
-import { BoxProps } from '../../components/Box/Box';
-import { UseTextProps } from '../typography';
-import { DataAttributeMap } from '../../components/private/buildDataAttributes';
+import type { OptionalTitle } from '../../components/icons/SVGTypes';
+import type { BoxProps } from '../../components/Box/Box';
+import type { UseTextProps } from '../typography';
+import type { DataAttributeMap } from '../../components/private/buildDataAttributes';
 import * as styles from './icon.css';
 declare type IconSize = NonNullable<UseTextProps['size']> | 'fill';
 export interface IconSizeProps {

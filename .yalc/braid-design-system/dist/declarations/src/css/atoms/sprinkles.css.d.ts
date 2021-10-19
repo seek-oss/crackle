@@ -1,5 +1,6 @@
-import { ConditionalValue, RequiredConditionalValue } from '@vanilla-extract/sprinkles';
-import { breakpointNames, Breakpoint } from '../breakpoints';
+import type { ConditionalValue, RequiredConditionalValue } from '@vanilla-extract/sprinkles';
+import type { Breakpoint } from '../breakpoints';
+import { breakpointNames } from '../breakpoints';
 declare const responsiveAtomicStyles: {
     conditions: {
         defaultCondition: "mobile";

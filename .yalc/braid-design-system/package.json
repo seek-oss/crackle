@@ -32,7 +32,7 @@
   "dependencies": {
     "@capsizecss/core": "^3.0.0",
     "@capsizecss/vanilla-extract": "^1.0.0",
-    "@vanilla-extract/css": "^1.6.2",
+    "@vanilla-extract/css": "^1.0.0",
     "@vanilla-extract/css-utils": "^0.1.1",
     "@vanilla-extract/sprinkles": "^0.4.3",
     "assert": "^2.0.0",
@@ -53,5 +53,5 @@
     "react": "^16.8.0 || ^17",
     "sku": ">=10.13.1"
   },
-  "yalcSig": "7b83cb08c20d1894ddaa324eb8eb7fd8"
+  "yalcSig": "d1bc60d35437df4f1049f52e98e5c018"
 }

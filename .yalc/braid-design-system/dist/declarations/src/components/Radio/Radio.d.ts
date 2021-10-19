@@ -1,5 +1,6 @@
-import React, { AllHTMLAttributes } from 'react';
-import { InlineFieldProps } from '../private/InlineField/InlineField';
+import type { AllHTMLAttributes } from 'react';
+import React from 'react';
+import type { InlineFieldProps } from '../private/InlineField/InlineField';
 declare type InputElementProps = AllHTMLAttributes<HTMLInputElement>;
 export interface RadioProps extends Omit<InlineFieldProps, 'message' | 'reserveMessageSpace' | 'required' | 'size'> {
     checked: NonNullable<InputElementProps['checked']>;

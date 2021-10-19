@@ -1,5 +1,5 @@
-import { ModalProps } from '../private/Modal/Modal';
-import { ModalContentProps } from '../private/Modal/ModalContent';
+import type { ModalProps } from '../private/Modal/Modal';
+import type { ModalContentProps } from '../private/Modal/ModalContent';
 export { AllowCloseContext } from '../private/Modal/Modal';
 declare const validWidths: readonly ["small", "medium", "large"];
 declare const modalStyle: {

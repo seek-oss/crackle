@@ -5,13 +5,13 @@ import React from 'react';
 
 import type { BraidMetadata } from '../types';
 
-export const routeData = createRouteData<BraidMetadata>(() => ({
+export const routeData = createRouteData<BraidMetadata>({
   route: '/',
   globalMetadata: {
-    isDeprecated: false,
     componentName: 'Home',
+    isDeprecated: false,
   },
-}));
+});
 
 export default function Home() {
   return (

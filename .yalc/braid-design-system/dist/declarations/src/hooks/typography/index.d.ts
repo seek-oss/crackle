@@ -1,5 +1,5 @@
 import type { StyleRule } from '@vanilla-extract/css';
-import { BoxProps } from '../../components/Box/Box';
+import type { BoxProps } from '../../components/Box/Box';
 import * as styles from './typography.css';
 declare type TextTone = keyof typeof styles.tone | 'neutral';
 export interface UseTextProps {

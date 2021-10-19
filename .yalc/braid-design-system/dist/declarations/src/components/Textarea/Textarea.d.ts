@@ -1,5 +1,6 @@
-import React, { AllHTMLAttributes } from 'react';
-import { FieldBaseProps, FieldLabelVariant } from '../private/Field/Field';
+import type { AllHTMLAttributes } from 'react';
+import React from 'react';
+import type { FieldBaseProps, FieldLabelVariant } from '../private/Field/Field';
 declare type NativeTextareaProps = AllHTMLAttributes<HTMLTextAreaElement>;
 export declare type TextareaBaseProps = Omit<FieldBaseProps, 'value' | 'labelId' | 'secondaryMessage' | 'icon' | 'prefix'> & {
     value: NonNullable<NativeTextareaProps['value']>;

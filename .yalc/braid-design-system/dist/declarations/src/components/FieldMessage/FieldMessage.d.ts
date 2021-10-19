@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
-import { DataAttributeMap } from '../private/buildDataAttributes';
+import type { ReactNode } from 'react';
+import type { DataAttributeMap } from '../private/buildDataAttributes';
 export declare const tones: readonly ["neutral", "critical", "positive"];
 declare type FieldTone = typeof tones[number];
 export interface FieldMessageProps {

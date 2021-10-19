@@ -1,4 +1,5 @@
-import React, { ReactNode, AnchorHTMLAttributes, ForwardRefRenderFunction, ComponentType, Ref } from 'react';
+import type { ReactNode, AnchorHTMLAttributes, ForwardRefRenderFunction, ComponentType, Ref } from 'react';
+import React from 'react';
 import type { BraidTheme } from '../../themes/BraidTheme';
 export interface LinkComponentProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
     href: string;
@@ -7,7 +8,7 @@ export declare const makeLinkComponent: (render: ForwardRefRenderFunction<HTMLAn
     readonly __forwardRef__: React.ForwardRefExoticComponent<LinkComponentProps & React.RefAttributes<HTMLAnchorElement>>;
 };
 export declare type LinkComponent = ReturnType<typeof makeLinkComponent> | ComponentType<LinkComponentProps>;
-export declare const useLinkComponent: (ref: Ref<HTMLAnchorElement>) => React.ForwardRefExoticComponent<LinkComponentProps & React.RefAttributes<HTMLAnchorElement>> | React.ComponentType<LinkComponentProps>;
+export declare const useLinkComponent: (ref: Ref<HTMLAnchorElement>) => React.ForwardRefExoticComponent<LinkComponentProps & React.RefAttributes<HTMLAnchorElement>> | ComponentType<LinkComponentProps>;
 export interface BraidProviderProps {
     theme: BraidTheme;
     styleBody?: boolean;

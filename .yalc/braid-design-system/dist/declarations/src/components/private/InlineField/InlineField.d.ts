@@ -1,8 +1,9 @@
-import React, { ReactNode, ReactElement } from 'react';
-import { FieldLabelProps } from '../../FieldLabel/FieldLabel';
-import { FieldMessageProps } from '../../FieldMessage/FieldMessage';
-import { BadgeProps } from '../../Badge/Badge';
-import { StyledInputProps } from './StyledInput';
+import type { ReactNode, ReactElement } from 'react';
+import React from 'react';
+import type { FieldLabelProps } from '../../FieldLabel/FieldLabel';
+import type { FieldMessageProps } from '../../FieldMessage/FieldMessage';
+import type { BadgeProps } from '../../Badge/Badge';
+import type { StyledInputProps } from './StyledInput';
 declare type InlineFieldBaseProps = {
     label: NonNullable<FieldLabelProps['label']>;
     message?: FieldMessageProps['message'];

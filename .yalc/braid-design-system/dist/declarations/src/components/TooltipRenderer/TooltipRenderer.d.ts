@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { usePopperTooltip } from 'react-popper-tooltip';
-import { ReactNodeNoStrings } from '../private/ReactNodeNoStrings';
+import type { ReactNodeNoStrings } from '../private/ReactNodeNoStrings';
 export declare const StaticTooltipProvider: ({ children, }: {
     children: ReactNode;
 }) => JSX.Element;

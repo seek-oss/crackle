@@ -1,5 +1,6 @@
-import { vars } from '../../themes/vars.css';
-import { sprinkles, RequiredResponsiveValue } from './sprinkles.css';
+import type { vars } from '../../themes/vars.css';
+import type { RequiredResponsiveValue } from './sprinkles.css';
+import { sprinkles } from './sprinkles.css';
 declare type Sprinkles = Parameters<typeof sprinkles>[0];
 export declare type Space = keyof typeof vars.space | 'none';
 export declare type ResponsiveSpace = RequiredResponsiveValue<Space>;

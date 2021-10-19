@@ -1,8 +1,8 @@
-import { ReactNode } from 'react';
-import { TextProps } from '../Text/Text';
-import { UseDisclosureProps, DisclosureStateProps } from '../Disclosure/useDisclosure';
-import { AccordionContextValue } from './AccordionContext';
-import { DataAttributeMap } from '../private/buildDataAttributes';
+import type { ReactNode } from 'react';
+import type { TextProps } from '../Text/Text';
+import type { UseDisclosureProps, DisclosureStateProps } from '../Disclosure/useDisclosure';
+import type { AccordionContextValue } from './AccordionContext';
+import type { DataAttributeMap } from '../private/buildDataAttributes';
 export declare type AccordionItemBaseProps = {
     label: string;
     children: ReactNode;

@@ -1,4 +1,4 @@
-import { FontMetrics } from '@capsizecss/core';
+import type { FontMetrics } from '@capsizecss/core';
 import type { BraidTokens } from './tokenType';
 declare const decorateTokens: (braidTokens: BraidTokens) => {
     utils: {

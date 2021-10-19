@@ -1,7 +1,7 @@
-import { FormEvent, ReactElement } from 'react';
-import { FieldGroupBaseProps, FieldLabelVariant } from '../private/FieldGroup/FieldGroup';
-import { RadioItemProps } from '../RadioGroup/RadioItem';
-import { InlineFieldProps } from '../private/InlineField/InlineField';
+import type { FormEvent, ReactElement } from 'react';
+import type { FieldGroupBaseProps, FieldLabelVariant } from '../private/FieldGroup/FieldGroup';
+import type { RadioItemProps } from '../RadioGroup/RadioItem';
+import type { InlineFieldProps } from '../private/InlineField/InlineField';
 export declare type RadioGroupBaseProps<Value = NonNullable<string | number>> = FieldGroupBaseProps & {
     children: ReactElement<RadioItemProps>[];
     value: Value;

@@ -1,4 +1,4 @@
-import { AutosuggestValue, Suggestion, Suggestions, GroupedSuggestions } from './Autosuggest';
+import type { AutosuggestValue, Suggestion, Suggestions, GroupedSuggestions } from './Autosuggest';
 declare type FilterableSuggestion<Value> = Omit<Suggestion<Value>, 'highlights'>;
 declare type FilterableGroupedSuggestions<Value> = Omit<GroupedSuggestions<Value>, 'suggestions'> & {
     suggestions: Array<FilterableSuggestion<Value>>;

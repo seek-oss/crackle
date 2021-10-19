@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import type { ReactElement } from 'react';
 export interface BackgroundProviderProps {
     type: 'light' | 'dark';
     children: ReactElement;

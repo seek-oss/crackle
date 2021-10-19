@@ -1,4 +1,4 @@
-import { AllOrNone } from '../private/AllOrNone';
+import type { AllOrNone } from '../private/AllOrNone';
 export declare type DisclosureStateProps = AllOrNone<{
     expanded?: boolean;
     onToggle: (expanded: boolean) => void;

@@ -1,7 +1,7 @@
 import React from 'react';
-import { PrivateTextLinkRendererProps } from '../TextLinkRenderer/TextLinkRenderer';
-import { LinkComponentProps } from '../BraidProvider/BraidProvider';
-import { DataAttributeMap } from '../private/buildDataAttributes';
+import type { PrivateTextLinkRendererProps } from '../TextLinkRenderer/TextLinkRenderer';
+import type { LinkComponentProps } from '../BraidProvider/BraidProvider';
+import type { DataAttributeMap } from '../private/buildDataAttributes';
 export interface TextLinkProps extends Omit<PrivateTextLinkRendererProps, 'reset' | 'children'>, Omit<LinkComponentProps, 'className' | 'style'> {
     data?: DataAttributeMap;
 }

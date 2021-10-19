@@ -1,5 +1,5 @@
 import React from 'react';
-import { InternalToast } from './ToastTypes';
+import type { InternalToast } from './ToastTypes';
 interface ToastProps extends InternalToast {
     onClear: (dedupeKey: string, id: string) => void;
 }

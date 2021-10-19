@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
-import { BoxProps } from '../Box/Box';
-import { ResponsiveRangeProps } from '../../utils/resolveResponsiveRangeProps';
-import { DataAttributeMap } from '../private/buildDataAttributes';
+import type { ReactNode } from 'react';
+import type { BoxProps } from '../Box/Box';
+import type { ResponsiveRangeProps } from '../../utils/resolveResponsiveRangeProps';
+import type { DataAttributeMap } from '../private/buildDataAttributes';
 export interface HiddenProps extends ResponsiveRangeProps {
     children: ReactNode;
     component?: BoxProps['component'];

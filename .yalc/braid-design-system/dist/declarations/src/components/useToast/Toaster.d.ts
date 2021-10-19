@@ -1,4 +1,4 @@
-import { InternalToast } from './ToastTypes';
+import type { InternalToast } from './ToastTypes';
 interface ToasterProps {
     toasts: InternalToast[];
     removeToast: (key: string) => void;

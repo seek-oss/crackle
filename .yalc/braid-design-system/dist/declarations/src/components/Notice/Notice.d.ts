@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
-import { DataAttributeMap } from '../private/buildDataAttributes';
+import type { ReactNode } from 'react';
+import type { DataAttributeMap } from '../private/buildDataAttributes';
 declare type Tone = 'promote' | 'info' | 'positive' | 'critical';
 export declare type NoticeProps = {
     tone?: Tone;

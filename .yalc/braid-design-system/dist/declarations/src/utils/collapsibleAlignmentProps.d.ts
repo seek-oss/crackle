@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
-import { OptionalResponsiveValue } from '../css/atoms/sprinkles.css';
-import { ResponsiveRangeProps } from './resolveResponsiveRangeProps';
-import { Align, AlignY } from './align';
+import type { ReactNode } from 'react';
+import type { OptionalResponsiveValue } from '../css/atoms/sprinkles.css';
+import type { ResponsiveRangeProps } from './resolveResponsiveRangeProps';
+import type { Align, AlignY } from './align';
 export interface CollapsibleAlignmentProps {
     collapseBelow?: ResponsiveRangeProps['below'];
     align?: OptionalResponsiveValue<Align>;

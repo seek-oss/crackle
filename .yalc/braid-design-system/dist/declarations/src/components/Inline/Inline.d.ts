@@ -1,7 +1,7 @@
-import { ResponsiveSpace } from '../../css/atoms/atoms';
-import { ReactNodeNoStrings } from '../private/ReactNodeNoStrings';
-import { CollapsibleAlignmentProps } from '../../utils/collapsibleAlignmentProps';
-import { DataAttributeMap } from '../private/buildDataAttributes';
+import type { ResponsiveSpace } from '../../css/atoms/atoms';
+import type { ReactNodeNoStrings } from '../private/ReactNodeNoStrings';
+import type { CollapsibleAlignmentProps } from '../../utils/collapsibleAlignmentProps';
+import type { DataAttributeMap } from '../private/buildDataAttributes';
 export declare const validInlineComponents: readonly ["div", "ol", "ul"];
 export interface InlineProps extends CollapsibleAlignmentProps {
     space: ResponsiveSpace;

@@ -1,6 +1,7 @@
-import React, { AllHTMLAttributes, ReactNode } from 'react';
-import { DataAttributeMap } from '../private/buildDataAttributes';
-import { UseIconProps } from '../../hooks/useIcon';
+import type { AllHTMLAttributes, ReactNode } from 'react';
+import React from 'react';
+import type { DataAttributeMap } from '../private/buildDataAttributes';
+import type { UseIconProps } from '../../hooks/useIcon';
 declare type NativeButtonProps = AllHTMLAttributes<HTMLButtonElement>;
 export interface IconButtonProps {
     label: string;

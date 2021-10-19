@@ -1,4 +1,4 @@
-import { BoxProps } from '../../Box/Box';
+import type { BoxProps } from '../../Box/Box';
 export interface OverlayProps extends Partial<Pick<BoxProps, 'component' | 'children' | 'zIndex' | 'background' | 'borderRadius' | 'boxShadow' | 'transition' | 'className'>> {
     visible?: boolean;
     onlyVisibleForKeyboardNavigation?: boolean;

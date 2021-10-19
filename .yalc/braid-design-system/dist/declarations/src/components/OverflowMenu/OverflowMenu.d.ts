@@ -1,4 +1,4 @@
-import { MenuRendererProps } from '../MenuRenderer/MenuRenderer';
+import type { MenuRendererProps } from '../MenuRenderer/MenuRenderer';
 interface OverflowMenuProps extends Omit<MenuRendererProps, 'trigger' | 'align' | 'offsetSpace'> {
     label: string;
 }

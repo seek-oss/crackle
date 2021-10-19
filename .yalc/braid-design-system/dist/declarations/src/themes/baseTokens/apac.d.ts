@@ -1,5 +1,5 @@
-import { DeepPartial } from 'utility-types';
-import { BraidTokens } from '../tokenType';
+import type { DeepPartial } from 'utility-types';
+import type { BraidTokens } from '../tokenType';
 interface MakeTokensOptions {
     name: string;
     displayName: string;

@@ -1,5 +1,5 @@
-import { AllHTMLAttributes, ReactNode } from 'react';
-import { DataAttributeMap } from '../private/buildDataAttributes';
+import type { AllHTMLAttributes, ReactNode } from 'react';
+import type { DataAttributeMap } from '../private/buildDataAttributes';
 import type { Size } from './Toggle.css';
 declare type HTMLInputProps = AllHTMLAttributes<HTMLInputElement>;
 declare type ChangeHandler = (value: boolean) => void;

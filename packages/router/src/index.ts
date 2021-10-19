@@ -4,3 +4,5 @@ export { Link, crackleLink } from './Link';
 export { createRouteData } from './create-route-data';
 
 export type { ValidRoute } from './valid-routes';
+
+export * from 'react-router-dom';

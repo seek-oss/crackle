@@ -1,3 +1,3 @@
-import { UseIconProps } from '../../../hooks/useIcon';
+import type { UseIconProps } from '../../../hooks/useIcon';
 export declare type IconVideoProps = UseIconProps;
 export declare const IconVideo: (props: IconVideoProps) => JSX.Element;

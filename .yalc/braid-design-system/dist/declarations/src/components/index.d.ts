@@ -1,5 +1,5 @@
 export { BraidProvider, makeLinkComponent, } from './BraidProvider/BraidProvider';
-import { LinkComponent as _LinkComponent } from './BraidProvider/BraidProvider';
+import type { LinkComponent as _LinkComponent } from './BraidProvider/BraidProvider';
 export declare type LinkComponent = _LinkComponent;
 export { BraidPortal } from './BraidPortal/BraidPortal';
 export { ThemeNameConsumer } from './ThemeNameConsumer/ThemeNameConsumer';
