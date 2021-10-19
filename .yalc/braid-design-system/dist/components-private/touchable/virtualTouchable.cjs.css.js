@@ -40,7 +40,7 @@ function _interopNamespace(e) {
   return Object.freeze(n);
 }
 var __vanilla_filescope____namespace = /* @__PURE__ */ _interopNamespace(__vanilla_filescope__);
-__vanilla_filescope____namespace.setFileScope("packages/braid-design-system/src/components/private/touchable/virtualTouchable.css.ts?used", "braid-monorepo");
+__vanilla_filescope____namespace.setFileScope("packages/braid-design-system/src/components/private/touchable/virtualTouchable.css.ts", "braid-monorepo");
 const virtualTouchable = css.style({
   position: "relative",
   ":after": __spreadValues({

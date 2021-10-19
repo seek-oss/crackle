@@ -298,4 +298,4 @@ export declare const vars: import("@vanilla-extract/private").MapLeafNodes<{
         medium: string;
         large: string;
     };
-}, import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction>;
+}, import("@vanilla-extract/private").CSSVarFunction>;

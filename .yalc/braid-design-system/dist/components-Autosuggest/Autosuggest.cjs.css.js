@@ -25,7 +25,7 @@ function _interopNamespace(e) {
   return Object.freeze(n);
 }
 var __vanilla_filescope____namespace = /* @__PURE__ */ _interopNamespace(__vanilla_filescope__);
-__vanilla_filescope____namespace.setFileScope("packages/braid-design-system/src/components/Autosuggest/Autosuggest.css.ts?used", "braid-monorepo");
+__vanilla_filescope____namespace.setFileScope("packages/braid-design-system/src/components/Autosuggest/Autosuggest.css.ts", "braid-monorepo");
 const backdrop = css.style({
   width: "100vw",
   height: "100vh",

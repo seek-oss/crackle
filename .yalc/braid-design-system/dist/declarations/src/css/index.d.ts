@@ -4,7 +4,7 @@ import { breakpoints } from '../css/breakpoints';
 import { globalHeadingStyle, globalTextStyle } from '../hooks/typography';
 import type { Breakpoint } from '../css/breakpoints';
 declare const vars: {
-    grid: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
+    grid: import("@vanilla-extract/private").CSSVarFunction;
     space: import("@vanilla-extract/private").MapLeafNodes<{
         gutter: string;
         xxsmall: string;
@@ -14,8 +14,8 @@ declare const vars: {
         large: string;
         xlarge: string;
         xxlarge: string;
-    }, import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction>;
-    touchableSize: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
+    }, import("@vanilla-extract/private").CSSVarFunction>;
+    touchableSize: import("@vanilla-extract/private").CSSVarFunction;
     backgroundColor: import("@vanilla-extract/private").MapLeafNodes<{
         body: string;
         brand: string;
@@ -53,7 +53,7 @@ declare const vars: {
         promote: string;
         promoteLight: string;
         selection: string;
-    }, import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction>;
+    }, import("@vanilla-extract/private").CSSVarFunction>;
     foregroundColor: import("@vanilla-extract/private").MapLeafNodes<{
         brandAccent: string;
         caution: string;
@@ -70,12 +70,12 @@ declare const vars: {
         rating: string;
         secondary: string;
         secondaryInverted: string;
-    }, import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction>;
+    }, import("@vanilla-extract/private").CSSVarFunction>;
     textWeight: import("@vanilla-extract/private").MapLeafNodes<{
         strong: string;
         medium: string;
         regular: string;
-    }, import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction>;
+    }, import("@vanilla-extract/private").CSSVarFunction>;
     borderColor: import("@vanilla-extract/private").MapLeafNodes<{
         brandAccent: string;
         caution: string;
@@ -94,16 +94,16 @@ declare const vars: {
         promoteLight: string;
         standard: string;
         standardInverted: string;
-    }, import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction>;
+    }, import("@vanilla-extract/private").CSSVarFunction>;
     borderRadius: import("@vanilla-extract/private").MapLeafNodes<{
         standard: string;
         large: string;
         xlarge: string;
-    }, import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction>;
+    }, import("@vanilla-extract/private").CSSVarFunction>;
     borderWidth: import("@vanilla-extract/private").MapLeafNodes<{
         standard: string;
         large: string;
-    }, import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction>;
+    }, import("@vanilla-extract/private").CSSVarFunction>;
 };
 declare function atoms(props: Omit<Atoms, 'background'>): string;
 export { vars, atoms, breakpoints, responsiveStyle, globalTextStyle, globalHeadingStyle, };

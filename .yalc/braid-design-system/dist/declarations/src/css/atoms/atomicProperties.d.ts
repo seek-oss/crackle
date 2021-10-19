@@ -1,7 +1,7 @@
 export declare const pseudoProperties: {
     readonly transform: import("@vanilla-extract/private").MapLeafNodes<{
         touchable: string;
-    }, import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction>;
+    }, import("@vanilla-extract/private").CSSVarFunction>;
 };
 export declare type PseudoProperties = keyof typeof pseudoProperties;
 export declare const unresponsiveProperties: {
@@ -42,7 +42,7 @@ export declare const unresponsiveProperties: {
         promote: string;
         promoteLight: string;
         selection: string;
-    }, import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction>;
+    }, import("@vanilla-extract/private").CSSVarFunction>;
     readonly overflow: readonly ["hidden", "scroll", "visible", "auto"];
     readonly userSelect: readonly ["none"];
     readonly outline: readonly ["none"];
@@ -79,9 +79,9 @@ export declare const unresponsiveProperties: {
         borderFormAccentLarge: string;
         borderBrandAccentLarge: string;
         borderStandardInvertedLarge: string;
-        small: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        medium: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        large: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
+        small: import("@vanilla-extract/private").CSSVarFunction;
+        medium: import("@vanilla-extract/private").CSSVarFunction;
+        large: import("@vanilla-extract/private").CSSVarFunction;
     };
     readonly cursor: readonly ["default", "pointer"];
     readonly pointerEvents: readonly ["none"];
@@ -91,11 +91,11 @@ export declare const unresponsiveProperties: {
     readonly right: readonly [0];
     readonly height: {
         full: string;
-        touchable: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
+        touchable: import("@vanilla-extract/private").CSSVarFunction;
     };
     readonly width: {
         full: string;
-        touchable: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
+        touchable: import("@vanilla-extract/private").CSSVarFunction;
     };
     readonly minWidth: {
         readonly 0: "0%";
@@ -105,11 +105,11 @@ export declare const unresponsiveProperties: {
         small: string;
         medium: string;
         large: string;
-    }, import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction>;
+    }, import("@vanilla-extract/private").CSSVarFunction>;
     readonly transition: import("@vanilla-extract/private").MapLeafNodes<{
         fast: string;
         touchable: string;
-    }, import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction>;
+    }, import("@vanilla-extract/private").CSSVarFunction>;
 };
 export declare type UnresponsiveProperties = keyof typeof unresponsiveProperties;
 export declare const responsiveProperties: {
@@ -122,99 +122,99 @@ export declare const responsiveProperties: {
     };
     readonly position: readonly ["relative", "absolute", "fixed"];
     readonly borderRadius: {
-        readonly standard: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly large: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly xlarge: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
+        readonly standard: import("@vanilla-extract/private").CSSVarFunction;
+        readonly large: import("@vanilla-extract/private").CSSVarFunction;
+        readonly xlarge: import("@vanilla-extract/private").CSSVarFunction;
         readonly none: "0px";
         readonly full: "9999px";
     };
     readonly paddingTop: {
         readonly none: 0;
-        readonly gutter: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly xxsmall: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly xsmall: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly small: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly medium: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly large: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly xlarge: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly xxlarge: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
+        readonly gutter: import("@vanilla-extract/private").CSSVarFunction;
+        readonly xxsmall: import("@vanilla-extract/private").CSSVarFunction;
+        readonly xsmall: import("@vanilla-extract/private").CSSVarFunction;
+        readonly small: import("@vanilla-extract/private").CSSVarFunction;
+        readonly medium: import("@vanilla-extract/private").CSSVarFunction;
+        readonly large: import("@vanilla-extract/private").CSSVarFunction;
+        readonly xlarge: import("@vanilla-extract/private").CSSVarFunction;
+        readonly xxlarge: import("@vanilla-extract/private").CSSVarFunction;
     };
     readonly paddingBottom: {
         readonly none: 0;
-        readonly gutter: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly xxsmall: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly xsmall: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly small: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly medium: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly large: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly xlarge: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly xxlarge: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
+        readonly gutter: import("@vanilla-extract/private").CSSVarFunction;
+        readonly xxsmall: import("@vanilla-extract/private").CSSVarFunction;
+        readonly xsmall: import("@vanilla-extract/private").CSSVarFunction;
+        readonly small: import("@vanilla-extract/private").CSSVarFunction;
+        readonly medium: import("@vanilla-extract/private").CSSVarFunction;
+        readonly large: import("@vanilla-extract/private").CSSVarFunction;
+        readonly xlarge: import("@vanilla-extract/private").CSSVarFunction;
+        readonly xxlarge: import("@vanilla-extract/private").CSSVarFunction;
     };
     readonly paddingRight: {
         readonly none: 0;
-        readonly gutter: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly xxsmall: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly xsmall: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly small: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly medium: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly large: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly xlarge: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly xxlarge: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
+        readonly gutter: import("@vanilla-extract/private").CSSVarFunction;
+        readonly xxsmall: import("@vanilla-extract/private").CSSVarFunction;
+        readonly xsmall: import("@vanilla-extract/private").CSSVarFunction;
+        readonly small: import("@vanilla-extract/private").CSSVarFunction;
+        readonly medium: import("@vanilla-extract/private").CSSVarFunction;
+        readonly large: import("@vanilla-extract/private").CSSVarFunction;
+        readonly xlarge: import("@vanilla-extract/private").CSSVarFunction;
+        readonly xxlarge: import("@vanilla-extract/private").CSSVarFunction;
     };
     readonly paddingLeft: {
         readonly none: 0;
-        readonly gutter: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly xxsmall: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly xsmall: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly small: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly medium: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly large: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly xlarge: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly xxlarge: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
+        readonly gutter: import("@vanilla-extract/private").CSSVarFunction;
+        readonly xxsmall: import("@vanilla-extract/private").CSSVarFunction;
+        readonly xsmall: import("@vanilla-extract/private").CSSVarFunction;
+        readonly small: import("@vanilla-extract/private").CSSVarFunction;
+        readonly medium: import("@vanilla-extract/private").CSSVarFunction;
+        readonly large: import("@vanilla-extract/private").CSSVarFunction;
+        readonly xlarge: import("@vanilla-extract/private").CSSVarFunction;
+        readonly xxlarge: import("@vanilla-extract/private").CSSVarFunction;
     };
     readonly marginTop: {
         readonly none: 0;
-        readonly gutter: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly xxsmall: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly xsmall: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly small: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly medium: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly large: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly xlarge: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly xxlarge: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
+        readonly gutter: import("@vanilla-extract/private").CSSVarFunction;
+        readonly xxsmall: import("@vanilla-extract/private").CSSVarFunction;
+        readonly xsmall: import("@vanilla-extract/private").CSSVarFunction;
+        readonly small: import("@vanilla-extract/private").CSSVarFunction;
+        readonly medium: import("@vanilla-extract/private").CSSVarFunction;
+        readonly large: import("@vanilla-extract/private").CSSVarFunction;
+        readonly xlarge: import("@vanilla-extract/private").CSSVarFunction;
+        readonly xxlarge: import("@vanilla-extract/private").CSSVarFunction;
     };
     readonly marginBottom: {
         readonly none: 0;
-        readonly gutter: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly xxsmall: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly xsmall: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly small: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly medium: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly large: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly xlarge: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly xxlarge: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
+        readonly gutter: import("@vanilla-extract/private").CSSVarFunction;
+        readonly xxsmall: import("@vanilla-extract/private").CSSVarFunction;
+        readonly xsmall: import("@vanilla-extract/private").CSSVarFunction;
+        readonly small: import("@vanilla-extract/private").CSSVarFunction;
+        readonly medium: import("@vanilla-extract/private").CSSVarFunction;
+        readonly large: import("@vanilla-extract/private").CSSVarFunction;
+        readonly xlarge: import("@vanilla-extract/private").CSSVarFunction;
+        readonly xxlarge: import("@vanilla-extract/private").CSSVarFunction;
     };
     readonly marginRight: {
         readonly none: 0;
-        readonly gutter: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly xxsmall: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly xsmall: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly small: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly medium: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly large: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly xlarge: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly xxlarge: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
+        readonly gutter: import("@vanilla-extract/private").CSSVarFunction;
+        readonly xxsmall: import("@vanilla-extract/private").CSSVarFunction;
+        readonly xsmall: import("@vanilla-extract/private").CSSVarFunction;
+        readonly small: import("@vanilla-extract/private").CSSVarFunction;
+        readonly medium: import("@vanilla-extract/private").CSSVarFunction;
+        readonly large: import("@vanilla-extract/private").CSSVarFunction;
+        readonly xlarge: import("@vanilla-extract/private").CSSVarFunction;
+        readonly xxlarge: import("@vanilla-extract/private").CSSVarFunction;
     };
     readonly marginLeft: {
         readonly none: 0;
-        readonly gutter: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly xxsmall: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly xsmall: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly small: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly medium: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly large: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly xlarge: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
-        readonly xxlarge: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
+        readonly gutter: import("@vanilla-extract/private").CSSVarFunction;
+        readonly xxsmall: import("@vanilla-extract/private").CSSVarFunction;
+        readonly xsmall: import("@vanilla-extract/private").CSSVarFunction;
+        readonly small: import("@vanilla-extract/private").CSSVarFunction;
+        readonly medium: import("@vanilla-extract/private").CSSVarFunction;
+        readonly large: import("@vanilla-extract/private").CSSVarFunction;
+        readonly xlarge: import("@vanilla-extract/private").CSSVarFunction;
+        readonly xxlarge: import("@vanilla-extract/private").CSSVarFunction;
     };
     readonly alignItems: {
         readonly flexStart: "flex-start";

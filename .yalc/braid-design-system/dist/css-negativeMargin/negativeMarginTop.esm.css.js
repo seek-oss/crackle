@@ -19,7 +19,7 @@ import { style, styleVariants } from "@vanilla-extract/css";
 import { calc } from "@vanilla-extract/css-utils";
 import { r as responsiveStyle } from "../css-responsiveStyle.esm.js";
 import { v as vars } from "../themes-vars.esm.css.js";
-__vanilla_filescope__.setFileScope("packages/braid-design-system/src/css/negativeMargin/negativeMarginTop.css.ts?used", "braid-monorepo");
+__vanilla_filescope__.setFileScope("packages/braid-design-system/src/css/negativeMargin/negativeMarginTop.css.ts", "braid-monorepo");
 const negativeMarginTop = (spaceValue) => ({
   ":before": {
     marginBottom: spaceValue ? calc.negate(spaceValue) : 0

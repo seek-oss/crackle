@@ -22,7 +22,7 @@ function _interopNamespace(e) {
   return Object.freeze(n);
 }
 var __vanilla_filescope____namespace = /* @__PURE__ */ _interopNamespace(__vanilla_filescope__);
-__vanilla_filescope____namespace.setFileScope("packages/braid-design-system/src/components/Card/Card.css.ts?used", "braid-monorepo");
+__vanilla_filescope____namespace.setFileScope("packages/braid-design-system/src/components/Card/Card.css.ts", "braid-monorepo");
 const toneKeyline = css.style({
   borderTopRightRadius: "0 !important",
   borderBottomRightRadius: "0 !important"

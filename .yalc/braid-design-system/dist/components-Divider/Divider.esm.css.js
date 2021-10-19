@@ -1,7 +1,7 @@
 import * as __vanilla_filescope__ from "@vanilla-extract/css/fileScope";
 import { style } from "@vanilla-extract/css";
 import { v as vars } from "../themes-vars.esm.css.js";
-__vanilla_filescope__.setFileScope("packages/braid-design-system/src/components/Divider/Divider.css.ts?used", "braid-monorepo");
+__vanilla_filescope__.setFileScope("packages/braid-design-system/src/components/Divider/Divider.css.ts", "braid-monorepo");
 const base = style({
   height: vars.borderWidth.standard
 }, "base");

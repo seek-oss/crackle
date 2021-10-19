@@ -23,7 +23,7 @@ function _interopNamespace(e) {
   return Object.freeze(n);
 }
 var __vanilla_filescope____namespace = /* @__PURE__ */ _interopNamespace(__vanilla_filescope__);
-__vanilla_filescope____namespace.setFileScope("packages/braid-design-system/src/components/private/hideFocusRings/hideFocusRings.css.ts?used", "braid-monorepo");
+__vanilla_filescope____namespace.setFileScope("packages/braid-design-system/src/components/private/hideFocusRings/hideFocusRings.css.ts", "braid-monorepo");
 const hideFocusRingsClassName = css.style({
   selectors: {
     [`[${componentsPrivate_hideFocusRings_hideFocusRingsDataAttribute_cjs_js.hideFocusRingsDataAttribute}] &`]: {

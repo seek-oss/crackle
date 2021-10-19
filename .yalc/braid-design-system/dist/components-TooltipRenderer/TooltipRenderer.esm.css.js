@@ -2,7 +2,7 @@ import * as __vanilla_filescope__ from "@vanilla-extract/css/fileScope";
 import { style } from "@vanilla-extract/css";
 import { calc } from "@vanilla-extract/css-utils";
 import { v as vars } from "../themes-vars.esm.css.js";
-__vanilla_filescope__.setFileScope("packages/braid-design-system/src/components/TooltipRenderer/TooltipRenderer.css.ts?used", "braid-monorepo");
+__vanilla_filescope__.setFileScope("packages/braid-design-system/src/components/TooltipRenderer/TooltipRenderer.css.ts", "braid-monorepo");
 const constants = {
   maxWidth: "260px",
   arrowSize: "12px"

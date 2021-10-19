@@ -19,7 +19,7 @@ import { style } from "@vanilla-extract/css";
 import { calc } from "@vanilla-extract/css-utils";
 import { v as vars } from "../themes-vars.esm.css.js";
 import { v as virtualTouchableRules } from "../components-private/touchable/virtualTouchableRules.esm.js";
-__vanilla_filescope__.setFileScope("packages/braid-design-system/src/components/TextDropdown/TextDropdown.css.ts?used", "braid-monorepo");
+__vanilla_filescope__.setFileScope("packages/braid-design-system/src/components/TextDropdown/TextDropdown.css.ts", "braid-monorepo");
 const select = style(__spreadValues({}, virtualTouchableRules), "select");
 const focusOverlay = [style({
   selectors: {

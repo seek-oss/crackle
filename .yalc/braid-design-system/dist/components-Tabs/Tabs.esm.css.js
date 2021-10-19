@@ -1,7 +1,7 @@
 import * as __vanilla_filescope__ from "@vanilla-extract/css/fileScope";
 import { style } from "@vanilla-extract/css";
 import { v as vars } from "../themes-vars.esm.css.js";
-__vanilla_filescope__.setFileScope("packages/braid-design-system/src/components/Tabs/Tabs.css.ts?used", "braid-monorepo");
+__vanilla_filescope__.setFileScope("packages/braid-design-system/src/components/Tabs/Tabs.css.ts", "braid-monorepo");
 const tab = style({
   selectors: {
     "&::-moz-focus-inner": {

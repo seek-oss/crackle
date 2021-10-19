@@ -5,7 +5,7 @@ import { e as externalGutter } from "./ModalExternalGutter.esm.js";
 import { r as responsiveStyle } from "../../css-responsiveStyle.esm.js";
 import { v as vars } from "../../themes-vars.esm.css.js";
 import { a as atoms } from "../../css-atoms/atoms.esm.js";
-__vanilla_filescope__.setFileScope("packages/braid-design-system/src/components/private/Modal/Modal.css.ts?used", "braid-monorepo");
+__vanilla_filescope__.setFileScope("packages/braid-design-system/src/components/private/Modal/Modal.css.ts", "braid-monorepo");
 const fixedStackingContext = atoms({
   position: "fixed",
   zIndex: "modal"

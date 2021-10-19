@@ -4,7 +4,7 @@ import { calc } from "@vanilla-extract/css-utils";
 import { rgba } from "polished";
 import { r as responsiveStyle } from "../css-responsiveStyle.esm.js";
 import { v as vars } from "../themes-vars.esm.css.js";
-__vanilla_filescope__.setFileScope("packages/braid-design-system/src/components/ButtonRenderer/ButtonRenderer.css.ts?used", "braid-monorepo");
+__vanilla_filescope__.setFileScope("packages/braid-design-system/src/components/ButtonRenderer/ButtonRenderer.css.ts", "braid-monorepo");
 const constants = {
   smallButtonPaddingSize: "xsmall"
 };

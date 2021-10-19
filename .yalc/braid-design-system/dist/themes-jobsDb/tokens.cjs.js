@@ -1,8 +1,8 @@
 "use strict";
-var themesJobStreet_tokens_cjs_js = require("../themes-jobStreet/tokens.cjs.js");
+var themesJobStreetClassic_tokens_cjs_js = require("../themes-jobStreetClassic/tokens.cjs.js");
 const blue = "#0c4b85";
 const blue2 = "#298EB9";
-var tokens = themesJobStreet_tokens_cjs_js.makeTokens({
+var tokens = themesJobStreetClassic_tokens_cjs_js.makeTokens({
   name: "jobsDb",
   displayName: "jobsDB",
   bodyBackground: "#eee",

@@ -22,7 +22,7 @@ function _interopNamespace(e) {
   return Object.freeze(n);
 }
 var __vanilla_filescope____namespace = /* @__PURE__ */ _interopNamespace(__vanilla_filescope__);
-__vanilla_filescope____namespace.setFileScope("packages/braid-design-system/src/components/MonthPicker/MonthPicker.css.ts?used", "braid-monorepo");
+__vanilla_filescope____namespace.setFileScope("packages/braid-design-system/src/components/MonthPicker/MonthPicker.css.ts", "braid-monorepo");
 const nativeInput = css.style({
   selectors: {
     "&::-webkit-inner-spin-button, &::-webkit-calendar-picker-indicator, &::-webkit-clear-button": {

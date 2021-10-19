@@ -18,7 +18,7 @@ import * as __vanilla_filescope__ from "@vanilla-extract/css/fileScope";
 import { style } from "@vanilla-extract/css";
 import { d as debugTouchable } from "./debugTouchable.esm.js";
 import { v as virtualTouchableRules } from "./virtualTouchableRules.esm.js";
-__vanilla_filescope__.setFileScope("packages/braid-design-system/src/components/private/touchable/virtualTouchable.css.ts?used", "braid-monorepo");
+__vanilla_filescope__.setFileScope("packages/braid-design-system/src/components/private/touchable/virtualTouchable.css.ts", "braid-monorepo");
 const virtualTouchable = style({
   position: "relative",
   ":after": __spreadValues({

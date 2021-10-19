@@ -1,7 +1,7 @@
 import * as __vanilla_filescope__ from "@vanilla-extract/css/fileScope";
 import { styleVariants } from "@vanilla-extract/css";
 import { r as responsiveStyle } from "../css-responsiveStyle.esm.js";
-__vanilla_filescope__.setFileScope("packages/braid-design-system/src/components/Tiles/Tiles.css.ts?used", "braid-monorepo");
+__vanilla_filescope__.setFileScope("packages/braid-design-system/src/components/Tiles/Tiles.css.ts", "braid-monorepo");
 const columnsWidths = {
   1: "100%",
   2: `${100 / 2}%`,
