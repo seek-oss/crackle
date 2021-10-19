@@ -5,13 +5,13 @@ import React from 'react';
 import { TestAlert } from '../components/TestAlert';
 import type { BraidMetadata } from '../types';
 
-export const routeData = createRouteData<BraidMetadata>(() => ({
+export const routeData = createRouteData<BraidMetadata>({
   route: '/details',
   globalMetadata: {
     isDeprecated: true,
     componentName: 'Details',
   },
-}));
+});
 
 const Details = () => (
   <Card>
