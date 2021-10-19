@@ -1,6 +1,6 @@
-import { ClassValue } from 'clsx';
+import type { ClassValue } from 'clsx';
 import React from 'react';
-import { LinkComponentProps } from '../BraidProvider/BraidProvider';
+import type { LinkComponentProps } from '../BraidProvider/BraidProvider';
 export declare type LinkProps = Omit<LinkComponentProps, 'className'> & {
     className?: ClassValue;
 };

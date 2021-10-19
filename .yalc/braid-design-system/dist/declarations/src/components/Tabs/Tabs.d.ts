@@ -1,7 +1,7 @@
 import type { ResponsiveSpace } from '../../css/atoms/atoms';
-import { DataAttributeMap } from '../private/buildDataAttributes';
-import { ReactNodeNoStrings } from '../private/ReactNodeNoStrings';
-import { TabListContextValues } from './TabListContext';
+import type { DataAttributeMap } from '../private/buildDataAttributes';
+import type { ReactNodeNoStrings } from '../private/ReactNodeNoStrings';
+import type { TabListContextValues } from './TabListContext';
 export interface TabsProps {
     children: ReactNodeNoStrings;
     label: string;

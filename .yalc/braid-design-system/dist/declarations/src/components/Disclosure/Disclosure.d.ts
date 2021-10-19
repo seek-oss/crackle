@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import type { ResponsiveSpace } from '../../css/atoms/atoms';
-import { UseDisclosureProps } from './useDisclosure';
-import { DataAttributeMap } from '../private/buildDataAttributes';
+import type { UseDisclosureProps } from './useDisclosure';
+import type { DataAttributeMap } from '../private/buildDataAttributes';
 export declare type DisclosureBaseProps = {
     expandLabel: string;
     collapseLabel?: string;

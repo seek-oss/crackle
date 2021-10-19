@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
-import { ListProps } from '../List/List';
+import type { ReactNode } from 'react';
+import type { ListProps } from '../List/List';
 declare const validTones: readonly ["neutral", "secondary"];
 export interface BulletListProps {
     space?: ListProps['space'];

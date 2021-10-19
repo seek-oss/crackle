@@ -1,4 +1,4 @@
-import { DataAttributeMap } from '../private/buildDataAttributes';
+import type { DataAttributeMap } from '../private/buildDataAttributes';
 import * as styles from './Loader.css';
 interface LoaderProps {
     size?: keyof typeof styles.size;

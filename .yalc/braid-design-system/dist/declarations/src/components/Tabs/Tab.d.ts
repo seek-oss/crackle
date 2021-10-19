@@ -1,6 +1,6 @@
-import { ReactNode, ReactElement } from 'react';
-import { DataAttributeMap } from '../private/buildDataAttributes';
-import { BadgeProps } from '../Badge/Badge';
+import type { ReactNode, ReactElement } from 'react';
+import type { DataAttributeMap } from '../private/buildDataAttributes';
+import type { BadgeProps } from '../Badge/Badge';
 export interface TabProps {
     children: ReactNode;
     item?: string;

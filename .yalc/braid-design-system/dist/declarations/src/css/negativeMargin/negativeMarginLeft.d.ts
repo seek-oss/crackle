@@ -1,3 +1,3 @@
-import { RequiredResponsiveValue } from '../atoms/sprinkles.css';
-import { Space } from '../atoms/atoms';
+import type { RequiredResponsiveValue } from '../atoms/sprinkles.css';
+import type { Space } from '../atoms/atoms';
 export declare const negativeMarginLeft: (space: RequiredResponsiveValue<Space>) => string;

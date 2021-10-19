@@ -25,7 +25,7 @@ function _interopNamespace(e) {
   return Object.freeze(n);
 }
 var __vanilla_filescope____namespace = /* @__PURE__ */ _interopNamespace(__vanilla_filescope__);
-__vanilla_filescope____namespace.setFileScope("packages/braid-design-system/src/themes/occ/occTheme.css.ts", "braid-monorepo");
+__vanilla_filescope____namespace.setFileScope("packages/braid-design-system/src/themes/occ/occTheme.css.ts?used", "braid-monorepo");
 const {
   resolvedTokens,
   runtimeTokens

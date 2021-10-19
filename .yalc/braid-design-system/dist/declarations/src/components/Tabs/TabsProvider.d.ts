@@ -1,5 +1,6 @@
-import React, { ReactNode } from 'react';
-import { Action } from './Tabs.actions';
+import type { ReactNode } from 'react';
+import React from 'react';
+import type { Action } from './Tabs.actions';
 import tabA11y from './tabA11y';
 interface State {
     selectedIndex: number;

@@ -1,8 +1,8 @@
-import { DividerProps } from '../Divider/Divider';
-import { Space } from '../../css/atoms/atoms';
-import { ReactNodeNoStrings } from '../private/ReactNodeNoStrings';
-import { RequiredResponsiveValue } from '../../css/atoms/sprinkles.css';
-import { DataAttributeMap } from '../private/buildDataAttributes';
+import type { DividerProps } from '../Divider/Divider';
+import type { Space } from '../../css/atoms/atoms';
+import type { ReactNodeNoStrings } from '../private/ReactNodeNoStrings';
+import type { RequiredResponsiveValue } from '../../css/atoms/sprinkles.css';
+import type { DataAttributeMap } from '../private/buildDataAttributes';
 export interface TilesProps {
     children: ReactNodeNoStrings;
     space: RequiredResponsiveValue<Space>;

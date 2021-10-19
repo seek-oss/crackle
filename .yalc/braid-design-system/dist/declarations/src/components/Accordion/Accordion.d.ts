@@ -1,7 +1,7 @@
-import { ReactNodeNoStrings } from '../private/ReactNodeNoStrings';
-import { RequiredResponsiveValue } from '../../css/atoms/sprinkles.css';
-import { DataAttributeMap } from '../private/buildDataAttributes';
-import { AccordionContextValue } from './AccordionContext';
+import type { ReactNodeNoStrings } from '../private/ReactNodeNoStrings';
+import type { RequiredResponsiveValue } from '../../css/atoms/sprinkles.css';
+import type { DataAttributeMap } from '../private/buildDataAttributes';
+import type { AccordionContextValue } from './AccordionContext';
 export declare const validSpaceValues: readonly ["medium", "large", "xlarge"];
 export interface AccordionProps {
     children: ReactNodeNoStrings;

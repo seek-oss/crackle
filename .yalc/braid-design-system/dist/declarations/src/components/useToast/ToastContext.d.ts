@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
-import { Toast } from './ToastTypes';
+import type { ReactNode } from 'react';
+import type { Toast } from './ToastTypes';
 interface ToastProviderProps {
     children: ReactNode;
 }

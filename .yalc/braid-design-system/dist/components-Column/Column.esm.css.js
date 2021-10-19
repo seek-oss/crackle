@@ -1,6 +1,6 @@
 import * as __vanilla_filescope__ from "@vanilla-extract/css/fileScope";
 import { style, styleVariants } from "@vanilla-extract/css";
-__vanilla_filescope__.setFileScope("packages/braid-design-system/src/components/Column/Column.css.ts", "braid-monorepo");
+__vanilla_filescope__.setFileScope("packages/braid-design-system/src/components/Column/Column.css.ts?used", "braid-monorepo");
 const column = style({}, "column");
 const columnContent = style({
   selectors: {

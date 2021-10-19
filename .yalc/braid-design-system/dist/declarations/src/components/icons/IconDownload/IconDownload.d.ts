@@ -1,3 +1,3 @@
-import { UseIconProps } from '../../../hooks/useIcon';
+import type { UseIconProps } from '../../../hooks/useIcon';
 export declare type IconDownloadProps = UseIconProps;
 export declare const IconDownload: (props: IconDownloadProps) => JSX.Element;

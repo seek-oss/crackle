@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
-import { AllOrNone } from '../private/AllOrNone';
-import { DataAttributeMap } from '../private/buildDataAttributes';
+import type { ReactNode } from 'react';
+import type { AllOrNone } from '../private/AllOrNone';
+import type { DataAttributeMap } from '../private/buildDataAttributes';
 declare type Tone = 'promote' | 'info' | 'positive' | 'caution' | 'critical';
 declare type CloseProps = AllOrNone<{
     onClose: () => void;

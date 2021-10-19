@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
-import { DataAttributeMap } from '../private/buildDataAttributes';
+import type { ReactNode } from 'react';
+import type { DataAttributeMap } from '../private/buildDataAttributes';
 export interface StrongProps {
     children: ReactNode;
     id?: string;

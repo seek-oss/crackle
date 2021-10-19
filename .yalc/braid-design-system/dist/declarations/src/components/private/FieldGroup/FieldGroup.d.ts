@@ -1,9 +1,9 @@
-import { AllHTMLAttributes } from 'react';
-import { FieldLabelProps } from '../../FieldLabel/FieldLabel';
-import { FieldMessageProps } from '../../FieldMessage/FieldMessage';
-import { StackProps } from '../../Stack/Stack';
-import { DataAttributeMap } from '../buildDataAttributes';
-import { ReactNodeNoStrings } from '../ReactNodeNoStrings';
+import type { AllHTMLAttributes } from 'react';
+import type { FieldLabelProps } from '../../FieldLabel/FieldLabel';
+import type { FieldMessageProps } from '../../FieldMessage/FieldMessage';
+import type { StackProps } from '../../Stack/Stack';
+import type { DataAttributeMap } from '../buildDataAttributes';
+import type { ReactNodeNoStrings } from '../ReactNodeNoStrings';
 declare type FormElementProps = AllHTMLAttributes<HTMLFormElement>;
 export declare type FieldLabelVariant = {
     'aria-labelledby': string;

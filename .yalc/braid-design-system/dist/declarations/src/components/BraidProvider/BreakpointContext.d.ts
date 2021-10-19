@@ -1,4 +1,5 @@
-import React, { ReactNode } from 'react';
+import type { ReactNode } from 'react';
+import React from 'react';
 export declare const breakpointContext: React.Context<"mobile" | "tablet" | "desktop" | "wide" | null>;
 interface BreakpointProviderProps {
     children: ReactNode;

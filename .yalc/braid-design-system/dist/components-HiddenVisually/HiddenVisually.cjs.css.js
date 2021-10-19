@@ -22,7 +22,7 @@ function _interopNamespace(e) {
   return Object.freeze(n);
 }
 var __vanilla_filescope____namespace = /* @__PURE__ */ _interopNamespace(__vanilla_filescope__);
-__vanilla_filescope____namespace.setFileScope("packages/braid-design-system/src/components/HiddenVisually/HiddenVisually.css.ts", "braid-monorepo");
+__vanilla_filescope____namespace.setFileScope("packages/braid-design-system/src/components/HiddenVisually/HiddenVisually.css.ts?used", "braid-monorepo");
 const root = css.style({
   width: 1,
   height: 1,

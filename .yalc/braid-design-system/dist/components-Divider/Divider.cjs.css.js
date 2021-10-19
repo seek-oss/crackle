@@ -23,7 +23,7 @@ function _interopNamespace(e) {
   return Object.freeze(n);
 }
 var __vanilla_filescope____namespace = /* @__PURE__ */ _interopNamespace(__vanilla_filescope__);
-__vanilla_filescope____namespace.setFileScope("packages/braid-design-system/src/components/Divider/Divider.css.ts", "braid-monorepo");
+__vanilla_filescope____namespace.setFileScope("packages/braid-design-system/src/components/Divider/Divider.css.ts?used", "braid-monorepo");
 const base = css.style({
   height: themesVars_cjs_css_js.vars.borderWidth.standard
 }, "base");

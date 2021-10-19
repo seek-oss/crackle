@@ -24,7 +24,7 @@ function _interopNamespace(e) {
   return Object.freeze(n);
 }
 var __vanilla_filescope____namespace = /* @__PURE__ */ _interopNamespace(__vanilla_filescope__);
-__vanilla_filescope____namespace.setFileScope("packages/braid-design-system/src/components/Accordion/AccordionItem.css.ts", "braid-monorepo");
+__vanilla_filescope____namespace.setFileScope("packages/braid-design-system/src/components/Accordion/AccordionItem.css.ts?used", "braid-monorepo");
 const button = css.style({}, "button");
 const focusRing = css.style({
   top: cssUtils.calc.negate(themesVars_cjs_css_js.vars.space.xsmall),

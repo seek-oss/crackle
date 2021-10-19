@@ -1,6 +1,116 @@
-export declare const pseudoProperties: any;
+export declare const pseudoProperties: {
+    readonly transform: import("@vanilla-extract/private").MapLeafNodes<{
+        touchable: string;
+    }, import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction>;
+};
 export declare type PseudoProperties = keyof typeof pseudoProperties;
-export declare const unresponsiveProperties: any;
+export declare const unresponsiveProperties: {
+    readonly background: import("@vanilla-extract/private").MapLeafNodes<{
+        body: string;
+        brand: string;
+        brandAccent: string;
+        brandAccentActive: string;
+        brandAccentHover: string;
+        brandAccentSoft: string;
+        brandAccentSoftActive: string;
+        brandAccentSoftHover: string;
+        card: string;
+        caution: string;
+        cautionLight: string;
+        critical: string;
+        criticalActive: string;
+        criticalHover: string;
+        criticalLight: string;
+        criticalSoft: string;
+        criticalSoftActive: string;
+        criticalSoftHover: string;
+        formAccent: string;
+        formAccentActive: string;
+        formAccentDisabled: string;
+        formAccentHover: string;
+        formAccentSoft: string;
+        formAccentSoftActive: string;
+        formAccentSoftHover: string;
+        info: string;
+        infoLight: string;
+        input: string;
+        inputDisabled: string;
+        neutral: string;
+        neutralLight: string;
+        positive: string;
+        positiveLight: string;
+        promote: string;
+        promoteLight: string;
+        selection: string;
+    }, import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction>;
+    readonly overflow: readonly ["hidden", "scroll", "visible", "auto"];
+    readonly userSelect: readonly ["none"];
+    readonly outline: readonly ["none"];
+    readonly opacity: readonly [0];
+    readonly zIndex: {
+        readonly 0: 0;
+        readonly 1: 1;
+        readonly 2: 2;
+        readonly dropdownBackdrop: 90;
+        readonly dropdown: 100;
+        readonly sticky: 200;
+        readonly modalBackdrop: 290;
+        readonly modal: 300;
+        readonly notification: 400;
+    };
+    readonly boxShadow: {
+        outlineFocus: string;
+        borderField: string;
+        borderStandard: string;
+        borderStandardInverted: string;
+        borderCritical: string;
+        borderCriticalLight: string;
+        borderCriticalLarge: string;
+        borderCaution: string;
+        borderCautionLight: string;
+        borderPositive: string;
+        borderPositiveLight: string;
+        borderInfo: string;
+        borderInfoLight: string;
+        borderPromote: string;
+        borderPromoteLight: string;
+        borderFormHover: string;
+        borderFormAccent: string;
+        borderFormAccentLarge: string;
+        borderBrandAccentLarge: string;
+        borderStandardInvertedLarge: string;
+        small: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
+        medium: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
+        large: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
+    };
+    readonly cursor: readonly ["default", "pointer"];
+    readonly pointerEvents: readonly ["none"];
+    readonly top: readonly [0];
+    readonly bottom: readonly [0];
+    readonly left: readonly [0];
+    readonly right: readonly [0];
+    readonly height: {
+        full: string;
+        touchable: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
+    };
+    readonly width: {
+        full: string;
+        touchable: import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction;
+    };
+    readonly minWidth: {
+        readonly 0: "0%";
+    };
+    readonly maxWidth: import("@vanilla-extract/private").MapLeafNodes<{
+        xsmall: string;
+        small: string;
+        medium: string;
+        large: string;
+    }, import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction>;
+    readonly transition: import("@vanilla-extract/private").MapLeafNodes<{
+        fast: string;
+        touchable: string;
+    }, import("@vanilla-extract/css/dist/declarations/src/types").CSSVarFunction>;
+};
 export declare type UnresponsiveProperties = keyof typeof unresponsiveProperties;
 export declare const responsiveProperties: {
     readonly display: {

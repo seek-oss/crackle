@@ -2,7 +2,7 @@ import * as __vanilla_filescope__ from "@vanilla-extract/css/fileScope";
 import { createAtomicStyles, createAtomsFn, createNormalizeValueFn, createMapValueFn } from "@vanilla-extract/sprinkles";
 import { b as breakpoints, a as breakpointNames } from "../css-breakpoints.esm.js";
 import { u as unresponsiveProperties, p as pseudoProperties, r as responsiveProperties } from "./atomicProperties.esm.js";
-__vanilla_filescope__.setFileScope("packages/braid-design-system/src/css/atoms/sprinkles.css.ts", "braid-monorepo");
+__vanilla_filescope__.setFileScope("packages/braid-design-system/src/css/atoms/sprinkles.css.ts?used", "braid-monorepo");
 const unresponsiveAtomicStyles = createAtomicStyles({
   properties: unresponsiveProperties
 });

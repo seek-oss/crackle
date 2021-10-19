@@ -24,7 +24,7 @@ function _interopNamespace(e) {
   return Object.freeze(n);
 }
 var __vanilla_filescope____namespace = /* @__PURE__ */ _interopNamespace(__vanilla_filescope__);
-__vanilla_filescope____namespace.setFileScope("packages/braid-design-system/src/css/atoms/sprinkles.css.ts", "braid-monorepo");
+__vanilla_filescope____namespace.setFileScope("packages/braid-design-system/src/css/atoms/sprinkles.css.ts?used", "braid-monorepo");
 const unresponsiveAtomicStyles = sprinkles$1.createAtomicStyles({
   properties: cssAtoms_atomicProperties_cjs_js.unresponsiveProperties
 });

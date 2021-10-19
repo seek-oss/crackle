@@ -1,4 +1,4 @@
-import { StyleRule } from '@vanilla-extract/css';
+import type { StyleRule } from '@vanilla-extract/css';
 declare type CSSProps = Omit<StyleRule, '@media' | '@supports'>;
 export declare const breakpointQuery: {
     readonly tablet: string;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ModalContentProps } from './ModalContent';
+import type { ModalContentProps } from './ModalContent';
 export interface ModalProps extends Omit<ModalContentProps, 'onClose' | 'scrollLock' | 'headingRef' | 'modalRef'> {
     open: boolean;
     onClose: (openState: false) => void;

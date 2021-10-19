@@ -41,7 +41,7 @@ function _interopNamespace(e) {
   return Object.freeze(n);
 }
 var __vanilla_filescope____namespace = /* @__PURE__ */ _interopNamespace(__vanilla_filescope__);
-__vanilla_filescope____namespace.setFileScope("packages/braid-design-system/src/components/TextDropdown/TextDropdown.css.ts", "braid-monorepo");
+__vanilla_filescope____namespace.setFileScope("packages/braid-design-system/src/components/TextDropdown/TextDropdown.css.ts?used", "braid-monorepo");
 const select = css.style(__spreadValues({}, componentsPrivate_touchable_virtualTouchableRules_cjs_js.virtualTouchableRules), "select");
 const focusOverlay = [css.style({
   selectors: {

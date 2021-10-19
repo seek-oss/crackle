@@ -1,4 +1,4 @@
-import { DataAttributeMap } from '../private/buildDataAttributes';
+import type { DataAttributeMap } from '../private/buildDataAttributes';
 declare type AllOrNone<T> = T | {
     [K in keyof T]?: never;
 };

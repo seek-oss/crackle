@@ -1,5 +1,5 @@
-import { LinkProps } from '../Link/Link';
-import { DataAttributeMap } from '../private/buildDataAttributes';
+import type { LinkProps } from '../Link/Link';
+import type { DataAttributeMap } from '../private/buildDataAttributes';
 export interface PaginationProps {
     page: number;
     total: number;

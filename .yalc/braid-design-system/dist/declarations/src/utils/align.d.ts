@@ -1,4 +1,4 @@
-import { OptionalResponsiveValue } from '../css/atoms/sprinkles.css';
+import type { OptionalResponsiveValue } from '../css/atoms/sprinkles.css';
 export declare type Align = 'left' | 'center' | 'right';
 export declare type AlignY = 'top' | 'center' | 'bottom';
 export declare const alignToFlexAlign: (align: OptionalResponsiveValue<Align> | undefined) => "center" | "flexStart" | "flexEnd" | Partial<Record<"mobile" | "tablet" | "desktop" | "wide", "center" | "flexStart" | "flexEnd">> | undefined;

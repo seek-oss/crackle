@@ -24,7 +24,7 @@ function _interopNamespace(e) {
   return Object.freeze(n);
 }
 var __vanilla_filescope____namespace = /* @__PURE__ */ _interopNamespace(__vanilla_filescope__);
-__vanilla_filescope____namespace.setFileScope("packages/braid-design-system/src/components/OverflowMenu/OverflowMenu.css.ts", "braid-monorepo");
+__vanilla_filescope____namespace.setFileScope("packages/braid-design-system/src/components/OverflowMenu/OverflowMenu.css.ts?used", "braid-monorepo");
 const OVERFLOW_ICON_WIDTH = "4px";
 const OVERFLOW_ICON_HEIGHT = "14px";
 const circleSize = themesVars_cjs_css_js.vars.textSize.standard.mobile.lineHeight;

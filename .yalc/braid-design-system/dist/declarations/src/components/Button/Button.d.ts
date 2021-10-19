@@ -1,6 +1,7 @@
-import React, { ReactNode, AllHTMLAttributes } from 'react';
-import { PrivateButtonRendererProps } from '../ButtonRenderer/ButtonRenderer';
-import { DataAttributeMap } from '../private/buildDataAttributes';
+import type { ReactNode, AllHTMLAttributes } from 'react';
+import React from 'react';
+import type { PrivateButtonRendererProps } from '../ButtonRenderer/ButtonRenderer';
+import type { DataAttributeMap } from '../private/buildDataAttributes';
 declare type NativeButtonProps = AllHTMLAttributes<HTMLButtonElement>;
 export interface ButtonProps extends Omit<PrivateButtonRendererProps, 'children'> {
     id?: NativeButtonProps['id'];

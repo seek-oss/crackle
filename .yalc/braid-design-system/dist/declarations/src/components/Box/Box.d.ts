@@ -1,6 +1,6 @@
-import { ClassValue } from 'clsx';
-import { AllHTMLAttributes, ElementType } from 'react';
-import { Atoms } from '../../css/atoms/atoms';
+import type { ClassValue } from 'clsx';
+import type { AllHTMLAttributes, ElementType } from 'react';
+import type { Atoms } from '../../css/atoms/atoms';
 export interface BoxProps extends Omit<Atoms, 'reset'>, Omit<AllHTMLAttributes<HTMLElement>, 'width' | 'height' | 'className'> {
     component?: ElementType;
     className?: ClassValue;

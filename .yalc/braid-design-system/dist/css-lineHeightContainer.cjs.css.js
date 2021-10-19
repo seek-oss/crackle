@@ -24,7 +24,7 @@ function _interopNamespace(e) {
   return Object.freeze(n);
 }
 var __vanilla_filescope____namespace = /* @__PURE__ */ _interopNamespace(__vanilla_filescope__);
-__vanilla_filescope____namespace.setFileScope("packages/braid-design-system/src/css/lineHeightContainer.css.ts", "braid-monorepo");
+__vanilla_filescope____namespace.setFileScope("packages/braid-design-system/src/css/lineHeightContainer.css.ts?used", "braid-monorepo");
 const lineHeightContainer = css.styleVariants(themesVars_cjs_css_js.vars.textSize, ({
   mobile,
   tablet

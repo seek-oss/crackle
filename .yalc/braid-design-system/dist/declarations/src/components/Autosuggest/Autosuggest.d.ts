@@ -1,6 +1,6 @@
-import React, { ReactElement, RefAttributes } from 'react';
-import { FieldBaseProps, FieldLabelVariant } from '../private/Field/Field';
-import { AutosuggestTranslations } from '../../translations/en';
+import type { ReactElement, RefAttributes } from 'react';
+import type { FieldBaseProps, FieldLabelVariant } from '../private/Field/Field';
+import type { AutosuggestTranslations } from '../../translations/en';
 declare type SuggestionMatch = Array<{
     start: number;
     end: number;
@@ -42,5 +42,5 @@ export declare type AutosuggestBaseProps<Value> = Omit<FieldBaseProps, 'value' |
 };
 export declare type AutosuggestLabelProps = FieldLabelVariant;
 export declare type AutosuggestProps<Value> = AutosuggestBaseProps<Value> & AutosuggestLabelProps;
-export declare const Autosuggest: <Value>(props: AutosuggestProps<Value> & React.RefAttributes<HTMLInputElement>) => ReactElement;
+export declare const Autosuggest: <Value>(props: AutosuggestProps<Value> & RefAttributes<HTMLInputElement>) => ReactElement;
 export {};

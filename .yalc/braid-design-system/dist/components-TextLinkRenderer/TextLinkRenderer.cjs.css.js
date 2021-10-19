@@ -23,7 +23,7 @@ function _interopNamespace(e) {
   return Object.freeze(n);
 }
 var __vanilla_filescope____namespace = /* @__PURE__ */ _interopNamespace(__vanilla_filescope__);
-__vanilla_filescope____namespace.setFileScope("packages/braid-design-system/src/components/TextLinkRenderer/TextLinkRenderer.css.ts", "braid-monorepo");
+__vanilla_filescope____namespace.setFileScope("packages/braid-design-system/src/components/TextLinkRenderer/TextLinkRenderer.css.ts?used", "braid-monorepo");
 const underlineAlways = css.style({
   textDecoration: "underline"
 }, "underlineAlways");

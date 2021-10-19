@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports[Symbol.toStringTag] = "Module";
+require("../dist/index.chunk.cjs2.js");
 var themesVars_cjs_css_js = require("../dist/themes-vars.cjs.css.js");
 var cssAtoms_atoms_cjs_js = require("../dist/css-atoms/atoms.cjs.js");
 var cssResponsiveStyle_cjs_js = require("../dist/css-responsiveStyle.cjs.js");

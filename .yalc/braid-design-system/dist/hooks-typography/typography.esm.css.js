@@ -24,7 +24,7 @@ import { createTextStyle } from "@capsizecss/vanilla-extract";
 import { v as vars } from "../themes-vars.esm.css.js";
 import { r as responsiveStyle, b as breakpointQuery } from "../css-responsiveStyle.esm.js";
 import { m as mapToProperty } from "../utils-index.esm.js";
-__vanilla_filescope__.setFileScope("packages/braid-design-system/src/hooks/typography/typography.css.ts", "braid-monorepo");
+__vanilla_filescope__.setFileScope("packages/braid-design-system/src/hooks/typography/typography.css.ts?used", "braid-monorepo");
 const fontFamily = style({
   fontFamily: vars.fontFamily
 }, "fontFamily");

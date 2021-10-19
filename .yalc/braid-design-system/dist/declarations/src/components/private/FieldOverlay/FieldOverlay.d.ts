@@ -1,4 +1,4 @@
-import { OverlayProps } from '../Overlay/Overlay';
+import type { OverlayProps } from '../Overlay/Overlay';
 declare type FieldOverlayVariant = 'default' | 'disabled' | 'focus' | 'hover' | 'critical';
 export interface FieldOverlayProps extends Pick<OverlayProps, 'children' | 'visible' | 'onlyVisibleForKeyboardNavigation' | 'background' | 'borderRadius' | 'className'> {
     variant?: FieldOverlayVariant;
