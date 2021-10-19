@@ -1,5 +1,13 @@
 # @crackle/core
 
+## 0.6.1
+
+### Patch Changes
+
+- [#4](https://github.com/seek-oss/crackle/pull/4) [`1ac46da`](https://github.com/seek-oss/crackle/commit/1ac46daea12f4db29da36eed99db2b06d67d652e) Thanks [@benjervis](https://github.com/benjervis)! - Update to use the vanilla vite plugin v3
+
+* [#1](https://github.com/seek-oss/crackle/pull/1) [`66f40d1`](https://github.com/seek-oss/crackle/commit/66f40d1a9a13405b626a43c39aabbfed5cf8b2f1) Thanks [@benjervis](https://github.com/benjervis)! - Write package.json files in dev mode
+
 ## 0.6.0
 
 ### Minor Changes
