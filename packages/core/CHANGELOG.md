@@ -1,5 +1,14 @@
 # @crackle/core
 
+## 0.6.2
+
+### Patch Changes
+
+- [#6](https://github.com/seek-oss/crackle/pull/6) [`686ba96`](https://github.com/seek-oss/crackle/commit/686ba96bb1651308345786ec4c554014331356b7) Thanks [@benjervis](https://github.com/benjervis)! - Ensures correct filenames are being passed to vanilla-extract
+
+- Updated dependencies [[`686ba96`](https://github.com/seek-oss/crackle/commit/686ba96bb1651308345786ec4c554014331356b7)]:
+  - @crackle/router@0.1.2
+
 ## 0.6.1
 
 ### Patch Changes
