@@ -1,7 +1,7 @@
-import { ReactNode, Ref } from 'react';
-import { BoxProps } from '../../Box/Box';
-import { ReactNodeNoStrings } from '../ReactNodeNoStrings';
-import { DataAttributeMap } from '../buildDataAttributes';
+import type { ReactNode, Ref } from 'react';
+import type { BoxProps } from '../../Box/Box';
+import type { ReactNodeNoStrings } from '../ReactNodeNoStrings';
+import type { DataAttributeMap } from '../buildDataAttributes';
 export interface ModalContentProps {
     id: string;
     title: string;

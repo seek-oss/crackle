@@ -1,5 +1,6 @@
-import React, { KeyboardEvent, ReactNode, MouseEvent } from 'react';
-import { DataAttributeMap } from '../private/buildDataAttributes';
+import type { KeyboardEvent, ReactNode, MouseEvent } from 'react';
+import React from 'react';
+import type { DataAttributeMap } from '../private/buildDataAttributes';
 declare type MenuItemTone = 'critical' | undefined;
 export interface UseMenuItemProps {
     onClick?: () => void;

@@ -1,6 +1,6 @@
 import React from 'react';
-import { BoxProps } from '../Box/Box';
-import { DataAttributeMap } from '../private/buildDataAttributes';
+import type { BoxProps } from '../Box/Box';
+import type { DataAttributeMap } from '../private/buildDataAttributes';
 declare const validTones: readonly ["promote", "info", "neutral", "positive", "caution", "critical"];
 declare type Tone = typeof validTones[number];
 declare type BadgeWeight = 'strong' | 'regular';

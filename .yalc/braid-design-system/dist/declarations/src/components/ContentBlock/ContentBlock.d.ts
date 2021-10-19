@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
-import { BoxProps } from '../Box/Box';
-import { DataAttributeMap } from '../private/buildDataAttributes';
+import type { ReactNode } from 'react';
+import type { BoxProps } from '../Box/Box';
+import type { DataAttributeMap } from '../private/buildDataAttributes';
 export interface ContentBlockProps {
     children: ReactNode;
     width?: BoxProps['maxWidth'];

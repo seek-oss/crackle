@@ -44,7 +44,7 @@ export const start = async (
     plugins: [
       stripRouteData(),
       reactRefresh(),
-      vanillaExtractPlugin({ devStyleRuntime: 'vanilla-extract' }),
+      vanillaExtractPlugin(),
       addPageRoots(config),
       internalPackageResolution(config),
     ],

@@ -4,13 +4,13 @@ import React from 'react';
 
 import type { BraidMetadata } from '../../types';
 
-export const routeData = createRouteData<BraidMetadata>(() => ({
+export const routeData = createRouteData<BraidMetadata>({
   route: '/extra',
   globalMetadata: {
     isDeprecated: false,
     componentName: 'ExtraPage',
   },
-}));
+});
 
 export default function ExtraPage() {
   return (

@@ -1,6 +1,6 @@
-import { AllHTMLAttributes, ReactNode } from 'react';
-import { PrivateTextLinkRendererProps } from '../TextLinkRenderer/TextLinkRenderer';
-import { DataAttributeMap } from '../private/buildDataAttributes';
+import type { AllHTMLAttributes, ReactNode } from 'react';
+import type { PrivateTextLinkRendererProps } from '../TextLinkRenderer/TextLinkRenderer';
+import type { DataAttributeMap } from '../private/buildDataAttributes';
 declare type NativeSpanProps = AllHTMLAttributes<HTMLSpanElement>;
 export interface TextLinkButtonProps extends Omit<PrivateTextLinkRendererProps, 'reset' | 'children' | 'showVisited'> {
     id?: NativeSpanProps['id'];

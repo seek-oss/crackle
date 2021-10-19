@@ -1,4 +1,4 @@
-import { ReactNodeNoStrings } from '../private/ReactNodeNoStrings';
+import type { ReactNodeNoStrings } from '../private/ReactNodeNoStrings';
 interface TabPanelsProps {
     renderInactivePanels?: boolean;
     children: ReactNodeNoStrings;

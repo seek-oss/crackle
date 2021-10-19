@@ -3,11 +3,11 @@
 // eslint-disable-next-line import/order
 import AppShell from '__THE_ENTRY';
 
+import { StaticRouter } from '@crackle/router/server';
 // eslint-disable-next-line import/order
 import nodePageModules from '__NODE_PAGE_MODULES';
 
 import React from 'react';
-import { StaticRouter } from 'react-router-dom/server';
 import serializeJavascript from 'serialize-javascript';
 
 import { LoadingIcon } from '../loading-icon';

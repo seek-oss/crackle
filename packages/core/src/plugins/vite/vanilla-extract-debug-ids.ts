@@ -13,10 +13,18 @@ export const addVanillaDebugIds: Plugin = {
       return;
     }
 
+    let filename = id;
+
+    const index = id.indexOf('?used');
+
+    if (index > 0) {
+      filename = id.substring(0, index);
+    }
+
     const result = await babelTransform(code, {
       plugins: [createConfigItem(vanillaBabelPlugin)],
       babelrc: false,
-      filename: id,
+      filename,
     });
 
     return result!.code;

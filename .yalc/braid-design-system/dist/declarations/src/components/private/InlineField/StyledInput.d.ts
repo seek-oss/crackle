@@ -1,5 +1,6 @@
-import React, { AllHTMLAttributes } from 'react';
-import { DataAttributeMap } from '../buildDataAttributes';
+import type { AllHTMLAttributes } from 'react';
+import React from 'react';
+import type { DataAttributeMap } from '../buildDataAttributes';
 import type { Size } from './InlineField.css';
 declare const tones: readonly ["neutral", "critical"];
 export declare type InlineFieldTone = typeof tones[number];

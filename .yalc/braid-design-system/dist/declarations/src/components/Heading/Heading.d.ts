@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
-import { BoxProps } from '../Box/Box';
-import { HeadingLevel, HeadingWeight } from '../../hooks/typography';
-import { DataAttributeMap } from '../private/buildDataAttributes';
+import type { ReactNode } from 'react';
+import type { BoxProps } from '../Box/Box';
+import type { HeadingLevel, HeadingWeight } from '../../hooks/typography';
+import type { DataAttributeMap } from '../private/buildDataAttributes';
 export interface HeadingProps {
     children: ReactNode;
     level: HeadingLevel;

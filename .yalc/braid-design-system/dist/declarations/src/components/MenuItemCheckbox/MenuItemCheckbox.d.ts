@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
-import { MenuItemProps } from '../MenuItem/MenuItem';
+import type { ReactNode } from 'react';
+import type { MenuItemProps } from '../MenuItem/MenuItem';
 interface MenuItemCheckboxProps extends Pick<MenuItemProps, 'data'> {
     children: ReactNode;
     onChange: (checked: boolean) => void;

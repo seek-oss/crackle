@@ -1,6 +1,6 @@
-import { KeyboardEvent, MouseEvent, ReactNode, Ref } from 'react';
+import type { KeyboardEvent, MouseEvent, ReactNode, Ref } from 'react';
 import type { ResponsiveSpace } from '../../css/atoms/atoms';
-import { DataAttributeMap } from '../private/buildDataAttributes';
+import type { DataAttributeMap } from '../private/buildDataAttributes';
 interface TriggerProps {
     'aria-haspopup': boolean;
     'aria-expanded': boolean;

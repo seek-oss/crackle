@@ -1,4 +1,4 @@
-import { DataAttributeMap } from '../private/buildDataAttributes';
+import type { DataAttributeMap } from '../private/buildDataAttributes';
 interface TextDropdownOption<Value> {
     text: string;
     value: Value;

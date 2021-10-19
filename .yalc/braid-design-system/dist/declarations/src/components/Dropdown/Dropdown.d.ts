@@ -1,5 +1,6 @@
-import React, { AllHTMLAttributes } from 'react';
-import { FieldBaseProps, FieldLabelVariant } from '../private/Field/Field';
+import type { AllHTMLAttributes } from 'react';
+import React from 'react';
+import type { FieldBaseProps, FieldLabelVariant } from '../private/Field/Field';
 declare type ValidDropdownChildren = AllHTMLAttributes<HTMLOptionElement | HTMLOptGroupElement>;
 declare type SelectProps = AllHTMLAttributes<HTMLSelectElement>;
 export declare type DropdownBaseProps = Omit<FieldBaseProps, 'value' | 'labelId' | 'secondaryMessage' | 'prefix'> & {

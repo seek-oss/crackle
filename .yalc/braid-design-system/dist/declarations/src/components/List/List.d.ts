@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
-import { TextProps } from '../Text/Text';
-import { StackProps } from '../Stack/Stack';
+import type { ReactNode } from 'react';
+import type { TextProps } from '../Text/Text';
+import type { StackProps } from '../Stack/Stack';
 declare type ListTypeCharacter = {
     type?: 'bullet' | 'number' | 'alpha' | 'roman';
     icon?: never;

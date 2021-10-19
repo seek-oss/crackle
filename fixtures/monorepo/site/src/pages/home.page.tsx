@@ -5,13 +5,13 @@ import React from 'react';
 
 import type { BraidMetadata } from '../types';
 
-export const routeData = createRouteData<BraidMetadata>(() => ({
+export const routeData = createRouteData<BraidMetadata>({
   route: '/',
   globalMetadata: {
-    isDeprecated: false,
     componentName: 'Home',
+    isDeprecated: false,
   },
-}));
+});
 
 export default function Home() {
   return (
@@ -25,7 +25,7 @@ export default function Home() {
           <TextLink href={crackleLink('/remote/page')}>Remote page</TextLink>
         </Text>
 
-        <JobSummary isNew={true} title="Red bordered job" />
+        <JobSummary isNew={true} title="Papayawhip bordered job" />
       </Stack>
     </Card>
   );

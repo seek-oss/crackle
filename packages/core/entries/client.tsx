@@ -4,6 +4,8 @@
 // @ts-expect-error
 // eslint-disable-next-line import/order
 import AppShell from '__THE_ENTRY';
+
+import { BrowserRouter, Route, Routes } from '@crackle/router';
 // eslint-disable-next-line import/order
 import browserPageModules from '__BROWSER_PAGE_MODULES';
 
@@ -11,7 +13,6 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { hydrate } from 'react-dom';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { extractRouteMetadata } from './route-metadata';
 import type { PageData, RouteMetadata } from './types';

@@ -1,9 +1,9 @@
 import type { ResponsiveSpace } from '../../css/atoms/atoms';
-import { DividerProps } from '../Divider/Divider';
-import { Align } from '../../utils/align';
-import { ReactNodeNoStrings } from '../private/ReactNodeNoStrings';
-import { OptionalResponsiveValue } from '../../css/atoms/sprinkles.css';
-import { DataAttributeMap } from '../private/buildDataAttributes';
+import type { DividerProps } from '../Divider/Divider';
+import type { Align } from '../../utils/align';
+import type { ReactNodeNoStrings } from '../private/ReactNodeNoStrings';
+import type { OptionalResponsiveValue } from '../../css/atoms/sprinkles.css';
+import type { DataAttributeMap } from '../private/buildDataAttributes';
 export declare const validStackComponents: readonly ["div", "ol", "ul"];
 export interface StackProps {
     component?: typeof validStackComponents[number];

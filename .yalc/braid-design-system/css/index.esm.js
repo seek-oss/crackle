@@ -1,3 +1,4 @@
+import "../dist/index.chunk.esm2.js";
 import { v as vars$1 } from "../dist/themes-vars.esm.css.js";
 import { a as atoms$1 } from "../dist/css-atoms/atoms.esm.js";
 export { r as responsiveStyle } from "../dist/css-responsiveStyle.esm.js";

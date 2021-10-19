@@ -1,4 +1,4 @@
-import { FieldLabelVariant, FieldGroupBaseProps } from '../private/FieldGroup/FieldGroup';
+import type { FieldLabelVariant, FieldGroupBaseProps } from '../private/FieldGroup/FieldGroup';
 interface MonthPickerValue {
     month?: number;
     year?: number;

@@ -1,4 +1,4 @@
-import { Breakpoint } from '../css/breakpoints';
+import type { Breakpoint } from '../css/breakpoints';
 export interface ResponsiveRangeProps {
     above?: Exclude<Breakpoint, 'wide'>;
     below?: Exclude<Breakpoint, 'mobile'>;

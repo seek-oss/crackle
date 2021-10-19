@@ -1,5 +1,5 @@
-import { InlineProps } from '../Inline/Inline';
-import { PrivateButtonRendererProps } from '../ButtonRenderer/ButtonRenderer';
+import type { InlineProps } from '../Inline/Inline';
+import type { PrivateButtonRendererProps } from '../ButtonRenderer/ButtonRenderer';
 export interface ActionsProps {
     size?: PrivateButtonRendererProps['size'];
     children: InlineProps['children'];

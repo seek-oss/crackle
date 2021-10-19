@@ -1,4 +1,4 @@
-import { TextProps } from '../Text/Text';
+import type { TextProps } from '../Text/Text';
 export declare const validTones: readonly ["neutral", "secondary"];
 export interface AccordionContextValue {
     size?: TextProps['size'];

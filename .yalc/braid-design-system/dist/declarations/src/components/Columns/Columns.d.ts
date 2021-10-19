@@ -1,8 +1,10 @@
-import React, { ReactElement } from 'react';
-import { ColumnProps } from '../Column/Column';
-import { Space, ResponsiveSpace } from '../../css/atoms/atoms';
-import { resolveCollapsibleAlignmentProps, CollapsibleAlignmentProps } from '../../utils/collapsibleAlignmentProps';
-import { DataAttributeMap } from '../private/buildDataAttributes';
+import type { ReactElement } from 'react';
+import React from 'react';
+import type { ColumnProps } from '../Column/Column';
+import type { Space, ResponsiveSpace } from '../../css/atoms/atoms';
+import type { CollapsibleAlignmentProps } from '../../utils/collapsibleAlignmentProps';
+import { resolveCollapsibleAlignmentProps } from '../../utils/collapsibleAlignmentProps';
+import type { DataAttributeMap } from '../private/buildDataAttributes';
 declare type CollapsibleAlignmentChildProps = ReturnType<typeof resolveCollapsibleAlignmentProps>['collapsibleAlignmentChildProps'];
 interface ColumnsContextValue {
     collapseMobile: boolean;

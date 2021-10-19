@@ -942,9 +942,9 @@
     "@babel/plugin-transform-typescript" "^7.15.0"
 
 "@babel/runtime@^7.0.0", "@babel/runtime@^7.10.4", "@babel/runtime@^7.12.13", "@babel/runtime@^7.14.0", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.6", "@babel/runtime@^7.7.7", "@babel/runtime@^7.8.4":
-  version "7.15.3"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.15.3.tgz#2e1c2880ca118e5b2f9988322bd8a7656a32502b"
-  integrity sha512-OvwMLqNXkCXSz1kSm58sEsNuhqOx/fKpnUnKnFB5v8uDda5bLNEHNgKPvhDN6IU0LDcnHQ90LlJ0Q6jnyBSIBA==
+  version "7.15.4"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.15.4.tgz#fd17d16bfdf878e6dd02d19753a39fa8a8d9c84a"
+  integrity sha512-99catp6bHCaxr4sJ/DbTGgHS4+Rs2RVd2g7iOap6SLGPDknRK9ztKNsE/Fg6QhSeh1FGE5f6gHGQmvvn3I3xhw==
   dependencies:
     regenerator-runtime "^0.13.4"
 
@@ -2061,22 +2061,7 @@
   resolved "https://registry.yarnpkg.com/@vanilla-extract/css-utils/-/css-utils-0.1.1.tgz#f4f58f85347d8a841ef74c60db111ec264011860"
   integrity sha512-9fDV8IhSfzgDd9Z+64jVcS38S2dVc6c1eOd+hgO8zPMRba6rEB8kEjg5+AQ3xPCdzl1m8olqFHnfQRNOn1OXuA==
 
-"@vanilla-extract/css@^1.0.0":
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/@vanilla-extract/css/-/css-1.6.1.tgz#39c3b58f2b5f1b728e901b059c5021b8769d5a99"
-  integrity sha512-MTR8pHVV80/B4H37JqyUwC8GUwA6DMdClcjgrU98svLrnmWq2Y8BWox9OQAOovoOwGtZwkJhjTQUmPkK0D13Bw==
-  dependencies:
-    "@emotion/hash" "^0.8.0"
-    "@vanilla-extract/private" "^1.0.1"
-    chalk "^4.1.1"
-    css-what "^5.0.1"
-    cssesc "^3.0.0"
-    csstype "^3.0.7"
-    dedent "^0.7.0"
-    deep-object-diff "^1.1.0"
-    deepmerge "^4.2.2"
-
-"@vanilla-extract/css@^1.6.2":
+"@vanilla-extract/css@^1.0.0", "@vanilla-extract/css@^1.6.2":
   version "1.6.2"
   resolved "https://registry.yarnpkg.com/@vanilla-extract/css/-/css-1.6.2.tgz#5deea31f2d55be206bc2dc7bece956f115517cbe"
   integrity sha512-khWHNQ0KLLn68jt54Xp2GqKzViyBE0xGU8dlv9JVqOlTX06FG7MqDL0FbZW1/nvOGcHZv94WZzp6cayk+rjokA==
@@ -2115,10 +2100,10 @@
   resolved "https://registry.yarnpkg.com/@vanilla-extract/sprinkles/-/sprinkles-0.4.4.tgz#067364a997f71f152286a160f45babd06afbc24e"
   integrity sha512-uz77Up4oFXYM2jXg3F+Oqz4dnvOTBan28T8mVK1u0i3DTJHV9MuStknP89gcsPMa1irOsgxv06P7aVEg0QR5xQ==
 
-"@vanilla-extract/vite-plugin@^2.1.3":
-  version "2.1.3"
-  resolved "https://registry.yarnpkg.com/@vanilla-extract/vite-plugin/-/vite-plugin-2.1.3.tgz#386253c30ebfa8bd37078cc9c1d639988266702f"
-  integrity sha512-e6kk7J082x79svYmR6/IBNCsZTII3Qq2jv+Di9d4SjqbDi8PbHz2CJhXauN0YJeb9ArgQNlumw7ICkBApqALgw==
+"@vanilla-extract/vite-plugin@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@vanilla-extract/vite-plugin/-/vite-plugin-3.0.0.tgz#796eb55f5ef87022ed83112cdace3b6f5acc8bdc"
+  integrity sha512-6QwDyBRWLa+9kdFmUmb445VyqNpu909eqTgGpylINaVBqyQaH9QRsfNwv5gvAwYJoH5mfPYHouRkOlA5gfhnMQ==
   dependencies:
     "@vanilla-extract/integration" "^1.4.3"
     outdent "^0.8.0"
@@ -2532,7 +2517,7 @@ braces@^3.0.1:
   dependencies:
     "@capsizecss/core" "^3.0.0"
     "@capsizecss/vanilla-extract" "^1.0.0"
-    "@vanilla-extract/css" "^1.6.2"
+    "@vanilla-extract/css" "^1.0.0"
     "@vanilla-extract/css-utils" "^0.1.1"
     "@vanilla-extract/sprinkles" "^0.4.3"
     assert "^2.0.0"
@@ -6358,7 +6343,7 @@ react-remove-scroll@^2.4.1:
     use-callback-ref "^1.2.3"
     use-sidecar "^1.0.1"
 
-react-router-dom@^6.0.0-beta.2:
+react-router-dom@6.0.0-beta.2:
   version "6.0.0-beta.2"
   resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.0.0-beta.2.tgz#f001f862e94787853363dd845d70340ab55c8744"
   integrity sha512-ZOauHu+clEYCRsW77F21/q6Ou5zmJvL6FvKsbmvO+J+4e7OXglh0VJy8yph8xoz20Ak5UYDExubE6n5+2QP1pw==

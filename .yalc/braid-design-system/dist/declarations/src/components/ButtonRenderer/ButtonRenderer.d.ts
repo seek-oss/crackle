@@ -1,4 +1,4 @@
-import { ReactNode, CSSProperties, ComponentType } from 'react';
+import type { ReactNode, CSSProperties, ComponentType } from 'react';
 export declare const buttonVariants: readonly ["solid", "ghost", "soft", "transparent"];
 export declare const buttonWeights: readonly ["weak", "regular", "strong"];
 declare type ButtonSize = 'standard' | 'small';

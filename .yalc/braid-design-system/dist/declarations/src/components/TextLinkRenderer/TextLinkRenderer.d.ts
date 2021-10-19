@@ -1,5 +1,5 @@
-import { CSSProperties, ReactElement } from 'react';
-import { Atoms } from '../../css/atoms/atoms';
+import type { CSSProperties, ReactElement } from 'react';
+import type { Atoms } from '../../css/atoms/atoms';
 interface StyleProps {
     style: CSSProperties;
     className: string;
