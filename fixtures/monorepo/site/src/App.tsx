@@ -1,7 +1,7 @@
 import 'braid-design-system/reset';
 
 import type { AppShell } from '@crackle/core';
-import { Link } from '@crackle/router';
+import { Link, useLocation } from '@crackle/router';
 import type { ValidRoute } from '@crackle/router';
 import {
   Box,
@@ -17,7 +17,6 @@ import {
 } from 'braid-design-system';
 import { apac } from 'braid-design-system/themes';
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 
 import type { BraidMetadata } from './types';
 
