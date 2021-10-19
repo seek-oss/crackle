@@ -25,7 +25,7 @@ export default function Home() {
           <TextLink href={crackleLink('/remote/page')}>Remote page</TextLink>
         </Text>
 
-        <JobSummary isNew={true} title="Red bordered job" />
+        <JobSummary isNew={true} title="Papayawhip bordered job" />
       </Stack>
     </Card>
   );
