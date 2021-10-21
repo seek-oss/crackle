@@ -3,20 +3,16 @@
   "version": "1.0.0",
   "private": true,
   "main": "index.js",
-  "author": "Ben",
-  "license": "MIT",
   "dependencies": {
     "@crackle-fixtures/multi-entry-library": "1.0.0",
     "@crackle-fixtures/single-entry-library": "1.0.0",
     "@crackle/router": "0.1.2",
     "braid-design-system": "file:../../../.yalc/braid-design-system",
-    "react": "17.0.2",
-    "react-dom": "^17.0.2"
+    "react": "17.0.2"
   },
   "devDependencies": {
     "@crackle/cli": "0.5.1",
-    "@crackle/core": "0.6.2",
-    "@types/react-dom": "^17"
+    "@crackle/core": "0.6.2"
   },
   "scripts": {
     "build": "crackle build",
