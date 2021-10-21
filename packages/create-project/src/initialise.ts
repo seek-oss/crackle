@@ -7,8 +7,6 @@ import getLatestVersion from 'latest-version';
 import type { TemplateId } from './constants';
 import { copyFiles } from './utils/files';
 
-const sleep = (time: number) => new Promise((res) => setTimeout(res, time));
-
 const getPackageVersions = async (packageNames: string[]) => {
   const versions = await Promise.all(
     packageNames.map(async (packageName) => {

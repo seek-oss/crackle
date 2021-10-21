@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "noUnusedLocals": true,
+    "jsx": "preserve",
+    "strict": true,
+    "lib": ["ESNext", "dom"],
+    "target": "es6"
+  },
+  "include": ["./src"],
+  "exclude": ["./node_modules"]
+}
