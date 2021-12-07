@@ -18,19 +18,19 @@ jobs:
           node-version: 14.x
 
       - name: Install Dependencies
-        run: yarn --frozen-lockfile
+        run: pnpm install
 
       - name: Build
-        run: yarn build
+        run: pnpm build
 
       - name: Setup fixtures
-        run: yarn dev-fixtures
+        run: pnpm dev-fixtures
 
       - name: Lint
-        run: yarn lint
+        run: pnpm lint
 
       - name: Install Browsers
-        run: yarn playwright install chromium
+        run: pnpm playwright install chromium
 
       - name: Test
-        run: yarn test
+        run: pnpm test

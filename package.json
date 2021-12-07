@@ -8,10 +8,10 @@
     "watch": "preconstruct watch",
     "lint": "tsc --noEmit && eslint packages fixtures && prettier --check packages fixtures",
     "format": "eslint --fix packages fixtures && prettier --write packages fixtures",
-    "test": "yarn test:jest && yarn test:playwright",
+    "test": "pnpm test:jest && pnpm test:playwright",
     "test:jest": "jest",
     "test:playwright": "playwright test",
-    "release": "yarn build && changeset publish",
+    "release": "pnpm build && changeset publish",
     "dev-fixtures": "node scripts/dev-fixtures.js"
   },
   "workspaces": [
@@ -39,8 +39,7 @@
     ]
   },
   "volta": {
-    "node": "14.16.0",
-    "yarn": "1.22.11"
+    "node": "14.16.0"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.4.1",

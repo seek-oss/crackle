@@ -1,14 +1,7 @@
 node_modules
-yarn-error.log
 .env
 dist/
 
-.yarn/*
-!.yarn/patches
-!.yarn/releases
-!.yarn/plugins
-!.yarn/sdks
-!.yarn/versions
 .pnp.*
 
 yalc.lock
