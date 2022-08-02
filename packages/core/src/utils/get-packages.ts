@@ -59,10 +59,10 @@ export const getPackageEntryPoints = async ({
 
   return entryPaths.map((entryPath) => {
     const isDefaultEntry = entryPath.includes('src/index.ts');
-    const outputLocalPath = isDefaultEntry ? 'dist' : basename(entryPath);
+    const entryName = isDefaultEntry ? 'dist' : basename(entryPath);
 
-    const outputDir = path.join(packageRoot, outputLocalPath);
+    const outputDir = path.join(packageRoot, entryName);
 
-    return { entryPath, outputDir, isDefaultEntry };
+    return { entryPath, outputDir, isDefaultEntry, entryName };
   });
 };
