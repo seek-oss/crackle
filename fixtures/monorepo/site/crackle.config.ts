@@ -1,8 +1,8 @@
 import type { CrackleConfig } from '@crackle/core';
 
 const config: CrackleConfig = {
-  pageRoots: ['site/src/pages', 'site/src/components/RemotePage'],
-  appShell: 'site/src/App.tsx',
+  pageRoots: ['src/pages', 'src/components/RemotePage'],
+  appShell: 'src/App.tsx',
 };
 
 export default config;
