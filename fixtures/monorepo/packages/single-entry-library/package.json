@@ -2,8 +2,8 @@
   "name": "@crackle-fixtures/single-entry-library",
   "version": "1.0.0",
   "private": true,
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
   "files": [
     "/dist"
   ],
@@ -24,5 +24,18 @@
     "package": "crackle package",
     "serve": "crackle serve",
     "start": "crackle start"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "types": "./dist/index.cjs.d.ts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.cjs.d.ts",
+        "default": "./dist/index.cjs"
+      }
+    }
   }
 }

@@ -2,8 +2,8 @@
   "name": "@crackle-fixtures/multi-entry-library",
   "version": "1.0.0",
   "private": true,
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
   "files": [
     "/components",
     "/dist",
@@ -26,5 +26,38 @@
     "package": "crackle package",
     "serve": "crackle serve",
     "start": "crackle start"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "types": "./dist/index.cjs.d.ts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.cjs.d.ts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./components": {
+      "import": {
+        "types": "./components/index.cjs.d.ts",
+        "default": "./components/index.mjs"
+      },
+      "require": {
+        "types": "./components/index.cjs.d.ts",
+        "default": "./components/index.cjs"
+      }
+    },
+    "./extras": {
+      "import": {
+        "types": "./extras/index.cjs.d.ts",
+        "default": "./extras/index.mjs"
+      },
+      "require": {
+        "types": "./extras/index.cjs.d.ts",
+        "default": "./extras/index.cjs"
+      }
+    }
   }
 }

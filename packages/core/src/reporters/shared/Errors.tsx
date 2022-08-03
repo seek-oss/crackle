@@ -64,6 +64,10 @@ const Diff = ({ diff }: { diff: Difference }) => {
     return <Text>- "files" is missing {missingFiles}</Text>;
   }
 
+  if (diff.key === 'exports') {
+    return <Text>- The "exports" key is incorrect</Text>;
+  }
+
   if (diff.from && !diff.to) {
     return (
       <Text>

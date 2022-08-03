@@ -18,38 +18,47 @@ import { promiseMap } from './utils/promise-map';
 import { validatePackageJson } from './utils/setup-package-json';
 import { commonViteConfig } from './vite-config';
 
-const createRollupOutputOptions = (format: 'esm' | 'cjs'): OutputOptions => ({
-  format,
-  hoistTransitiveImports: false,
-  manualChunks: (id, { getModuleInfo }) => {
-    if (
-      cssFileFilter.test(id) ||
-      getModuleInfo(id)?.importers.some((importer) =>
-        cssFileFilter.test(importer),
-      )
-    ) {
-      const [_projectRoot, rawLocalPath] = id.split('src/');
-      const localPath = rawLocalPath.replace('/', '-');
+type Format = 'esm' | 'cjs';
 
-      if (cssFileFilter.test(id)) {
-        return localPath.replace(cssFileFilter, `.${format}.css.js`);
+const extensionForFormat = (format: Format) =>
+  ({ esm: 'mjs', cjs: 'cjs' }[format]);
+
+const createRollupOutputOptions = (format: Format): OutputOptions => {
+  const extension = extensionForFormat(format);
+
+  return {
+    format,
+    hoistTransitiveImports: false,
+    manualChunks: (id, { getModuleInfo }) => {
+      if (
+        cssFileFilter.test(id) ||
+        getModuleInfo(id)?.importers.some((importer) =>
+          cssFileFilter.test(importer),
+        )
+      ) {
+        const [_projectRoot, rawLocalPath] = id.split('src/');
+        const localPath = rawLocalPath.replace('/', '-');
+
+        if (cssFileFilter.test(id)) {
+          return localPath.replace(cssFileFilter, `.css.${extension}`);
+        }
+
+        return localPath.replace(/\.(ts|tsx|js|mjs|cjs|jsx)$/, `.${extension}`);
       }
+    },
+    chunkFileNames: (chunkInfo) => {
+      const chunkPath = `dist/${chunkInfo.name}`;
 
-      return localPath.replace(/\.(ts|tsx|js|mjs|cjs|jsx)$/, `.${format}.js`);
-    }
-  },
-  chunkFileNames: (chunkInfo) => {
-    const chunkPath = `dist/${chunkInfo.name}`;
-
-    return chunkPath.endsWith('.js')
-      ? chunkPath
-      : `${chunkPath}.chunk.${format}.js`;
-  },
-  entryFileNames: (chunkInfo) =>
-    chunkInfo.facadeModuleId?.includes('src/entries')
-      ? `${basename(chunkInfo.facadeModuleId)}/index.${format}.js`
-      : `dist/${chunkInfo.name}.${format}.js`,
-});
+      return chunkPath.endsWith('.js')
+        ? chunkPath
+        : `${chunkPath}.chunk.${extension}`;
+    },
+    entryFileNames: (chunkInfo) =>
+      chunkInfo.facadeModuleId?.includes('src/entries')
+        ? `${basename(chunkInfo.facadeModuleId)}/index.${extension}`
+        : `dist/${chunkInfo.name}.${extension}`,
+  };
+};
 
 const buildPackage = async (
   config: EnhancedConfig,
