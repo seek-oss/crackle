@@ -2,6 +2,7 @@ import fs from 'fs/promises';
 import path from 'path';
 
 import { cssFileFilter } from '@vanilla-extract/integration';
+import chalk from 'chalk';
 import type { OutputOptions } from 'rollup';
 import externals from 'rollup-plugin-node-externals';
 import { build as viteBuild } from 'vite';
@@ -82,7 +83,7 @@ const createRollupOutputOptions = (format: Format): OutputOptions => {
 };
 
 const build = async (config: EnhancedConfig, packageName: string) => {
-  logger.info(`Building ${packageName}...`);
+  logger.info(`🛠  Building ${chalk.bold(packageName)}...`);
 
   const entries = await getPackageEntryPoints({
     packageRoot: config.root,
@@ -151,7 +152,7 @@ const build = async (config: EnhancedConfig, packageName: string) => {
 
   await createEntryPackageJsons(entries);
 
-  logger.info(`Successfully built ${packageName}!`);
+  logger.info(`✅ Successfully built ${chalk.bold.green(packageName)}!`);
 };
 
 export const buildPackage = async (partialConfig?: PartialConfig) => {
