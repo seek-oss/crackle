@@ -35,7 +35,7 @@ export const resolveConfig = async ({
     console.log(
       'No crackle.config.ts file found, using default configuration.',
     );
-    return {};
+    return { root: cwd };
   }
 
   const result = await esbuild({
