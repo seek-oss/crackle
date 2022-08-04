@@ -20,7 +20,7 @@
   ],
   "preconstruct": {
     "entrypoints": [
-      "build-package.tsx",
+      "build-package.ts",
       "build.ts",
       "dev.ts",
       "fix.ts",
