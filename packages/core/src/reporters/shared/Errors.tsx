@@ -4,7 +4,6 @@ import React from 'react';
 import { Fragment } from 'react';
 
 import type { Difference } from '../../utils/setup-package-json';
-import type { PackageState } from '../package/types';
 
 import { Stack } from './Stack';
 import type { BuildError, RollupError } from './types';
@@ -91,7 +90,7 @@ const Diff = ({ diff }: { diff: Difference }) => {
 };
 
 interface ValidationErrorProps {
-  diffs: PackageState['diffs'];
+  diffs: Difference[];
   title: string;
 }
 
