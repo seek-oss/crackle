@@ -1,4 +1,5 @@
 {
+  "npmScope": "crackle-fixtures",
   "extends": "nx/presets/npm.json",
   "tasksRunnerOptions": {
     "default": {
@@ -14,6 +15,9 @@
     },
     "build": {
       "dependsOn": ["^build"]
+    },
+    "start": {
+      "dependsOn": ["^package"]
     }
   },
   "affected": {
