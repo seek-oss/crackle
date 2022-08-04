@@ -1,16 +1,11 @@
-import type { Logger } from 'vite';
+/* eslint-disable no-console */
 
-// eslint-disable-next-line no-console
-const log = (level: string, msg: string) => console.log(`[${level}]`, msg);
-
-export const customLogger: Logger = {
-  info: (msg, _options) => log('info', msg),
-  warn: (msg, _options) => log('warn', msg),
-  warnOnce: (msg, _options) => log('warnOnce', msg),
-  error: (msg, _options) => log('error', msg),
-  clearScreen: (level) => {
-    log('clearScreen', level);
+export const logger = {
+  info: (msg: string) => console.info(msg),
+  error: (msg: string) => console.error(msg),
+  warn: (msg: string) => console.warn(msg),
+  errorWithExitCode: (msg: string) => {
+    console.error(msg);
+    process.exitCode = 1;
   },
-  hasErrorLogged: () => false,
-  hasWarned: false,
 };

@@ -8,8 +8,13 @@ import { build as viteBuild } from 'vite';
 
 import type { PartialConfig, EnhancedConfig } from './config';
 import { getConfig } from './config';
+import { logger } from './logger';
 import { typescriptDeclarations } from './plugins/rollup';
 import { addVanillaDebugIds } from './plugins/vite';
+import {
+  renderBuildError,
+  renderPackageJsonValidationError,
+} from './reporters/package/app';
 import { basename } from './utils/basename';
 import { createEntryPackageJsons } from './utils/create-entry-package-json';
 import { getPackageEntryPoints } from './utils/get-packages';
@@ -77,7 +82,7 @@ const createRollupOutputOptions = (format: Format): OutputOptions => {
 };
 
 const build = async (config: EnhancedConfig, packageName: string) => {
-  console.log(`Building ${packageName}...`);
+  logger.info(`Building ${packageName}...`);
 
   const entries = await getPackageEntryPoints({
     packageRoot: config.root,
@@ -86,9 +91,9 @@ const build = async (config: EnhancedConfig, packageName: string) => {
   const packageDiffs = await validatePackageJson(config.root, entries);
 
   if (packageDiffs.length) {
-    console.error(`Failed validation of package.json for ${packageName}`);
-
-    process.exitCode = 1;
+    logger.errorWithExitCode(
+      renderPackageJsonValidationError(packageName, packageDiffs),
+    );
     return;
   }
 
@@ -146,7 +151,7 @@ const build = async (config: EnhancedConfig, packageName: string) => {
 
   await createEntryPackageJsons(entries);
 
-  console.log(`Successfully built ${packageName}!`);
+  logger.info(`Successfully built ${packageName}!`);
 };
 
 export const buildPackage = async (partialConfig?: PartialConfig) => {
@@ -156,7 +161,6 @@ export const buildPackage = async (partialConfig?: PartialConfig) => {
   try {
     await build(config, packageName);
   } catch (err: any) {
-    console.error(`Build failed for ${packageName}`);
-    console.error(err);
+    logger.errorWithExitCode(renderBuildError(packageName, err));
   }
 };
