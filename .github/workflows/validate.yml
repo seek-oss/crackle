@@ -29,8 +29,10 @@ jobs:
       - name: Lint
         run: yarn lint
 
-      - name: Install Browsers
-        run: yarn playwright install chromium
+      # Temporarily suspend tests until everything is migrated to non-monorepo
 
-      - name: Test
-        run: yarn test
+      # - name: Install Browsers
+      #   run: yarn playwright install chromium
+
+      # - name: Test
+      #   run: yarn test
