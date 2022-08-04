@@ -1,7 +1,9 @@
+import chalk from 'chalk';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import type { Manifest } from 'vite';
 
+import { logger } from '../../src/logger';
 import type { RenderAllPagesFn } from '../types';
 
 import { createRouteMap, nodePageModules, Page } from './shared';
@@ -67,12 +69,11 @@ const generateCssTags = (cssImports: Set<string>, publicPath: string) =>
 export const renderAllPages: RenderAllPagesFn = async (
   manifest,
   publicPath,
-  dispatchEvent,
 ) => {
-  dispatchEvent({
-    type: 'RENDER_PAGES_STARTED',
-    totalPages: Object.keys(nodePageModules).length,
-  });
+  const totalPages = Object.keys(nodePageModules).length;
+  const noun = totalPages === 1 ? 'page' : 'pages';
+
+  logger.info(`🛠  Rendering ${chalk.bold(`${totalPages} ${noun}`)}...`);
 
   const pageModules = [];
 
@@ -100,7 +101,8 @@ export const renderAllPages: RenderAllPagesFn = async (
     );
 
     pageModules.push({ route, html });
-    dispatchEvent({ type: 'RENDERED_PAGE' });
+
+    logger.info(`   📜 [${pageModules.length}/${totalPages}] ${chalk.bold(route)}`);
   }
 
   return pageModules;

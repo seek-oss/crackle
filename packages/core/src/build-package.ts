@@ -13,9 +13,9 @@ import { logger } from './logger';
 import { typescriptDeclarations } from './plugins/rollup';
 import { addVanillaDebugIds } from './plugins/vite';
 import {
-  renderBuildError,
   renderPackageJsonValidationError,
 } from './reporters/package/app';
+import { renderBuildError } from './reporters/shared';
 import { basename } from './utils/basename';
 import { createEntryPackageJsons } from './utils/create-entry-package-json';
 import { getPackageEntryPoints } from './utils/get-packages';

@@ -1,7 +1,10 @@
 import { render } from 'ink';
 import React from 'react';
 
+import { ErrorStack } from './Errors';
+import { renderToString } from './ink-to-string';
 import type { Reporter } from './types';
+import type { BuildError } from './types';
 
 export * from './Errors';
 export { ProgressBar } from './ProgressBar';
@@ -32,3 +35,6 @@ export const createReporter =
         patchConsole,
       });
     });
+
+export const renderBuildError = (name: string, error: BuildError) =>
+  renderToString(React.createElement(ErrorStack, { title: name, error }));
