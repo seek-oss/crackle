@@ -4,11 +4,18 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "build": "crackle build",
-    "package": "crackle package",
-    "start": "crackle start"
+    "build": "nx run-many --target=build  --output-style=stream-without-prefixes",
+    "package": "nx run-many --target=package --output-style=stream-without-prefixes",
+    "start": "nx start @crackle-fixtures/web-app"
   },
   "dependencies": {
     "braid-design-system": "file:../../.yalc/braid-design-system"
-  }
+  },
+  "devDependencies": {
+    "nx": "14.5.2"
+  },
+  "workspaces": [
+    "site",
+    "packages/*"
+  ]
 }

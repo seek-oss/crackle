@@ -1,0 +1,22 @@
+{
+  "extends": "nx/presets/npm.json",
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["package", "build"]
+      }
+    }
+  },
+  "targetDefaults": {
+    "package": {
+      "dependsOn": ["^package"]
+    },
+    "build": {
+      "dependsOn": ["^build"]
+    }
+  },
+  "affected": {
+    "defaultBase": "master"
+  }
+}

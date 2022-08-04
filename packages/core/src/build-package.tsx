@@ -10,8 +10,6 @@ import type { PartialConfig, EnhancedConfig } from './config';
 import { getConfig } from './config';
 import { typescriptDeclarations } from './plugins/rollup';
 import { addVanillaDebugIds } from './plugins/vite';
-import { createPackageReporter } from './reporters/package';
-import type { PackageReporter } from './reporters/package';
 import { basename } from './utils/basename';
 import { createEntryPackageJsons } from './utils/create-entry-package-json';
 import { getPackageEntryPoints } from './utils/get-packages';
@@ -78,12 +76,8 @@ const createRollupOutputOptions = (format: Format): OutputOptions => {
   };
 };
 
-const build = async (
-  config: EnhancedConfig,
-  packageName: string,
-  dispatchEvent: PackageReporter,
-) => {
-  dispatchEvent({ type: 'BUILD_STARTED', packageName });
+const build = async (config: EnhancedConfig, packageName: string) => {
+  console.log(`Building ${packageName}...`);
 
   const entries = await getPackageEntryPoints({
     packageRoot: config.root,
@@ -92,11 +86,7 @@ const build = async (
   const packageDiffs = await validatePackageJson(config.root, entries);
 
   if (packageDiffs.length) {
-    dispatchEvent({
-      type: 'PACKAGE_JSON_VALIDATION_FAILED',
-      packageName,
-      diffs: packageDiffs,
-    });
+    console.error(`Failed validation of package.json for ${packageName}`);
 
     process.exitCode = 1;
     return;
@@ -156,27 +146,17 @@ const build = async (
 
   await createEntryPackageJsons(entries);
 
-  dispatchEvent({ type: 'BUILD_COMPLETED', packageName });
+  console.log(`Successfully built ${packageName}!`);
 };
 
 export const buildPackage = async (partialConfig?: PartialConfig) => {
   const config = getConfig(partialConfig);
-
-  const dispatchEvent = await createPackageReporter();
   const packageName = await getPackageName(config);
 
   try {
-    await build(config, packageName, dispatchEvent);
+    await build(config, packageName);
   } catch (err: any) {
-    dispatchEvent({
-      type: 'BUILD_FAILED',
-      packageName,
-      error: err.loc
-        ? {
-            ...err,
-            location: path.relative(config.root, err.loc.file),
-          }
-        : err,
-    });
+    console.error(`Build failed for ${packageName}`);
+    console.error(err);
   }
 };
