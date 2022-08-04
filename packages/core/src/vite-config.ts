@@ -6,7 +6,6 @@ export const commonViteConfig = (config: EnhancedConfig): InlineConfig => ({
   root: config.root,
   resolve: {
     alias: {
-      // eslint-disable-next-line no-sync
       __THE_ENTRY: config.appShell,
       'sku/react-treat': require.resolve('../mocks/react-treat.tsx'),
       'sku/treat': require.resolve('../mocks/treat.ts'),

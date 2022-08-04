@@ -17,11 +17,11 @@ import {
   stripRouteData,
 } from './plugins/vite';
 import { createBuildReporter } from './reporters/build';
-import type { GetArrayType, ValueType } from './types';
+import type { GetArrayType } from './types';
 import { promiseMap } from './utils/promise-map';
 import { commonViteConfig } from './vite-config';
 
-type BuildOutput = ValueType<ReturnType<typeof viteBuild>>;
+type BuildOutput = Awaited<ReturnType<typeof viteBuild>>;
 type RollupOutput = GetArrayType<BuildOutput>;
 
 const extractManifestFile = (buildOutput: BuildOutput): Manifest => {
@@ -66,9 +66,7 @@ export const build = async (
     logLevel: 'silent',
   };
 
-  type UnPromise<T> = T extends Promise<infer K> ? K : never;
-
-  let output: UnPromise<ReturnType<typeof viteBuild>>;
+  let output: BuildOutput;
 
   try {
     dispatchEvent({ type: 'BUILD_CLIENT_STARTED' });
