@@ -23,6 +23,7 @@ import type { GetArrayType } from './types';
 import { promiseMap } from './utils/promise-map';
 import { commonViteConfig } from './vite-config';
 
+type Awaited<T> = T extends Promise<infer K> ? K : never; // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-5.html#the-awaited-type-and-promise-improvements
 type BuildOutput = Awaited<ReturnType<typeof viteBuild>>;
 type RollupOutput = GetArrayType<BuildOutput>;
 
