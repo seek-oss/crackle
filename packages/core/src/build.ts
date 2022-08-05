@@ -54,6 +54,8 @@ export const build = async (inlineConfig?: PartialConfig) => {
     plugins: [
       stripRouteData(),
       vanillaExtractPlugin({ identifiers: 'short' }),
+      // TODO: solve this root problem
+      // fixtures/monorepo/packages/* are part of the crackle workspace
       internalPackageResolution({
         ...config,
         root: config.resolveFromRoot('..'),

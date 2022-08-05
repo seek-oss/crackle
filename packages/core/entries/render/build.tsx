@@ -102,7 +102,9 @@ export const renderAllPages: RenderAllPagesFn = async (
 
     pageModules.push({ route, html });
 
-    logger.info(`   📜 [${pageModules.length}/${totalPages}] ${chalk.bold(route)}`);
+    logger.info(
+      `   📜 [${pageModules.length}/${totalPages}] ${chalk.bold(route)}`,
+    );
   }
 
   return pageModules;
