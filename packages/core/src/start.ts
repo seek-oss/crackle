@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import type http from 'http';
 import path from 'path';
 import { performance } from 'perf_hooks';
@@ -14,6 +13,7 @@ import type { RenderDevPageFn } from '../entries/types';
 import type { PartialConfig } from './config';
 import { getConfig } from './config';
 import { clientEntry } from './constants';
+import { logger } from './logger';
 import { fixViteVanillaExtractDepScanPlugin } from './plugins/esbuild/fix-vite-vanilla-extract-dep-scan';
 import {
   addPageRoots,
@@ -21,14 +21,12 @@ import {
   stripRouteData,
 } from './plugins/vite';
 import type { CrackleServer } from './types';
+import { calculateTime } from './utils/timer';
 import { commonViteConfig } from './vite-config';
 
 export * from './types';
 
 type Socket = http.IncomingMessage['socket'];
-
-const calculateTime = (startTime: number) =>
-  Math.round((performance.now() - startTime) * 100) / 100;
 
 export const start = async (
   inlineConfig?: PartialConfig,
@@ -46,7 +44,11 @@ export const start = async (
       reactRefresh(),
       vanillaExtractPlugin(),
       addPageRoots(config),
-      internalPackageResolution(config),
+      // TODO: solve this root problem
+      internalPackageResolution({
+        ...config,
+        // root: config.resolveFromRoot('..'),
+      }),
     ],
     build: {
       rollupOptions: { input: clientEntry },
@@ -77,10 +79,10 @@ export const start = async (
 
   app.use('*', async (req, res) => {
     const startTime = performance.now();
-    console.log('Received request:', req.originalUrl);
+    logger.info(`Received request: ${req.originalUrl}`);
 
     if (req.originalUrl.endsWith('favicon.ico')) {
-      console.log(`Favicon request aborted in ${calculateTime(startTime)}ms`);
+      logger.info(`Favicon request aborted in ${calculateTime(startTime)}`);
       return res.status(404);
     }
 
@@ -102,17 +104,17 @@ export const start = async (
       // If an error is caught, let vite fix the stracktrace so it maps back to
       // your actual source code.
       vite.ssrFixStacktrace(e);
-      console.error(e);
+      logger.error(e);
       res.status(500).end(e.message);
     }
 
-    console.log(`Request completed in ${calculateTime(startTime)}ms`);
+    logger.info(`Request completed in ${calculateTime(startTime)}`);
   });
 
   const url = `http://localhost:${config.port}`;
 
   const server = app.listen(config.port, () => {
-    console.log('Server running at', url);
+    logger.info(`Server running at ${url}`);
   });
 
   // HTTP1.1 connections with keep-alive will prevent the server shutting down.

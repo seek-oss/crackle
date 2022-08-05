@@ -1,14 +1,7 @@
-import { performance } from 'perf_hooks';
-
 import { Text } from 'ink';
-import prettyMs from 'pretty-ms';
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
-const prettMsConfig: Parameters<typeof prettyMs>[1] = {
-  secondsDecimalDigits: 1,
-  keepDecimalsOnWholeSeconds: true,
-};
+import { calculateTime } from '../../utils/timer';
 
 interface TimerProps {
   startTime: number;
@@ -28,9 +21,5 @@ export const Timer = ({ startTime, endTime }: TimerProps) => {
     }
   }, [endTime]);
 
-  if (endTime) {
-    return <Text>{prettyMs(endTime - startTime, prettMsConfig)}</Text>;
-  }
-
-  return <Text>{prettyMs(performance.now() - startTime, prettMsConfig)}</Text>;
+  return <Text>{calculateTime(startTime, endTime)}</Text>;
 };
