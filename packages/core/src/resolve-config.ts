@@ -1,7 +1,7 @@
+import fs from 'fs';
 import path from 'path';
 
 import { build as esbuild } from 'esbuild';
-import findUp from 'find-up';
 
 import type { PartialConfig } from './config';
 
@@ -27,14 +27,15 @@ export const resolveConfig = async ({
   cwd = process.cwd(),
   onUpdate,
 }: ResolveConfigOptions = {}): Promise<PartialConfig> => {
-  const configFilePath = await findUp('crackle.config.ts', { cwd });
+  const configFilePath = path.join(cwd, 'crackle.config.ts');
 
-  if (!configFilePath) {
+  // eslint-disable-next-line no-sync
+  if (!fs.existsSync(configFilePath)) {
     // eslint-disable-next-line no-console
     console.log(
-      'Unable to locate a crackle.config.ts file, using default configuration.',
+      'No crackle.config.ts file found, using default configuration.',
     );
-    return {};
+    return { root: cwd };
   }
 
   const result = await esbuild({

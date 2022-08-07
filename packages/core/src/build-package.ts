@@ -1,20 +1,24 @@
+import fs from 'fs/promises';
 import path from 'path';
 
 import { cssFileFilter } from '@vanilla-extract/integration';
+import chalk from 'chalk';
 import type { OutputOptions } from 'rollup';
 import externals from 'rollup-plugin-node-externals';
 import { build as viteBuild } from 'vite';
 
 import type { PartialConfig, EnhancedConfig } from './config';
 import { getConfig } from './config';
+import { logger } from './logger';
 import { typescriptDeclarations } from './plugins/rollup';
 import { addVanillaDebugIds } from './plugins/vite';
-import { createPackageReporter } from './reporters/package';
-import type { PackageReporter } from './reporters/package';
+import {
+  renderBuildError,
+  renderPackageJsonValidationError,
+} from './reporters/package/app';
 import { basename } from './utils/basename';
 import { createEntryPackageJsons } from './utils/create-entry-package-json';
-import { getPackageEntryPoints, getPackages } from './utils/get-packages';
-import { promiseMap } from './utils/promise-map';
+import { getPackageEntryPoints } from './utils/get-packages';
 import { validatePackageJson } from './utils/setup-package-json';
 import { commonViteConfig } from './vite-config';
 
@@ -22,6 +26,24 @@ type Format = 'esm' | 'cjs';
 
 const extensionForFormat = (format: Format) =>
   ({ esm: 'mjs', cjs: 'cjs' }[format]);
+
+const getPackageName = async (config: EnhancedConfig): Promise<string> => {
+  const packageJsonPath = config.resolveFromRoot('package.json');
+
+  const packageJson = JSON.parse(
+    await fs.readFile(packageJsonPath, {
+      encoding: 'utf-8',
+    }),
+  );
+
+  // The name field in package.json is the best source
+  if (packageJson.name) {
+    return packageJson.name as string;
+  }
+
+  // If it doesn't have one for whatever reason, the root directory is a decent fallback
+  return path.dirname(config.root);
+};
 
 const createRollupOutputOptions = (format: Format): OutputOptions => {
   const extension = extensionForFormat(format);
@@ -60,12 +82,8 @@ const createRollupOutputOptions = (format: Format): OutputOptions => {
   };
 };
 
-const buildPackage = async (
-  config: EnhancedConfig,
-  packageName: string,
-  dispatchEvent: PackageReporter,
-) => {
-  dispatchEvent({ type: 'BUILD_STARTED', packageName });
+const build = async (config: EnhancedConfig, packageName: string) => {
+  logger.info(`🛠  Building ${chalk.bold(packageName)}...`);
 
   const entries = await getPackageEntryPoints({
     packageRoot: config.root,
@@ -74,13 +92,9 @@ const buildPackage = async (
   const packageDiffs = await validatePackageJson(config.root, entries);
 
   if (packageDiffs.length) {
-    dispatchEvent({
-      type: 'PACKAGE_JSON_VALIDATION_FAILED',
-      packageName,
-      diffs: packageDiffs,
-    });
-
-    process.exitCode = 1;
+    logger.errorWithExitCode(
+      renderPackageJsonValidationError(packageName, packageDiffs),
+    );
     return;
   }
 
@@ -138,30 +152,16 @@ const buildPackage = async (
 
   await createEntryPackageJsons(entries);
 
-  dispatchEvent({ type: 'BUILD_COMPLETED', packageName });
+  logger.info(`✅ Successfully built ${chalk.bold.green(packageName)}!`);
 };
 
-export const buildPackages = async (partialConfig?: PartialConfig) => {
+export const buildPackage = async (partialConfig?: PartialConfig) => {
   const config = getConfig(partialConfig);
+  const packageName = await getPackageName(config);
 
-  const dispatchEvent = await createPackageReporter();
-
-  const packages = await getPackages(config);
-
-  await promiseMap(Array.from(packages.values()), (pkg) => {
-    const packageConfig = getConfig({ ...config, root: pkg.root });
-
-    return buildPackage(packageConfig, pkg.name, dispatchEvent).catch((err) => {
-      dispatchEvent({
-        type: 'BUILD_FAILED',
-        packageName: pkg.name,
-        error: err.loc
-          ? {
-              ...err,
-              location: path.relative(config.root, err.loc.file),
-            }
-          : err,
-      });
-    });
-  });
+  try {
+    await build(config, packageName);
+  } catch (err: any) {
+    logger.errorWithExitCode(renderBuildError(packageName, err));
+  }
 };
