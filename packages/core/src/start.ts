@@ -44,11 +44,6 @@ export const start = async (
       reactRefresh(),
       vanillaExtractPlugin(),
       addPageRoots(config),
-      // TODO: solve this root problem
-      internalPackageResolution({
-        ...config,
-        // root: config.resolveFromRoot('..'),
-      }),
     ],
     build: {
       rollupOptions: { input: clientEntry },
