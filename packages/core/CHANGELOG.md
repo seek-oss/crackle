@@ -1,5 +1,11 @@
 # @crackle/core
 
+## 0.7.0
+
+### Minor Changes
+
+- [#8](https://github.com/seek-oss/crackle/pull/8) [`117b674`](https://github.com/seek-oss/crackle/commit/117b674e2ef4e439beb95bd263633efb7689f621) Thanks [@benjervis](https://github.com/benjervis)! - The ESM compliant `exports` key is now checked as part of package.json validation
+
 ## 0.6.2
 
 ### Patch Changes
