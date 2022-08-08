@@ -15,11 +15,7 @@ import { getConfig } from './config';
 import { clientEntry } from './constants';
 import { logger } from './logger';
 import { fixViteVanillaExtractDepScanPlugin } from './plugins/esbuild/fix-vite-vanilla-extract-dep-scan';
-import {
-  addPageRoots,
-  internalPackageResolution,
-  stripRouteData,
-} from './plugins/vite';
+import { addPageRoots, stripRouteData } from './plugins/vite';
 import type { CrackleServer } from './types';
 import { calculateTime } from './utils/timer';
 import { commonViteConfig } from './vite-config';
