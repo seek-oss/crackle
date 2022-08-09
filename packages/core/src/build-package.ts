@@ -12,6 +12,7 @@ import { getConfig } from './config';
 import { logger } from './logger';
 import { typescriptDeclarations } from './plugins/rollup';
 import { addVanillaDebugIds } from './plugins/vite';
+import { renderApp } from './reporters/fix/app';
 import { renderPackageJsonValidationError } from './reporters/package/app';
 import { renderBuildError } from './reporters/shared';
 import { basename } from './utils/basename';
@@ -95,7 +96,8 @@ const build = async (
   });
 
   if (fix) {
-    await fixPackageJson(config.root, entries);
+    const packageDiffs = await fixPackageJson(config.root, entries);
+    logger.info(renderApp([{ packageName, diffs: packageDiffs }]));
   } else {
     const packageDiffs = await validatePackageJson(config.root, entries);
 

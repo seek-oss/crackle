@@ -1,10 +1,11 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Text, render, Box } from 'ink';
+import { Text, Box } from 'ink';
 import React from 'react';
 import { Fragment } from 'react';
 
 import { partition } from '../../utils/partition';
 import { Stack } from '../shared/Stack';
+import { renderToString } from '../shared/ink-to-string';
 
 import type { PackageDiffDetails } from './components/PackageDiff';
 import { PackageDiff } from './components/PackageDiff';
@@ -57,6 +58,5 @@ const App = ({ packageDiffs }: AppProps) => {
   );
 };
 
-export const renderApp = (packageDiffs: PackageDiffDetails[]) => {
-  render(<App packageDiffs={packageDiffs} />);
-};
+export const renderApp = (packageDiffs: PackageDiffDetails[]) =>
+  renderToString(<App packageDiffs={packageDiffs} />);
