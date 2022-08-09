@@ -55,13 +55,20 @@ yargs(process.argv.slice(2))
       server = serve(config);
     },
   })
-  .command({
+  .command<{ fix: boolean }>({
     command: 'package',
-    handler: async () => {
+    builder: {
+      fix: {
+        boolean: true,
+        default: false,
+        description: 'Run crackle fix if necessary',
+      },
+    },
+    handler: async ({ fix }) => {
       const config = await resolveConfig();
 
       const { buildPackage } = await import('@crackle/core/build-package');
-      await buildPackage(config);
+      await buildPackage(config, fix);
     },
   })
   .command({

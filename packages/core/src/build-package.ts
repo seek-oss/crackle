@@ -19,7 +19,10 @@ import {
 import { basename } from './utils/basename';
 import { createEntryPackageJsons } from './utils/create-entry-package-json';
 import { getPackageEntryPoints } from './utils/get-packages';
-import { validatePackageJson } from './utils/setup-package-json';
+import {
+  fixPackageJson,
+  validatePackageJson,
+} from './utils/setup-package-json';
 import { commonViteConfig } from './vite-config';
 
 type Format = 'esm' | 'cjs';
@@ -82,20 +85,28 @@ const createRollupOutputOptions = (format: Format): OutputOptions => {
   };
 };
 
-const build = async (config: EnhancedConfig, packageName: string) => {
+const build = async (
+  config: EnhancedConfig,
+  packageName: string,
+  fix?: boolean,
+) => {
   logger.info(`🛠  Building ${chalk.bold(packageName)}...`);
 
   const entries = await getPackageEntryPoints({
     packageRoot: config.root,
   });
 
-  const packageDiffs = await validatePackageJson(config.root, entries);
+  if (fix) {
+    await fixPackageJson(config.root, entries);
+  } else {
+    const packageDiffs = await validatePackageJson(config.root, entries);
 
-  if (packageDiffs.length) {
-    logger.errorWithExitCode(
-      renderPackageJsonValidationError(packageName, packageDiffs),
-    );
-    return;
+    if (packageDiffs.length) {
+      logger.errorWithExitCode(
+        renderPackageJsonValidationError(packageName, packageDiffs),
+      );
+      return;
+    }
   }
 
   await viteBuild({
@@ -155,12 +166,15 @@ const build = async (config: EnhancedConfig, packageName: string) => {
   logger.info(`✅ Successfully built ${chalk.bold.green(packageName)}!`);
 };
 
-export const buildPackage = async (partialConfig?: PartialConfig) => {
+export const buildPackage = async (
+  partialConfig?: PartialConfig,
+  fix?: boolean,
+) => {
   const config = getConfig(partialConfig);
   const packageName = await getPackageName(config);
 
   try {
-    await build(config, packageName);
+    await build(config, packageName, fix);
   } catch (err: any) {
     logger.errorWithExitCode(renderBuildError(packageName, err));
   }
