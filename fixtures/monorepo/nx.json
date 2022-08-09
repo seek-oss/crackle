@@ -14,7 +14,7 @@
       "dependsOn": ["^package"]
     },
     "build": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build", "^package"]
     },
     "start": {
       "dependsOn": ["^package"]

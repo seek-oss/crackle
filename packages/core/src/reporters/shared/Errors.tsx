@@ -37,7 +37,7 @@ interface ErrorStackProps {
 
 export const ErrorStack = ({ error, title }: ErrorStackProps) => (
   <ErrorBox title={title}>
-    {isBuildError(error) ? (
+    {isBuildError(error) && error.location ? (
       <>
         <Box marginBottom={1}>
           <Text>

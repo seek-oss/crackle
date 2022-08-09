@@ -12,8 +12,8 @@ function stringifyFileScope({ packageName, filePath }: FileScope): string {
 const bufferedCSSObjs = new Map<string, Array<CSSObj>>();
 const cssByFileScope = new Map<string, string>();
 const localClassNames = new Set<string>();
-const composedClassLists: Array<any> = [];
-const usedCompositions: Set<string> = new Set();
+const composedClassLists = new Array<any>();
+const usedCompositions = new Set<string>();
 
 setAdapter({
   appendCss: (cssObj, fileScope) => {

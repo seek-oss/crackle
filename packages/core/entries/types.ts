@@ -1,11 +1,8 @@
 import type { Manifest } from 'vite';
 
-import type { BuildReporter } from '../src/reporters/build';
-
 export type RenderAllPagesFn = (
   manifest: Manifest,
   publicPath: string,
-  dispatchEvent: BuildReporter,
 ) => Promise<Array<{ route: string; html: string }>>;
 
 interface RenderParams {
