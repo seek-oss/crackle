@@ -1,13 +1,10 @@
-name: Release
+name: Snapshot
 
-on:
-  push:
-    branches:
-      - master
+on: workflow_dispatch
 
 jobs:
-  release:
-    name: Publish & Deploy
+  publish:
+    name: Publish snapshot version
     runs-on: ubuntu-latest
     env:
       CI: true
@@ -15,6 +12,7 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@main
         with:
+          # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
           token: ${{ secrets.SEEK_OSS_CI_GITHUB_TOKEN }}
 
@@ -26,10 +24,11 @@ jobs:
       - name: Install Dependencies
         run: yarn --frozen-lockfile
 
-      - name: Create release PR or publish to npm
-        uses: changesets/action@c2918239208f2162b9d27a87f491375c51592434
-        with:
-          publish: yarn release
+      - name: Build
+        run: yarn build
+
+      - name: Publish
+        uses: seek-oss/changesets-snapshot@v0
         env:
-          GITHUB_TOKEN: ${{ secrets.SEEK_OSS_CI_GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.SEEK_OSS_CI_NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
