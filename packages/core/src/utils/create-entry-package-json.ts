@@ -8,8 +8,8 @@ export const createEntryPackageJsons = async (
 ) => {
   const packageContents = JSON.stringify(
     {
-      main: 'index.cjs',
-      module: 'index.mjs',
+      main: 'dist/index.cjs',
+      module: 'dist/index.mjs',
     },
     null,
     2,

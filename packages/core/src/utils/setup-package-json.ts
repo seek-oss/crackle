@@ -44,8 +44,8 @@ const getExportsForPackage = (entries: PackageEntryPoint[]) => {
 
     const types = `./${entryPoint.entryName}/index.cjs.d.ts` as const;
     exports[`./${entryPoint.entryName}`] = {
-      import: { types, default: `./${entryPoint.entryName}/index.mjs` },
-      require: { types, default: `./${entryPoint.entryName}/index.cjs` },
+      import: { types, default: `./${entryPoint.entryName}/dist/index.mjs` },
+      require: { types, default: `./${entryPoint.entryName}/dist/index.cjs` },
     };
   }
 

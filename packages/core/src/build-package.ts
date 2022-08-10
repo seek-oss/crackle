@@ -79,7 +79,7 @@ const createRollupOutputOptions = (format: Format): OutputOptions => {
     },
     entryFileNames: (chunkInfo) =>
       chunkInfo.facadeModuleId?.includes('src/entries')
-        ? `${basename(chunkInfo.facadeModuleId)}/index.${extension}`
+        ? `${basename(chunkInfo.facadeModuleId)}/dist/index.${extension}`
         : `dist/${chunkInfo.name}.${extension}`,
   };
 };
