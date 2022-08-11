@@ -1,7 +1,7 @@
 import path from 'path';
 
 import normalizePath from 'normalize-path';
-import type { Plugin } from 'rollup';
+import type { Plugin } from 'vite';
 
 import { promiseMap } from '../../../utils/promise-map';
 
