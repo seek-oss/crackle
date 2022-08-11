@@ -4,6 +4,7 @@
   "private": true,
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
+  "types": "dist/index.cjs.d.ts",
   "files": [
     "/components",
     "/dist",
@@ -41,22 +42,22 @@
     },
     "./components": {
       "import": {
-        "types": "./components/index.cjs.d.ts",
-        "default": "./components/index.mjs"
+        "types": "./components/dist/index.cjs.d.ts",
+        "default": "./components/dist/index.mjs"
       },
       "require": {
-        "types": "./components/index.cjs.d.ts",
-        "default": "./components/index.cjs"
+        "types": "./components/dist/index.cjs.d.ts",
+        "default": "./components/dist/index.cjs"
       }
     },
     "./extras": {
       "import": {
-        "types": "./extras/index.cjs.d.ts",
-        "default": "./extras/index.mjs"
+        "types": "./extras/dist/index.cjs.d.ts",
+        "default": "./extras/dist/index.mjs"
       },
       "require": {
-        "types": "./extras/index.cjs.d.ts",
-        "default": "./extras/index.cjs"
+        "types": "./extras/dist/index.cjs.d.ts",
+        "default": "./extras/dist/index.cjs"
       }
     }
   }
