@@ -60,7 +60,6 @@ export const start = async (
         plugins: [fixViteVanillaExtractDepScanPlugin()],
       },
     },
-    // @ts-expect-error
     ssr: {
       external: ['serialize-javascript', 'used-styles', ...builtinModules],
     },
