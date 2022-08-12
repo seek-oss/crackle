@@ -4,10 +4,10 @@ type Opts = {
   cleanup?: boolean;
 };
 
-declare module "fixturez" {
+declare module 'fixturez' {
   export default function (
     cwd: string,
-    opts?: Opts
+    opts?: Opts,
   ): {
     find: (a: string) => string;
     temp: () => string;

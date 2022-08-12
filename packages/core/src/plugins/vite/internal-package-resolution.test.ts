@@ -19,7 +19,10 @@ describe('internalPackageResolution', () => {
       ...config,
       root: monorepoRoot,
     });
-    await plugin.buildStart!.call({} as PluginContext, {} as NormalizedInputOptions);
+    await plugin.buildStart!.call(
+      {} as PluginContext,
+      {} as NormalizedInputOptions,
+    );
   });
 
   test('single entry', async () => {
