@@ -52,10 +52,6 @@ export const internalPackageResolution = (config: EnhancedConfig): Plugin => {
 
         for (const entry of entries) {
           if (source === `${packageName}/${entry}`) {
-            console.log(
-              'found: ',
-              normalizePath(path.join(root, 'src/entries', `${entry}.ts`)),
-            );
             return normalizePath(path.join(root, 'src/entries', `${entry}.ts`));
           }
         }
