@@ -6,8 +6,11 @@ import _eval from 'eval';
 
 import type { PartialConfig } from './config';
 
-const evaluateConfig = (configFilePath: string, configSource: string) => {
-  const exports = _eval(configSource) as { default: PartialConfig };
+const evaluateConfig = (
+  configFilePath: string,
+  configSource: string,
+): PartialConfig => {
+  const exports = _eval(configSource, 'fake.js') as { default: PartialConfig };
 
   return {
     root: path.dirname(configFilePath),

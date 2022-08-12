@@ -55,11 +55,11 @@ export const build = async (inlineConfig?: PartialConfig) => {
     plugins: [
       stripRouteData(),
       vanillaExtractPlugin({ identifiers: 'short' }),
+      addPageRoots(config),
       internalPackageResolution({
         ...config,
         root: config.resolveFromRoot('..'),
       }),
-      addPageRoots(config),
     ],
     logLevel: 'silent',
   };
