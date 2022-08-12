@@ -1,5 +1,7 @@
 import { transformFileAsync as babelTransform } from '@babel/core';
+import type { RouteData } from '@crackle/router';
 import { build as esbuild } from 'esbuild';
+import _eval from 'eval';
 import glob from 'fast-glob';
 
 import type { PartialConfig } from './config';
@@ -76,8 +78,8 @@ export const getAllRoutes = async (inlineConfig?: PartialConfig) => {
           build.onLoad({ filter, namespace: routeEntryNs }, () => ({
             contents: `
             const pages = [];
-            ${pageImports}
-            exports.pages = pages;`,
+            ${pageImports};
+            module.exports = pages;`,
             resolveDir: root,
           }));
         },
@@ -87,6 +89,5 @@ export const getAllRoutes = async (inlineConfig?: PartialConfig) => {
 
   const [{ text: routesSource }] = result.outputFiles;
 
-  // eslint-disable-next-line no-eval
-  return eval(routesSource);
+  return _eval(routesSource) as RouteData<any>;
 };
