@@ -1,11 +1,12 @@
-import path from 'path';
-
 import { resolveConfig } from '@crackle/core/resolve-config';
 import { getAllRoutes } from '@crackle/core/route-data';
+import fixturez from 'fixturez';
+
+const f = fixturez(__dirname);
 
 test('getAllRoutes', async () => {
-  const cwd = path.join(__dirname, '../fixtures/monorepo/site');
-  const config = await resolveConfig({ cwd });
+  const monorepoRoot = f.find('monorepo');
+  const config = await resolveConfig({ cwd: `${monorepoRoot}/site` });
 
   expect(await getAllRoutes(config)).toMatchInlineSnapshot(`
     [
