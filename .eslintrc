@@ -1,6 +1,8 @@
 {
   "extends": "seek",
+  "plugins": ["@preconstruct/format-js-tag"],
   "rules": {
+    "@preconstruct/format-js-tag/format": "error",
     "@typescript-eslint/consistent-type-imports": ["error"],
     "@typescript-eslint/no-unused-vars": [
       "error",
@@ -29,5 +31,10 @@
         ]
       }
     ]
+  },
+  "settings": {
+    "jest": {
+      "version": 27 // otherwise ESLint fails because it can't detect Jest version
+    }
   }
 }
