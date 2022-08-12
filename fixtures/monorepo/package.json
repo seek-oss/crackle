@@ -5,7 +5,6 @@
   "license": "MIT",
   "scripts": {
     "build": "nx run-many --target=build --output-style=stream-without-prefixes",
-    "package": "nx run-many --target=package --output-style=stream-without-prefixes",
     "start": "nx start web-app"
   },
   "dependencies": {

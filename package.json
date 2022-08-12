@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "preconstruct dev",
     "build": "preconstruct build",
+    "build:fixtures": "yarn workspace crackle-fixtures-monorepo build",
     "watch": "preconstruct watch",
     "lint": "tsc --noEmit && eslint packages fixtures && prettier --check packages fixtures",
     "format": "eslint --fix packages fixtures && prettier --write packages fixtures",
