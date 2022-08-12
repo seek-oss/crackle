@@ -1,17 +1,18 @@
 import path from 'path';
 
-import glob from 'fast-glob';
 import type { Plugin } from 'vite';
 import { normalizePath } from 'vite';
 
 import type { EnhancedConfig } from '../../config';
 import { basename } from '../../utils/basename';
-import { getPackages } from '../../utils/get-packages';
+import { getPackageEntryPoints, getPackages } from '../../utils/get-packages';
 import type { Packages } from '../../utils/get-packages';
 
 export const internalPackageResolution = (config: EnhancedConfig): Plugin => {
   let packages: Packages | undefined;
   let packageMatchRegex: RegExp | undefined;
+  // cache package entries so we don't have to hit the file system on every request
+  const packageEntries = new Map<string, string[]>();
 
   return {
     enforce: 'pre',
@@ -20,7 +21,7 @@ export const internalPackageResolution = (config: EnhancedConfig): Plugin => {
       packages = await getPackages(config);
 
       packageMatchRegex = new RegExp(
-        `^${Array.from(packages.keys()).join('|')}/?`,
+        `^${Array.from(packages.keys()).join('|')}`,
       );
     },
     async resolveId(source) {
@@ -38,14 +39,23 @@ export const internalPackageResolution = (config: EnhancedConfig): Plugin => {
           return normalizePath(path.join(root, 'src/index.ts'));
         }
 
-        const entries = (
-          await glob(['src/entries/*.ts'], {
-            cwd: root,
-          })
-        ).map((entryPath) => basename(entryPath));
+        if (!packageEntries.get(packageName)) {
+          packageEntries.set(
+            packageName,
+            (await getPackageEntryPoints({ packageRoot: root })).map(
+              ({ entryPath }) => basename(entryPath),
+            ),
+          );
+        }
+
+        const entries = packageEntries.get(packageName)!;
 
         for (const entry of entries) {
           if (source === `${packageName}/${entry}`) {
+            console.log(
+              'found: ',
+              normalizePath(path.join(root, 'src/entries', `${entry}.ts`)),
+            );
             return normalizePath(path.join(root, 'src/entries', `${entry}.ts`));
           }
         }
