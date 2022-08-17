@@ -5,6 +5,7 @@ import { renderToString } from './ink-to-string';
 import type { BuildError } from './types';
 
 export * from './Errors';
+export { Stack } from './Stack';
 export { Timer } from './Timer';
 
 export const renderBuildError = (name: string, error: BuildError) =>

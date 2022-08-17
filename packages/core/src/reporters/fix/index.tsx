@@ -1,9 +1,8 @@
-/* eslint-disable react/no-unescaped-entities */
 import { Text, render, Box } from 'ink';
 import React from 'react';
 
 import { partition } from '../../utils/partition';
-import { Stack } from '../shared/Stack';
+import { Stack } from '../shared';
 
 import type { PackageDiffDetails } from './components/PackageDiff';
 import { PackageDiff } from './components/PackageDiff';

@@ -1,7 +1,7 @@
 import type { PartialConfig } from './config';
 import { getConfig } from './config';
-import type { PackageDiffDetails } from './reporters/fix/app';
-import { renderApp } from './reporters/fix/app';
+import type { PackageDiffDetails } from './reporters/fix';
+import { renderApp } from './reporters/fix';
 import { getPackageEntryPoints, getPackages } from './utils/get-packages';
 import { promiseMap } from './utils/promise-map';
 import { fixPackageJson } from './utils/setup-package-json';

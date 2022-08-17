@@ -31,6 +31,9 @@
       "start.ts"
     ]
   },
+  "scripts": {
+    "gitignore": "node ./scripts/updateGitignore.js"
+  },
   "dependencies": {
     "@babel/core": "^7.15.0",
     "@babel/plugin-syntax-jsx": "^7.14.5",

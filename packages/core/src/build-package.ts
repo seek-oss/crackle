@@ -12,7 +12,7 @@ import { getConfig } from './config';
 import { logger } from './logger';
 import { typescriptDeclarations } from './plugins/rollup';
 import { addVanillaDebugIds } from './plugins/vite';
-import { renderPackageJsonValidationError } from './reporters/package/app';
+import { renderPackageJsonValidationError } from './reporters/package';
 import { renderBuildError } from './reporters/shared';
 import { basename } from './utils/basename';
 import { createEntryPackageJsons } from './utils/create-entry-package-json';
