@@ -56,6 +56,8 @@ export const build = async (inlineConfig?: PartialConfig) => {
       stripRouteData(),
       vanillaExtractPlugin({ identifiers: 'short' }),
       addPageRoots(config),
+      // 1. Crackle pretends it has knowledge of the monorepo at this stage
+      // 2. It's required because of braid still being in yalc -- can be removed when we have snapshots
       internalPackageResolution({
         ...config,
         root: config.resolveFromRoot('..'),
