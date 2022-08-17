@@ -1,26 +1,44 @@
-/* eslint-disable no-console */
-import type { CrackleServer } from '@crackle/core';
+import type { CrackleConfig, CrackleServer } from '@crackle/core';
+import { logger } from '@crackle/core/logger';
 import { resolveConfig } from '@crackle/core/resolve-config';
 import yargs from 'yargs';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-expressions
+const setConfigOverrides = <T>(
+  config: CrackleConfig,
+  overrides: yargs.Arguments<T>,
+) => {
+  const { _, $0, ...overridesWithoutYargs } = overrides;
+  Object.assign(config, overridesWithoutYargs);
+};
+
 yargs(process.argv.slice(2))
   .scriptName('crackle')
-  .command({
+  .command<{ port?: number }>({
     command: 'start',
-    handler: async () => {
+    describe:
+      'Start an HTTP server (with hot reloading) to preview the website',
+    builder: {
+      port: {
+        description: 'Override the HTTP server port',
+        type: 'number',
+      },
+    },
+    handler: async (overrides) => {
       let server: CrackleServer | null = null;
+
       const config = await resolveConfig({
         onUpdate: async (newConfig) => {
-          if (server) {
-            console.log('Updated config found. Restarting server...');
-            await server.close();
+          setConfigOverrides(newConfig, overrides);
 
+          if (server) {
+            logger.info('Updated config found. Restarting server...');
+            await server.close();
             server = null;
-            server = await start(newConfig);
           }
+          server = await start(newConfig);
         },
       });
+      setConfigOverrides(config, overrides);
 
       const { start } = await import('@crackle/core/start');
       server = await start(config);
@@ -28,6 +46,7 @@ yargs(process.argv.slice(2))
   })
   .command({
     command: 'build',
+    describe: '#TODO',
     handler: async () => {
       const config = await resolveConfig();
 
@@ -35,21 +54,31 @@ yargs(process.argv.slice(2))
       await build(config);
     },
   })
-  .command({
+  .command<{ port?: number }>({
     command: 'serve',
-    handler: async () => {
+    describe: 'Serve static build from ./dist',
+    builder: {
+      port: {
+        description: 'Override the HTTP server port',
+        type: 'number',
+      },
+    },
+    handler: async (overrides) => {
       let server: CrackleServer | null = null;
+
       const config = await resolveConfig({
         onUpdate: async (newConfig) => {
-          if (server) {
-            console.log('Updated config found. Restarting server...');
-            await server.close();
+          setConfigOverrides(config, overrides);
 
+          if (server) {
+            logger.info('Updated config found. Restarting server...');
+            await server.close();
             server = null;
-            server = serve(newConfig);
           }
+          server = serve(newConfig);
         },
       });
+      setConfigOverrides(config, overrides);
 
       const { serve } = await import('@crackle/core/serve');
       server = serve(config);
@@ -57,6 +86,7 @@ yargs(process.argv.slice(2))
   })
   .command({
     command: 'package',
+    describe: '#TODO',
     handler: async () => {
       const config = await resolveConfig();
 
@@ -66,15 +96,17 @@ yargs(process.argv.slice(2))
   })
   .command({
     command: 'routes',
+    describe: 'Show website routes',
     handler: async () => {
       const config = await resolveConfig();
       const { getAllRoutes } = await import('@crackle/core/route-data');
       const pages = await getAllRoutes(config);
-      console.table(pages);
+      console.table(pages); // eslint-disable-line no-console
     },
   })
   .command({
     command: 'dev',
+    describe: '#TODO',
     handler: async () => {
       const config = await resolveConfig();
       const { dev } = await import('@crackle/core/dev');
@@ -83,11 +115,14 @@ yargs(process.argv.slice(2))
   })
   .command({
     command: 'fix',
+    describe: '#TODO',
     handler: async () => {
       const config = await resolveConfig();
       const { fix } = await import('@crackle/core/fix');
       await fix(config);
     },
   })
+  .strict()
   .help()
-  .wrap(72).argv;
+  .wrap(null)
+  .parse();
