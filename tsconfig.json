@@ -14,6 +14,13 @@
     "target": "ES6",
     "types": ["vitest/globals", "./types/fixturez"]
   },
-  "include": ["./fixtures", "./packages", "./tests"],
+  "include": [
+    "./fixtures",
+    "./packages",
+    "./tests",
+    "./*.ts",
+    "./*.js",
+    "**/scripts/*.js"
+  ],
   "exclude": ["./node_modules"]
 }
