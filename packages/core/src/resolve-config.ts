@@ -2,21 +2,20 @@ import fs from 'fs';
 import path from 'path';
 
 import { build as esbuild } from 'esbuild';
+import _eval from 'eval';
 
 import type { PartialConfig } from './config';
 
-const evaluateConfig = (configFilePath: string, configSource: string) => {
-  const exports = {
-    default: {},
-  };
-
-  // eslint-disable-next-line no-eval
-  eval(configSource);
+const evaluateConfig = (
+  configFilePath: string,
+  configSource: string,
+): PartialConfig => {
+  const exports = _eval(configSource, 'fake.js') as { default: PartialConfig };
 
   return {
     root: path.dirname(configFilePath),
     ...exports.default,
-  } as PartialConfig;
+  };
 };
 
 interface ResolveConfigOptions {

@@ -1,18 +1,20 @@
+const { execSync } = require('child_process');
 const fs = require('fs/promises');
 const path = require('path');
-
-const { dev } = require('@crackle/core/dev');
-const { resolveConfig } = require('@crackle/core/resolve-config');
 
 const runDevInEachFixture = async () => {
   const fixtures = await fs.readdir('fixtures');
 
   for (const fixture of fixtures) {
-    const config = await resolveConfig({
-      cwd: path.join(process.cwd(), 'fixtures', fixture),
-    });
+    const cwd = path.join(process.cwd(), 'fixtures', fixture);
 
-    await dev(config);
+    // eslint-disable-next-line no-console
+    console.log(`Running dev in ${fixture}`);
+
+    await execSync('yarn dev', {
+      cwd,
+      stdio: 'inherit',
+    });
   }
 };
 

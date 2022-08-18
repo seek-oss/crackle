@@ -12,10 +12,10 @@ const serverTest = test.extend<
 >({
   server: [
     async ({}, use) => {
-      const cwd = path.join(__dirname, '../fixtures/monorepo');
+      const cwd = path.join(__dirname, '../fixtures/monorepo/site');
       const config = await resolveConfig({ cwd });
 
-      await build(config, { patchConsole: false });
+      await build(config);
       const server = await serve({
         ...config,
         port: 10000,
@@ -30,7 +30,7 @@ const serverTest = test.extend<
 
 ['/', '/details', '/remote/page'].forEach((route) => {
   serverTest(`should return valid page: ${route}`, async ({ page, server }) => {
-    const errors = [];
+    const errors: Error[] = [];
     page.on('pageerror', (error) => {
       errors.push(error);
     });
@@ -39,7 +39,7 @@ const serverTest = test.extend<
       waitUntil: 'networkidle',
     });
 
-    await expect(response.status()).toBe(200);
-    await expect(errors).toEqual([]);
+    expect(response!.status()).toBe(200);
+    expect(errors).toEqual([]);
   });
 });

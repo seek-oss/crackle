@@ -11,8 +11,9 @@
     "strict": true,
     "jsx": "preserve",
     "lib": ["es2015", "dom"],
-    "target": "ES6"
+    "target": "ES6",
+    "types": ["vitest/globals", "./types/fixturez"]
   },
-  "include": ["./fixtures", "./packages"],
+  "include": ["./fixtures", "./packages", "./tests"],
   "exclude": ["./node_modules"]
 }

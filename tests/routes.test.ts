@@ -1,54 +1,55 @@
-import path from 'path';
-
 import { resolveConfig } from '@crackle/core/resolve-config';
 import { getAllRoutes } from '@crackle/core/route-data';
+import fixturez from 'fixturez';
+
+const f = fixturez(__dirname);
 
 test('getAllRoutes', async () => {
-  const cwd = path.join(__dirname, '../fixtures/monorepo');
-  const config = await resolveConfig({ cwd });
+  const monorepoRoot = f.find('monorepo');
+  const config = await resolveConfig({ cwd: `${monorepoRoot}/site` });
 
   expect(await getAllRoutes(config)).toMatchInlineSnapshot(`
-Array [
-  Object {
-    "globalMetadata": Object {
-      "componentName": "Details",
-      "isDeprecated": true,
-    },
-    "path": "site/src/pages/details.page.tsx",
-    "route": "/details",
-  },
-  Object {
-    "globalMetadata": Object {
-      "componentName": "Home",
-      "isDeprecated": false,
-    },
-    "path": "site/src/pages/home.page.tsx",
-    "route": "/",
-  },
-  Object {
-    "globalMetadata": Object {
-      "componentName": "Test",
-      "isDeprecated": false,
-    },
-    "path": "site/src/pages/testPage.page.tsx",
-    "route": "/test",
-  },
-  Object {
-    "globalMetadata": Object {
-      "componentName": "ExtraPage",
-      "isDeprecated": false,
-    },
-    "path": "site/src/components/RemotePage/ErrorPage.page.tsx",
-    "route": "/extra",
-  },
-  Object {
-    "globalMetadata": Object {
-      "componentName": "Remote page",
-      "isDeprecated": false,
-    },
-    "path": "site/src/components/RemotePage/RemotePage.page.tsx",
-    "route": "/remote/page",
-  },
-]
-`);
+    [
+      {
+        "globalMetadata": {
+          "componentName": "Details",
+          "isDeprecated": true,
+        },
+        "path": "src/pages/details.page.tsx",
+        "route": "/details",
+      },
+      {
+        "globalMetadata": {
+          "componentName": "Home",
+          "isDeprecated": false,
+        },
+        "path": "src/pages/home.page.tsx",
+        "route": "/",
+      },
+      {
+        "globalMetadata": {
+          "componentName": "Test",
+          "isDeprecated": false,
+        },
+        "path": "src/pages/testPage.page.tsx",
+        "route": "/test",
+      },
+      {
+        "globalMetadata": {
+          "componentName": "ExtraPage",
+          "isDeprecated": false,
+        },
+        "path": "src/components/RemotePage/ErrorPage.page.tsx",
+        "route": "/extra",
+      },
+      {
+        "globalMetadata": {
+          "componentName": "Remote page",
+          "isDeprecated": false,
+        },
+        "path": "src/components/RemotePage/RemotePage.page.tsx",
+        "route": "/remote/page",
+      },
+    ]
+  `);
 });

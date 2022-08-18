@@ -23,6 +23,7 @@
     "@types/react-dom": "^17"
   },
   "scripts": {
+    "dev": "crackle dev",
     "package": "crackle package",
     "serve": "crackle serve",
     "start": "crackle start"
