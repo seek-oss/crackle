@@ -30,13 +30,6 @@ describe('fix reporter', () => {
     return render(tree);
   };
 
-  beforeEach(() => {
-    // polyfill Vitest console or else it fails when ink calls patch-console
-    // @ts-expect-error
-    // eslint-disable-next-line no-console
-    console.Console = console.constructor;
-  });
-
   afterEach(() => {
     vi.clearAllMocks();
   });
