@@ -1,21 +1,17 @@
 import { Box } from 'ink';
-import React, { Fragment } from 'react';
+import * as React from 'react';
 
-export const Stack = ({
+export const Stack: React.FC<{ gap?: number; indent?: number }> = ({
   children,
   gap = 1,
   indent = 0,
-}: {
-  children: React.ReactNode;
-  gap?: number;
-  indent?: number;
 }) => (
   <Box flexDirection="column" paddingLeft={indent}>
-    {React.Children.toArray(children).map((child, index) => (
-      <Fragment key={index}>
-        {index ? <Box paddingTop={gap} /> : null}
+    {React.Children.map(children, (child, index) => (
+      <React.Fragment key={index}>
+        {index > 0 && <Box paddingTop={gap} />}
         {child}
-      </Fragment>
+      </React.Fragment>
     ))}
   </Box>
 );

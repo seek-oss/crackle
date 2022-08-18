@@ -1,19 +1,17 @@
 import { Text, render, Box } from 'ink';
-import React from 'react';
+import * as React from 'react';
 
 import { partition } from '../../utils/partition';
-import { Stack } from '../shared';
+import { Section, Stack } from '../shared';
 
 import type { PackageDiffDetails } from './components/PackageDiff';
 import { PackageDiff } from './components/PackageDiff';
 
 export type { PackageDiffDetails };
 
-interface AppProps {
-  packageDiffs: PackageDiffDetails[];
-}
-
-const App = ({ packageDiffs }: AppProps) => {
+const App: React.FC<{ packageDiffs: PackageDiffDetails[] }> = ({
+  packageDiffs,
+}) => {
   if (packageDiffs.length === 0) {
     return <Text>Nothing to fix!</Text>;
   }
@@ -27,28 +25,21 @@ const App = ({ packageDiffs }: AppProps) => {
     <Box paddingY={1}>
       <Stack>
         {changedPackages.length > 0 && (
-          <>
-            <Text>Fixed package.json for:</Text>
-
-            <Stack indent={2}>
-              {changedPackages.map((diff) => (
-                <PackageDiff key={diff.packageName} packageDiff={diff} />
-              ))}
-            </Stack>
-          </>
+          <Section message="Fixed package.json for:">
+            {changedPackages.map((diff) => (
+              <PackageDiff key={diff.packageName} packageDiff={diff} />
+            ))}
+          </Section>
         )}
 
         {unchangedPackages.length > 0 && (
-          <Stack gap={0}>
-            <Text>Nothing to change for:</Text>
-            <Stack gap={0} indent={2}>
-              {unchangedPackages.map((pkg) => (
-                <Text key={pkg.packageName} color="green">
-                  {pkg.packageName}
-                </Text>
-              ))}
-            </Stack>
-          </Stack>
+          <Section message="Nothing to change for:">
+            {unchangedPackages.map((pkg) => (
+              <Text key={pkg.packageName} color="green">
+                {pkg.packageName}
+              </Text>
+            ))}
+          </Section>
         )}
       </Stack>
     </Box>

@@ -1,8 +1,7 @@
-import { Text } from 'ink';
-import React from 'react';
+import * as React from 'react';
 
 import type { Difference } from '../../../utils/setup-package-json';
-import { Stack } from '../../shared';
+import { Section } from '../../shared';
 
 import { Diff } from './Diff';
 
@@ -16,12 +15,9 @@ interface PackageDiffProps {
 }
 
 export const PackageDiff = ({ packageDiff }: PackageDiffProps) => (
-  <>
-    <Text color="green">{packageDiff.packageName}</Text>
-    <Stack gap={0} indent={2}>
-      {packageDiff.diffs.map((diff) => (
-        <Diff key={diff.key} diff={diff} />
-      ))}
-    </Stack>
-  </>
+  <Section message={packageDiff.packageName} messageColor="green">
+    {packageDiff.diffs.map((diff) => (
+      <Diff key={diff.key} diff={diff} />
+    ))}
+  </Section>
 );

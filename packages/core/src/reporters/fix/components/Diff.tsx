@@ -1,12 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Text } from 'ink';
-import React from 'react';
+import * as React from 'react';
 
 import type { Difference } from '../../../utils/setup-package-json';
 
 export const Diff = ({ diff }: { diff: Difference }) => {
   if (diff.key === 'exports') {
-    return <Text>- exports key updated</Text>;
+    return <Text>- "exports" key updated</Text>;
   }
 
   if (diff.key === 'files') {
@@ -16,7 +16,17 @@ export const Diff = ({ diff }: { diff: Difference }) => {
         {addition}
       </Text>
     ));
-    return <Text>- {missingFiles} added to "files"</Text>;
+    return (
+      <Text>
+        - "files" updated with:{' '}
+        {missingFiles.map((node, index) => (
+          <React.Fragment key={index}>
+            {index > 0 && ', '}
+            {node}
+          </React.Fragment>
+        ))}
+      </Text>
+    );
   }
 
   if (diff.from && !diff.to) {
@@ -31,12 +41,12 @@ export const Diff = ({ diff }: { diff: Difference }) => {
   return (
     <Text>
       - "{diff.key}" was changed to <Text color="blueBright">{diff.to}</Text>
-      {diff.from ? (
+      {diff.from && (
         <>
           {' '}
           (previously <Text color="yellow">{diff.from}</Text>)
         </>
-      ) : null}
+      )}
     </Text>
   );
 };
