@@ -2,9 +2,14 @@
   "name": "@crackle-fixtures/web-app",
   "version": "1.0.0",
   "private": true,
-  "main": "index.js",
-  "author": "Ben",
   "license": "MIT",
+  "author": "Ben",
+  "main": "index.js",
+  "scripts": {
+    "build": "crackle build",
+    "serve": "crackle serve",
+    "start": "crackle start"
+  },
   "dependencies": {
     "@crackle-fixtures/multi-entry-library": "1.0.0",
     "@crackle-fixtures/single-entry-library": "1.0.0",
@@ -17,10 +22,5 @@
     "@crackle/cli": "0.5.2",
     "@crackle/core": "0.7.0",
     "@types/react-dom": "^17"
-  },
-  "scripts": {
-    "build": "crackle build",
-    "serve": "crackle serve",
-    "start": "crackle start"
   }
 }
