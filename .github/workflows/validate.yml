@@ -21,7 +21,9 @@ jobs:
         run: yarn --frozen-lockfile
 
       - name: Build
-        run: yarn build
+        run: |
+          yarn fix
+          yarn build
 
       - name: Setup fixtures
         run: yarn dev-fixtures
