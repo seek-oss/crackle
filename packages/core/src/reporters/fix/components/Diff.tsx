@@ -10,13 +10,12 @@ export const Diff = ({ diff }: { diff: Difference }) => {
   }
 
   if (diff.key === 'files') {
-    // TODO: when diff.additions is []
     const missingFiles = diff.additions.map((addition) => (
       <Text key={addition} color="blueBright">
         {addition}
       </Text>
     ));
-    return (
+    return missingFiles.length > 0 ? (
       <Text>
         - "files" updated with:{' '}
         {missingFiles.map((node, index) => (
@@ -26,6 +25,8 @@ export const Diff = ({ diff }: { diff: Difference }) => {
           </React.Fragment>
         ))}
       </Text>
+    ) : (
+      <Text>- "files" set to []</Text>
     );
   }
 

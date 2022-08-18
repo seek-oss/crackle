@@ -7,7 +7,7 @@ import type { PackageJson } from 'type-fest';
 import type { PackageEntryPoint } from '../types';
 
 import { basename } from './basename';
-import { writeFile } from './write-file';
+import { writePackageJson } from './write-file';
 
 type FromToDifference = { key: 'main' | 'module'; from?: string; to?: string };
 type AdditionsDifference = { key: 'files'; additions: string[] };
@@ -121,10 +121,9 @@ const setupPackageJson =
       packageJson.files = filesArray.sort((a, b) => (a > b ? 1 : -1));
       packageJson.exports = exportsKey;
 
-      await writeFile({
+      await writePackageJson({
         dir: packageRoot,
-        fileName: 'package.json',
-        contents: JSON.stringify(packageJson, null, 2).concat('\n'),
+        contents: packageJson,
       });
     }
 
