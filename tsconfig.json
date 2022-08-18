@@ -17,6 +17,7 @@
   "include": [
     "./fixtures",
     "./packages",
+    "./test-utils",
     "./tests",
     "./*.ts",
     "./*.js",

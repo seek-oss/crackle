@@ -1,0 +1,62 @@
+// Vitest Snapshot v1
+
+exports[`setup-package-json > fixPackageJson 1`] = `
+Snapshot Diff:
+- Diff A
++ Diff B
+
+@@ --- --- @@
+    "name": "@crackle-fixtures/library-with-docs",
+    "version": "1.0.0",
+    "private": true,
+    "license": "MIT",
+    "author": "Ben",
+-   "main": "dist/index.js",
++   "exports": {
++     "./package.json": "./package.json",
++     ".": {
++       "import": {
++         "types": "./dist/index.cjs.d.ts",
++         "default": "./dist/index.mjs"
++       },
++       "require": {
++         "types": "./dist/index.cjs.d.ts",
++         "default": "./dist/index.cjs"
++       }
++     }
++   },
++   "main": "dist/index.cjs",
++   "module": "dist/index.mjs",
++   "files": [
++     "/dist"
++   ],
+    "scripts": {
+      "build": "crackle build",
+      "dev": "crackle dev",
+      "serve": "crackle serve",
+      "start": "crackle start"
+`;
+
+exports[`setup-package-json > validatePackageJson 1`] = `
+[
+  {
+    "from": "dist/index.js",
+    "key": "main",
+    "to": "dist/index.cjs",
+  },
+  {
+    "from": undefined,
+    "key": "module",
+    "to": "dist/index.mjs",
+  },
+  {
+    "additions": [
+      "/dist",
+    ],
+    "key": "files",
+  },
+  {
+    "key": "exports",
+  },
+]
+`;
