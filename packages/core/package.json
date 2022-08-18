@@ -78,6 +78,8 @@
     "@types/react-dom": "^17.0.9",
     "@types/serialize-javascript": "^5.0.1",
     "@types/serve-handler": "^6.1.1",
+    "ink-testing-library": "^2.1.0",
+    "strip-ansi": "^7.0.1",
     "type-fest": "^2.18.0"
   }
 }
