@@ -1,12 +1,13 @@
 import type { CrackleConfig, CrackleServer } from '@crackle/core';
 import { logger } from '@crackle/core/logger';
 import { resolveConfig } from '@crackle/core/resolve-config';
-import type { Flatten } from '@crackle/core/start';
 import yargs from 'yargs';
 
+type CrackleConfigWithYargs = CrackleConfig & Pick<yargs.Arguments, '_' | '$0'>;
+
 const setConfigOverrides = (
-  config: Flatten<CrackleConfig>,
-  overrides: Flatten<CrackleConfig & Pick<yargs.Arguments, '_' | '$0'>>,
+  config: CrackleConfig,
+  overrides: CrackleConfigWithYargs,
 ) => {
   const { _, $0, ...overridesWithoutYargs } = overrides;
   Object.assign(config, overridesWithoutYargs);
@@ -14,7 +15,7 @@ const setConfigOverrides = (
 
 yargs(process.argv.slice(2))
   .scriptName('crackle')
-  .command<{ port?: number }>({
+  .command<Pick<CrackleConfig, 'fix'>>({
     command: 'start',
     describe:
       'Start an HTTP server (with hot reloading) to preview the website',
@@ -55,7 +56,7 @@ yargs(process.argv.slice(2))
       await build(config);
     },
   })
-  .command<{ port?: number }>({
+  .command<Pick<CrackleConfig, 'port'>>({
     command: 'serve',
     describe: 'Serve static build from ./dist',
     builder: {
@@ -85,7 +86,7 @@ yargs(process.argv.slice(2))
       server = serve(config);
     },
   })
-  .command<{ fix?: boolean }>({
+  .command<Pick<CrackleConfig, 'fix'>>({
     command: 'package',
     describe: '#TODO',
     builder: {
