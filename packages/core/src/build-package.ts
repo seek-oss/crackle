@@ -11,6 +11,7 @@ import { build as viteBuild } from 'vite';
 
 import type { PartialConfig, EnhancedConfig } from './config';
 import { getConfig } from './config';
+import { fix } from './fix';
 import { logger } from './logger';
 import { typescriptDeclarations } from './plugins/rollup';
 import { addVanillaDebugIds } from './plugins/vite';
@@ -93,13 +94,17 @@ const build = async (config: EnhancedConfig, packageName: string) => {
     packageRoot: config.root,
   });
 
-  const packageDiffs = await validatePackageJson(config.root, entries);
+  if (config.fix) {
+    await fix(config);
+  } else {
+    const packageDiffs = await validatePackageJson(config.root, entries);
 
-  if (packageDiffs.length) {
-    logger.errorWithExitCode(
-      renderPackageJsonValidationError(packageName, packageDiffs),
-    );
-    return;
+    if (packageDiffs.length) {
+      logger.errorWithExitCode(
+        renderPackageJsonValidationError(packageName, packageDiffs),
+      );
+      return;
+    }
   }
 
   await viteBuild({
