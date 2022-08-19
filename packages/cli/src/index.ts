@@ -1,11 +1,12 @@
 import type { CrackleConfig, CrackleServer } from '@crackle/core';
 import { logger } from '@crackle/core/logger';
 import { resolveConfig } from '@crackle/core/resolve-config';
+import type { Flatten } from '@crackle/core/start';
 import yargs from 'yargs';
 
 const setConfigOverrides = (
-  config: CrackleConfig,
-  overrides: CrackleConfig & Pick<yargs.Arguments, '_' | '$0'>,
+  config: Flatten<CrackleConfig>,
+  overrides: Flatten<CrackleConfig & Pick<yargs.Arguments, '_' | '$0'>>,
 ) => {
   const { _, $0, ...overridesWithoutYargs } = overrides;
   Object.assign(config, overridesWithoutYargs);

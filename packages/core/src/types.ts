@@ -1,6 +1,8 @@
 import type React from 'react';
 import type { InlineConfig } from 'vite';
 
+export type Identity<T> = T;
+export type Flatten<T> = Identity<{ [k in keyof T]: T[k] }>;
 export type GetArrayType<T> = T extends Array<infer U> ? U : never;
 
 export type ManualChunksFn = NonNullable<
