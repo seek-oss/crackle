@@ -3,9 +3,9 @@ import { logger } from '@crackle/core/logger';
 import { resolveConfig } from '@crackle/core/resolve-config';
 import yargs from 'yargs';
 
-const setConfigOverrides = <T>(
+const setConfigOverrides = (
   config: CrackleConfig,
-  overrides: yargs.Arguments<T>,
+  overrides: CrackleConfig & Pick<yargs.Arguments, '_' | '$0'>,
 ) => {
   const { _, $0, ...overridesWithoutYargs } = overrides;
   Object.assign(config, overridesWithoutYargs);
@@ -84,11 +84,18 @@ yargs(process.argv.slice(2))
       server = serve(config);
     },
   })
-  .command({
+  .command<{ fix?: boolean }>({
     command: 'package',
     describe: '#TODO',
-    handler: async () => {
+    builder: {
+      fix: {
+        description: 'Run `crackle fix` if necessary',
+        type: 'boolean',
+      },
+    },
+    handler: async (overrides) => {
       const config = await resolveConfig();
+      setConfigOverrides(config, overrides);
 
       const { buildPackage } = await import('@crackle/core/build-package');
       await buildPackage(config);
