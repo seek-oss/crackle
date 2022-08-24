@@ -17,8 +17,7 @@ export type Difference =
   | AdditionsDifference
   | ExportsDifference;
 
-// TODO: handle root export ('.') /
-type ExportString = `./${string}`; // ? use PackageJson['exports'] ?
+type ExportString = `./${string}`;
 
 type ExportWithTypes = {
   types: ExportString;
