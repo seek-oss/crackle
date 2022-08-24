@@ -22,7 +22,7 @@ const App: React.FC<{ packageDiffs: PackageDiffDetails[] }> = ({
   );
 
   return (
-    <Box paddingY={1}>
+    <Box paddingTop={1}>
       <Stack>
         {changedPackages.length > 0 && (
           <Section message="Fixed package.json for:">
@@ -47,5 +47,5 @@ const App: React.FC<{ packageDiffs: PackageDiffDetails[] }> = ({
 };
 
 export const renderApp = (packageDiffs: PackageDiffDetails[]) => {
-  render(<App packageDiffs={packageDiffs} />);
+  render(<App packageDiffs={packageDiffs} />, { patchConsole: false });
 };

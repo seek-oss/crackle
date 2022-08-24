@@ -43,7 +43,7 @@ const getPackageName = async (config: EnhancedConfig): Promise<string> => {
 
   // The name field in package.json is the best source
   if (packageJson.name) {
-    return packageJson.name as string;
+    return packageJson.name;
   }
 
   // If it doesn't have one for whatever reason, the root directory is a decent fallback
@@ -88,25 +88,24 @@ const createRollupOutputOptions = (format: Format): OutputOptions => {
 };
 
 const build = async (config: EnhancedConfig, packageName: string) => {
-  logger.info(`🛠  Building ${chalk.bold(packageName)}...`);
-
   const entries = await getPackageEntryPoints({
     packageRoot: config.root,
   });
 
-  if (config.fix) {
-    await fix(config);
-  } else {
-    const packageDiffs = await validatePackageJson(config.root, entries);
+  const diffs = await validatePackageJson(config.root, entries);
 
-    if (packageDiffs.length) {
+  if (diffs.length) {
+    if (config.fix) {
+      await fix(config);
+    } else {
       logger.errorWithExitCode(
-        renderPackageJsonValidationError(packageName, packageDiffs),
+        renderPackageJsonValidationError(packageName, diffs),
       );
       return;
     }
   }
 
+  logger.info(`🛠  Building ${chalk.bold(packageName)}…`);
   await viteBuild({
     ...commonViteConfig(config),
     plugins: [
