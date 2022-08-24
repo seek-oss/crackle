@@ -15,7 +15,7 @@ const setConfigOverrides = (
 
 yargs(process.argv.slice(2))
   .scriptName('crackle')
-  .command<Pick<CrackleConfig, 'fix' | 'port'>>({
+  .command<Pick<CrackleConfig, 'port'>>({
     command: 'start',
     describe:
       'Start an HTTP server (with hot reloading) to preview the website',
