@@ -1,5 +1,11 @@
 # @crackle/core
 
+## 0.9.0
+
+### Minor Changes
+
+- [#15](https://github.com/seek-oss/crackle/pull/15) [`0f48228`](https://github.com/seek-oss/crackle/commit/0f48228dbad78df0b497ff7229964cd644f111e6) Thanks [@mrm007](https://github.com/mrm007)! - `crackle package` now generates/updates the project's `.gitignore` using [`ensure-gitignore`](https://github.com/seek-oss/ensure-gitignore)
+
 ## 0.8.0
 
 ### Minor Changes
