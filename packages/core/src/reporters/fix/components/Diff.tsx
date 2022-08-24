@@ -10,6 +10,7 @@ export const Diff = ({ diff }: { diff: Difference }) => {
   }
 
   if (diff.key === 'files') {
+    // TODO: when diff.additions is []
     const missingFiles = diff.additions.map((addition) => (
       <Text key={addition} color="blueBright">
         {addition}

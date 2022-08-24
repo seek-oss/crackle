@@ -4,16 +4,16 @@
   "private": true,
   "scripts": {
     "fix": "preconstruct fix",
+    "dev": "preconstruct dev",
+    "dev-fixtures": "node scripts/dev-fixtures.js",
     "build": "preconstruct build",
     "watch": "preconstruct watch",
-    "dev": "yarn fix && preconstruct watch",
     "lint": "tsc --noEmit && eslint . && prettier --check .",
     "format": "eslint --fix . && prettier --write .",
     "test": "yarn test:vitest --run && yarn test:playwright",
     "test:vitest": "vitest",
     "test:playwright": "playwright test",
-    "release": "yarn build && changeset publish",
-    "dev-fixtures": "node scripts/dev-fixtures.js"
+    "release": "yarn build && changeset publish"
   },
   "workspaces": [
     "packages/*",
