@@ -1,5 +1,16 @@
 # @crackle/cli
 
+## 0.7.0
+
+### Minor Changes
+
+- [#16](https://github.com/seek-oss/crackle/pull/16) [`d7490f3`](https://github.com/seek-oss/crackle/commit/d7490f3cd50840e1958c3d378a521b6b7e3bb0a3) Thanks [@mrm007](https://github.com/mrm007)! - Added a `--fix` option to `crackle package` which runs `crackle fix` if necessary.
+
+### Patch Changes
+
+- Updated dependencies [[`d7490f3`](https://github.com/seek-oss/crackle/commit/d7490f3cd50840e1958c3d378a521b6b7e3bb0a3)]:
+  - @crackle/core@0.10.0
+
 ## 0.6.1
 
 ### Patch Changes
