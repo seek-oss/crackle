@@ -3,6 +3,12 @@ import path from 'path';
 
 export interface Config {
   /**
+   * Automatically run `fix` if necessary.
+   * @default false
+   */
+  fix: boolean;
+
+  /**
    * Port for the server used in `start` and `serve`.
    * @default 5000
    */
@@ -40,6 +46,7 @@ export interface EnhancedConfig extends Config {
 export type PartialConfig = Partial<Config>;
 
 export const defaultConfig: Config = {
+  fix: false,
   port: 5000,
   publicPath: '/',
   root: process.cwd(),

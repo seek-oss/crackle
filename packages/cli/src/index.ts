@@ -3,9 +3,11 @@ import { logger } from '@crackle/core/logger';
 import { resolveConfig } from '@crackle/core/resolve-config';
 import yargs from 'yargs';
 
-const setConfigOverrides = <T>(
+type CrackleConfigWithYargs = CrackleConfig & Pick<yargs.Arguments, '_' | '$0'>;
+
+const setConfigOverrides = (
   config: CrackleConfig,
-  overrides: yargs.Arguments<T>,
+  overrides: CrackleConfigWithYargs,
 ) => {
   const { _, $0, ...overridesWithoutYargs } = overrides;
   Object.assign(config, overridesWithoutYargs);
@@ -13,7 +15,7 @@ const setConfigOverrides = <T>(
 
 yargs(process.argv.slice(2))
   .scriptName('crackle')
-  .command<{ port?: number }>({
+  .command<Pick<CrackleConfig, 'port'>>({
     command: 'start',
     describe:
       'Start an HTTP server (with hot reloading) to preview the website',
@@ -54,7 +56,7 @@ yargs(process.argv.slice(2))
       await build(config);
     },
   })
-  .command<{ port?: number }>({
+  .command<Pick<CrackleConfig, 'port'>>({
     command: 'serve',
     describe: 'Serve static build from ./dist',
     builder: {
@@ -84,11 +86,18 @@ yargs(process.argv.slice(2))
       server = serve(config);
     },
   })
-  .command({
+  .command<Pick<CrackleConfig, 'fix'>>({
     command: 'package',
     describe: '#TODO',
-    handler: async () => {
+    builder: {
+      fix: {
+        description: 'Run `crackle fix` if necessary',
+        type: 'boolean',
+      },
+    },
+    handler: async (overrides) => {
       const config = await resolveConfig();
+      setConfigOverrides(config, overrides);
 
       const { buildPackage } = await import('@crackle/core/build-package');
       await buildPackage(config);

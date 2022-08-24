@@ -7,11 +7,13 @@ export const Stack: React.FC<{ gap?: number; indent?: number }> = ({
   indent = 0,
 }) => (
   <Box flexDirection="column" paddingLeft={indent}>
-    {React.Children.map(children, (child, index) => (
-      <React.Fragment key={index}>
-        {index > 0 && <Box paddingTop={gap} />}
-        {child}
-      </React.Fragment>
-    ))}
+    {React.Children.toArray(children)
+      .filter(Boolean)
+      .map((child, index) => (
+        <React.Fragment key={index}>
+          {index > 0 && <Box paddingTop={gap} />}
+          {child}
+        </React.Fragment>
+      ))}
   </Box>
 );

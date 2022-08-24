@@ -1,3 +1,3 @@
-import snapshotDiff from './snapshotDiff';
+import snapshotDiff from './snapshot-diff-serializer';
 
 expect.addSnapshotSerializer(snapshotDiff);

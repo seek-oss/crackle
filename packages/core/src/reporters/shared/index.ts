@@ -11,3 +11,5 @@ export { Timer } from './Timer';
 
 export const renderBuildError = (name: string, error: BuildError) =>
   renderToString(React.createElement(ErrorStack, { title: name, error }));
+
+export { renderToString } from './ink-to-string';

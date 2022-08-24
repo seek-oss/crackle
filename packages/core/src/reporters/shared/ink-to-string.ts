@@ -18,7 +18,7 @@ const createStdout = (): any => {
 export const renderToString = (node: JSX.Element): string => {
   const stdout = createStdout();
 
-  render(node, { stdout, debug: true });
+  render(node, { stdout, debug: true, patchConsole: false });
 
   return stdout.get();
 };
