@@ -1,5 +1,11 @@
 # @crackle/core
 
+## 0.10.0
+
+### Minor Changes
+
+- [#16](https://github.com/seek-oss/crackle/pull/16) [`d7490f3`](https://github.com/seek-oss/crackle/commit/d7490f3cd50840e1958c3d378a521b6b7e3bb0a3) Thanks [@mrm007](https://github.com/mrm007)! - Added a `fix` config option that automatically runs `crackle fix` when necessary.
+
 ## 0.9.0
 
 ### Minor Changes
