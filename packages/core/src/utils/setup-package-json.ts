@@ -2,6 +2,8 @@ import fs from 'fs/promises';
 import path from 'path';
 import { isDeepStrictEqual } from 'util';
 
+import type { PackageJson } from 'type-fest';
+
 import type { PackageEntryPoint } from '../types';
 
 import { basename } from './basename';
@@ -59,7 +61,9 @@ const setupPackageJson =
     entries: PackageEntryPoint[],
   ): Promise<Difference[]> => {
     const packagePath = path.join(packageRoot, 'package.json');
-    const packageJson = JSON.parse(await fs.readFile(packagePath, 'utf-8'));
+    const packageJson = JSON.parse(
+      await fs.readFile(packagePath, 'utf-8'),
+    ) as PackageJson;
 
     const files = new Set<string>(packageJson.files ?? []);
 
@@ -98,9 +102,9 @@ const setupPackageJson =
       });
     }
 
-    if (files.size !== packageJson.files.length) {
+    if (files.size !== packageJson.files?.length) {
       const missingFiles = filesArray.filter(
-        (file) => !packageJson.files.includes(file),
+        (file) => !packageJson.files?.includes(file),
       );
       diffs.push({ key: 'files', additions: missingFiles });
     }

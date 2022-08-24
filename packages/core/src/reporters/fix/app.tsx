@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Text, render, Box } from 'ink';
 import React from 'react';
-import { Fragment } from 'react';
 
 import { partition } from '../../utils/partition';
 import { Stack } from '../shared/Stack';
@@ -28,8 +27,8 @@ const App = ({ packageDiffs }: AppProps) => {
   return (
     <Box paddingY={1}>
       <Stack>
-        {changedPackages.length === 0 ? null : (
-          <Fragment>
+        {changedPackages.length > 0 && (
+          <>
             <Text>Fixed package.json for:</Text>
 
             <Stack indent={2}>
@@ -37,10 +36,10 @@ const App = ({ packageDiffs }: AppProps) => {
                 <PackageDiff key={diff.packageName} packageDiff={diff} />
               ))}
             </Stack>
-          </Fragment>
+          </>
         )}
 
-        {unchangedPackages.length === 0 ? null : (
+        {unchangedPackages.length > 0 && (
           <Stack gap={0}>
             <Text>Nothing to change for:</Text>
             <Stack gap={0} indent={2}>
