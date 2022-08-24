@@ -20,8 +20,7 @@
     "./test-utils",
     "./tests",
     "./*.ts",
-    "./*.js",
-    "**/scripts/*.js"
+    "./*.js"
   ],
   "exclude": ["./node_modules"]
 }

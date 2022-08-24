@@ -36,7 +36,7 @@ export const writeIfRequired = async ({
   }
 };
 
-export const writePackageJson = async <T = PackageJson>({
+export const writePackageJson = async <T extends PackageJson>({
   dir,
   contents,
 }: {
