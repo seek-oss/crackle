@@ -29,6 +29,7 @@ interface DefaultPackageEntryPoint {
   isDefaultEntry: true;
   entryPath: string;
   outputDir: string;
+  entryName: string;
 }
 
 interface OtherPackageEntryPoint {

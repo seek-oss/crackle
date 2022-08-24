@@ -2,30 +2,8 @@
   "name": "@crackle-fixtures/single-entry-library",
   "version": "1.0.0",
   "private": true,
-  "main": "dist/index.cjs",
-  "module": "dist/index.mjs",
-  "files": [
-    "/dist"
-  ],
-  "author": "Ben",
   "license": "MIT",
-  "dependencies": {
-    "@vanilla-extract/css": "^1.6.2",
-    "braid-design-system": "file:../../../../.yalc/braid-design-system",
-    "react": "17.0.2",
-    "react-dom": "^17.0.2"
-  },
-  "devDependencies": {
-    "@crackle/cli": "0.6.0",
-    "@crackle/core": "0.8.0",
-    "@types/react-dom": "^17"
-  },
-  "scripts": {
-    "dev": "crackle dev",
-    "package": "crackle package",
-    "serve": "crackle serve",
-    "start": "crackle start"
-  },
+  "author": "Ben",
   "exports": {
     "./package.json": "./package.json",
     ".": {
@@ -38,5 +16,27 @@
         "default": "./dist/index.cjs"
       }
     }
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "dev": "crackle dev",
+    "package": "crackle package",
+    "serve": "crackle serve",
+    "start": "crackle start"
+  },
+  "dependencies": {
+    "@vanilla-extract/css": "^1.6.2",
+    "braid-design-system": "file:../../../../.yalc/braid-design-system",
+    "react": "17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@crackle/cli": "0.6.0",
+    "@crackle/core": "0.8.0",
+    "@types/react-dom": "^17"
   }
 }

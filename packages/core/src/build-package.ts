@@ -3,8 +3,10 @@ import path from 'path';
 
 import { cssFileFilter } from '@vanilla-extract/integration';
 import chalk from 'chalk';
+import ensureGitignore from 'ensure-gitignore';
 import type { OutputOptions } from 'rollup';
 import externals from 'rollup-plugin-node-externals';
+import type { PackageJson } from 'type-fest';
 import { build as viteBuild } from 'vite';
 
 import type { PartialConfig, EnhancedConfig } from './config';
@@ -12,7 +14,7 @@ import { getConfig } from './config';
 import { logger } from './logger';
 import { typescriptDeclarations } from './plugins/rollup';
 import { addVanillaDebugIds } from './plugins/vite';
-import { renderPackageJsonValidationError } from './reporters/package/app';
+import { renderPackageJsonValidationError } from './reporters/package';
 import { renderBuildError } from './reporters/shared';
 import { basename } from './utils/basename';
 import { createEntryPackageJsons } from './utils/create-entry-package-json';
@@ -25,14 +27,18 @@ type Format = 'esm' | 'cjs';
 const extensionForFormat = (format: Format) =>
   ({ esm: 'mjs', cjs: 'cjs' }[format]);
 
-const getPackageName = async (config: EnhancedConfig): Promise<string> => {
+const getPackageJson = async (config: EnhancedConfig): Promise<PackageJson> => {
   const packageJsonPath = config.resolveFromRoot('package.json');
 
-  const packageJson = JSON.parse(
+  return JSON.parse(
     await fs.readFile(packageJsonPath, {
       encoding: 'utf-8',
     }),
   );
+};
+
+const getPackageName = async (config: EnhancedConfig): Promise<string> => {
+  const packageJson = await getPackageJson(config);
 
   // The name field in package.json is the best source
   if (packageJson.name) {
@@ -149,6 +155,12 @@ const build = async (config: EnhancedConfig, packageName: string) => {
   });
 
   await createEntryPackageJsons(entries);
+
+  await ensureGitignore({
+    filepath: config.resolveFromRoot('.gitignore'),
+    comment: 'managed by crackle',
+    patterns: entries.map((entry) => `/${entry.entryName}`),
+  });
 
   logger.info(`✅ Successfully built ${chalk.bold.green(packageName)}!`);
 };

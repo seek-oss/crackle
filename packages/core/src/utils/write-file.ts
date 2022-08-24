@@ -1,6 +1,9 @@
 import fs from 'fs/promises';
 import path from 'path';
 
+import sortPackageJson from 'sort-package-json';
+import type { PackageJson } from 'type-fest';
+
 interface WriteFileOpts {
   dir: string;
   fileName: string;
@@ -32,3 +35,16 @@ export const writeIfRequired = async ({
     await writeFile({ dir, fileName, contents });
   }
 };
+
+export const writePackageJson = async <T extends PackageJson>({
+  dir,
+  contents,
+}: {
+  dir: string;
+  contents: T;
+}) =>
+  writeIfRequired({
+    dir,
+    fileName: 'package.json',
+    contents: JSON.stringify(sortPackageJson(contents), null, 2).concat('\n'),
+  });
