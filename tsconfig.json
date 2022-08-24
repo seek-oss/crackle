@@ -12,6 +12,9 @@
     "jsx": "preserve",
     "lib": ["es2015", "dom"],
     "target": "ES6",
+    "paths": {
+      "~utils/*": ["./test-utils/*"]
+    },
     "types": ["vitest/globals", "./types/fixturez"]
   },
   "include": [

@@ -1,5 +1,6 @@
 import snapshotDiff from 'snapshot-diff';
 
+type Plugin = Parameters<typeof expect.addSnapshotSerializer>[0];
 type ExpectDiff = {
   diffA: unknown;
   diffB: unknown;
@@ -14,12 +15,14 @@ const options = {
 const diffWithOptions = (diffA: any, diffB: any) =>
   snapshotDiff(diffA, diffB, options);
 
-export default {
-  test(value: any) {
+const serializer: Plugin = {
+  test(value) {
     return Boolean(value) && value.diffA != null && value.diffB != null;
   },
-  print(value: any, serialize: (val: unknown) => string) {
+  print(value, serialize) {
     const { diffA, diffB } = value as ExpectDiff;
     return diffWithOptions(serialize(diffA), serialize(diffB));
   },
 };
+
+export default serializer;

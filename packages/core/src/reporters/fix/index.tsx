@@ -1,8 +1,9 @@
-import { Text, render, Box } from 'ink';
+import { Text, Box } from 'ink';
 import * as React from 'react';
 
+import { logger } from '../../logger';
 import { partition } from '../../utils/partition';
-import { Section, Stack } from '../shared';
+import { renderToString, Section, Stack } from '../shared';
 
 import type { PackageDiffDetails } from './components/PackageDiff';
 import { PackageDiff } from './components/PackageDiff';
@@ -22,8 +23,8 @@ const App: React.FC<{ packageDiffs: PackageDiffDetails[] }> = ({
   );
 
   return (
-    <Box paddingTop={1}>
-      <Stack>
+    <Box paddingY={1}>
+      <Stack gap={1}>
         {changedPackages.length > 0 && (
           <Section message="Fixed package.json for:">
             {changedPackages.map((diff) => (
@@ -47,5 +48,5 @@ const App: React.FC<{ packageDiffs: PackageDiffDetails[] }> = ({
 };
 
 export const renderApp = (packageDiffs: PackageDiffDetails[]) => {
-  render(<App packageDiffs={packageDiffs} />, { patchConsole: false });
+  logger.info(renderToString(<App packageDiffs={packageDiffs} />));
 };

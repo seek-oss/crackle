@@ -1,8 +1,9 @@
 import { render as inkRender } from 'ink';
 import { render } from 'ink-testing-library';
-import stripAnsi from 'strip-ansi';
 
 import { renderApp } from '.';
+
+import inkSerializer from '~utils/ink-serializer';
 
 vi.mock('ink', async () => {
   const ink = await vi.importActual<any>('ink');
@@ -11,15 +12,9 @@ vi.mock('ink', async () => {
     render: vi.fn(),
   };
 });
+vi.mock('../../logger');
 
-expect.addSnapshotSerializer({
-  serialize(val) {
-    return stripAnsi(val);
-  },
-  test(val) {
-    return typeof val === 'string';
-  },
-});
+expect.addSnapshotSerializer(inkSerializer);
 
 describe('fix reporter', () => {
   const renderWithArgs = (
@@ -37,7 +32,7 @@ describe('fix reporter', () => {
   test('with no packages', () => {
     const { lastFrame } = renderWithArgs([]);
 
-    expect(lastFrame()).toMatchInlineSnapshot('Nothing to fix!');
+    expect(lastFrame()).toMatchInlineSnapshot('"Nothing to fix!"');
   });
 
   test('with unchanged packages', () => {
@@ -53,9 +48,11 @@ describe('fix reporter', () => {
     ]);
 
     expect(lastFrame()).toMatchInlineSnapshot(`
+      "
       Nothing to change for:
         pkg-a
         pkg-b
+      "
     `);
   });
 
@@ -68,9 +65,11 @@ describe('fix reporter', () => {
     ]);
 
     expect(lastFrame()).toMatchInlineSnapshot(`
+      "
       Fixed package.json for:
         pkg-a
           - "files" updated with: entry-a, other-entry
+      "
     `);
   });
 
@@ -92,6 +91,7 @@ describe('fix reporter', () => {
     ]);
 
     expect(lastFrame()).toMatchInlineSnapshot(`
+      "
       Fixed package.json for:
         pkg-a
           - "exports" key updated
@@ -101,6 +101,7 @@ describe('fix reporter', () => {
 
       Nothing to change for:
         pkg-b
+      "
     `);
   });
 });
