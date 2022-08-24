@@ -1,5 +1,11 @@
 # @crackle/core
 
+## 0.8.0
+
+### Minor Changes
+
+- [#14](https://github.com/seek-oss/crackle/pull/14) [`8266de3`](https://github.com/seek-oss/crackle/commit/8266de35ce45fce2bd863253659b29913252cf21) Thanks [@mrm007](https://github.com/mrm007)! - Exported logging utility as `@crackle/core/logger`
+
 ## 0.7.0
 
 ### Minor Changes
