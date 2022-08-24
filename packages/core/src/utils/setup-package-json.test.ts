@@ -1,6 +1,7 @@
 import fs from 'fs/promises';
 
 import fixturez from 'fixturez';
+import { describe, expect, test } from 'vitest';
 
 import { getPackageEntryPoints } from './get-packages';
 import { fixPackageJson, validatePackageJson } from './setup-package-json';

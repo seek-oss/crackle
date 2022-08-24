@@ -1,6 +1,7 @@
 import { resolveConfig } from '@crackle/core/resolve-config';
 import { getAllRoutes } from '@crackle/core/route-data';
 import fixturez from 'fixturez';
+import { expect, test } from 'vitest';
 
 const f = fixturez(__dirname);
 

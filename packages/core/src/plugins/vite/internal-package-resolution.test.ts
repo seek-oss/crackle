@@ -1,6 +1,7 @@
 import fixturez from 'fixturez';
 import type { PluginContext, NormalizedInputOptions } from 'rollup';
 import type { Plugin } from 'vite';
+import { beforeEach, describe, expect, test } from 'vitest';
 
 import { getConfig } from '../../config';
 import { resolveConfig } from '../../resolve-config';

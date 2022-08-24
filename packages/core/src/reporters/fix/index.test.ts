@@ -1,5 +1,6 @@
 import { render as inkRender } from 'ink';
 import { render } from 'ink-testing-library';
+import { afterEach, describe, expect, test, vi } from 'vitest';
 
 import { renderApp } from '.';
 
