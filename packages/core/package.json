@@ -9,6 +9,7 @@
     "/build",
     "/dev",
     "/dist",
+    "/entries",
     "/fix",
     "/index",
     "/logger",
