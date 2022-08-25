@@ -1,5 +1,11 @@
 # @crackle/core
 
+## 0.10.1
+
+### Patch Changes
+
+- [#21](https://github.com/seek-oss/crackle/pull/21) [`44a55a6`](https://github.com/seek-oss/crackle/commit/44a55a66bfb96433687e62eb319aad8949bab805) Thanks [@askoufis](https://github.com/askoufis)! - Add missing `/entries` to published package
+
 ## 0.10.0
 
 ### Minor Changes
