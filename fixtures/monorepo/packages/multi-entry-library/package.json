@@ -58,7 +58,7 @@
   },
   "devDependencies": {
     "@crackle/cli": "0.7.0",
-    "@crackle/core": "0.10.1",
+    "@crackle/core": "0.10.2",
     "@types/react-dom": "^17"
   }
 }
