@@ -9,7 +9,6 @@ export default defineConfig({
     },
   },
   test: {
-    globals: true,
     setupFiles: './test-utils/setup.ts',
     snapshotFormat: { escapeString: false },
   },
