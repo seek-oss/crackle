@@ -1,5 +1,11 @@
 # @crackle/core
 
+## 0.10.2
+
+### Patch Changes
+
+- [#23](https://github.com/seek-oss/crackle/pull/23) [`933fe86`](https://github.com/seek-oss/crackle/commit/933fe862ea6dd7fa04ce25a6837942cf364ae2ba) Thanks [@askoufis](https://github.com/askoufis)! - Add missing `/mocks` to published package
+
 ## 0.10.1
 
 ### Patch Changes
