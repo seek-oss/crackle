@@ -13,6 +13,7 @@
     "/fix",
     "/index",
     "/logger",
+    "/mocks",
     "/resolve-config",
     "/route-data",
     "/serve",
