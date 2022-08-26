@@ -1,5 +1,11 @@
 # @crackle/core
 
+## 0.10.3
+
+### Patch Changes
+
+- [#25](https://github.com/seek-oss/crackle/pull/25) [`d451526`](https://github.com/seek-oss/crackle/commit/d451526f3cbb2ab3db57c58a9c350e8738f3e108) Thanks [@mrm007](https://github.com/mrm007)! - Fix extensions and paths for generated entrypoints
+
 ## 0.10.2
 
 ### Patch Changes

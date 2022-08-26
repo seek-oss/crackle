@@ -76,7 +76,7 @@ const createRollupOutputOptions = (format: Format): OutputOptions => {
     chunkFileNames: (chunkInfo) => {
       const chunkPath = `dist/${chunkInfo.name}`;
 
-      return chunkPath.endsWith('.js')
+      return chunkPath.endsWith(extension)
         ? chunkPath
         : `${chunkPath}.chunk.${extension}`;
     },
