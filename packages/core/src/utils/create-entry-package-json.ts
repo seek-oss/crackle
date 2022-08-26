@@ -8,9 +8,10 @@ import { writePackageJson } from './write-file';
 export const createEntryPackageJsons = async (
   entryPoints: PackageEntryPoint[],
 ) => {
+  // TODO: don't hardcode
   const packageContents: PackageJson = {
-    main: 'index.cjs.js',
-    module: 'index.esm.js',
+    main: 'index.cjs',
+    module: 'index.mjs',
   };
 
   await promiseMap(entryPoints, async (entryPoint) => {
