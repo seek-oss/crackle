@@ -112,6 +112,7 @@ const build = async (config: EnhancedConfig, packageName: string) => {
       {
         ...externals({
           deps: true,
+          devDeps: false,
           packagePath: config.resolveFromRoot('./package.json'),
         }),
         enforce: 'pre',
