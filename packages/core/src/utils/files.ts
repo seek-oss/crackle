@@ -1,4 +1,5 @@
 import fs from 'fs/promises';
+import { existsSync } from 'fs';
 import path from 'path';
 
 import sortPackageJson from 'sort-package-json';
@@ -48,3 +49,16 @@ export const writePackageJson = async <T extends PackageJson>({
     fileName: 'package.json',
     contents: JSON.stringify(sortPackageJson(contents), null, 2).concat('\n'),
   });
+
+export const emptyDir = async (dir: string, skip = ['.git']): Promise<void> => {
+  if (!existsSync(dir)) {
+    return;
+  }
+
+  for (const file of await fs.readdir(dir)) {
+    if (skip?.includes(file)) {
+      continue;
+    }
+    await fs.rm(path.resolve(dir, file), { recursive: true, force: true });
+  }
+};
