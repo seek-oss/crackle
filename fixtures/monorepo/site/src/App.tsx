@@ -15,7 +15,7 @@ import {
   Text,
   TextLink,
 } from 'braid-design-system';
-import { apac } from 'braid-design-system/themes';
+import apac from 'braid-design-system/apacTheme';
 import React from 'react';
 
 import type { BraidMetadata } from './types';
@@ -38,7 +38,7 @@ const App: AppShell<BraidMetadata> = ({ children, routeMetadata }) => {
       <Box
         key={route}
         padding="small"
-        background={isActiveLink ? 'formAccentSoft' : 'card'}
+        background={isActiveLink ? 'formAccentSoft' : 'body'}
         borderRadius="standard"
       >
         <Text tone={metadata.isDeprecated ? 'secondary' : 'link'}>

@@ -52,7 +52,7 @@
   },
   "dependencies": {
     "@crackle/router": "0.1.2",
-    "braid-design-system": "file:../../../../.yalc/braid-design-system",
+    "braid-design-system": "0.0.0-crackel2-20220829034239",
     "react": "17.0.2",
     "react-dom": "^17.0.2"
   },
