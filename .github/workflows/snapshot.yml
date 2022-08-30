@@ -1,7 +1,9 @@
 name: Snapshot
 
-on: workflow_dispatch
-
+on:
+  push:
+    branches:
+      - gotham-patches
 jobs:
   publish:
     name: Publish snapshot version
