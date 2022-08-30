@@ -23,6 +23,10 @@ import {
 import type { CrackleServer } from './types';
 import { calculateTime } from './utils/timer';
 import { commonViteConfig } from './vite-config';
+import {
+  extractDependencyGraph,
+  getSsrExternalsForCompiledDependency,
+} from './utils/dependency-graph';
 
 export * from './types';
 
@@ -33,6 +37,12 @@ export const start = async (
 ): Promise<CrackleServer> => {
   const config = getConfig(inlineConfig);
   const app = express();
+
+  const depGraph = await extractDependencyGraph(config.root);
+  const ssrExternals = getSsrExternalsForCompiledDependency(
+    '@vanilla-extract/css',
+    depGraph,
+  );
 
   const connections = new Map<string, Socket>();
 
@@ -68,9 +78,14 @@ export const start = async (
         plugins: [fixViteVanillaExtractDepScanPlugin()],
       },
     },
-    // @ts-expect-error
     ssr: {
-      external: ['serialize-javascript', 'used-styles', ...builtinModules],
+      external: [
+        'serialize-javascript',
+        'used-styles',
+        ...builtinModules,
+        ...ssrExternals.external,
+      ],
+      noExternal: ssrExternals.noExternal,
     },
   });
   // use vite's connect instance as middleware
