@@ -1,3 +1,5 @@
+# managed by crackle
 /components
+/dist
 /extras
-dist
+# end managed by crackle
