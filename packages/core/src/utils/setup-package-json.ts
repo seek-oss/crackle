@@ -5,7 +5,7 @@ import { isDeepStrictEqual } from 'util';
 import type { PackageEntryPoint } from '../types';
 
 import { basename } from './basename';
-import { writeFile } from './write-file';
+import { writeFile } from './files';
 
 type FromToDifference = { key: 'main' | 'module'; from?: string; to?: string };
 type AdditionsDifference = { key: 'files'; additions: string[] };
@@ -34,18 +34,18 @@ const getExportsForPackage = (entries: PackageEntryPoint[]) => {
 
   for (const entryPoint of entries) {
     if (entryPoint.isDefaultEntry) {
-      const types = './dist/index.cjs.d.ts';
+      const types = './dist/index.js.d.ts';
       exports['.'] = {
         import: { types, default: './dist/index.mjs' },
-        require: { types, default: './dist/index.cjs' },
+        require: { types, default: './dist/index.js' },
       };
       continue;
     }
 
-    const types = `./${entryPoint.entryName}/dist/index.cjs.d.ts` as const;
+    const types = `./${entryPoint.entryName}/dist/index.js.d.ts` as const;
     exports[`./${entryPoint.entryName}`] = {
       import: { types, default: `./${entryPoint.entryName}/dist/index.mjs` },
-      require: { types, default: `./${entryPoint.entryName}/dist/index.cjs` },
+      require: { types, default: `./${entryPoint.entryName}/dist/index.js` },
     };
   }
 
@@ -68,8 +68,8 @@ const setupPackageJson =
 
     for (const entryPoint of entries) {
       if (entryPoint.isDefaultEntry) {
-        main = 'dist/index.cjs';
-        module = 'dist/index.mjs';
+        main = './dist/index.js';
+        module = './dist/index.mjs';
         files.add('/dist');
       } else {
         const entryName = basename(entryPoint.entryPath);

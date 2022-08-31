@@ -1,7 +1,7 @@
 import type { PackageEntryPoint } from '../types';
 
+import { writeIfRequired } from './files';
 import { promiseMap } from './promise-map';
-import { writeIfRequired } from './write-file';
 
 export const createEntryPackageJsons = async (
   entryPoints: PackageEntryPoint[],

@@ -6,7 +6,7 @@ import { basename } from './basename';
 import { createEntryPackageJsons } from './create-entry-package-json';
 import { getPackages, getPackageEntryPoints } from './get-packages';
 import { promiseMap } from './promise-map';
-import { writeIfRequired } from './write-file';
+import { writeIfRequired } from './files';
 
 const exportDefaultRegex = /^export default/m;
 

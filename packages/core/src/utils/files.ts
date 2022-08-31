@@ -1,3 +1,4 @@
+import { existsSync } from 'fs';
 import fs from 'fs/promises';
 import path from 'path';
 
@@ -30,5 +31,18 @@ export const writeIfRequired = async ({
 
   if (write) {
     await writeFile({ dir, fileName, contents });
+  }
+};
+
+export const emptyDir = async (dir: string, skip = ['.git']): Promise<void> => {
+  if (!existsSync(dir)) {
+    return;
+  }
+
+  for (const file of await fs.readdir(dir)) {
+    if (skip?.includes(file)) {
+      continue;
+    }
+    await fs.rm(path.resolve(dir, file), { recursive: true, force: true });
   }
 };

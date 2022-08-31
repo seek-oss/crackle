@@ -2,8 +2,8 @@
   "name": "@crackle-fixtures/single-entry-library",
   "version": "1.0.0",
   "private": true,
-  "main": "dist/index.cjs",
-  "module": "dist/index.mjs",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "files": [
     "/dist"
   ],
@@ -29,12 +29,12 @@
     "./package.json": "./package.json",
     ".": {
       "import": {
-        "types": "./dist/index.cjs.d.ts",
+        "types": "./dist/index.js.d.ts",
         "default": "./dist/index.mjs"
       },
       "require": {
-        "types": "./dist/index.cjs.d.ts",
-        "default": "./dist/index.cjs"
+        "types": "./dist/index.js.d.ts",
+        "default": "./dist/index.js"
       }
     }
   }

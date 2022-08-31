@@ -2,9 +2,9 @@
   "name": "@crackle-fixtures/multi-entry-library",
   "version": "1.0.0",
   "private": true,
-  "main": "dist/index.cjs",
-  "module": "dist/index.mjs",
-  "types": "dist/index.cjs.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.cjs.d.ts",
   "files": [
     "/components",
     "/dist",
@@ -32,32 +32,32 @@
     "./package.json": "./package.json",
     ".": {
       "import": {
-        "types": "./dist/index.cjs.d.ts",
+        "types": "./dist/index.js.d.ts",
         "default": "./dist/index.mjs"
       },
       "require": {
-        "types": "./dist/index.cjs.d.ts",
-        "default": "./dist/index.cjs"
+        "types": "./dist/index.js.d.ts",
+        "default": "./dist/index.js"
       }
     },
     "./components": {
       "import": {
-        "types": "./components/dist/index.cjs.d.ts",
+        "types": "./components/dist/index.js.d.ts",
         "default": "./components/dist/index.mjs"
       },
       "require": {
-        "types": "./components/dist/index.cjs.d.ts",
-        "default": "./components/dist/index.cjs"
+        "types": "./components/dist/index.js.d.ts",
+        "default": "./components/dist/index.js"
       }
     },
     "./extras": {
       "import": {
-        "types": "./extras/dist/index.cjs.d.ts",
+        "types": "./extras/dist/index.js.d.ts",
         "default": "./extras/dist/index.mjs"
       },
       "require": {
-        "types": "./extras/dist/index.cjs.d.ts",
-        "default": "./extras/dist/index.cjs"
+        "types": "./extras/dist/index.js.d.ts",
+        "default": "./extras/dist/index.js"
       }
     }
   }
