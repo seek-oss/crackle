@@ -110,7 +110,6 @@ const build = async (config: EnhancedConfig, packageName: string) => {
   logger.info(`🛠  Building ${chalk.bold(packageName)}…`);
 
   await promiseMap(entries, (entry) => emptyDir(entry.outputDir));
-  console.log('entries: ', entries);
 
   // Vite 3 doesn't support multiple entrypoints in library mode, so we need to use rollup here directly.
   const bundle = await rollup({
@@ -130,7 +129,6 @@ const build = async (config: EnhancedConfig, packageName: string) => {
       }),
       addVanillaDebugIds,
     ],
-
     input: entries.map(({ entryPath }) => entryPath),
     treeshake: {
       moduleSideEffects: (id, external) => {
@@ -150,7 +148,6 @@ const build = async (config: EnhancedConfig, packageName: string) => {
     },
   });
 
-  console.log('bundle: ', bundle);
   const outputOptions = [
     createRollupOutputOptions('cjs'),
     createRollupOutputOptions('esm'),
