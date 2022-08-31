@@ -124,7 +124,9 @@ const build = async (config: EnhancedConfig, packageName: string) => {
         name: packageName,
         entrypoints: entries.map(({ entryPath }) => ({ source: entryPath })),
       }),
-      rollupEsbuild(),
+      rollupEsbuild({
+        jsx: 'transform',
+      }),
       addVanillaDebugIds,
     ],
 
