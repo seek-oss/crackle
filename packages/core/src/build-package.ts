@@ -1,6 +1,8 @@
 import fs from 'fs/promises';
 import path from 'path';
 
+import commonjs from '@rollup/plugin-commonjs';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 import { cssFileFilter } from '@vanilla-extract/integration';
 import chalk from 'chalk';
 import ensureGitignore from 'ensure-gitignore';
@@ -119,6 +121,8 @@ const build = async (config: EnhancedConfig, packageName: string) => {
         devDeps: false,
         packagePath: config.resolveFromRoot('./package.json'),
       }),
+      nodeResolve(),
+      commonjs(),
       typescriptDeclarations({
         directory: config.root,
         name: packageName,
@@ -127,7 +131,7 @@ const build = async (config: EnhancedConfig, packageName: string) => {
       rollupEsbuild({
         jsx: 'transform',
       }),
-      addVanillaDebugIds,
+      addVanillaDebugIds(),
     ],
     input: entries.map(({ entryPath }) => entryPath),
     treeshake: {
