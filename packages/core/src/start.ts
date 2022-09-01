@@ -84,6 +84,15 @@ export const start = async (
         'used-styles',
         ...builtinModules,
         ...ssrExternals.external,
+        // uncomment the lines below while we're waiting for https://github.com/vitejs/vite/issues/9926
+        //
+        // 'autosuggest-highlight/match',
+        // 'autosuggest-highlight/parse',
+        // 'lodash/mapValues',
+        // 'lodash/merge',
+        // 'lodash/omit',
+        // 'lodash/values',
+        //
       ],
       noExternal: ssrExternals.noExternal,
     },
