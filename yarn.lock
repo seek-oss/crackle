@@ -2058,10 +2058,10 @@
     lodash "^4.17.21"
     outdent "^0.8.0"
 
-"@vanilla-extract/integration@^5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@vanilla-extract/integration/-/integration-5.0.0.tgz#6652f5bf8effb8f29719f6df8cd754c2d16d5b04"
-  integrity sha512-HwglsIxGYtV4IXFfyQ6GzZLFoaWaW+QkNx8UhXbgsCWUoPqpSbioukCOA+SuSuzsIcEZ3hkD0Y5ixITQNtnzjQ==
+"@vanilla-extract/integration@^5.0.0", "@vanilla-extract/integration@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@vanilla-extract/integration/-/integration-5.0.1.tgz#d94fd1e7179325495f099b8e1a921930ac7e3e76"
+  integrity sha512-HRV/HvC/lihb9wT3x5s7pf5qLjqxSd9nBePJ10juOuMB5cl2ZClEcts076m9BuRKM3wRK2h7KuwkNsaUtjujxQ==
   dependencies:
     "@vanilla-extract/css" "^1.7.2"
     esbuild "^0.11.16"
