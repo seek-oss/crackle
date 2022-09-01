@@ -3,6 +3,7 @@ import path from 'path';
 
 import { setAdapter } from '@vanilla-extract/css/adapter';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
+import builtinModules from 'builtin-modules';
 import chalk from 'chalk';
 import type { InlineConfig as ViteConfig, Manifest } from 'vite';
 import { build as viteBuild } from 'vite';
@@ -20,6 +21,7 @@ import {
 } from './plugins/vite';
 import { renderBuildError } from './reporters/shared';
 import type { GetArrayType } from './types';
+import { extractDependencyGraph, getSsrExternalsForCompiledDependency } from './utils/dependency-graph';
 import { promiseMap } from './utils/promise-map';
 import { commonViteConfig } from './vite-config';
 
@@ -49,6 +51,11 @@ const extractManifestFile = (buildOutput: BuildOutput): Manifest => {
 
 export const build = async (inlineConfig?: PartialConfig) => {
   const config = getConfig(inlineConfig);
+  const depGraph = await extractDependencyGraph(config.root);
+  const ssrExternals = getSsrExternalsForCompiledDependency(
+    '@vanilla-extract/css',
+    depGraph,
+  );
 
   const commonBuildConfig: ViteConfig = {
     ...commonViteConfig(config),
@@ -63,6 +70,24 @@ export const build = async (inlineConfig?: PartialConfig) => {
       }),
     ],
     logLevel: 'silent',
+    ssr: {
+      external: [
+        'serialize-javascript',
+        'used-styles',
+        ...builtinModules,
+        ...ssrExternals.external,
+        // uncomment the lines below while we're waiting for https://github.com/vitejs/vite/issues/9926
+        //
+        // 'autosuggest-highlight/match',
+        // 'autosuggest-highlight/parse',
+        // 'lodash/mapValues',
+        // 'lodash/merge',
+        // 'lodash/omit',
+        // 'lodash/values',
+        //
+      ],
+      noExternal: ssrExternals.noExternal,
+    },
   };
 
   let output: BuildOutput;
