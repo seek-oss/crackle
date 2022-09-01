@@ -2460,10 +2460,10 @@ braces@^3.0.1, braces@~3.0.2:
   dependencies:
     fill-range "^7.0.1"
 
-braid-design-system@0.0.0-crackel2-20220829034239:
-  version "0.0.0-crackel2-20220829034239"
-  resolved "https://registry.yarnpkg.com/braid-design-system/-/braid-design-system-0.0.0-crackel2-20220829034239.tgz#edbee401853b74c50c35e7893d4c4dbb82707b47"
-  integrity sha512-9iRSgFFfCHzdD+5R+BP7VENqsPTfHOba37hZVuBgtCY0KdoxtKVs8b/oJ1yFnHTHeC3b+nhqQq8LzI86WPHXTw==
+braid-design-system@0.0.0-crackel2-20220901020334:
+  version "0.0.0-crackel2-20220901020334"
+  resolved "https://registry.yarnpkg.com/braid-design-system/-/braid-design-system-0.0.0-crackel2-20220901020334.tgz#1b8e5ed4df1a8aa974527ecf09503f0b030f97f7"
+  integrity sha512-ZiVEZ/hAR6MKQi8+0eSi7S+80GZdh13Ngd0tfeawz1O8eCKhw4PSuAgKh0hQbZT9nh00nGrGbVY57XVpMcmcCA==
   dependencies:
     "@capsizecss/core" "^3.0.0"
     "@capsizecss/vanilla-extract" "^1.0.0"
