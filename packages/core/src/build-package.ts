@@ -58,6 +58,7 @@ const createRollupOutputOptions = (format: Format): OutputOptions => {
   const extension = extensionForFormat(format);
 
   return {
+    exports: 'auto',
     format,
     hoistTransitiveImports: false,
     manualChunks: (id, { getModuleInfo }) => {
