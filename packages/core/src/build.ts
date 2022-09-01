@@ -86,6 +86,8 @@ export const build = async (inlineConfig?: PartialConfig) => {
     return;
   }
 
+  const rendererOutDir = config.resolveFromRoot('dist-render');
+
   try {
     logger.info(`🛠  Building ${chalk.bold('renderer')}...`);
     await viteBuild({
@@ -97,10 +99,14 @@ export const build = async (inlineConfig?: PartialConfig) => {
         ssr: true,
         rollupOptions: {
           input: {
-            render: require.resolve('../../entries/render/build.tsx'),
+            bootstrap: require.resolve('../../entries/render/bootstrap.ts'),
+            build: require.resolve('../../entries/render/build.tsx'),
           },
         },
-        outDir: config.resolveFromRoot('dist-render'),
+        outDir: rendererOutDir,
+      },
+      legacy: {
+        buildSsrCjsExternalHeuristics: true,
       },
     });
 
@@ -118,7 +124,7 @@ export const build = async (inlineConfig?: PartialConfig) => {
     });
 
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const renderAllPages = require(config.resolveFromRoot('dist-render/render'))
+    const renderAllPages = require(`${rendererOutDir}/bootstrap`)
       .renderAllPages as RenderAllPagesFn;
 
     const pages = await renderAllPages(manifest, config.publicPath);
@@ -132,7 +138,7 @@ export const build = async (inlineConfig?: PartialConfig) => {
   } catch (error: any) {
     logger.errorWithExitCode(renderBuildError(`Render pages failed`, error));
   } finally {
-    await fs.rm(config.resolveFromRoot('dist-render'), {
+    await fs.rm(rendererOutDir, {
       recursive: true,
       force: true,
     });
