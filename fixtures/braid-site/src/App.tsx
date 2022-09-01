@@ -12,25 +12,19 @@ import {
 import apac from 'braid-design-system/apacTheme';
 import React from 'react';
 
-const App: AppShell = ({ children }) => {
-  return (
-    <BraidProvider theme={apac}>
-      <Stack space="medium">
-        <Card tone="promote">
-          <ContentBlock>
-            <Box
-              display="flex"
-              justifyContent="spaceBetween"
-              alignItems="center"
-            >
-              <Heading level="2">Header</Heading>
-            </Box>
-          </ContentBlock>
-        </Card>
-        <ContentBlock>{children}</ContentBlock>
-      </Stack>
-    </BraidProvider>
-  );
-};
+const App: AppShell = ({ children }) => (
+  <BraidProvider theme={apac}>
+    <Stack space="medium">
+      <Card tone="promote">
+        <ContentBlock>
+          <Box display="flex" justifyContent="spaceBetween" alignItems="center">
+            <Heading level="2">Header</Heading>
+          </Box>
+        </ContentBlock>
+      </Card>
+      <ContentBlock>{children}</ContentBlock>
+    </Stack>
+  </BraidProvider>
+);
 
 export default App;

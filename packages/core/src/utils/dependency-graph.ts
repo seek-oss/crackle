@@ -104,10 +104,10 @@ export const extractDependencyGraph = async (rootDir: string) => {
 };
 
 export const getSsrExternalsForCompiledDependency = (
-  dep: string,
+  depName: string,
   depGraph: DepGraph,
 ): { external: Array<string>; noExternal: Array<string> } => {
-  const dependency = depGraph.get(dep);
+  const dependency = depGraph.get(depName);
 
   if (!dependency) {
     return {
@@ -121,22 +121,20 @@ export const getSsrExternalsForCompiledDependency = (
 
   const dependents = [...dependency.dependents];
 
-  for (const dependent of dependents) {
-    const dependency = depGraph.get(dependent);
+  for (const dependentName of dependents) {
+    const dependent = depGraph.get(dependentName);
 
-    if (!dependency) {
+    if (!dependent) {
       throw new Error('WTF?');
     }
 
-    noExternals.add(dependent);
+    noExternals.add(dependentName);
 
-    for (const dep of dependency.dependencies) {
+    for (const dep of dependent.dependencies) {
       externals.add(dep);
     }
 
-    dependents.push(
-      ...dependency.dependents.filter((dependent) => dependent !== root),
-    );
+    dependents.push(...dependent.dependents.filter((d) => d !== root));
   }
 
   return {

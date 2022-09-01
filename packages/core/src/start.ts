@@ -21,12 +21,12 @@ import {
   stripRouteData,
 } from './plugins/vite';
 import type { CrackleServer } from './types';
-import { calculateTime } from './utils/timer';
-import { commonViteConfig } from './vite-config';
 import {
   extractDependencyGraph,
   getSsrExternalsForCompiledDependency,
 } from './utils/dependency-graph';
+import { calculateTime } from './utils/timer';
+import { commonViteConfig } from './vite-config';
 
 export * from './types';
 
