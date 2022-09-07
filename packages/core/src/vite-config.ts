@@ -15,10 +15,5 @@ export const commonViteConfig = (config: EnhancedConfig): InlineConfig => ({
   define: {
     'process.env.NODE_DEBUG': JSON.stringify(false),
     global: JSON.stringify({}),
-    // used in the renderer bootstrap (Vite doesn't bundle dependencies in SSR mode)
-    __SKU_REACT_TREAT_MOCK: JSON.stringify(
-      require.resolve('../mocks/react-treat.cjs'),
-    ),
-    __SKU_TREAT_MOCK: JSON.stringify(require.resolve('../mocks/treat.cjs')),
   },
 });

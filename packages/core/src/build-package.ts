@@ -110,7 +110,7 @@ const build = async (config: EnhancedConfig, packageName: string) => {
     }
   }
 
-  logger.info(`🛠  Building ${chalk.bold(packageName)}…`);
+  logger.info(`🛠  Building ${chalk.bold(packageName)}...`);
 
   await promiseMap(entries, (entry) => emptyDir(entry.outputDir));
 

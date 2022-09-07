@@ -48,7 +48,8 @@ export const start = async (
 
   const vite = await createViteServer({
     ...commonViteConfig(config),
-    server: { middlewareMode: 'ssr', port: config.port },
+    appType: 'custom',
+    server: { middlewareMode: true, port: config.port },
     plugins: [
       stripRouteData(),
       reactRefresh(),
@@ -112,9 +113,7 @@ export const start = async (
     try {
       const { renderDevelopmentPage } = (await vite.ssrLoadModule(
         require.resolve('../../entries/render/dev.tsx'),
-      )) as {
-        renderDevelopmentPage: RenderDevPageFn;
-      };
+      )) as { renderDevelopmentPage: RenderDevPageFn };
 
       const { html, statusCode } = await renderDevelopmentPage({
         path: req.originalUrl,
