@@ -2,6 +2,14 @@
   "name": "@crackle/babel-plugin-remove-exports",
   "version": "0.1.0",
   "main": "dist/crackle-babel-plugin-remove-exports.cjs.js",
+  "module": "dist/crackle-babel-plugin-remove-exports.esm.js",
+  "exports": {
+    ".": {
+      "module": "./dist/crackle-babel-plugin-remove-exports.esm.js",
+      "default": "./dist/crackle-babel-plugin-remove-exports.cjs.js"
+    },
+    "./package.json": "./package.json"
+  },
   "author": "Ben",
   "license": "MIT",
   "files": [

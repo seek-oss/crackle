@@ -3,6 +3,21 @@
   "version": "0.1.2",
   "main": "dist/crackle-router.cjs.js",
   "module": "dist/crackle-router.esm.js",
+  "exports": {
+    ".": {
+      "module": "./dist/crackle-router.esm.js",
+      "default": "./dist/crackle-router.cjs.js"
+    },
+    "./routes": {
+      "module": "./routes/dist/crackle-router-routes.esm.js",
+      "default": "./routes/dist/crackle-router-routes.cjs.js"
+    },
+    "./server": {
+      "module": "./server/dist/crackle-router-server.esm.js",
+      "default": "./server/dist/crackle-router-server.cjs.js"
+    },
+    "./package.json": "./package.json"
+  },
   "author": "Ben",
   "license": "MIT",
   "files": [

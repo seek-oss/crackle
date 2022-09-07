@@ -2,6 +2,50 @@
   "name": "@crackle/core",
   "version": "0.10.3",
   "main": "dist/crackle-core.cjs.js",
+  "module": "dist/crackle-core.esm.js",
+  "exports": {
+    "./dev": {
+      "module": "./dev/dist/crackle-core-dev.esm.js",
+      "default": "./dev/dist/crackle-core-dev.cjs.js"
+    },
+    "./fix": {
+      "module": "./fix/dist/crackle-core-fix.esm.js",
+      "default": "./fix/dist/crackle-core-fix.cjs.js"
+    },
+    "./build": {
+      "module": "./build/dist/crackle-core-build.esm.js",
+      "default": "./build/dist/crackle-core-build.cjs.js"
+    },
+    ".": {
+      "module": "./dist/crackle-core.esm.js",
+      "default": "./dist/crackle-core.cjs.js"
+    },
+    "./serve": {
+      "module": "./serve/dist/crackle-core-serve.esm.js",
+      "default": "./serve/dist/crackle-core-serve.cjs.js"
+    },
+    "./start": {
+      "module": "./start/dist/crackle-core-start.esm.js",
+      "default": "./start/dist/crackle-core-start.cjs.js"
+    },
+    "./logger": {
+      "module": "./logger/dist/crackle-core-logger.esm.js",
+      "default": "./logger/dist/crackle-core-logger.cjs.js"
+    },
+    "./route-data": {
+      "module": "./route-data/dist/crackle-core-route-data.esm.js",
+      "default": "./route-data/dist/crackle-core-route-data.cjs.js"
+    },
+    "./build-package": {
+      "module": "./build-package/dist/crackle-core-build-package.esm.js",
+      "default": "./build-package/dist/crackle-core-build-package.cjs.js"
+    },
+    "./resolve-config": {
+      "module": "./resolve-config/dist/crackle-core-resolve-config.esm.js",
+      "default": "./resolve-config/dist/crackle-core-resolve-config.cjs.js"
+    },
+    "./package.json": "./package.json"
+  },
   "author": "Ben",
   "license": "MIT",
   "files": [
