@@ -11,7 +11,7 @@ const runDevInEachFixture = async () => {
     // eslint-disable-next-line no-console
     console.log(`Running dev in ${fixture}`);
 
-    await execSync('yarn dev', {
+    await execSync('pnpm dev', {
       cwd,
       stdio: 'inherit',
     });
