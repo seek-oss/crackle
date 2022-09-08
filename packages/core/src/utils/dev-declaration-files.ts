@@ -4,9 +4,9 @@ import type { EnhancedConfig } from '../config';
 
 import { basename } from './basename';
 import { createEntryPackageJsons } from './create-entry-package-json';
+import { writeIfRequired } from './files';
 import { getPackages, getPackageEntryPoints } from './get-packages';
 import { promiseMap } from './promise-map';
-import { writeIfRequired } from './write-file';
 
 const exportDefaultRegex = /^export default/m;
 

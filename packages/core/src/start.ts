@@ -21,6 +21,10 @@ import {
   stripRouteData,
 } from './plugins/vite';
 import type { CrackleServer } from './types';
+import {
+  extractDependencyGraph,
+  getSsrExternalsForCompiledDependency,
+} from './utils/dependency-graph';
 import { calculateTime } from './utils/timer';
 import { commonViteConfig } from './vite-config';
 
@@ -34,11 +38,18 @@ export const start = async (
   const config = getConfig(inlineConfig);
   const app = express();
 
+  const depGraph = await extractDependencyGraph(config.root);
+  const ssrExternals = getSsrExternalsForCompiledDependency(
+    '@vanilla-extract/css',
+    depGraph,
+  );
+
   const connections = new Map<string, Socket>();
 
   const vite = await createViteServer({
     ...commonViteConfig(config),
-    server: { middlewareMode: 'ssr', port: config.port },
+    appType: 'custom',
+    server: { middlewareMode: true, port: config.port },
     plugins: [
       stripRouteData(),
       reactRefresh(),
@@ -68,9 +79,23 @@ export const start = async (
         plugins: [fixViteVanillaExtractDepScanPlugin()],
       },
     },
-    // @ts-expect-error
     ssr: {
-      external: ['serialize-javascript', 'used-styles', ...builtinModules],
+      external: [
+        'serialize-javascript',
+        'used-styles',
+        ...builtinModules,
+        ...ssrExternals.external,
+        // uncomment the lines below while we're waiting for https://github.com/vitejs/vite/issues/9926
+        //
+        // 'autosuggest-highlight/match',
+        // 'autosuggest-highlight/parse',
+        // 'lodash/mapValues',
+        // 'lodash/merge',
+        // 'lodash/omit',
+        // 'lodash/values',
+        //
+      ],
+      noExternal: ssrExternals.noExternal,
     },
   });
   // use vite's connect instance as middleware
@@ -88,9 +113,7 @@ export const start = async (
     try {
       const { renderDevelopmentPage } = (await vite.ssrLoadModule(
         require.resolve('../../entries/render/dev.tsx'),
-      )) as {
-        renderDevelopmentPage: RenderDevPageFn;
-      };
+      )) as { renderDevelopmentPage: RenderDevPageFn };
 
       const { html, statusCode } = await renderDevelopmentPage({
         path: req.originalUrl,

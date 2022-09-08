@@ -13,9 +13,6 @@
     "package": "nx run-many --target=package --output-style=stream-without-prefixes",
     "start": "nx start web-app"
   },
-  "dependencies": {
-    "braid-design-system": "file:../../.yalc/braid-design-system"
-  },
   "devDependencies": {
     "nx": "14.5.2"
   }

@@ -7,7 +7,7 @@ import type { PackageJson } from 'type-fest';
 import type { PackageEntryPoint } from '../types';
 
 import { basename } from './basename';
-import { writePackageJson } from './write-file';
+import { writePackageJson } from './files';
 
 type FromToDifference = { key: 'main' | 'module'; from?: string; to?: string };
 type AdditionsDifference = { key: 'files'; additions: string[] };

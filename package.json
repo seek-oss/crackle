@@ -28,11 +28,15 @@
     "@changesets/cli": "^2.17.0",
     "@playwright/test": "^1.14.1",
     "@preconstruct/cli": "^2.2.1",
-    "braid-design-system": "file:.yalc/braid-design-system",
     "prettier": "^2.3.2",
-    "typescript": "~4.4.4"
+    "typescript": "~4.7.4"
   },
   "preconstruct": {
+    "___experimentalFlags_WILL_CHANGE_IN_PATCH": {
+      "exports": true,
+      "keepDynamicImportAsDynamicImportInCommonJS": true
+    },
+    "exports": true,
     "packages": [
       "packages/*"
     ]

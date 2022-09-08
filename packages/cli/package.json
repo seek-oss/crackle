@@ -2,6 +2,14 @@
   "name": "@crackle/cli",
   "version": "0.7.0",
   "main": "dist/crackle-cli.cjs.js",
+  "module": "dist/crackle-cli.esm.js",
+  "exports": {
+    ".": {
+      "module": "./dist/crackle-cli.esm.js",
+      "default": "./dist/crackle-cli.cjs.js"
+    },
+    "./package.json": "./package.json"
+  },
   "author": "Matt",
   "license": "MIT",
   "files": [

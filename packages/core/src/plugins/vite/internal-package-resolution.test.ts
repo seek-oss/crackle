@@ -31,7 +31,7 @@ describe('internalPackageResolution', () => {
         {} as PluginContext,
         '@crackle-fixtures/single-entry-library',
         undefined,
-        {},
+        { isEntry: false },
       ),
     ).toMatch('monorepo/packages/single-entry-library/src/index.ts');
   });
@@ -42,7 +42,7 @@ describe('internalPackageResolution', () => {
         {} as PluginContext,
         '@crackle-fixtures/multi-entry-library/extras',
         undefined,
-        {},
+        { isEntry: true },
       ),
     ).toMatch('monorepo/packages/multi-entry-library/src/entries/extras.ts');
   });

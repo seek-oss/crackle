@@ -1,5 +1,5 @@
 {
-  "name": "@crackle-fixtures/web-app",
+  "name": "@crackle-fixtures/braid-site",
   "version": "1.0.0",
   "private": true,
   "license": "MIT",
@@ -7,12 +7,11 @@
   "main": "index.js",
   "scripts": {
     "build": "crackle build",
+    "dev": "crackle dev",
     "serve": "crackle serve",
     "start": "crackle start"
   },
   "dependencies": {
-    "@crackle-fixtures/multi-entry-library": "1.0.0",
-    "@crackle-fixtures/single-entry-library": "1.0.0",
     "@crackle/router": "0.1.2",
     "braid-design-system": "0.0.0-crackel2-20220901020334",
     "react": "17.0.2",

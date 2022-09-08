@@ -3,7 +3,9 @@ import path from 'path';
 
 import { setAdapter } from '@vanilla-extract/css/adapter';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
+import builtinModules from 'builtin-modules';
 import chalk from 'chalk';
+import { readJson } from 'fs-extra';
 import type { InlineConfig as ViteConfig, Manifest } from 'vite';
 import { build as viteBuild } from 'vite';
 
@@ -19,36 +21,20 @@ import {
   stripRouteData,
 } from './plugins/vite';
 import { renderBuildError } from './reporters/shared';
-import type { GetArrayType } from './types';
+import {
+  extractDependencyGraph,
+  getSsrExternalsForCompiledDependency,
+} from './utils/dependency-graph';
 import { promiseMap } from './utils/promise-map';
 import { commonViteConfig } from './vite-config';
 
-type Awaited<T> = T extends Promise<infer K> ? K : never; // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-5.html#the-awaited-type-and-promise-improvements
-type BuildOutput = Awaited<ReturnType<typeof viteBuild>>;
-type RollupOutput = GetArrayType<BuildOutput>;
-
-const extractManifestFile = (buildOutput: BuildOutput): Manifest => {
-  if (Array.isArray(buildOutput)) {
-    throw new Error('Build output should not be an array');
-  }
-
-  const manifestString = (buildOutput as RollupOutput).output.find(
-    (file) => file.fileName === 'manifest.json',
-  );
-
-  if (!manifestString) {
-    throw new Error('Unable to locate manifest.json');
-  }
-
-  if (manifestString.type !== 'asset') {
-    throw new Error();
-  }
-
-  return JSON.parse(manifestString.source as string) as Manifest;
-};
-
 export const build = async (inlineConfig?: PartialConfig) => {
   const config = getConfig(inlineConfig);
+  const depGraph = await extractDependencyGraph(config.root);
+  const ssrExternals = getSsrExternalsForCompiledDependency(
+    '@vanilla-extract/css',
+    depGraph,
+  );
 
   const commonBuildConfig: ViteConfig = {
     ...commonViteConfig(config),
@@ -56,26 +42,34 @@ export const build = async (inlineConfig?: PartialConfig) => {
       stripRouteData(),
       vanillaExtractPlugin({ identifiers: 'short' }),
       addPageRoots(config),
-      // 1. Crackle pretends it has knowledge of the monorepo at this stage
-      // 2. It's required because of braid still being in yalc -- can be removed when we have snapshots
+      // Crackle pretends it has knowledge of the monorepo at this stage
       internalPackageResolution({
         ...config,
         root: config.resolveFromRoot('..'),
       }),
     ],
     logLevel: 'silent',
+    ssr: {
+      external: [
+        'serialize-javascript',
+        'used-styles',
+        ...builtinModules,
+        ...ssrExternals.external,
+      ],
+      noExternal: ssrExternals.noExternal,
+    },
   };
-
-  let output: BuildOutput;
 
   try {
     logger.info(`🛠  Building ${chalk.bold('client')}...`);
-    output = await viteBuild({
+    await viteBuild({
       ...commonBuildConfig,
       base: config.publicPath,
       build: {
         manifest: true,
-        rollupOptions: { input: clientEntry },
+        rollupOptions: {
+          input: clientEntry,
+        },
       },
     });
 
@@ -87,8 +81,11 @@ export const build = async (inlineConfig?: PartialConfig) => {
     return;
   }
 
+  const rendererOutDir = config.resolveFromRoot('dist-render');
+
   try {
     logger.info(`🛠  Building ${chalk.bold('renderer')}...`);
+
     await viteBuild({
       ...commonBuildConfig,
       mode: 'development',
@@ -97,17 +94,22 @@ export const build = async (inlineConfig?: PartialConfig) => {
         minify: false,
         ssr: true,
         rollupOptions: {
-          input: {
-            render: require.resolve('../../entries/render/build.tsx'),
-          },
+          input: require.resolve('../../entries/render/build.tsx'),
         },
-        outDir: config.resolveFromRoot('dist-render'),
+        outDir: rendererOutDir,
       },
+      // TODO: remove when this PR lands https://github.com/vitejs/vite/pull/9989
+      legacy: {
+        buildSsrCjsExternalHeuristics: true,
+      },
+      ssr: {
+        ...commonBuildConfig.ssr,
+        format: 'cjs',
+      },
+      // end remove
     });
 
     logger.info(`✅ Successfully built ${chalk.bold('renderer')}!`);
-
-    const manifest = extractManifestFile(output);
 
     setAdapter({
       appendCss: () => {},
@@ -118,10 +120,12 @@ export const build = async (inlineConfig?: PartialConfig) => {
       getIdentOption: () => 'short',
     });
 
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const renderAllPages = require(config.resolveFromRoot('dist-render/render'))
-      .renderAllPages as RenderAllPagesFn;
-
+    const { renderAllPages } = (await import(`${rendererOutDir}/build.js`)) as {
+      renderAllPages: RenderAllPagesFn;
+    };
+    const manifest = (await readJson(
+      config.resolveFromRoot('dist/manifest.json'),
+    )) as Manifest;
     const pages = await renderAllPages(manifest, config.publicPath);
 
     await promiseMap(pages, async ({ route, html }) => {
@@ -129,11 +133,12 @@ export const build = async (inlineConfig?: PartialConfig) => {
       await fs.mkdir(dir, { recursive: true });
       return fs.writeFile(`${dir}/index.html`, html);
     });
+
     logger.info('✅ Rendered all pages');
   } catch (error: any) {
     logger.errorWithExitCode(renderBuildError(`Render pages failed`, error));
   } finally {
-    await fs.rm(config.resolveFromRoot('dist-render'), {
+    await fs.rm(rendererOutDir, {
       recursive: true,
       force: true,
     });

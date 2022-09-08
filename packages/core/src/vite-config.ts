@@ -7,8 +7,9 @@ export const commonViteConfig = (config: EnhancedConfig): InlineConfig => ({
   resolve: {
     alias: {
       __THE_ENTRY: config.appShell,
-      'sku/react-treat': require.resolve('../mocks/react-treat.tsx'),
-      'sku/treat': require.resolve('../mocks/treat.ts'),
+      // used when building the client
+      'sku/react-treat': require.resolve('../mocks/react-treat.mjs'),
+      'sku/treat': require.resolve('../mocks/treat.mjs'),
     },
   },
   define: {

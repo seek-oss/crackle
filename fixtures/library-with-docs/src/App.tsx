@@ -8,7 +8,7 @@ import {
   makeLinkComponent,
   Stack,
 } from 'braid-design-system';
-import { apac } from 'braid-design-system/themes';
+import apac from 'braid-design-system/apacTheme';
 import React from 'react';
 
 const CustomLink = makeLinkComponent(({ href, ...restProps }, ref) =>
