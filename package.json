@@ -22,7 +22,7 @@
     "@changesets/cli": "^2.24.4",
     "@playwright/test": "^1.14.1",
     "@preconstruct/cli": "^2.2.1",
-    "prettier": "^2.3.2",
+    "prettier": "^2.7.1",
     "typescript": "~4.7.4"
   },
   "preconstruct": {

@@ -1,0 +1,8 @@
+{
+  "name": "@crackle/tests",
+  "private": true,
+  "dependencies": {
+    "@crackle/core": "workspace:*",
+    "@playwright/test": "^1.14.1"
+  }
+}

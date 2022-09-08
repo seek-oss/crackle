@@ -19,6 +19,7 @@ describe('internalPackageResolution', () => {
       ...config,
       root: monorepoRoot,
     });
+    // @ts-expect-error
     await plugin.buildStart!.call(
       {} as PluginContext,
       {} as NormalizedInputOptions,
@@ -27,6 +28,7 @@ describe('internalPackageResolution', () => {
 
   test('single entry', async () => {
     expect(
+      // @ts-expect-error
       await plugin.resolveId!.call(
         {} as PluginContext,
         '@crackle-fixtures/single-entry-library',
@@ -38,6 +40,7 @@ describe('internalPackageResolution', () => {
 
   test('multi-entry', async () => {
     expect(
+      // @ts-expect-error
       await plugin.resolveId!.call(
         {} as PluginContext,
         '@crackle-fixtures/multi-entry-library/extras',

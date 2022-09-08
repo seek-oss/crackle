@@ -20,6 +20,7 @@
   "devDependencies": {
     "@crackle/cli": "workspace:*",
     "@crackle/core": "workspace:*",
+    "@types/react": "^17",
     "@types/react-dom": "^17"
   }
 }
