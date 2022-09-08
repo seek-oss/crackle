@@ -1,13 +1,4 @@
 node_modules
-yarn-error.log
 .env
 # match dist and dist-render
 dist*
-
-.yarn/*
-!.yarn/patches
-!.yarn/releases
-!.yarn/plugins
-!.yarn/sdks
-!.yarn/versions
-.pnp.*

@@ -10,10 +10,10 @@
     "watch": "preconstruct watch",
     "lint": "tsc --noEmit && eslint . && prettier --check .",
     "format": "eslint --fix . && prettier --write .",
-    "test": "yarn test:vitest --run && yarn test:playwright",
+    "test": "pnpm test:vitest --run && pnpm test:playwright",
     "test:vitest": "vitest",
     "test:playwright": "playwright test",
-    "release": "yarn build && changeset publish"
+    "release": "pnpm build && changeset publish"
   },
   "workspaces": [
     "packages/*",
@@ -42,8 +42,7 @@
     ]
   },
   "volta": {
-    "node": "16.16.0",
-    "yarn": "1.22.11"
+    "node": "16.16.0"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.4.6",
