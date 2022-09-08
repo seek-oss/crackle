@@ -43,14 +43,14 @@ export const getPackages = async (
   return packages;
 };
 
+const defaultEntry = 'src/index.ts';
+
 interface GetPackageEntryPointsOpts {
   packageRoot: string;
 }
-
 export const getPackageEntryPoints = async ({
   packageRoot,
 }: GetPackageEntryPointsOpts): Promise<PackageEntryPoint[]> => {
-  const defaultEntry = 'src/index.ts';
   const entryPaths = await glob([defaultEntry, 'src/entries/**/*.ts'], {
     cwd: packageRoot,
     absolute: true,
@@ -62,7 +62,7 @@ export const getPackageEntryPoints = async ({
       ? 'dist'
       : path
           .relative(path.join(packageRoot, 'src/entries'), entryPath)
-          .replace(/\..*/, '');
+          .replace(/\..*$/, '');
 
     const outputDir = path.join(packageRoot, entryName);
 
