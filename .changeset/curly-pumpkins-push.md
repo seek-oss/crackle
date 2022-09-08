@@ -3,4 +3,4 @@
 '@crackle/cli': patch
 ---
 
-Gotham patches
+Upgrade to Vite 3, migrate package script to Rollup
