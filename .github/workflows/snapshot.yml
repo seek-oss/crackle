@@ -9,8 +9,6 @@ jobs:
       CI: true
     steps:
       - uses: pnpm/action-setup@v2.2.2
-        with:
-          version: 7.9.5
 
       - name: Checkout Repo
         uses: actions/checkout@main
