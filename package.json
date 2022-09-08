@@ -5,7 +5,7 @@
   "scripts": {
     "fix": "preconstruct fix",
     "dev": "preconstruct dev",
-    "dev-fixtures": "node scripts/dev-fixtures.js",
+    "dev-fixtures": "pnpm -r dev",
     "build": "preconstruct build",
     "watch": "preconstruct watch",
     "lint": "tsc --noEmit && eslint . && prettier --check .",
@@ -15,12 +15,6 @@
     "test:playwright": "playwright test",
     "release": "pnpm build && changeset publish"
   },
-  "workspaces": [
-    "packages/*",
-    "fixtures/*",
-    "fixtures/monorepo/packages/*",
-    "fixtures/monorepo/site"
-  ],
   "dependencies": {
     "@babel/preset-env": "^7.15.0",
     "@babel/preset-react": "^7.14.5",
