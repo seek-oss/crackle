@@ -6,3 +6,4 @@ pnpm-lock.yaml
 
 fixtures/multi-entry-library/components
 fixtures/multi-entry-library/extras
+fixtures/multi-entry-library/themes
