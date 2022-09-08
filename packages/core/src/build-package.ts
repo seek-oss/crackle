@@ -20,7 +20,7 @@ import { typescriptDeclarations } from './plugins/rollup';
 import { addVanillaDebugIds } from './plugins/vite';
 import { renderPackageJsonValidationError } from './reporters/package';
 import { renderBuildError } from './reporters/shared';
-import { basename } from './utils/basename';
+import type { PackageEntryPoint } from './types';
 import { createEntryPackageJsons } from './utils/create-entry-package-json';
 import { emptyDir } from './utils/files';
 import { getPackageEntryPoints } from './utils/get-packages';
@@ -54,7 +54,10 @@ const getPackageName = async (config: EnhancedConfig): Promise<string> => {
   return path.dirname(config.root);
 };
 
-const createRollupOutputOptions = (format: Format): OutputOptions => {
+const createRollupOutputOptions = (
+  format: Format,
+  packageEntries: PackageEntryPoint[],
+): OutputOptions => {
   const extension = extensionForFormat(format);
 
   return {
@@ -85,10 +88,17 @@ const createRollupOutputOptions = (format: Format): OutputOptions => {
         ? chunkPath
         : `${chunkPath}.chunk.${extension}`;
     },
-    entryFileNames: (chunkInfo) =>
-      chunkInfo.facadeModuleId?.includes('src/entries')
-        ? `${basename(chunkInfo.facadeModuleId)}/index.${extension}`
-        : `dist/${chunkInfo.name}.${extension}`,
+    entryFileNames: (chunkInfo) => {
+      const entry = packageEntries.find(
+        ({ entryPath }) => chunkInfo.facadeModuleId === entryPath,
+      );
+
+      if (!entry) {
+        throw new Error('Unable to name entry file');
+      }
+
+      return `${entry.entryName}/index.${extension}`;
+    },
   };
 };
 
@@ -154,8 +164,8 @@ const build = async (config: EnhancedConfig, packageName: string) => {
   });
 
   const outputOptions = [
-    createRollupOutputOptions('cjs'),
-    createRollupOutputOptions('esm'),
+    createRollupOutputOptions('cjs', entries),
+    createRollupOutputOptions('esm', entries),
   ];
 
   await promiseMap(outputOptions, async (outputOption) => {

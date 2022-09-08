@@ -35,6 +35,16 @@
         "types": "./extras/index.cjs.d.ts",
         "default": "./extras/index.cjs"
       }
+    },
+    "./themes/apac": {
+      "import": {
+        "types": "./themes/apac/index.cjs.d.ts",
+        "default": "./themes/apac/index.mjs"
+      },
+      "require": {
+        "types": "./themes/apac/index.cjs.d.ts",
+        "default": "./themes/apac/index.cjs"
+      }
     }
   },
   "main": "dist/index.cjs",
@@ -42,7 +52,8 @@
   "files": [
     "/components",
     "/dist",
-    "/extras"
+    "/extras",
+    "/themes/apac"
   ],
   "scripts": {
     "dev": "crackle dev",
