@@ -1,46 +1,9 @@
 // Vitest Snapshot v1
 
-exports[`setup-package-json > fixPackageJson 1`] = `
-Snapshot Diff:
-- Diff A
-+ Diff B
-
-@@ --- --- @@
-    "name": "@crackle-fixtures/library-with-docs",
-    "version": "1.0.0",
-    "private": true,
-    "license": "MIT",
-    "author": "Ben",
--   "main": "dist/index.js",
-+   "exports": {
-+     "./package.json": "./package.json",
-+     ".": {
-+       "import": {
-+         "types": "./dist/index.cjs.d.ts",
-+         "default": "./dist/index.mjs"
-+       },
-+       "require": {
-+         "types": "./dist/index.cjs.d.ts",
-+         "default": "./dist/index.cjs"
-+       }
-+     }
-+   },
-+   "main": "dist/index.cjs",
-+   "module": "dist/index.mjs",
-+   "files": [
-+     "/dist"
-+   ],
-    "scripts": {
-      "build": "crackle build",
-      "dev": "crackle dev",
-      "serve": "crackle serve",
-      "start": "crackle start"
-`;
-
-exports[`setup-package-json > validatePackageJson 1`] = `
+exports[`diffPackageJson > Empty package.json > diffs 1`] = `
 [
   {
-    "from": "dist/index.js",
+    "from": undefined,
     "key": "main",
     "to": "dist/index.cjs",
   },
@@ -52,6 +15,8 @@ exports[`setup-package-json > validatePackageJson 1`] = `
   {
     "additions": [
       "/dist",
+      "/css",
+      "/themes/apac",
     ],
     "key": "files",
   },
@@ -59,4 +24,114 @@ exports[`setup-package-json > validatePackageJson 1`] = `
     "key": "exports",
   },
 ]
+`;
+
+exports[`diffPackageJson > Empty package.json > expectedPackageJson 1`] = `
+{
+  "exports": {
+    ".": {
+      "import": {
+        "default": "./dist/index.mjs",
+        "types": "./dist/index.cjs.d.ts",
+      },
+      "require": {
+        "default": "./dist/index.cjs",
+        "types": "./dist/index.cjs.d.ts",
+      },
+    },
+    "./css": {
+      "import": {
+        "default": "./css/index.mjs",
+        "types": "./css/index.cjs.d.ts",
+      },
+      "require": {
+        "default": "./css/index.cjs",
+        "types": "./css/index.cjs.d.ts",
+      },
+    },
+    "./package.json": "./package.json",
+    "./themes/apac": {
+      "import": {
+        "default": "./themes/apac/index.mjs",
+        "types": "./themes/apac/index.cjs.d.ts",
+      },
+      "require": {
+        "default": "./themes/apac/index.cjs",
+        "types": "./themes/apac/index.cjs.d.ts",
+      },
+    },
+  },
+  "files": [
+    "/css",
+    "/dist",
+    "/themes/apac",
+  ],
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+}
+`;
+
+exports[`diffPackageJson > Incorrect package.json > diffs 1`] = `
+[
+  {
+    "from": "dist/index.esm",
+    "key": "module",
+    "to": "dist/index.mjs",
+  },
+  {
+    "additions": [
+      "/themes/apac",
+    ],
+    "key": "files",
+  },
+  {
+    "key": "exports",
+  },
+]
+`;
+
+exports[`diffPackageJson > Incorrect package.json > expectedPackageJson 1`] = `
+{
+  "exports": {
+    ".": {
+      "import": {
+        "default": "./dist/index.mjs",
+        "types": "./dist/index.cjs.d.ts",
+      },
+      "require": {
+        "default": "./dist/index.cjs",
+        "types": "./dist/index.cjs.d.ts",
+      },
+    },
+    "./css": {
+      "import": {
+        "default": "./css/index.mjs",
+        "types": "./css/index.cjs.d.ts",
+      },
+      "require": {
+        "default": "./css/index.cjs",
+        "types": "./css/index.cjs.d.ts",
+      },
+    },
+    "./package.json": "./package.json",
+    "./themes/apac": {
+      "import": {
+        "default": "./themes/apac/index.mjs",
+        "types": "./themes/apac/index.cjs.d.ts",
+      },
+      "require": {
+        "default": "./themes/apac/index.cjs",
+        "types": "./themes/apac/index.cjs.d.ts",
+      },
+    },
+  },
+  "files": [
+    "/apac",
+    "/css",
+    "/dist",
+    "/themes/apac",
+  ],
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+}
 `;
