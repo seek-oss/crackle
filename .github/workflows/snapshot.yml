@@ -8,16 +8,14 @@ jobs:
     env:
       CI: true
     steps:
-      - uses: pnpm/action-setup@v2.0.1
-        with:
-          version: 7.9.5
-
       - name: Checkout Repo
         uses: actions/checkout@main
         with:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
           token: ${{ secrets.SEEK_OSS_CI_GITHUB_TOKEN }}
+
+      - uses: pnpm/action-setup@v2
 
       - name: Setup Node.js
         uses: actions/setup-node@main
