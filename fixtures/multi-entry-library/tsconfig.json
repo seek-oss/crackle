@@ -11,15 +11,7 @@
     "jsx": "preserve",
     "strict": true,
     "lib": ["es2015", "dom"],
-    "target": "es6",
-    "paths": {
-      "sku/react-treat": [
-        "/Users/bjervis/dev/fep/project-elmo/packages/build/src/mocks/reactTreat.tsx"
-      ],
-      "sku/treat": [
-        "/Users/bjervis/dev/fep/project-elmo/packages/build/src/mocks/treat.ts"
-      ]
-    }
+    "target": "es6"
   },
   "include": ["./src"],
   "exclude": ["./node_modules"]

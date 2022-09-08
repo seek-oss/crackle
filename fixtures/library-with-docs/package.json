@@ -12,14 +12,16 @@
     "start": "crackle start"
   },
   "dependencies": {
+    "@crackle/router": "workspace:*",
     "@vanilla-extract/css": "^1.6.2",
     "braid-design-system": "0.0.0-crackel2-20220901020334",
     "react": "17.0.2",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@crackle/cli": "0.7.0",
-    "@crackle/core": "0.10.3",
+    "@crackle/cli": "workspace:*",
+    "@crackle/core": "workspace:*",
+    "@types/react": "^17",
     "@types/react-dom": "^17"
   }
 }

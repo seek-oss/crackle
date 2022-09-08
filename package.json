@@ -5,22 +5,16 @@
   "scripts": {
     "fix": "preconstruct fix",
     "dev": "preconstruct dev",
-    "dev-fixtures": "node scripts/dev-fixtures.js",
+    "dev-fixtures": "pnpm -r dev",
     "build": "preconstruct build",
     "watch": "preconstruct watch",
     "lint": "tsc --noEmit && eslint . && prettier --check .",
     "format": "eslint --fix . && prettier --write .",
-    "test": "yarn test:vitest --run && yarn test:playwright",
+    "test": "pnpm test:vitest --run && pnpm test:playwright",
     "test:vitest": "vitest",
     "test:playwright": "playwright test",
-    "release": "yarn build && changeset publish"
+    "release": "pnpm build && changeset publish"
   },
-  "workspaces": [
-    "packages/*",
-    "fixtures/*",
-    "fixtures/monorepo/packages/*",
-    "fixtures/monorepo/site"
-  ],
   "dependencies": {
     "@babel/preset-env": "^7.15.0",
     "@babel/preset-react": "^7.14.5",
@@ -28,7 +22,7 @@
     "@changesets/cli": "^2.24.4",
     "@playwright/test": "^1.14.1",
     "@preconstruct/cli": "^2.2.1",
-    "prettier": "^2.3.2",
+    "prettier": "^2.7.1",
     "typescript": "~4.7.4"
   },
   "preconstruct": {
@@ -42,8 +36,7 @@
     ]
   },
   "volta": {
-    "node": "16.16.0",
-    "yarn": "1.22.11"
+    "node": "16.16.0"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.4.6",
