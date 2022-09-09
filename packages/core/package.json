@@ -32,13 +32,13 @@
       "module": "./logger/dist/crackle-core-logger.esm.js",
       "default": "./logger/dist/crackle-core-logger.cjs.js"
     },
+    "./package": {
+      "module": "./package/dist/crackle-core-package.esm.js",
+      "default": "./package/dist/crackle-core-package.cjs.js"
+    },
     "./route-data": {
       "module": "./route-data/dist/crackle-core-route-data.esm.js",
       "default": "./route-data/dist/crackle-core-route-data.cjs.js"
-    },
-    "./build-package": {
-      "module": "./build-package/dist/crackle-core-build-package.esm.js",
-      "default": "./build-package/dist/crackle-core-build-package.cjs.js"
     },
     "./resolve-config": {
       "module": "./resolve-config/dist/crackle-core-resolve-config.esm.js",
@@ -49,7 +49,6 @@
   "author": "Ben",
   "license": "MIT",
   "files": [
-    "/build-package",
     "/build",
     "/dev",
     "/dist",
@@ -58,6 +57,7 @@
     "/index",
     "/logger",
     "/mocks",
+    "/package",
     "/resolve-config",
     "/route-data",
     "/serve",
@@ -65,12 +65,12 @@
   ],
   "preconstruct": {
     "entrypoints": [
-      "build-package.ts",
       "build.ts",
       "dev.ts",
       "fix.ts",
       "index.ts",
       "logger.ts",
+      "package.ts",
       "resolve-config.ts",
       "route-data.ts",
       "serve.ts",
