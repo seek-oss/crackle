@@ -1,5 +1,11 @@
 # @crackle/core
 
+## 0.10.4
+
+### Patch Changes
+
+- [#27](https://github.com/seek-oss/crackle/pull/27) [`f5464e8`](https://github.com/seek-oss/crackle/commit/f5464e83776d81580cbf162086c9b1b7803a5909) Thanks [@mrm007](https://github.com/mrm007)! - Upgrade to Vite 3, migrate package script to Rollup
+
 ## 0.10.3
 
 ### Patch Changes
