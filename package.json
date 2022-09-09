@@ -13,7 +13,8 @@
     "test": "pnpm test:vitest --run && pnpm test:playwright",
     "test:vitest": "vitest",
     "test:playwright": "playwright test",
-    "release": "pnpm build && changeset publish"
+    "release": "pnpm build && changeset publish",
+    "version": "changeset version && pnpm install --lockfile-only"
   },
   "dependencies": {
     "@babel/preset-env": "^7.15.0",
