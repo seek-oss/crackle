@@ -1,4 +1,4 @@
-workspaces:
+packages:
   - 'packages/*'
   - 'fixtures/*'
   - tests
