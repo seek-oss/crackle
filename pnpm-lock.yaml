@@ -200,6 +200,7 @@ importers:
       react-dom: ^17.0.2
       resolve-from: ^5.0.0
       rollup: ~2.77.0
+      rollup-plugin-dts: ^4.2.2
       rollup-plugin-esbuild: ^4.10.1
       rollup-plugin-node-externals: ^4.1.1
       serialize-javascript: ^6.0.0
@@ -240,6 +241,7 @@ importers:
       react-dom: 17.0.2_react@17.0.2
       resolve-from: 5.0.0
       rollup: 2.77.3
+      rollup-plugin-dts: 4.2.2_rollup@2.77.3
       rollup-plugin-esbuild: 4.10.1_6jilvjhpmmtushjgfymgvmpv4q
       rollup-plugin-node-externals: 4.1.1_rollup@2.77.3
       serialize-javascript: 6.0.0
@@ -3474,7 +3476,7 @@ packages:
     dev: false
 
   /concat-map/0.0.1:
-    resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
+    resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
   /content-disposition/0.5.2:
     resolution: {integrity: sha512-kRGRZw3bLlFISDBgwTSA1TMBFN6J6GWDeubmDE3AF+3+yXL8hTWv8r5rkLbqYXY4RjPk/EzHnClI3zQf1cFmHA==}
@@ -6911,6 +6913,19 @@ packages:
     dependencies:
       glob: 7.2.3
     dev: true
+
+  /rollup-plugin-dts/4.2.2_rollup@2.77.3:
+    resolution: {integrity: sha512-A3g6Rogyko/PXeKoUlkjxkP++8UDVpgA7C+Tdl77Xj4fgEaIjPSnxRmR53EzvoYy97VMVwLAOcWJudaVAuxneQ==}
+    engines: {node: '>=v12.22.11'}
+    peerDependencies:
+      rollup: ^2.55
+      typescript: ^4.1
+    dependencies:
+      magic-string: 0.26.3
+      rollup: 2.77.3
+    optionalDependencies:
+      '@babel/code-frame': 7.18.6
+    dev: false
 
   /rollup-plugin-esbuild/4.10.1_6jilvjhpmmtushjgfymgvmpv4q:
     resolution: {integrity: sha512-/ymcRB283zjFp1JTBXO8ekxv0c9vRc2L6OTljghsLthQ4vqeDSDWa9BVz1tHiVrx6SbUnUpDPLC0K/MXK7j5TA==}

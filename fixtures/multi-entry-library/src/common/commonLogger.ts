@@ -1,2 +1,3 @@
-// eslint-disable-next-line no-console
-export const logThePhrase = (input: string) => console.log('Logged:', input);
+import { logger } from '@crackle/core/logger';
+
+export const logThePhrase = (input: string) => logger.info(`Logged: ${input}`);
