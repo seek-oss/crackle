@@ -157,7 +157,7 @@ importers:
 
   packages/cli:
     specifiers:
-      '@crackle/core': ^0.10.0
+      '@crackle/core': ^0.10.4
       '@types/yargs': ^17.0.2
       yargs: ^17.1.1
     dependencies:
@@ -269,33 +269,6 @@ importers:
       strip-ansi: 7.0.1
       type-fest: 2.19.0
 
-  packages/core/build:
-    specifiers: {}
-
-  packages/core/build-package:
-    specifiers: {}
-
-  packages/core/dev:
-    specifiers: {}
-
-  packages/core/fix:
-    specifiers: {}
-
-  packages/core/logger:
-    specifiers: {}
-
-  packages/core/resolve-config:
-    specifiers: {}
-
-  packages/core/route-data:
-    specifiers: {}
-
-  packages/core/serve:
-    specifiers: {}
-
-  packages/core/start:
-    specifiers: {}
-
   packages/router:
     specifiers:
       '@types/react': ^17.0.19
@@ -306,12 +279,6 @@ importers:
       react-router-dom: 6.0.0-beta.2_react@17.0.2
     devDependencies:
       '@types/react': 17.0.49
-
-  packages/router/routes:
-    specifiers: {}
-
-  packages/router/server:
-    specifiers: {}
 
   test-utils:
     specifiers:
@@ -2104,7 +2071,7 @@ packages:
     resolution: {integrity: sha512-3Ab5HgYIIAnS0HjqJHQYZS+zXc4tUmTmBH3z83ajI6afXp8X3ZtdLX+nXx+I7LNkJD7uN9LAVhgnjDgZa2z0kA==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
-      '@sinclair/typebox': 0.24.38
+      '@sinclair/typebox': 0.24.39
     dev: false
 
   /@jest/transform/27.5.1:
@@ -2458,8 +2425,8 @@ packages:
       picomatch: 2.3.1
     dev: false
 
-  /@sinclair/typebox/0.24.38:
-    resolution: {integrity: sha512-IbYB6vdhLFmzGEyXXEdFAJKyq7S4/RsivkgxNzs/LzwYuUJHmeNQ0cHkjG/Yqm6VgUzzZDLMZAf0XgeeaZAocA==}
+  /@sinclair/typebox/0.24.39:
+    resolution: {integrity: sha512-GqtkxoAjhTzoMwFg/JYRl+1+miOoyvp6mkLpbMSd2fIQak2KvY00ndlXxxkDBpuCPYkorZeEZf0LEQn9V9NRVQ==}
     dev: false
 
   /@types/autosuggest-highlight/3.2.0:
