@@ -10,6 +10,10 @@ test('getAllRoutes', async () => {
   expect(await getAllRoutes(config)).toMatchInlineSnapshot(`
     [
       {
+        "path": "src/details.page.tsx",
+        "route": "/details",
+      },
+      {
         "path": "src/home.page.tsx",
         "route": "/",
       },

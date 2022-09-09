@@ -28,7 +28,7 @@ const serverTest = test.extend<
   ],
 });
 
-['/'].forEach((route) => {
+['/', '/details'].forEach((route) => {
   serverTest(`should return valid page: ${route}`, async ({ page, server }) => {
     const errors: Error[] = [];
     page.on('pageerror', (error) => {
