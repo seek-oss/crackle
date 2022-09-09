@@ -74,26 +74,30 @@ export const start = async (
       // https://github.com/vitejs/vite/blob/bf0b631e7479ed70d02b98b780cf7e4b02d0344b/packages/vite/src/node/optimizer/scan.ts#L56-L61
       // https://github.com/vitejs/vite/blob/bf0b631e7479ed70d02b98b780cf7e4b02d0344b/packages/vite/src/node/optimizer/scan.ts#L124-L125
       // We can force include our internal dependencies here, so that they also get prebundled.
-      include: ['react-dom', 'react-router-dom'],
+      include: ['react-dom', '@crackle/router'],
       esbuildOptions: {
         plugins: [fixViteVanillaExtractDepScanPlugin()],
       },
     },
     ssr: {
       external: [
+        '@crackle/router',
         'serialize-javascript',
         'used-styles',
+        '@vanilla-extract/css/transformCss',
+        '@vanilla-extract/css/adapter',
         ...builtinModules,
         ...ssrExternals.external,
-        // uncomment the lines below while we're waiting for https://github.com/vitejs/vite/issues/9926
-        //
-        // 'autosuggest-highlight/match',
-        // 'autosuggest-highlight/parse',
-        // 'lodash/mapValues',
-        // 'lodash/merge',
-        // 'lodash/omit',
-        // 'lodash/values',
-        //
+
+        // These externals are required to fix the following issue specifically for 'braid-design-system'
+        // https://github.com/vitejs/vite/issues/9926
+        // Other packages may be subject to the same issue
+        'autosuggest-highlight/match',
+        'autosuggest-highlight/parse',
+        'lodash/mapValues',
+        'lodash/merge',
+        'lodash/omit',
+        'lodash/values',
       ],
       noExternal: ssrExternals.noExternal,
     },
