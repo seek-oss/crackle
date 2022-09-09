@@ -18,16 +18,16 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.SEEK_OSS_CI_GITHUB_TOKEN }}
 
+      - name: Set up pnpm and install dependencies
+        uses: pnpm/action-setup@v2
+        with:
+          run_install: true
+
       - name: Set up Node.js
         uses: actions/setup-node@main
         with:
           node-version-file: '.nvmrc'
           cache: 'pnpm'
-
-      - name: Set up pnpm and install dependencies
-        uses: pnpm/action-setup@v2
-        with:
-          run_install: true
 
       - name: Create release PR or publish to npm
         uses: changesets/action@v1
