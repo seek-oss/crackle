@@ -48,5 +48,11 @@
     "fixturez": "^1.1.0",
     "snapshot-diff": "^0.9.0",
     "vitest": "^0.21.1"
+  },
+  "pnpm": {
+    "overrides": {
+      "@vanilla-extract/css": "0.0.0-filescope-urls-2022810112138",
+      "@vanilla-extract/integration": "0.0.0-filescope-urls-2022810112138"
+    }
   }
 }

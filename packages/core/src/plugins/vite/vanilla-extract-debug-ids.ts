@@ -1,9 +1,9 @@
-import {
-  transformAsync as babelTransform,
-  createConfigItem,
-} from '@babel/core';
-import vanillaBabelPlugin from '@vanilla-extract/babel-plugin';
-import { cssFileFilter } from '@vanilla-extract/integration';
+// import {
+//   transformAsync as babelTransform,
+//   createConfigItem,
+// } from '@babel/core';
+// import vanillaBabelPlugin from '@vanilla-extract/babel-plugin';
+import { cssFileFilter, addFileScope } from '@vanilla-extract/integration';
 import type { Plugin } from 'rollup';
 
 export const addVanillaDebugIds = (): Plugin => ({
@@ -21,12 +21,18 @@ export const addVanillaDebugIds = (): Plugin => ({
       filename = id.substring(0, index);
     }
 
-    const result = await babelTransform(code, {
-      plugins: [createConfigItem(vanillaBabelPlugin)],
-      babelrc: false,
-      filename,
-    });
+    // const result = await babelTransform(code, {
+    //   plugins: [createConfigItem(vanillaBabelPlugin)],
+    //   babelrc: false,
+    //   filename,
+    // });
 
-    return result!.code;
+    return addFileScope({
+      source: code,
+      filePath: filename,
+      rootPath: '',
+      packageName: 'idk',
+      target: 'esm',
+    });
   },
 });
