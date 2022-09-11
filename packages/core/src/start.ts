@@ -21,10 +21,10 @@ import {
   stripRouteData,
 } from './plugins/vite';
 import type { CrackleServer } from './types';
-import {
-  extractDependencyGraph,
-  getSsrExternalsForCompiledDependency,
-} from './utils/dependency-graph';
+// import {
+//   extractDependencyGraph,
+//   getSsrExternalsForCompiledDependency,
+// } from './utils/dependency-graph';
 import { calculateTime } from './utils/timer';
 import { commonViteConfig } from './vite-config';
 
@@ -38,11 +38,11 @@ export const start = async (
   const config = getConfig(inlineConfig);
   const app = express();
 
-  const depGraph = await extractDependencyGraph(config.root);
-  const ssrExternals = getSsrExternalsForCompiledDependency(
-    '@vanilla-extract/css',
-    depGraph,
-  );
+  // const depGraph = await extractDependencyGraph(config.root);
+  // const ssrExternals = getSsrExternalsForCompiledDependency(
+  //   '@vanilla-extract/css',
+  //   depGraph,
+  // );
 
   const connections = new Map<string, Socket>();
 
@@ -50,6 +50,9 @@ export const start = async (
     ...commonViteConfig(config),
     appType: 'custom',
     server: { middlewareMode: true, port: config.port },
+    define: {
+      __CRACKLE_PROJECT_ROOT__: JSON.stringify(config.root),
+    },
     plugins: [
       stripRouteData(),
       reactRefresh(),
@@ -87,19 +90,19 @@ export const start = async (
         '@vanilla-extract/css/transformCss',
         '@vanilla-extract/css/adapter',
         ...builtinModules,
-        ...ssrExternals.external,
+        // ...ssrExternals.external,
 
         // These externals are required to fix the following issue specifically for 'braid-design-system'
         // https://github.com/vitejs/vite/issues/9926
         // Other packages may be subject to the same issue
-        'autosuggest-highlight/match',
-        'autosuggest-highlight/parse',
-        'lodash/mapValues',
-        'lodash/merge',
-        'lodash/omit',
-        'lodash/values',
+        // 'autosuggest-highlight/match',
+        // 'autosuggest-highlight/parse',
+        // 'lodash/mapValues',
+        // 'lodash/merge',
+        // 'lodash/omit',
+        // 'lodash/values',
       ],
-      noExternal: ssrExternals.noExternal,
+      // noExternal: ssrExternals.noExternal,
     },
   });
   // use vite's connect instance as middleware

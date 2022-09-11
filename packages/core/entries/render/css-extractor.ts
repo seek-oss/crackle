@@ -16,6 +16,7 @@ const composedClassLists = new Array<any>();
 const usedCompositions = new Set<string>();
 
 setAdapter({
+  projectRoot: __CRACKLE_PROJECT_ROOT__,
   appendCss: (cssObj, fileScope) => {
     const fileScopeKey = stringifyFileScope(fileScope);
     let fileScopeCss = bufferedCSSObjs.get(fileScopeKey);

@@ -51,8 +51,8 @@
   },
   "pnpm": {
     "overrides": {
-      "@vanilla-extract/css": "0.0.0-filescope-urls-2022810112138",
-      "@vanilla-extract/integration": "0.0.0-filescope-urls-2022810112138"
+      "@vanilla-extract/css": "0.0.0-filescope-urls-202281122225",
+      "@vanilla-extract/integration": "0.0.0-filescope-urls-202281122225"
     }
   }
 }

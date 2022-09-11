@@ -31,7 +31,7 @@ export const addVanillaDebugIds = (): Plugin => ({
       source: code,
       filePath: filename,
       rootPath: '',
-      packageName: 'idk',
+      packageName: '',
       target: 'esm',
     });
   },
