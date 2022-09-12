@@ -3,10 +3,16 @@
 //   createConfigItem,
 // } from '@babel/core';
 // import vanillaBabelPlugin from '@vanilla-extract/babel-plugin';
-import { cssFileFilter, addFileScope } from '@vanilla-extract/integration';
+import {
+  cssFileFilter,
+  addFileScope,
+  getPackageInfo,
+} from '@vanilla-extract/integration';
 import type { Plugin } from 'rollup';
 
-export const addVanillaDebugIds = (): Plugin => ({
+const packageInfo = getPackageInfo();
+
+export const addVanillaDebugIds = (projectRoot: string): Plugin => ({
   name: 'crackle:vanilla-extract-debug-ids',
   async transform(code, id) {
     if (!cssFileFilter.test(id)) {
@@ -30,9 +36,9 @@ export const addVanillaDebugIds = (): Plugin => ({
     return addFileScope({
       source: code,
       filePath: filename,
-      rootPath: '',
-      packageName: '',
-      target: 'esm',
+      rootPath: projectRoot,
+      packageName: packageInfo.name,
+      target: 'library',
     });
   },
 });

@@ -142,7 +142,7 @@ const build = async (config: EnhancedConfig, packageName: string) => {
       rollupEsbuild({
         jsx: 'transform',
       }),
-      addVanillaDebugIds(),
+      addVanillaDebugIds(config.root),
     ],
     input: entries.map(({ entryPath }) => entryPath),
     treeshake: {
