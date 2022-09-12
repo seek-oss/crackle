@@ -3,7 +3,7 @@ import path from 'path';
 import { performance } from 'perf_hooks';
 
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
-import reactRefresh from '@vitejs/plugin-react-refresh';
+import react from '@vitejs/plugin-react';
 import builtinModules from 'builtin-modules';
 import express from 'express';
 import { createServer as createViteServer } from 'vite';
@@ -21,10 +21,6 @@ import {
   stripRouteData,
 } from './plugins/vite';
 import type { CrackleServer } from './types';
-// import {
-//   extractDependencyGraph,
-//   getSsrExternalsForCompiledDependency,
-// } from './utils/dependency-graph';
 import { calculateTime } from './utils/timer';
 import { commonViteConfig } from './vite-config';
 
@@ -38,25 +34,19 @@ export const start = async (
   const config = getConfig(inlineConfig);
   const app = express();
 
-  // const depGraph = await extractDependencyGraph(config.root);
-  // const ssrExternals = getSsrExternalsForCompiledDependency(
-  //   '@vanilla-extract/css',
-  //   depGraph,
-  // );
-
   const connections = new Map<string, Socket>();
 
   const vite = await createViteServer({
     ...commonViteConfig(config),
     appType: 'custom',
-    server: { middlewareMode: true, port: config.port },
+    server: { middlewareMode: true, port: config.port, hmr: true },
     define: {
       // Fixes braid assert usage issue, bit crap...
       'process.env.NODE_DEBUG': false,
     },
     plugins: [
       stripRouteData(),
-      reactRefresh(),
+      react(),
       vanillaExtractPlugin(),
       addPageRoots(config),
       internalPackageResolution({
