@@ -52,6 +52,7 @@ export const start = async (
     server: { middlewareMode: true, port: config.port },
     define: {
       __CRACKLE_PROJECT_ROOT__: JSON.stringify(config.root),
+      'process.env.NODE_DEBUG': false,
     },
     plugins: [
       stripRouteData(),

@@ -4,6 +4,11 @@ overrides:
   '@vanilla-extract/css': 0.0.0-filescope-urls-202281281439
   '@vanilla-extract/integration': 0.0.0-filescope-urls-202281281439
 
+patchedDependencies:
+  '@capsizecss/vanilla-extract@1.0.0':
+    hash: vr5abzajinwmv5xmkvgjw3cmtq
+    path: patches/@capsizecss__vanilla-extract@1.0.0.patch
+
 importers:
 
   .:
@@ -49,13 +54,13 @@ importers:
       '@types/react': ^17
       '@types/react-dom': ^17
       '@vanilla-extract/css': 0.0.0-filescope-urls-202281281439
-      braid-design-system: 0.0.0-filescope-urls-20220911231359
+      braid-design-system: 0.0.0-filescope-urls-20220912083703
       react: 17.0.2
       react-dom: ^17.0.2
     dependencies:
       '@crackle/router': link:../../packages/router
       '@vanilla-extract/css': 0.0.0-filescope-urls-202281281439
-      braid-design-system: 0.0.0-filescope-urls-20220911231359_j6sw2p2tdbh6crpcmkxtmmhma4
+      braid-design-system: 0.0.0-filescope-urls-20220912083703_j6sw2p2tdbh6crpcmkxtmmhma4
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
     devDependencies:
@@ -1686,7 +1691,7 @@ packages:
     resolution: {integrity: sha512-tJNEWMmhHcU5z6ITAiVNN9z+PCTylybVIJqgX7Ts4zN66fe/W2Fe5UWJCCZIP/5uutsl5fYOaVVHZIjsuTVhBQ==}
     dev: false
 
-  /@capsizecss/vanilla-extract/1.0.0_yeedibcebjg2qpbbzo3cm4bgkq:
+  /@capsizecss/vanilla-extract/1.0.0_vr5abzajinwmv5xmkvgjw3cmtq_yeedibcebjg2qpbbzo3cm4bgkq:
     resolution: {integrity: sha512-/cY34CgCAmuf6SmpgPXmDJaIdJOaRe37MsoeZIeZme4k0F0HFts+poTxq4m8UtBH7LRxpUkfUHDoRO9OYjjVBg==}
     peerDependencies:
       '@vanilla-extract/css': ^1.2.1
@@ -1694,6 +1699,7 @@ packages:
       '@capsizecss/core': 3.0.0
       '@vanilla-extract/css': 0.0.0-filescope-urls-202281281439
     dev: false
+    patched: true
 
   /@changesets/apply-release-plan/6.1.0:
     resolution: {integrity: sha512-fMNBUAEc013qaA4KUVjdwgYMmKrf5Mlgf6o+f97MJVNzVnikwpWY47Lc3YR1jhC874Fonn5MkjkWK9DAZsdQ5g==}
@@ -1904,6 +1910,24 @@ packages:
       - supports-color
     dev: false
 
+  /@crackle/cli/0.0.0-filescope-urls-20220912082910_@types+react@17.0.49:
+    resolution: {integrity: sha512-oxJOZk3SV+kTrPwX4bg7Vpk7I2r0XrgeUtpX1yraetvizXSRuYLaU5qh+wY5AC3Le3yFp0nS9B7hM9w9r7MnXQ==}
+    hasBin: true
+    dependencies:
+      '@crackle/core': 0.0.0-filescope-urls-20220912082910_@types+react@17.0.49
+      yargs: 17.5.1
+    transitivePeerDependencies:
+      - '@types/react'
+      - bufferutil
+      - less
+      - sass
+      - stylus
+      - supports-color
+      - terser
+      - ts-node
+      - utf-8-validate
+    dev: false
+
   /@crackle/cli/0.7.0_@types+react@17.0.49:
     resolution: {integrity: sha512-rNjYAYjJSMWoX3NGL3s6kOrYlqdzge+LsdzRXZi5jgDjc89cXFkFlQzaed5Bl8qcaUydFnLhSrdsowMIByhr9Q==}
     hasBin: true
@@ -1917,6 +1941,58 @@ packages:
       - sass
       - stylus
       - supports-color
+      - ts-node
+      - utf-8-validate
+    dev: false
+
+  /@crackle/core/0.0.0-filescope-urls-20220912082910_@types+react@17.0.49:
+    resolution: {integrity: sha512-Nai0XxQdodpjNpJRckfzDcDKqHGAo6HxCuuCIjp9UaygU6LHNlti+9DGQ2K6ZXhXuN6nIyHeZDO6UkHX2Sk7Mw==}
+    dependencies:
+      '@babel/core': 7.19.0
+      '@babel/plugin-syntax-jsx': 7.18.6_@babel+core@7.19.0
+      '@babel/plugin-syntax-typescript': 7.18.6_@babel+core@7.19.0
+      '@crackle/babel-plugin-remove-exports': 0.1.0
+      '@crackle/router': 0.1.2_rucwy2ro6yyrjn73fut3quomqm
+      '@rollup/plugin-commonjs': 22.0.2_rollup@2.77.3
+      '@rollup/plugin-node-resolve': 13.3.0_rollup@2.77.3
+      '@vanilla-extract/babel-plugin': 1.2.0
+      '@vanilla-extract/css': 0.0.0-filescope-urls-202281281439
+      '@vanilla-extract/integration': 0.0.0-filescope-urls-202281281439
+      '@vanilla-extract/vite-plugin': 0.0.0-filescope-urls-202281281439_vite@3.1.0
+      '@vitejs/plugin-react-refresh': 1.3.6
+      builtin-modules: 3.3.0
+      chalk: 4.1.2
+      ensure-gitignore: 1.2.0
+      esbuild: 0.15.7
+      eval: 0.1.8
+      express: 4.18.1
+      fast-glob: 3.2.11
+      fs-extra: 10.1.0
+      history: 5.3.0
+      ink: 3.2.0_t4v2ig6j532zggk4vxuuplsqcq
+      mlly: 0.5.14
+      normalize-path: 3.0.0
+      parse-json: 5.2.0
+      pretty-ms: 7.0.1
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+      resolve-from: 5.0.0
+      rollup: 2.77.3
+      rollup-plugin-esbuild: 4.10.1_6jilvjhpmmtushjgfymgvmpv4q
+      rollup-plugin-node-externals: 4.1.1_rollup@2.77.3
+      serialize-javascript: 6.0.0
+      serve-handler: 6.1.3
+      sort-package-json: 1.57.0
+      used-styles: 2.4.1
+      vite: 3.1.0
+    transitivePeerDependencies:
+      - '@types/react'
+      - bufferutil
+      - less
+      - sass
+      - stylus
+      - supports-color
+      - terser
       - ts-node
       - utf-8-validate
     dev: false
@@ -3220,7 +3296,7 @@ packages:
       sku: '>=10.13.1'
     dependencies:
       '@capsizecss/core': 3.0.0
-      '@capsizecss/vanilla-extract': 1.0.0_yeedibcebjg2qpbbzo3cm4bgkq
+      '@capsizecss/vanilla-extract': 1.0.0_vr5abzajinwmv5xmkvgjw3cmtq_yeedibcebjg2qpbbzo3cm4bgkq
       '@crackle/cli': 0.7.0_@types+react@17.0.49
       '@types/autosuggest-highlight': 3.2.0
       '@types/dedent': 0.7.0
@@ -3254,8 +3330,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /braid-design-system/0.0.0-filescope-urls-20220911231359_j6sw2p2tdbh6crpcmkxtmmhma4:
-    resolution: {integrity: sha512-oJWMSyz5+s/jDg3i0Mc4IvTqX5zR/Nxk8LTN0bEUoLiNfRGwWRu7qIHbBIg+E77Yzl+TqW+Nb0jBrv3bulWyYg==}
+  /braid-design-system/0.0.0-filescope-urls-20220912083703_j6sw2p2tdbh6crpcmkxtmmhma4:
+    resolution: {integrity: sha512-kYE00UmbMUSsq9qik4r2F6QbFdtGfaIm3yr/YNduFVDWmLKeIRQrnerDDYnlGfarKiDYVqD0xJ64ugnESbfoTQ==}
     hasBin: true
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18
@@ -3263,8 +3339,8 @@ packages:
       sku: '>=10.13.1'
     dependencies:
       '@capsizecss/core': 3.0.0
-      '@capsizecss/vanilla-extract': 1.0.0_yeedibcebjg2qpbbzo3cm4bgkq
-      '@crackle/cli': 0.7.0_@types+react@17.0.49
+      '@capsizecss/vanilla-extract': 1.0.0_vr5abzajinwmv5xmkvgjw3cmtq_yeedibcebjg2qpbbzo3cm4bgkq
+      '@crackle/cli': 0.0.0-filescope-urls-20220912082910_@types+react@17.0.49
       '@types/autosuggest-highlight': 3.2.0
       '@types/dedent': 0.7.0
       '@vanilla-extract/css': 0.0.0-filescope-urls-202281281439
@@ -3293,6 +3369,7 @@ packages:
       - sass
       - stylus
       - supports-color
+      - terser
       - ts-node
       - utf-8-validate
     dev: false

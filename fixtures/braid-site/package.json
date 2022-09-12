@@ -14,7 +14,7 @@
   "dependencies": {
     "@crackle/router": "0.1.2",
     "@vanilla-extract/css": "0.0.0-filescope-urls-202281122225",
-    "braid-design-system": "0.0.0-filescope-urls-20220911231359",
+    "braid-design-system": "0.0.0-filescope-urls-20220912083703",
     "react": "17.0.2",
     "react-dom": "^17.0.2"
   },
