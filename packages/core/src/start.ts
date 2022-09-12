@@ -51,7 +51,7 @@ export const start = async (
     appType: 'custom',
     server: { middlewareMode: true, port: config.port },
     define: {
-      __CRACKLE_PROJECT_ROOT__: JSON.stringify(config.root),
+      // Fixes braid assert usage issue, bit crap...
       'process.env.NODE_DEBUG': false,
     },
     plugins: [
