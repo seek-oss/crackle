@@ -51,8 +51,8 @@
   },
   "pnpm": {
     "overrides": {
-      "@vanilla-extract/css": "0.0.0-filescope-urls-202281281439",
-      "@vanilla-extract/integration": "0.0.0-filescope-urls-202281281439"
+      "@vanilla-extract/css": "0.0.0-filescope-urls-2022812221921",
+      "@vanilla-extract/integration": "0.0.0-filescope-urls-2022812221921"
     },
     "patchedDependencies": {
       "@capsizecss/vanilla-extract@1.0.0": "patches/@capsizecss__vanilla-extract@1.0.0.patch"

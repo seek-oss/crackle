@@ -209,7 +209,7 @@ index 0000000000000000000000000000000000000000..525259a9557deddeb98f490edc5e995c
 +
 +var __vanilla_filescope____namespace = /*#__PURE__*/_interopNamespace(__vanilla_filescope__);
 +
-+__vanilla_filescope____namespace.setFileScope("packages/vanilla-extract/src/capsize.css.ts", "capsize", 'file:' + __filename);
++__vanilla_filescope____namespace.setFileScope("packages/vanilla-extract/src/capsize.css.ts", "capsize");
 +var capsizeVars = css.createThemeContract({
 +  fontSize: null,
 +  lineHeight: null,
@@ -239,7 +239,7 @@ index 0000000000000000000000000000000000000000..9eb166c97d1411c0444f87e994966a26
 +import { createThemeContract, style } from '@vanilla-extract/css';
 +import * as __vanilla_filescope__ from '@vanilla-extract/css/fileScope';
 +
-+__vanilla_filescope__.setFileScope("packages/vanilla-extract/src/capsize.css.ts", "capsize", import.meta.url);
++__vanilla_filescope__.setFileScope("packages/vanilla-extract/src/capsize.css.ts", "capsize");
 +
 +export var capsizeVars = createThemeContract({
 +  fontSize: null,
