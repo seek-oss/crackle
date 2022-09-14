@@ -1,6 +1,6 @@
 {
   "name": "@crackle/core",
-  "version": "0.10.4",
+  "version": "0.10.5",
   "main": "dist/crackle-core.cjs.js",
   "module": "dist/crackle-core.esm.js",
   "exports": {
