@@ -57,20 +57,6 @@ export const createDtsBundle = async (
         compilerOptions: {
           ...compilerOptions,
           baseUrl: packageRoot,
-          // Ensure ".d.ts" modules are generated
-          declaration: true,
-          // Skip ".js" generation
-          noEmit: false,
-          emitDeclarationOnly: true,
-          // Skip code generation when error occurs
-          noEmitOnError: true,
-          // Avoid extra work
-          checkJs: false,
-          declarationMap: false,
-          skipLibCheck: true,
-          preserveSymlinks: false,
-          // Ensure we can parse the latest code
-          target: ts.ScriptTarget.ESNext,
         },
       }),
     ],
