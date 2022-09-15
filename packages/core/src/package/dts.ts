@@ -16,9 +16,6 @@ export const createDtsBundle = async (
       externals(packageRoot),
       dts({
         respectExternal: true,
-        compilerOptions: {
-          baseUrl: packageRoot,
-        },
       }),
     ],
   });
