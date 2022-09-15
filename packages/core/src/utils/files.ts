@@ -3,7 +3,8 @@ import fs from 'fs/promises';
 import path from 'path';
 
 import sortPackageJson from 'sort-package-json';
-import type { PackageJson } from 'type-fest';
+
+import type { PackageJson } from '../types';
 
 interface WriteFileOpts {
   dir: string;

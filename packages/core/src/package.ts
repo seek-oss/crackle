@@ -3,7 +3,6 @@ import path from 'path';
 
 import chalk from 'chalk';
 import ensureGitignore from 'ensure-gitignore';
-import type { PackageJson } from 'type-fest';
 
 import type { EnhancedConfig, PartialConfig } from './config';
 import { getConfig } from './config';
@@ -13,6 +12,7 @@ import { createBundle } from './package/bundle';
 import { createDtsBundle } from './package/dts';
 import { renderPackageJsonValidationError } from './reporters/package';
 import { renderBuildError } from './reporters/shared';
+import type { PackageJson } from './types';
 import { createEntryPackageJsons } from './utils/create-entry-package-json';
 import { emptyDir } from './utils/files';
 import { getPackageEntryPoints } from './utils/get-packages';

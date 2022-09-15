@@ -5,13 +5,21 @@ import React from 'react';
 import type { Difference } from '../../utils/setup-package-json';
 
 import { Stack } from './Stack';
-import type { BuildError, RollupError } from './types';
+import type { BuildError, RollupError, SetRequired } from './types';
+
+const isBuildError = (
+  error: BuildError,
+): error is SetRequired<RollupError, 'loc'> =>
+  Boolean((error as RollupError).loc);
+const isPluginError = (
+  error: BuildError,
+): error is SetRequired<RollupError, 'plugin'> =>
+  Boolean((error as RollupError).plugin);
 
 interface ErrorBoxProps {
   title?: string;
   children: React.ReactNode;
 }
-
 const ErrorBox = ({ title, children }: ErrorBoxProps) => (
   <Box marginTop={1}>
     <Stack indent={2} gap={0} borderColor="red" borderStyle="round">
@@ -21,32 +29,24 @@ const ErrorBox = ({ title, children }: ErrorBoxProps) => (
   </Box>
 );
 
-const isPluginError = (error: BuildError): error is RollupError =>
-  Boolean((error as RollupError).plugin);
-
-const isBuildError = (error: BuildError): error is RollupError =>
-  Boolean((error as RollupError).loc?.line);
-
 interface ErrorStackProps {
   error: BuildError;
   title?: string;
 }
-
 export const ErrorStack = ({ error, title }: ErrorStackProps) => (
   <ErrorBox title={title}>
-    {isBuildError(error) && error.location ? (
+    {isBuildError(error) ? (
       <>
         <Box marginBottom={1}>
           <Text>
-            <Text dimColor>Error in</Text>{' '}
-            {error.location ?? (error as any).loc.file}
+            <Text dimColor>Error in</Text> {error.loc.file}
           </Text>
         </Box>
         <Text>{error.frame?.trim()}</Text>
       </>
     ) : (
       <Stack gap={0}>
-        {isPluginError(error) && error.plugin && (
+        {isPluginError(error) && (
           <Text>
             From Rollup plugin <Text bold>{error.plugin}</Text>:
           </Text>
