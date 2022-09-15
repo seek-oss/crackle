@@ -106,6 +106,7 @@ importers:
 
   fixtures/single-entry-library:
     specifiers:
+      '@crackle-fixtures/multi-entry-library': workspace:*
       '@crackle/cli': workspace:*
       '@crackle/core': workspace:*
       '@types/react': ^17
@@ -115,6 +116,7 @@ importers:
       react: 17.0.2
       react-dom: ^17.0.2
     dependencies:
+      '@crackle-fixtures/multi-entry-library': link:../multi-entry-library
       '@vanilla-extract/css': 1.9.0
       braid-design-system: 0.0.0-crackel2-20220901020334_j6sw2p2tdbh6crpcmkxtmmhma4
       react: 17.0.2
