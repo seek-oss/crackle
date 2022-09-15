@@ -287,7 +287,7 @@ importers:
     specifiers:
       '@crackle/core': workspace:*
       '@playwright/test': ^1.14.1
-    dependencies:
+    devDependencies:
       '@crackle/core': link:../packages/core
       '@playwright/test': 1.25.2
 
@@ -2220,7 +2220,6 @@ packages:
     dependencies:
       '@types/node': 18.7.16
       playwright-core: 1.25.2
-    dev: false
 
   /@popperjs/core/2.11.6:
     resolution: {integrity: sha512-50/17A98tWUfQ176raKiOGXuYpLyyVMkxxG6oylzL3BPOlA6ADGdK7EYunSa4I064xerltq9TGXs8HmOk5E+vw==}
@@ -6377,7 +6376,6 @@ packages:
     resolution: {integrity: sha512-0yTbUE9lIddkEpLHL3u8PoCL+pWiZtj5A/j3U7YoNjcmKKDGBnCrgHJMzwd2J5vy6l28q4ki3JIuz7McLHhl1A==}
     engines: {node: '>=14'}
     hasBin: true
-    dev: false
 
   /polished/4.2.2:
     resolution: {integrity: sha512-Sz2Lkdxz6F2Pgnpi9U5Ng/WdWAUZxmHrNPoVlm3aAemxoy2Qy7LGjQg4uf8qKelDAUW94F4np3iH2YPf2qefcQ==}
