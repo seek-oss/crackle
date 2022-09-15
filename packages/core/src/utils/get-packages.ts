@@ -19,6 +19,7 @@ export const getPackages = async (
   const monorepoPackages = await glob(['packages/*/package.json'], {
     cwd: config.root,
     absolute: true,
+    fs,
   });
 
   const isMonorepo = monorepoPackages.length > 0;
@@ -44,6 +45,7 @@ export const getPackages = async (
 };
 
 const defaultEntry = 'src/index.ts';
+const otherEntries = 'src/entries';
 
 interface GetPackageEntryPointsOpts {
   packageRoot: string;
@@ -51,21 +53,24 @@ interface GetPackageEntryPointsOpts {
 export const getPackageEntryPoints = async ({
   packageRoot,
 }: GetPackageEntryPointsOpts): Promise<PackageEntryPoint[]> => {
-  const entryPaths = await glob([defaultEntry, 'src/entries/**/*.ts'], {
+  const entryPaths = await glob([defaultEntry, `${otherEntries}/**/*.ts`], {
     cwd: packageRoot,
-    absolute: true,
+    fs,
   });
 
   return entryPaths.map((entryPath) => {
-    const isDefaultEntry = entryPath.includes(defaultEntry);
+    const extension = path.extname(entryPath);
+    const isDefaultEntry = entryPath === defaultEntry;
     const entryName = isDefaultEntry
       ? 'dist'
-      : path
-          .relative(path.join(packageRoot, 'src/entries'), entryPath)
-          .replace(/\..*$/, '');
-
+      : path.relative(otherEntries, entryPath).replace(extension, '');
     const outputDir = path.join(packageRoot, entryName);
 
-    return { entryPath, outputDir, isDefaultEntry, entryName };
+    return {
+      entryName,
+      entryPath: path.join(packageRoot, entryPath),
+      isDefaultEntry,
+      outputDir,
+    };
   });
 };

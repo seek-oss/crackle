@@ -2,7 +2,6 @@ import fs from 'fs/promises';
 
 import type { EnhancedConfig } from '../config';
 
-import { basename } from './basename';
 import { createEntryPackageJsons } from './create-entry-package-json';
 import { writeIfRequired } from './files';
 import { getPackages, getPackageEntryPoints } from './get-packages';
@@ -24,9 +23,7 @@ export const generateDevDeclarationFiles = async (config: EnhancedConfig) => {
 
     await promiseMap(
       entryPaths,
-      async ({ entryPath, isDefaultEntry, outputDir }) => {
-        const entryName = basename(entryPath);
-
+      async ({ entryName, entryPath, isDefaultEntry, outputDir }) => {
         const declarationLines = [
           isDefaultEntry
             ? 'export * from "../src/index";'
