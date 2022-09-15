@@ -1,142 +1,43 @@
 import fs from 'fs/promises';
 import path from 'path';
 
-import commonjs from '@rollup/plugin-commonjs';
-import { nodeResolve } from '@rollup/plugin-node-resolve';
-import { cssFileFilter } from '@vanilla-extract/integration';
 import chalk from 'chalk';
 import ensureGitignore from 'ensure-gitignore';
-import type { OutputOptions } from 'rollup';
-import { rollup } from 'rollup';
-import dts from 'rollup-plugin-dts';
-import rollupEsbuild from 'rollup-plugin-esbuild';
-import externals from 'rollup-plugin-node-externals';
 import type { PackageJson } from 'type-fest';
-import ts from 'typescript';
 
-import type { PartialConfig, EnhancedConfig } from './config';
+import type { EnhancedConfig, PartialConfig } from './config';
 import { getConfig } from './config';
 import { fix } from './fix';
 import { logger } from './logger';
-import { addVanillaDebugIds } from './plugins/vite';
+import { createBundle } from './package/bundle';
+import { createDtsBundle } from './package/dts';
 import { renderPackageJsonValidationError } from './reporters/package';
 import { renderBuildError } from './reporters/shared';
-import type { PackageEntryPoint } from './types';
 import { createEntryPackageJsons } from './utils/create-entry-package-json';
 import { emptyDir } from './utils/files';
 import { getPackageEntryPoints } from './utils/get-packages';
 import { promiseMap } from './utils/promise-map';
 import { validatePackageJson } from './utils/setup-package-json';
 
-type Format = 'esm' | 'cjs';
+export type Format = 'esm' | 'cjs' | 'dts';
 
-const extensionForFormat = (format: Format) =>
-  ({ esm: 'mjs', cjs: 'cjs' }[format]);
+export const extensionForFormat = (format: Format) =>
+  (({ esm: 'mjs', cjs: 'cjs', dts: 'd.ts' } as const)[format]);
+const toRollupFormat = (format: Format) =>
+  (({ esm: 'esm', cjs: 'cjs', dts: 'esm' } as const)[format]);
 
-const getPackageJson = async (config: EnhancedConfig): Promise<PackageJson> => {
+const getPackageName = async (config: EnhancedConfig): Promise<string> => {
   const packageJsonPath = config.resolveFromRoot('package.json');
 
-  return JSON.parse(
+  const packageJson = JSON.parse(
     await fs.readFile(packageJsonPath, {
       encoding: 'utf-8',
     }),
-  );
-};
-
-const getPackageName = async (config: EnhancedConfig): Promise<string> => {
-  const packageJson = await getPackageJson(config);
+  ) as PackageJson;
 
   // The name field in package.json is the best source
-  if (packageJson.name) {
-    return packageJson.name;
-  }
-
   // If it doesn't have one for whatever reason, the root directory is a decent fallback
-  return path.dirname(config.root);
-};
-
-const createRollupOutputOptions = (
-  format: Format,
-  packageEntries: PackageEntryPoint[],
-): OutputOptions => {
-  const extension = extensionForFormat(format);
-
-  return {
-    exports: 'auto',
-    format,
-    hoistTransitiveImports: false,
-    manualChunks: (id, { getModuleInfo }) => {
-      if (
-        cssFileFilter.test(id) ||
-        getModuleInfo(id)?.importers.some((importer) =>
-          cssFileFilter.test(importer),
-        )
-      ) {
-        const [_projectRoot, rawLocalPath] = id.split('src/');
-        const localPath = rawLocalPath.replace('/', '-');
-
-        if (cssFileFilter.test(id)) {
-          return localPath.replace(cssFileFilter, `.css.${extension}`);
-        }
-
-        return localPath.replace(/\.(ts|tsx|js|mjs|cjs|jsx)$/, `.${extension}`);
-      }
-    },
-    chunkFileNames: (chunkInfo) => {
-      const chunkPath = `dist/${chunkInfo.name}`;
-
-      return chunkPath.endsWith(extension)
-        ? chunkPath
-        : `${chunkPath}.chunk.${extension}`;
-    },
-    entryFileNames: (chunkInfo) => {
-      const entry = packageEntries.find(
-        ({ entryPath }) => chunkInfo.facadeModuleId === entryPath,
-      );
-
-      if (!entry) {
-        throw new Error('Unable to name entry file');
-      }
-
-      return `${entry.entryName}/index.${extension}`;
-    },
-  };
-};
-
-const getCompilerOptions = async (config: EnhancedConfig) => {
-  const formatHost: ts.FormatDiagnosticsHost = {
-    getCurrentDirectory: () => config.root,
-    getNewLine: () => ts.sys.newLine,
-    getCanonicalFileName: (f) => f,
-  };
-
-  const configPath = ts.findConfigFile(config.root, ts.sys.fileExists);
-  if (!configPath) {
-    throw new Error('No tsconfig.json found');
-  }
-  const { config: tsconfig, error } = ts.readConfigFile(
-    configPath,
-    ts.sys.readFile,
-  );
-  if (error) {
-    const formattedError = ts.formatDiagnostic(error, formatHost);
-    // const packageName = await getPackageName(config);
-    logger.errorWithExitCode(formattedError);
-    return;
-  }
-
-  const { options, errors } = ts.parseJsonConfigFileContent(
-    tsconfig,
-    ts.sys,
-    config.root,
-  );
-  if (errors.length) {
-    const formattedError = ts.formatDiagnostics(errors, formatHost);
-    logger.errorWithExitCode(formattedError);
-    return;
-  }
-
-  return options;
+  return packageJson.name || path.dirname(config.root);
 };
 
 const build = async (config: EnhancedConfig, packageName: string) => {
@@ -157,109 +58,50 @@ const build = async (config: EnhancedConfig, packageName: string) => {
     }
   }
 
-  logger.info(`🛠  Building ${chalk.bold(packageName)}...`);
+  logger.info(`🛠  Building ${chalk.bold.green(packageName)}...`);
 
   await promiseMap(entries, (entry) => emptyDir(entry.outputDir));
 
-  // Vite 3 doesn't support multiple entrypoints in library mode, so we need to use rollup here directly.
-  const bundle = await rollup({
-    input: entries.map(({ entryPath }) => entryPath),
-    plugins: [
-      externals({
-        deps: true,
-        devDeps: false,
-        packagePath: config.resolveFromRoot('./package.json'),
-      }),
-      nodeResolve(),
-      commonjs(),
-      rollupEsbuild({
-        jsx: 'transform',
-      }),
-      addVanillaDebugIds(),
-    ],
-    treeshake: {
-      moduleSideEffects: (id, external) => {
-        if (external) {
-          return false;
+  const withLogging = async (
+    bundle: typeof createBundle | typeof createDtsBundle,
+    format: Format,
+  ) => {
+    logger.info(`⚙️  Creating ${chalk.bold(format)} bundle...`);
+
+    const extension = extensionForFormat(format);
+
+    await bundle(config.root, entries, {
+      dir: config.root,
+      exports: 'auto',
+      format: toRollupFormat(format),
+      entryFileNames(chunkInfo) {
+        const entry = entries.find(
+          ({ entryPath }) => chunkInfo.facadeModuleId === entryPath,
+        );
+
+        if (!entry) {
+          throw new Error('Unable to name entry file');
         }
 
-        if (cssFileFilter.test(id)) {
-          // Mark .css.ts files as side effect free except for reset and atoms as they
-          // need to be hoisted to ensure they are first in the CSS order
-          // TODO: make the reset and atom file checks more specific
-          return id.includes('reset') || id.includes('atoms');
-        }
-
-        return true;
+        return `${entry.entryName}/index.${extension}`;
       },
-    },
-  });
+      chunkFileNames(chunkInfo) {
+        const chunkPath = `dist/${chunkInfo.name}`;
 
-  await promiseMap(
-    [
-      createRollupOutputOptions('cjs', entries),
-      createRollupOutputOptions('esm', entries),
-    ],
-    async (outputOption) => {
-      logger.info(`Bundling for ${chalk.bold(outputOption.format!)}...`);
+        return chunkPath.endsWith(extension)
+          ? chunkPath
+          : `${chunkPath}.chunk.${extension}`;
+      },
+    });
 
-      const output = await bundle.write({ ...outputOption, dir: config.root });
-      return output.output;
-    },
-  );
+    logger.info(`⚙️  Finished creating ${chalk.bold(format)} bundle`);
+  };
 
-  logger.info(`Building ${chalk.bold('.d.ts')} files...`);
-
-  const compilerOptions = await getCompilerOptions(config);
-
-  const dtsBundle = await rollup({
-    input: entries.map(({ entryPath }) => entryPath),
-    plugins: [
-      externals({
-        deps: true,
-        devDeps: false,
-        packagePath: config.resolveFromRoot('./package.json'),
-      }),
-      dts({
-        respectExternal: true,
-        // from tsup
-        compilerOptions: {
-          ...compilerOptions,
-          baseUrl: config.root,
-          // Ensure ".d.ts" modules are generated
-          declaration: true,
-          // Skip ".js" generation
-          noEmit: false,
-          emitDeclarationOnly: true,
-          // Skip code generation when error occurs
-          noEmitOnError: true,
-          // Avoid extra work
-          checkJs: false,
-          declarationMap: false,
-          skipLibCheck: true,
-          preserveSymlinks: false,
-          // Ensure we can parse the latest code
-          target: ts.ScriptTarget.ESNext,
-        },
-      }),
-    ],
-  });
-  await dtsBundle.write({
-    dir: config.root,
-    format: 'esm',
-    exports: 'named',
-    entryFileNames: (chunkInfo) => {
-      const entry = entries.find(
-        ({ entryPath }) => chunkInfo.facadeModuleId === entryPath,
-      );
-
-      if (!entry) {
-        throw new Error('Unable to name entry file');
-      }
-
-      return `${entry.entryName}/index.d.ts`;
-    },
-  });
+  await Promise.all([
+    withLogging(createBundle, 'cjs'),
+    withLogging(createBundle, 'esm'),
+    withLogging(createDtsBundle, 'dts'),
+  ]);
 
   await createEntryPackageJsons(entries);
 

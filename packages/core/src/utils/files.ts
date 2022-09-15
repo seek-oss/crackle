@@ -52,6 +52,7 @@ export const writePackageJson = async <T extends PackageJson>({
 
 export const emptyDir = async (dir: string, skip = ['.git']): Promise<void> => {
   if (!existsSync(dir)) {
+    fs.mkdir(dir, { recursive: true });
     return;
   }
 
