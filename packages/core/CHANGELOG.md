@@ -1,5 +1,13 @@
 # @crackle/core
 
+## 0.10.5
+
+### Patch Changes
+
+- [#34](https://github.com/seek-oss/crackle/pull/34) [`c5f7c8e`](https://github.com/seek-oss/crackle/commit/c5f7c8e1910eb10d6fafc7a1e1a3fbe94d28f8eb) Thanks [@mattcompiles](https://github.com/mattcompiles)! - Fix start mode
+
+- [#37](https://github.com/seek-oss/crackle/pull/37) [`6f42e65`](https://github.com/seek-oss/crackle/commit/6f42e65ff00a057700c34889db1f7574a52a3da7) Thanks [@mattcompiles](https://github.com/mattcompiles)! - Fix HMR
+
 ## 0.10.4
 
 ### Patch Changes

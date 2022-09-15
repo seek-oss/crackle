@@ -3,7 +3,7 @@ import path from 'path';
 import { performance } from 'perf_hooks';
 
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
-import reactRefresh from '@vitejs/plugin-react-refresh';
+import react from '@vitejs/plugin-react';
 import builtinModules from 'builtin-modules';
 import express from 'express';
 import { createServer as createViteServer } from 'vite';
@@ -52,7 +52,7 @@ export const start = async (
     server: { middlewareMode: true, port: config.port },
     plugins: [
       stripRouteData(),
-      reactRefresh(),
+      react(),
       vanillaExtractPlugin(),
       addPageRoots(config),
       internalPackageResolution({
