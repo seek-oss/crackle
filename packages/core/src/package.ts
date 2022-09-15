@@ -22,7 +22,7 @@ import { validatePackageJson } from './utils/setup-package-json';
 export type Format = 'esm' | 'cjs' | 'dts';
 
 export const extensionForFormat = (format: Format) =>
-  (({ esm: 'mjs', cjs: 'cjs', dts: 'd.ts' } as const)[format]);
+  (({ esm: 'mjs', cjs: 'cjs', dts: 'cjs.d.ts' } as const)[format]);
 const toRollupFormat = (format: Format) =>
   (({ esm: 'esm', cjs: 'cjs', dts: 'esm' } as const)[format]);
 
