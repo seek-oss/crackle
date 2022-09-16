@@ -1,4 +1,5 @@
 import stripAnsi from 'strip-ansi';
+import type { expect } from 'vitest';
 
 type Plugin = Parameters<typeof expect.addSnapshotSerializer>[0];
 

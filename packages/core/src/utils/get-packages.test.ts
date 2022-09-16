@@ -1,4 +1,5 @@
 import { fs, vol } from 'memfs';
+import { expect, test, vi } from 'vitest';
 
 import { getPackageEntryPoints } from './get-packages';
 

@@ -1,7 +1,15 @@
 import pluginTester from 'babel-plugin-tester/pure';
+import { describe, expect, it } from 'vitest';
 
 import plugin from './';
 
+// provide Vitest globals for `babel-plugin-tester`
+const globalAny: any = global;
+globalAny.describe = describe;
+globalAny.it = it;
+globalAny.expect = expect;
+
+// used with eslint-plugin-format-js-tag to format TypeSscript code inside template literals
 const ts = String.raw;
 
 const tests = [

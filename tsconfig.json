@@ -15,7 +15,7 @@
     "paths": {
       "~utils/*": ["./test-utils/*"]
     },
-    "types": ["vitest/globals", "./types/fixturez"]
+    "types": ["./types/fixturez"]
   },
   "include": [
     "./fixtures",
