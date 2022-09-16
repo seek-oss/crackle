@@ -1,5 +1,16 @@
 # @crackle/cli
 
+## 0.8.0
+
+### Minor Changes
+
+- [#39](https://github.com/seek-oss/crackle/pull/39) [`ad3602d`](https://github.com/seek-oss/crackle/commit/ad3602da562a00c6ee577fe93f6e474b8933f227) Thanks [@mrm007](https://github.com/mrm007)! - Fix `.d.ts` generation
+
+### Patch Changes
+
+- Updated dependencies [[`ad3602d`](https://github.com/seek-oss/crackle/commit/ad3602da562a00c6ee577fe93f6e474b8933f227)]:
+  - @crackle/core@0.11.0
+
 ## 0.7.2
 
 ### Patch Changes
