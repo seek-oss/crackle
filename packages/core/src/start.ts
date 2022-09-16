@@ -3,7 +3,7 @@ import path from 'path';
 import { performance } from 'perf_hooks';
 
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
-import reactRefresh from '@vitejs/plugin-react-refresh';
+import react from '@vitejs/plugin-react';
 import builtinModules from 'builtin-modules';
 import express from 'express';
 import { createServer as createViteServer } from 'vite';
@@ -21,6 +21,10 @@ import {
   stripRouteData,
 } from './plugins/vite';
 import type { CrackleServer } from './types';
+import {
+  extractDependencyGraph,
+  getSsrExternalsForCompiledDependency,
+} from './utils/dependency-graph';
 import { calculateTime } from './utils/timer';
 import { commonViteConfig } from './vite-config';
 
@@ -34,14 +38,21 @@ export const start = async (
   const config = getConfig(inlineConfig);
   const app = express();
 
+  const depGraph = await extractDependencyGraph(config.root);
+  const ssrExternals = getSsrExternalsForCompiledDependency(
+    '@vanilla-extract/css',
+    depGraph,
+  );
+
   const connections = new Map<string, Socket>();
 
   const vite = await createViteServer({
     ...commonViteConfig(config),
-    server: { middlewareMode: 'ssr', port: config.port },
+    appType: 'custom',
+    server: { middlewareMode: true, port: config.port },
     plugins: [
       stripRouteData(),
-      reactRefresh(),
+      react(),
       vanillaExtractPlugin(),
       addPageRoots(config),
       internalPackageResolution({
@@ -63,14 +74,32 @@ export const start = async (
       // https://github.com/vitejs/vite/blob/bf0b631e7479ed70d02b98b780cf7e4b02d0344b/packages/vite/src/node/optimizer/scan.ts#L56-L61
       // https://github.com/vitejs/vite/blob/bf0b631e7479ed70d02b98b780cf7e4b02d0344b/packages/vite/src/node/optimizer/scan.ts#L124-L125
       // We can force include our internal dependencies here, so that they also get prebundled.
-      include: ['react-dom', 'react-router-dom'],
+      include: ['react-dom', '@crackle/router'],
       esbuildOptions: {
         plugins: [fixViteVanillaExtractDepScanPlugin()],
       },
     },
-    // @ts-expect-error
     ssr: {
-      external: ['serialize-javascript', 'used-styles', ...builtinModules],
+      external: [
+        '@crackle/router',
+        'serialize-javascript',
+        'used-styles',
+        '@vanilla-extract/css/transformCss',
+        '@vanilla-extract/css/adapter',
+        ...builtinModules,
+        ...ssrExternals.external,
+
+        // These externals are required to fix the following issue specifically for 'braid-design-system'
+        // https://github.com/vitejs/vite/issues/9926
+        // Other packages may be subject to the same issue
+        'autosuggest-highlight/match',
+        'autosuggest-highlight/parse',
+        'lodash/mapValues',
+        'lodash/merge',
+        'lodash/omit',
+        'lodash/values',
+      ],
+      noExternal: ssrExternals.noExternal,
     },
   });
   // use vite's connect instance as middleware
@@ -88,9 +117,7 @@ export const start = async (
     try {
       const { renderDevelopmentPage } = (await vite.ssrLoadModule(
         require.resolve('../../entries/render/dev.tsx'),
-      )) as {
-        renderDevelopmentPage: RenderDevPageFn;
-      };
+      )) as { renderDevelopmentPage: RenderDevPageFn };
 
       const { html, statusCode } = await renderDevelopmentPage({
         path: req.originalUrl,

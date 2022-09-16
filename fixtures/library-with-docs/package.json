@@ -8,18 +8,21 @@
   "scripts": {
     "build": "crackle build",
     "dev": "crackle dev",
+    "package": "crackle package",
     "serve": "crackle serve",
     "start": "crackle start"
   },
   "dependencies": {
-    "@vanilla-extract/css": "^1.6.2",
-    "braid-design-system": "file:../../.yalc/braid-design-system",
+    "@crackle/router": "workspace:*",
+    "@vanilla-extract/css": "^1.7.3",
+    "braid-design-system": "0.0.0-crackel2-20220901020334",
     "react": "17.0.2",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@crackle/cli": "0.7.0",
-    "@crackle/core": "0.10.0",
+    "@crackle/cli": "workspace:*",
+    "@crackle/core": "workspace:*",
+    "@types/react": "^17",
     "@types/react-dom": "^17"
   }
 }

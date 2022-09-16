@@ -1,16 +1,15 @@
-import type { PackageJson } from 'type-fest';
+import type { PackageEntryPoint, PackageJson } from '../types';
 
-import type { PackageEntryPoint } from '../types';
-
+import { writePackageJson } from './files';
 import { promiseMap } from './promise-map';
-import { writePackageJson } from './write-file';
 
 export const createEntryPackageJsons = async (
   entryPoints: PackageEntryPoint[],
 ) => {
+  // TODO: don't hardcode
   const packageContents: PackageJson = {
-    main: 'index.cjs.js',
-    module: 'index.esm.js',
+    main: 'index.cjs',
+    module: 'index.mjs',
   };
 
   await promiseMap(entryPoints, async (entryPoint) => {

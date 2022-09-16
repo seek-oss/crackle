@@ -1,0 +1,76 @@
+{
+  "name": "@crackle-fixtures/multi-entry-library",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "author": "Ben",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "types": "./dist/index.cjs.d.ts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.cjs.d.ts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./components": {
+      "import": {
+        "types": "./components/index.cjs.d.ts",
+        "default": "./components/index.mjs"
+      },
+      "require": {
+        "types": "./components/index.cjs.d.ts",
+        "default": "./components/index.cjs"
+      }
+    },
+    "./extras": {
+      "import": {
+        "types": "./extras/index.cjs.d.ts",
+        "default": "./extras/index.mjs"
+      },
+      "require": {
+        "types": "./extras/index.cjs.d.ts",
+        "default": "./extras/index.cjs"
+      }
+    },
+    "./themes/apac": {
+      "import": {
+        "types": "./themes/apac/index.cjs.d.ts",
+        "default": "./themes/apac/index.mjs"
+      },
+      "require": {
+        "types": "./themes/apac/index.cjs.d.ts",
+        "default": "./themes/apac/index.cjs"
+      }
+    }
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "files": [
+    "/components",
+    "/dist",
+    "/extras",
+    "/themes/apac"
+  ],
+  "scripts": {
+    "dev": "crackle dev",
+    "package": "crackle package",
+    "serve": "crackle serve",
+    "start": "crackle start"
+  },
+  "dependencies": {
+    "@crackle/router": "workspace:*",
+    "braid-design-system": "0.0.0-crackel2-20220901020334",
+    "react": "17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@crackle/cli": "workspace:*",
+    "@crackle/core": "workspace:*",
+    "@types/react": "^17",
+    "@types/react-dom": "^17"
+  }
+}

@@ -6,8 +6,6 @@ import glob from 'fast-glob';
 import type { EnhancedConfig } from '../config';
 import type { PackageEntryPoint } from '../types';
 
-import { basename } from './basename';
-
 export interface Package {
   name: string;
   root: string;
@@ -21,6 +19,7 @@ export const getPackages = async (
   const monorepoPackages = await glob(['packages/*/package.json'], {
     cwd: config.root,
     absolute: true,
+    fs,
   });
 
   const isMonorepo = monorepoPackages.length > 0;
@@ -45,24 +44,33 @@ export const getPackages = async (
   return packages;
 };
 
+const defaultEntry = 'src/index.ts';
+const otherEntries = 'src/entries';
+
 interface GetPackageEntryPointsOpts {
   packageRoot: string;
 }
-
 export const getPackageEntryPoints = async ({
   packageRoot,
 }: GetPackageEntryPointsOpts): Promise<PackageEntryPoint[]> => {
-  const entryPaths = await glob(['src/index.ts', 'src/entries/*.ts'], {
+  const entryPaths = await glob([defaultEntry, `${otherEntries}/**/*.ts`], {
     cwd: packageRoot,
-    absolute: true,
+    fs,
   });
 
   return entryPaths.map((entryPath) => {
-    const isDefaultEntry = entryPath.includes('src/index.ts');
-    const entryName = isDefaultEntry ? 'dist' : basename(entryPath);
-
+    const extension = path.extname(entryPath);
+    const isDefaultEntry = entryPath === defaultEntry;
+    const entryName = isDefaultEntry
+      ? 'dist'
+      : path.relative(otherEntries, entryPath).replace(extension, '');
     const outputDir = path.join(packageRoot, entryName);
 
-    return { entryPath, outputDir, isDefaultEntry, entryName };
+    return {
+      entryName,
+      entryPath: path.join(packageRoot, entryPath),
+      isDefaultEntry,
+      outputDir,
+    };
   });
 };

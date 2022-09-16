@@ -1,39 +1,126 @@
-import fs from 'fs/promises';
-
-import fixturez from 'fixturez';
 import { describe, expect, test } from 'vitest';
 
-import { getPackageEntryPoints } from './get-packages';
-import { fixPackageJson, validatePackageJson } from './setup-package-json';
+import { diffPackageJson } from './setup-package-json';
 
-describe('setup-package-json', () => {
-  const f = fixturez(__dirname);
-  const readFile = (path: string) => fs.readFile(path, 'utf-8');
+const entries = [
+  {
+    isDefaultEntry: true,
+    entryName: 'dist',
+    entryPath: '/project/src/index.ts',
+    outputDir: '/project/dist',
+  },
+  {
+    isDefaultEntry: false,
+    entryName: 'css',
+    entryPath: '/project/src/entries/css.ts',
+    outputDir: '/project/css',
+  },
+  {
+    isDefaultEntry: false,
+    entryName: 'themes/apac',
+    entryPath: '/project/src/entries/themes/apac.ts',
+    outputDir: '/project/themes/apac',
+  },
+];
 
-  test('validatePackageJson', async () => {
-    const fixturePath = f.copy('library-with-docs');
-    const entries = await getPackageEntryPoints({
-      packageRoot: fixturePath,
-    });
+describe('diffPackageJson', () => {
+  test('Empty package.json', async () => {
+    const { diffs, expectedPackageJson } = diffPackageJson({}, entries);
 
-    const diffs = await validatePackageJson(fixturePath, entries);
-
-    expect(diffs).toMatchSnapshot();
+    expect(diffs).toMatchSnapshot('diffs');
+    expect(expectedPackageJson).toMatchSnapshot('expectedPackageJson');
   });
 
-  test('fixPackageJson', async () => {
-    const fixturePath = f.copy('library-with-docs');
-    const entries = await getPackageEntryPoints({
-      packageRoot: fixturePath,
-    });
+  test('Incorrect package.json', async () => {
+    const { diffs, expectedPackageJson } = diffPackageJson(
+      {
+        exports: {
+          '.': {
+            import: {
+              default: './dist/index.esm',
+              types: './dist/index.cjs.d.ts',
+            },
+            require: {
+              default: './dist/index.cjs',
+              types: './dist/index.cjs.d.ts',
+            },
+          },
+          './css': {
+            import: {
+              default: './css/index.esm',
+              types: './css/index.cjs.d.ts',
+            },
+            require: {
+              default: './css/index.cjs',
+              types: './css/index.cjs.d.ts',
+            },
+          },
+          './package.json': './package.json',
+          './themes/apac': {
+            import: {
+              default: './themes/apac/index.esm',
+              types: './themes/apac/index.cjs.d.ts',
+            },
+            require: {
+              default: './themes/apac/index.cjs',
+              types: './themes/apac/index.cjs.d.ts',
+            },
+          },
+        },
+        files: ['/css', '/dist', '/apac'],
+        main: 'dist/index.cjs',
+        module: 'dist/index.esm',
+      },
+      entries,
+    );
 
-    const pkgBefore = await readFile(`${fixturePath}/package.json`);
-    await fixPackageJson(fixturePath, entries);
-    const pkgAfter = await readFile(`${fixturePath}/package.json`);
+    expect(diffs).toMatchSnapshot('diffs');
+    expect(expectedPackageJson).toMatchSnapshot('expectedPackageJson');
+  });
 
-    expect({
-      diffA: pkgBefore,
-      diffB: pkgAfter,
-    }).toMatchSnapshot();
+  test('Correct package.json', async () => {
+    const { diffs } = diffPackageJson(
+      {
+        exports: {
+          '.': {
+            import: {
+              default: './dist/index.mjs',
+              types: './dist/index.cjs.d.ts',
+            },
+            require: {
+              default: './dist/index.cjs',
+              types: './dist/index.cjs.d.ts',
+            },
+          },
+          './css': {
+            import: {
+              default: './css/index.mjs',
+              types: './css/index.cjs.d.ts',
+            },
+            require: {
+              default: './css/index.cjs',
+              types: './css/index.cjs.d.ts',
+            },
+          },
+          './package.json': './package.json',
+          './themes/apac': {
+            import: {
+              default: './themes/apac/index.mjs',
+              types: './themes/apac/index.cjs.d.ts',
+            },
+            require: {
+              default: './themes/apac/index.cjs',
+              types: './themes/apac/index.cjs.d.ts',
+            },
+          },
+        },
+        files: ['/css', '/dist', '/themes/apac'],
+        main: 'dist/index.cjs',
+        module: 'dist/index.mjs',
+      },
+      entries,
+    );
+
+    expect(diffs).toHaveLength(0);
   });
 });

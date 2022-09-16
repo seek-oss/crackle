@@ -4,9 +4,9 @@ import {
 } from '@babel/core';
 import vanillaBabelPlugin from '@vanilla-extract/babel-plugin';
 import { cssFileFilter } from '@vanilla-extract/integration';
-import type { Plugin } from 'vite';
+import type { Plugin } from 'rollup';
 
-export const addVanillaDebugIds: Plugin = {
+export const addVanillaDebugIds = (): Plugin => ({
   name: 'crackle:vanilla-extract-debug-ids',
   async transform(code, id) {
     if (!cssFileFilter.test(id)) {
@@ -29,4 +29,4 @@ export const addVanillaDebugIds: Plugin = {
 
     return result!.code;
   },
-};
+});

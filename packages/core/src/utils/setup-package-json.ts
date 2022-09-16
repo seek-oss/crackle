@@ -2,12 +2,9 @@ import fs from 'fs/promises';
 import path from 'path';
 import { isDeepStrictEqual } from 'util';
 
-import type { PackageJson } from 'type-fest';
+import type { PackageEntryPoint, PackageJson } from '../types';
 
-import type { PackageEntryPoint } from '../types';
-
-import { basename } from './basename';
-import { writePackageJson } from './write-file';
+import { writePackageJson } from './files';
 
 type FromToDifference = { key: 'main' | 'module'; from?: string; to?: string };
 type AdditionsDifference = { key: 'files'; additions: string[] };
@@ -54,6 +51,74 @@ const getExportsForPackage = (entries: PackageEntryPoint[]) => {
   return exports;
 };
 
+export const diffPackageJson = (
+  packageJson: PackageJson,
+  entries: PackageEntryPoint[],
+) => {
+  const files = new Set<string>(packageJson.files ?? []);
+
+  let main: string | undefined;
+  let module: string | undefined;
+
+  for (const entryPoint of entries) {
+    if (entryPoint.isDefaultEntry) {
+      main = 'dist/index.cjs';
+      module = 'dist/index.mjs';
+    }
+
+    files.add(`/${entryPoint.entryName}`);
+  }
+
+  const exportsKey = getExportsForPackage(entries);
+
+  const filesArray = Array.from(files);
+  const diffs: Difference[] = [];
+
+  if (main !== packageJson.main) {
+    diffs.push({
+      key: 'main',
+      from: packageJson.main,
+      to: main,
+    });
+  }
+
+  if (module !== packageJson.module) {
+    diffs.push({
+      key: 'module',
+      from: packageJson.module,
+      to: module,
+    });
+  }
+
+  if (files.size !== packageJson.files?.length) {
+    const missingFiles = filesArray.filter(
+      (file) => !packageJson.files?.includes(file),
+    );
+    diffs.push({ key: 'files', additions: missingFiles });
+  }
+
+  const packageJsonExports = packageJson.exports;
+
+  if (!isDeepStrictEqual(packageJsonExports, exportsKey)) {
+    diffs.push({ key: 'exports' });
+  }
+
+  const expectedPackageJson =
+    diffs.length > 0
+      ? {
+          main,
+          module,
+          files: filesArray.sort((a, b) => (a > b ? 1 : -1)),
+          exports: exportsKey,
+        }
+      : packageJson;
+
+  return {
+    diffs,
+    expectedPackageJson,
+  };
+};
+
 const setupPackageJson =
   (write: boolean) =>
   async (
@@ -65,65 +130,18 @@ const setupPackageJson =
       await fs.readFile(packagePath, 'utf-8'),
     ) as PackageJson;
 
-    const files = new Set<string>(packageJson.files ?? []);
-
-    let main: string | undefined;
-    let module: string | undefined;
-
-    for (const entryPoint of entries) {
-      if (entryPoint.isDefaultEntry) {
-        main = 'dist/index.cjs';
-        module = 'dist/index.mjs';
-        files.add('/dist');
-      } else {
-        const entryName = basename(entryPoint.entryPath);
-        files.add(`/${entryName}`);
-      }
-    }
-
-    const exportsKey = getExportsForPackage(entries);
-
-    const filesArray = Array.from(files);
-    const diffs: Difference[] = [];
-
-    if (main !== packageJson.main) {
-      diffs.push({
-        key: 'main',
-        from: packageJson.main,
-        to: main,
-      });
-    }
-
-    if (module !== packageJson.module) {
-      diffs.push({
-        key: 'module',
-        from: packageJson.module,
-        to: module,
-      });
-    }
-
-    if (files.size !== packageJson.files?.length) {
-      const missingFiles = filesArray.filter(
-        (file) => !packageJson.files?.includes(file),
-      );
-      diffs.push({ key: 'files', additions: missingFiles });
-    }
-
-    const packageJsonExports = packageJson.exports;
-
-    if (!isDeepStrictEqual(packageJsonExports, exportsKey)) {
-      diffs.push({ key: 'exports' });
-    }
+    const { diffs, expectedPackageJson } = diffPackageJson(
+      packageJson,
+      entries,
+    );
 
     if (write && diffs.length > 0) {
-      packageJson.main = main;
-      packageJson.module = module;
-      packageJson.files = filesArray.sort((a, b) => (a > b ? 1 : -1));
-      packageJson.exports = exportsKey;
-
       await writePackageJson({
         dir: packageRoot,
-        contents: packageJson,
+        contents: {
+          ...packageJson,
+          ...expectedPackageJson,
+        },
       });
     }
 

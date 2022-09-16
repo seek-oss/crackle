@@ -1,4 +1,5 @@
-dist
+# match dist and dist-render
+dist*
 node_modules/
 
 fixtures/monorepo/packages/multi-entry-library/components

@@ -14,7 +14,7 @@ import resolveFrom from 'resolve-from';
 export const fixViteVanillaExtractDepScanPlugin = (): Plugin => ({
   name: 'crackle:fix-vite-vanilla-extract-dep-scan',
   setup(build) {
-    build.onResolve({ filter: /\.css(\.js)$/ }, ({ importer, path }) => ({
+    build.onResolve({ filter: /\.css(\.[cm]?js)$/ }, ({ importer, path }) => ({
       path: resolveFrom(dirname(importer), path),
       external: true,
     }));

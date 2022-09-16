@@ -4,7 +4,6 @@ import type { Plugin } from 'vite';
 import { normalizePath } from 'vite';
 
 import type { EnhancedConfig } from '../../config';
-import { basename } from '../../utils/basename';
 import { getPackageEntryPoints, getPackages } from '../../utils/get-packages';
 import type { Packages } from '../../utils/get-packages';
 
@@ -43,11 +42,10 @@ export const internalPackageResolution = (config: EnhancedConfig): Plugin => {
           packageEntries.set(
             packageName,
             (await getPackageEntryPoints({ packageRoot: root })).map(
-              ({ entryPath }) => basename(entryPath),
+              ({ entryName }) => entryName,
             ),
           );
         }
-
         const entries = packageEntries.get(packageName)!;
 
         for (const entry of entries) {

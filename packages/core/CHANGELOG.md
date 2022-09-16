@@ -1,5 +1,37 @@
 # @crackle/core
 
+## 0.10.5
+
+### Patch Changes
+
+- [#34](https://github.com/seek-oss/crackle/pull/34) [`c5f7c8e`](https://github.com/seek-oss/crackle/commit/c5f7c8e1910eb10d6fafc7a1e1a3fbe94d28f8eb) Thanks [@mattcompiles](https://github.com/mattcompiles)! - Fix start mode
+
+- [#37](https://github.com/seek-oss/crackle/pull/37) [`6f42e65`](https://github.com/seek-oss/crackle/commit/6f42e65ff00a057700c34889db1f7574a52a3da7) Thanks [@mattcompiles](https://github.com/mattcompiles)! - Fix HMR
+
+## 0.10.4
+
+### Patch Changes
+
+- [#27](https://github.com/seek-oss/crackle/pull/27) [`f5464e8`](https://github.com/seek-oss/crackle/commit/f5464e83776d81580cbf162086c9b1b7803a5909) Thanks [@mrm007](https://github.com/mrm007)! - Upgrade to Vite 3, migrate package script to Rollup
+
+## 0.10.3
+
+### Patch Changes
+
+- [#25](https://github.com/seek-oss/crackle/pull/25) [`d451526`](https://github.com/seek-oss/crackle/commit/d451526f3cbb2ab3db57c58a9c350e8738f3e108) Thanks [@mrm007](https://github.com/mrm007)! - Fix extensions and paths for generated entrypoints
+
+## 0.10.2
+
+### Patch Changes
+
+- [#23](https://github.com/seek-oss/crackle/pull/23) [`933fe86`](https://github.com/seek-oss/crackle/commit/933fe862ea6dd7fa04ce25a6837942cf364ae2ba) Thanks [@askoufis](https://github.com/askoufis)! - Add missing `/mocks` to published package
+
+## 0.10.1
+
+### Patch Changes
+
+- [#21](https://github.com/seek-oss/crackle/pull/21) [`44a55a6`](https://github.com/seek-oss/crackle/commit/44a55a66bfb96433687e62eb319aad8949bab805) Thanks [@askoufis](https://github.com/askoufis)! - Add missing `/entries` to published package
+
 ## 0.10.0
 
 ### Minor Changes

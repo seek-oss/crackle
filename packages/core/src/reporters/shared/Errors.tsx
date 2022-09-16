@@ -1,54 +1,58 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Box, Text } from 'ink';
 import React from 'react';
-import { Fragment } from 'react';
 
 import type { Difference } from '../../utils/setup-package-json';
 
 import { Stack } from './Stack';
-import type { BuildError, RollupError } from './types';
+import type { BuildError, RollupError, SetRequired } from './types';
+
+const isBuildError = (
+  error: BuildError,
+): error is SetRequired<RollupError, 'loc'> =>
+  Boolean((error as RollupError).loc);
+const isPluginError = (
+  error: BuildError,
+): error is SetRequired<RollupError, 'plugin'> =>
+  Boolean((error as RollupError).plugin);
 
 interface ErrorBoxProps {
   title?: string;
-  children: JSX.Element;
+  children: React.ReactNode;
 }
-
 const ErrorBox = ({ title, children }: ErrorBoxProps) => (
   <Box marginTop={1}>
-    <Box
-      paddingX={2}
-      flexDirection="column"
-      borderColor="red"
-      borderStyle="round"
-    >
+    <Stack indent={2} gap={0} borderColor="red" borderStyle="round">
       <Text color="red">{title}</Text>
       {children}
-    </Box>
+    </Stack>
   </Box>
 );
-
-const isBuildError = (error: BuildError): error is RollupError =>
-  Boolean((error as RollupError).loc?.line);
 
 interface ErrorStackProps {
   error: BuildError;
   title?: string;
 }
-
 export const ErrorStack = ({ error, title }: ErrorStackProps) => (
   <ErrorBox title={title}>
-    {isBuildError(error) && error.location ? (
+    {isBuildError(error) ? (
       <>
         <Box marginBottom={1}>
           <Text>
-            <Text dimColor>Error in</Text>{' '}
-            {error.location ?? (error as any).loc.file}
+            <Text dimColor>Error in</Text> {error.loc.file}
           </Text>
         </Box>
         <Text>{error.frame?.trim()}</Text>
       </>
     ) : (
-      <Text>{error.stack}</Text>
+      <Stack gap={0}>
+        {isPluginError(error) && (
+          <Text>
+            From Rollup plugin <Text bold>{error.plugin}</Text>:
+          </Text>
+        )}
+        <Text>{error.stack}</Text>
+      </Stack>
     )}
   </ErrorBox>
 );
@@ -99,11 +103,11 @@ export const ValidationError = ({ title, diffs }: ValidationErrorProps) => (
     <Stack>
       <Text>The package.json is out of sync and needs to be fixed.</Text>
 
-      <Fragment>
+      <>
         {diffs?.map((diff) => (
           <Diff key={diff.key} diff={diff} />
         ))}
-      </Fragment>
+      </>
 
       <Text>
         To fix, run{' '}

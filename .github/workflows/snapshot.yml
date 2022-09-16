@@ -1,7 +1,6 @@
 name: Snapshot
 
 on: workflow_dispatch
-
 jobs:
   publish:
     name: Publish snapshot version
@@ -12,20 +11,23 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@main
         with:
-          # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
           token: ${{ secrets.SEEK_OSS_CI_GITHUB_TOKEN }}
 
-      - name: Setup Node.js 16.x
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v2
+
+      - name: Set up Node.js
         uses: actions/setup-node@main
         with:
-          node-version: 16.x
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
 
       - name: Install Dependencies
-        run: yarn --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Build
-        run: yarn build
+        run: pnpm build
 
       - name: Publish
         uses: seek-oss/changesets-snapshot@v0
