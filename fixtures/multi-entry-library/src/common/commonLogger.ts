@@ -1,2 +1,4 @@
-// eslint-disable-next-line no-console
-export const logThePhrase = (input: string) => console.log('Logged:', input);
+// @crackle/core is a devDependency so the types should be inlined
+import { logger } from '@crackle/core/logger';
+
+export const logThePhrase = (input: string) => logger.info(`Logged: ${input}`);

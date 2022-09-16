@@ -3,7 +3,8 @@ import fs from 'fs/promises';
 import path from 'path';
 
 import sortPackageJson from 'sort-package-json';
-import type { PackageJson } from 'type-fest';
+
+import type { PackageJson } from '../types';
 
 interface WriteFileOpts {
   dir: string;
@@ -52,6 +53,7 @@ export const writePackageJson = async <T extends PackageJson>({
 
 export const emptyDir = async (dir: string, skip = ['.git']): Promise<void> => {
   if (!existsSync(dir)) {
+    fs.mkdir(dir, { recursive: true });
     return;
   }
 

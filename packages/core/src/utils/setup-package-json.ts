@@ -2,9 +2,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import { isDeepStrictEqual } from 'util';
 
-import type { PackageJson } from 'type-fest';
-
-import type { PackageEntryPoint } from '../types';
+import type { PackageEntryPoint, PackageJson } from '../types';
 
 import { writePackageJson } from './files';
 

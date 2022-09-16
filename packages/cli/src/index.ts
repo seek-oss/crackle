@@ -99,7 +99,7 @@ yargs(process.argv.slice(2))
       const config = await resolveConfig();
       setConfigOverrides(config, overrides);
 
-      const { buildPackage } = await import('@crackle/core/build-package');
+      const { buildPackage } = await import('@crackle/core/package');
       await buildPackage(config);
     },
   })

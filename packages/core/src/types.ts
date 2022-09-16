@@ -1,6 +1,8 @@
 import type React from 'react';
 import type { InlineConfig } from 'vite';
 
+export type { PackageJson } from 'type-fest';
+
 export type GetArrayType<T> = T extends Array<infer U> ? U : never;
 
 export type ManualChunksFn = NonNullable<
