@@ -1,6 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 
+import type { CompilerOptions } from 'typescript';
+
 export interface Config {
   /**
    * Automatically run `fix` if necessary.
@@ -37,6 +39,12 @@ export interface Config {
    * @default 'src/App.tsx'
    */
   appShell: `${string}.tsx`;
+
+  /**
+   * Override TypeScript `compilerOptions` for when generating `.d.ts` files
+   * @default '{ incremental: false, noEmitOnError: false }'
+   */
+  dtsOptions: CompilerOptions;
 }
 
 export interface EnhancedConfig extends Config {
@@ -52,6 +60,10 @@ export const defaultConfig: Config = {
   root: process.cwd(),
   pageRoots: ['src'],
   appShell: 'src/App.tsx',
+  dtsOptions: {
+    incremental: false,
+    noEmitOnError: false,
+  },
 };
 
 const determineAppShell = (
@@ -76,6 +88,10 @@ export const getConfig = (inlineConfig?: PartialConfig): EnhancedConfig => {
   const config = {
     ...defaultConfig,
     ...inlineConfig,
+    dtsOptions: {
+      ...defaultConfig.dtsOptions,
+      ...inlineConfig?.dtsOptions,
+    },
   };
 
   const resolveFromRoot = (filePath: string) =>

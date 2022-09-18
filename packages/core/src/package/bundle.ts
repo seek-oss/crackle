@@ -5,6 +5,7 @@ import { rollup } from 'rollup';
 import type { OutputOptions } from 'rollup';
 import esbuild from 'rollup-plugin-esbuild';
 
+import type { EnhancedConfig } from '../config';
 import type { Format } from '../package';
 import { extensionForFormat } from '../package';
 import { externals } from '../plugins/rollup';
@@ -12,7 +13,7 @@ import { addVanillaDebugIds } from '../plugins/vite';
 import type { PackageEntryPoint } from '../types';
 
 export const createBundle = async (
-  packageRoot: string,
+  config: EnhancedConfig,
   entries: PackageEntryPoint[],
   outputOptions: OutputOptions,
 ) => {
@@ -22,7 +23,7 @@ export const createBundle = async (
   const bundle = await rollup({
     input: entries.map(({ entryPath }) => entryPath),
     plugins: [
-      externals(packageRoot),
+      externals(config.root),
       nodeResolve(),
       commonjs(),
       esbuild({

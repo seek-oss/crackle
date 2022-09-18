@@ -70,7 +70,7 @@ const build = async (config: EnhancedConfig, packageName: string) => {
 
     const extension = extensionForFormat(format);
 
-    await bundle(config.root, entries, {
+    await bundle(config, entries, {
       dir: config.root,
       exports: 'auto',
       format: toRollupFormat(format),
