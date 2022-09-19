@@ -6,6 +6,7 @@ import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import builtinModules from 'builtin-modules';
 import chalk from 'chalk';
 import { readJson } from 'fs-extra';
+import type { RollupOutput } from 'rollup';
 import type { InlineConfig as ViteConfig, Manifest } from 'vite';
 import { build as viteBuild } from 'vite';
 
@@ -86,7 +87,9 @@ export const build = async (inlineConfig?: PartialConfig) => {
   try {
     logger.info(`🛠  Building ${chalk.bold('renderer')}...`);
 
-    await viteBuild({
+    const {
+      output: [rendererOutput],
+    } = (await viteBuild({
       ...commonBuildConfig,
       mode: 'development',
       base: config.publicPath,
@@ -106,8 +109,8 @@ export const build = async (inlineConfig?: PartialConfig) => {
         ...commonBuildConfig.ssr,
         format: 'cjs',
       },
-      // end remove
-    });
+      // TODO: end remove
+    })) as RollupOutput;
 
     logger.info(`✅ Successfully built ${chalk.bold('renderer')}!`);
 
@@ -120,7 +123,9 @@ export const build = async (inlineConfig?: PartialConfig) => {
       getIdentOption: () => 'short',
     });
 
-    const { renderAllPages } = (await import(`${rendererOutDir}/build.js`)) as {
+    const { renderAllPages } = (await import(
+      `${rendererOutDir}/${rendererOutput.fileName}`
+    )) as {
       renderAllPages: RenderAllPagesFn;
     };
     const manifest = (await readJson(
