@@ -3,7 +3,7 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import type { Manifest } from 'vite';
 
-import { logger } from '../../src/logger';
+import { logger } from '../../logger';
 import type { RenderAllPagesFn } from '../types';
 
 import { createRouteMap, nodePageModules, Page } from './shared';
