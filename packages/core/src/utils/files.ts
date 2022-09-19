@@ -22,6 +22,10 @@ export const writeIfRequired = async ({
   fileName,
   contents,
 }: WriteFileOpts) => {
+  if (!existsSync(dir)) {
+    await fs.mkdir(dir, { recursive: true });
+  }
+
   const filePath = path.join(dir, fileName);
 
   let write = false;
@@ -53,12 +57,12 @@ export const writePackageJson = async <T extends PackageJson>({
 
 export const emptyDir = async (dir: string, skip = ['.git']): Promise<void> => {
   if (!existsSync(dir)) {
-    fs.mkdir(dir, { recursive: true });
+    await fs.mkdir(dir, { recursive: true });
     return;
   }
 
   for (const file of await fs.readdir(dir)) {
-    if (skip?.includes(file)) {
+    if (skip.includes(file)) {
       continue;
     }
     await fs.rm(path.resolve(dir, file), { recursive: true, force: true });

@@ -3,6 +3,12 @@ import path from 'path';
 
 export interface Config {
   /**
+   * Automatically clean output directory when running `package`.
+   * @default true
+   */
+  clean: boolean;
+
+  /**
    * Automatically run `fix` if necessary.
    * @default false
    */
@@ -52,6 +58,7 @@ export interface EnhancedConfig extends Config {
 export type PartialConfig = Partial<Config>;
 
 export const defaultConfig: Config = {
+  clean: true,
   fix: false,
   port: 5000,
   publicPath: '/',

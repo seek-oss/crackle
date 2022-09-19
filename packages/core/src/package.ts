@@ -60,7 +60,9 @@ const build = async (config: EnhancedConfig, packageName: string) => {
 
   logger.info(`🛠  Building ${chalk.bold.green(packageName)}...`);
 
-  await promiseMap(entries, (entry) => emptyDir(entry.outputDir));
+  if (config.clean) {
+    await promiseMap(entries, (entry) => emptyDir(entry.outputDir));
+  }
 
   const withLogging = async (
     bundle: typeof createBundle | typeof createDtsBundle,
