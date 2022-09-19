@@ -83,7 +83,7 @@ const build = async (config: EnhancedConfig, packageName: string) => {
           throw new Error('Unable to name entry file');
         }
 
-        return `${entry.entryName}/index.${extension}`;
+        return `${entry.entryName}/dist/index.${extension}`;
       },
       chunkFileNames(chunkInfo) {
         const chunkPath = `dist/${chunkInfo.name}`;

@@ -1,8 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 
-import type { CompilerOptions } from 'typescript';
-
 export interface Config {
   /**
    * Automatically run `fix` if necessary.
@@ -44,7 +42,7 @@ export interface Config {
    * Override TypeScript `compilerOptions` for when generating `.d.ts` files
    * @default '{ incremental: false, noEmitOnError: false }'
    */
-  dtsOptions: CompilerOptions;
+  dtsOptions: Record<string, unknown>;
 }
 
 export interface EnhancedConfig extends Config {

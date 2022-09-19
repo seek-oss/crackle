@@ -17,7 +17,7 @@ export const createDtsBundle = async (
       externals(config.root),
       dts({
         respectExternal: true,
-        compilerOptions: config.dtsOptions,
+        compilerOptions: config.dtsOptions as any,
       }),
     ],
   });
