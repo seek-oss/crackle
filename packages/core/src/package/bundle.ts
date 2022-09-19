@@ -69,6 +69,13 @@ export const createBundle = async (
           : localPath.replace(/\.(ts|tsx|js|mjs|cjs|jsx)$/, `.${extension}`);
       }
     },
+    chunkFileNames(chunkInfo) {
+      const chunkPath = `dist/${chunkInfo.name}`;
+
+      return chunkPath.endsWith(extension)
+        ? chunkPath
+        : `${chunkPath}.chunk.${extension}`;
+    },
   });
 
   await bundle.close();

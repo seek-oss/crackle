@@ -85,13 +85,6 @@ const build = async (config: EnhancedConfig, packageName: string) => {
 
         return `${entry.entryName}/index.${extension}`;
       },
-      chunkFileNames(chunkInfo) {
-        const chunkPath = `dist/${chunkInfo.name}`;
-
-        return chunkPath.endsWith(extension)
-          ? chunkPath
-          : `${chunkPath}.chunk.${extension}`;
-      },
     });
 
     logger.info(`⚙️  Finished creating ${chalk.bold(format)} bundle`);

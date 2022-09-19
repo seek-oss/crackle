@@ -24,6 +24,7 @@ export const createDtsBundle = async (
 
   await bundle.write({
     ...outputOptions,
+    chunkFileNames: 'dist/[name]-[hash].d.ts',
     exports: 'named',
     format: 'esm',
   });
