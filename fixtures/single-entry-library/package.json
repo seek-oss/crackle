@@ -9,7 +9,7 @@
     ".": {
       "import": {
         "types": "./dist/index.cjs.d.ts",
-        "default": "./dist/index.mjs"
+        "default": "./dist/index.esm.js"
       },
       "require": {
         "types": "./dist/index.cjs.d.ts",
@@ -17,8 +17,8 @@
       }
     }
   },
-  "main": "dist/index.cjs",
-  "module": "dist/index.mjs",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.esm.js",
   "files": [
     "/dist"
   ],
