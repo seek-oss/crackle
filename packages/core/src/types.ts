@@ -3,6 +3,8 @@ import type { InlineConfig } from 'vite';
 
 export type { PackageJson } from 'type-fest';
 
+export type Format = 'esm' | 'cjs' | 'dts';
+
 export type GetArrayType<T> = T extends Array<infer U> ? U : never;
 
 export type ManualChunksFn = NonNullable<
@@ -27,20 +29,10 @@ export interface CrackleServer {
   close: () => Promise<void>;
 }
 
-interface DefaultPackageEntryPoint {
-  isDefaultEntry: true;
+export type PackageEntryPoint = {
+  isDefaultEntry: boolean;
+  entryName: string;
   entryPath: string;
   outputDir: string;
-  entryName: string;
-}
-
-interface OtherPackageEntryPoint {
-  isDefaultEntry: false;
-  entryPath: string;
-  outputDir: string;
-  entryName: string;
-}
-
-export type PackageEntryPoint =
-  | DefaultPackageEntryPoint
-  | OtherPackageEntryPoint;
+  getOutputPath: (format: Format) => string;
+};

@@ -1,4 +1,6 @@
-import type { PackageEntryPoint, PackageJson } from '../types';
+import path from 'path';
+
+import type { PackageEntryPoint } from '../types';
 
 import { writePackageJson } from './files';
 import { promiseMap } from './promise-map';
@@ -6,17 +8,20 @@ import { promiseMap } from './promise-map';
 export const createEntryPackageJsons = async (
   entryPoints: PackageEntryPoint[],
 ) => {
-  // TODO: don't hardcode
-  const packageContents: PackageJson = {
-    main: 'index.cjs',
-    module: 'index.mjs',
-  };
-
   await promiseMap(entryPoints, async (entryPoint) => {
     if (!entryPoint.isDefaultEntry) {
       await writePackageJson({
         dir: entryPoint.outputDir,
-        contents: packageContents,
+        contents: {
+          main: path.relative(
+            entryPoint.outputDir,
+            entryPoint.getOutputPath('cjs'),
+          ),
+          module: path.relative(
+            entryPoint.outputDir,
+            entryPoint.getOutputPath('esm'),
+          ),
+        },
       });
     }
   });

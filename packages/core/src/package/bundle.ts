@@ -6,11 +6,10 @@ import type { OutputOptions } from 'rollup';
 import esbuild from 'rollup-plugin-esbuild';
 
 import type { EnhancedConfig } from '../config';
-import type { Format } from '../package';
-import { extensionForFormat } from '../package';
 import { externals } from '../plugins/rollup';
 import { addVanillaDebugIds } from '../plugins/vite';
-import type { PackageEntryPoint } from '../types';
+import type { Format, PackageEntryPoint } from '../types';
+import { extensionForFormat } from '../utils/files';
 
 export const createBundle = async (
   config: EnhancedConfig,

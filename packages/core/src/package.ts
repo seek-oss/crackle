@@ -12,19 +12,13 @@ import { createBundle } from './package/bundle';
 import { createDtsBundle } from './package/dts';
 import { renderPackageJsonValidationError } from './reporters/package';
 import { renderBuildError } from './reporters/shared';
-import type { PackageJson } from './types';
+import type { Format, PackageJson } from './types';
 import { createEntryPackageJsons } from './utils/create-entry-package-json';
+import { toRollupFormat } from './utils/files';
 import { emptyDir } from './utils/files';
 import { getPackageEntryPoints } from './utils/get-packages';
 import { promiseMap } from './utils/promise-map';
 import { validatePackageJson } from './utils/setup-package-json';
-
-export type Format = 'esm' | 'cjs' | 'dts';
-
-export const extensionForFormat = (format: Format) =>
-  (({ esm: 'mjs', cjs: 'cjs', dts: 'cjs.d.ts' } as const)[format]);
-const toRollupFormat = (format: Format) =>
-  (({ esm: 'esm', cjs: 'cjs', dts: 'esm' } as const)[format]);
 
 const getPackageName = async (config: EnhancedConfig): Promise<string> => {
   const packageJsonPath = config.resolveFromRoot('package.json');
@@ -70,8 +64,6 @@ const build = async (config: EnhancedConfig, packageName: string) => {
   ) => {
     logger.info(`⚙️  Creating ${chalk.bold(format)} bundle...`);
 
-    const extension = extensionForFormat(format);
-
     await bundle(config, entries, {
       dir: config.root,
       exports: 'auto',
@@ -85,7 +77,7 @@ const build = async (config: EnhancedConfig, packageName: string) => {
           throw new Error('Unable to name entry file');
         }
 
-        return `${entry.entryName}/index.${extension}`;
+        return entry.getOutputPath(format);
       },
     });
 

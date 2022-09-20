@@ -15,12 +15,10 @@ export type Difference =
   | ExportsDifference;
 
 type ExportString = `./${string}`;
-
 type ExportWithTypes = {
   types: ExportString;
   default: ExportString;
 };
-
 type ExportObject = {
   import: ExportWithTypes;
   require: ExportWithTypes;
@@ -32,19 +30,10 @@ const getExportsForPackage = (entries: PackageEntryPoint[]) => {
   };
 
   for (const entryPoint of entries) {
-    if (entryPoint.isDefaultEntry) {
-      const types = './dist/index.cjs.d.ts';
-      exports['.'] = {
-        import: { types, default: './dist/index.mjs' },
-        require: { types, default: './dist/index.cjs' },
-      };
-      continue;
-    }
-
-    const types = `./${entryPoint.entryName}/index.cjs.d.ts` as const;
-    exports[`./${entryPoint.entryName}`] = {
-      import: { types, default: `./${entryPoint.entryName}/index.mjs` },
-      require: { types, default: `./${entryPoint.entryName}/index.cjs` },
+    const types = `./${entryPoint.getOutputPath('dts')}` as const;
+    exports[entryPoint.isDefaultEntry ? '.' : `./${entryPoint.entryName}`] = {
+      import: { types, default: `./${entryPoint.getOutputPath('esm')}` },
+      require: { types, default: `./${entryPoint.getOutputPath('cjs')}` },
     };
   }
 
@@ -62,8 +51,8 @@ export const diffPackageJson = (
 
   for (const entryPoint of entries) {
     if (entryPoint.isDefaultEntry) {
-      main = 'dist/index.cjs';
-      module = 'dist/index.mjs';
+      main = `./${entryPoint.getOutputPath('cjs')}`;
+      module = `./${entryPoint.getOutputPath('esm')}`;
     }
 
     files.add(`/${entryPoint.entryName}`);

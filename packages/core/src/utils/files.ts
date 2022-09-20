@@ -2,9 +2,10 @@ import { existsSync } from 'fs';
 import fs from 'fs/promises';
 import path from 'path';
 
+import type { ModuleFormat } from 'rollup';
 import sortPackageJson from 'sort-package-json';
 
-import type { PackageJson } from '../types';
+import type { Format, PackageJson } from '../types';
 
 interface WriteFileOpts {
   dir: string;
@@ -68,3 +69,9 @@ export const emptyDir = async (dir: string, skip = ['.git']): Promise<void> => {
     await fs.rm(path.resolve(dir, file), { recursive: true, force: true });
   }
 };
+
+export const extensionForFormat = (format: Format) =>
+  (({ esm: 'esm.js', cjs: 'cjs', dts: 'cjs.d.ts' } as const)[format]);
+
+export const toRollupFormat = (format: Format): ModuleFormat =>
+  (({ esm: 'esm', cjs: 'cjs', dts: 'esm' } as const)[format]);

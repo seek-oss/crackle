@@ -5,12 +5,12 @@ exports[`diffPackageJson > Empty package.json > diffs 1`] = `
   {
     "from": undefined,
     "key": "main",
-    "to": "dist/index.cjs",
+    "to": "./dist/index.cjs",
   },
   {
     "from": undefined,
     "key": "module",
-    "to": "dist/index.mjs",
+    "to": "./dist/index.esm.js",
   },
   {
     "additions": [
@@ -31,7 +31,7 @@ exports[`diffPackageJson > Empty package.json > expectedPackageJson 1`] = `
   "exports": {
     ".": {
       "import": {
-        "default": "./dist/index.mjs",
+        "default": "./dist/index.esm.js",
         "types": "./dist/index.cjs.d.ts",
       },
       "require": {
@@ -41,23 +41,23 @@ exports[`diffPackageJson > Empty package.json > expectedPackageJson 1`] = `
     },
     "./css": {
       "import": {
-        "default": "./css/index.mjs",
-        "types": "./css/index.cjs.d.ts",
+        "default": "./css/dist/index.esm.js",
+        "types": "./css/dist/index.cjs.d.ts",
       },
       "require": {
-        "default": "./css/index.cjs",
-        "types": "./css/index.cjs.d.ts",
+        "default": "./css/dist/index.cjs",
+        "types": "./css/dist/index.cjs.d.ts",
       },
     },
     "./package.json": "./package.json",
     "./themes/apac": {
       "import": {
-        "default": "./themes/apac/index.mjs",
-        "types": "./themes/apac/index.cjs.d.ts",
+        "default": "./themes/apac/dist/index.esm.js",
+        "types": "./themes/apac/dist/index.cjs.d.ts",
       },
       "require": {
-        "default": "./themes/apac/index.cjs",
-        "types": "./themes/apac/index.cjs.d.ts",
+        "default": "./themes/apac/dist/index.cjs",
+        "types": "./themes/apac/dist/index.cjs.d.ts",
       },
     },
   },
@@ -66,26 +66,23 @@ exports[`diffPackageJson > Empty package.json > expectedPackageJson 1`] = `
     "/dist",
     "/themes/apac",
   ],
-  "main": "dist/index.cjs",
-  "module": "dist/index.mjs",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.esm.js",
 }
 `;
 
 exports[`diffPackageJson > Incorrect package.json > diffs 1`] = `
 [
   {
-    "from": "dist/index.esm",
+    "from": "dist/index.esm.invalid",
     "key": "module",
-    "to": "dist/index.mjs",
+    "to": "./dist/index.esm.js",
   },
   {
     "additions": [
       "/themes/apac",
     ],
     "key": "files",
-  },
-  {
-    "key": "exports",
   },
 ]
 `;
@@ -95,7 +92,7 @@ exports[`diffPackageJson > Incorrect package.json > expectedPackageJson 1`] = `
   "exports": {
     ".": {
       "import": {
-        "default": "./dist/index.mjs",
+        "default": "./dist/index.esm.js",
         "types": "./dist/index.cjs.d.ts",
       },
       "require": {
@@ -105,23 +102,23 @@ exports[`diffPackageJson > Incorrect package.json > expectedPackageJson 1`] = `
     },
     "./css": {
       "import": {
-        "default": "./css/index.mjs",
-        "types": "./css/index.cjs.d.ts",
+        "default": "./css/dist/index.esm.js",
+        "types": "./css/dist/index.cjs.d.ts",
       },
       "require": {
-        "default": "./css/index.cjs",
-        "types": "./css/index.cjs.d.ts",
+        "default": "./css/dist/index.cjs",
+        "types": "./css/dist/index.cjs.d.ts",
       },
     },
     "./package.json": "./package.json",
     "./themes/apac": {
       "import": {
-        "default": "./themes/apac/index.mjs",
-        "types": "./themes/apac/index.cjs.d.ts",
+        "default": "./themes/apac/dist/index.esm.js",
+        "types": "./themes/apac/dist/index.cjs.d.ts",
       },
       "require": {
-        "default": "./themes/apac/index.cjs",
-        "types": "./themes/apac/index.cjs.d.ts",
+        "default": "./themes/apac/dist/index.cjs",
+        "types": "./themes/apac/dist/index.cjs.d.ts",
       },
     },
   },
@@ -131,7 +128,7 @@ exports[`diffPackageJson > Incorrect package.json > expectedPackageJson 1`] = `
     "/dist",
     "/themes/apac",
   ],
-  "main": "dist/index.cjs",
-  "module": "dist/index.mjs",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.esm.js",
 }
 `;
