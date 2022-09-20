@@ -32,7 +32,7 @@ jobs:
           pnpm fix
           pnpm build
 
-      - name: Setup fixtures
+      - name: Set up fixtures
         run: pnpm dev-fixtures
 
       - name: Lint
