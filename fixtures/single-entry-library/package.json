@@ -7,14 +7,9 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "import": {
-        "types": "./dist/index.cjs.d.ts",
-        "default": "./dist/index.esm.js"
-      },
-      "require": {
-        "types": "./dist/index.cjs.d.ts",
-        "default": "./dist/index.cjs"
-      }
+      "types": "./dist/index.cjs.d.ts",
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.cjs"
     }
   },
   "main": "./dist/index.cjs",

@@ -4,7 +4,19 @@
   "private": true,
   "license": "MIT",
   "author": "Ben",
-  "main": "dist/index.js",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.cjs.d.ts",
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.esm.js",
+  "files": [
+    "/dist"
+  ],
   "scripts": {
     "build": "crackle build",
     "dev": "crackle dev",

@@ -7,44 +7,24 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "import": {
-        "types": "./dist/index.cjs.d.ts",
-        "default": "./dist/index.esm.js"
-      },
-      "require": {
-        "types": "./dist/index.cjs.d.ts",
-        "default": "./dist/index.cjs"
-      }
+      "types": "./dist/index.cjs.d.ts",
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.cjs"
     },
     "./components": {
-      "import": {
-        "types": "./components/dist/index.cjs.d.ts",
-        "default": "./components/dist/index.esm.js"
-      },
-      "require": {
-        "types": "./components/dist/index.cjs.d.ts",
-        "default": "./components/dist/index.cjs"
-      }
+      "types": "./components/dist/index.cjs.d.ts",
+      "import": "./components/dist/index.esm.js",
+      "require": "./components/dist/index.cjs"
     },
     "./extras": {
-      "import": {
-        "types": "./extras/dist/index.cjs.d.ts",
-        "default": "./extras/dist/index.esm.js"
-      },
-      "require": {
-        "types": "./extras/dist/index.cjs.d.ts",
-        "default": "./extras/dist/index.cjs"
-      }
+      "types": "./extras/dist/index.cjs.d.ts",
+      "import": "./extras/dist/index.esm.js",
+      "require": "./extras/dist/index.cjs"
     },
     "./themes/apac": {
-      "import": {
-        "types": "./themes/apac/dist/index.cjs.d.ts",
-        "default": "./themes/apac/dist/index.esm.js"
-      },
-      "require": {
-        "types": "./themes/apac/dist/index.cjs.d.ts",
-        "default": "./themes/apac/dist/index.cjs"
-      }
+      "types": "./themes/apac/dist/index.cjs.d.ts",
+      "import": "./themes/apac/dist/index.esm.js",
+      "require": "./themes/apac/dist/index.cjs"
     }
   },
   "main": "./dist/index.cjs",
