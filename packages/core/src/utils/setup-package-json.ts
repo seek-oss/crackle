@@ -15,13 +15,10 @@ export type Difference =
   | ExportsDifference;
 
 type ExportString = `./${string}`;
-type ExportWithTypes = {
-  types: ExportString;
-  default: ExportString;
-};
 type ExportObject = {
-  import: ExportWithTypes;
-  require: ExportWithTypes;
+  types: ExportString;
+  import: ExportString;
+  require: ExportString;
 };
 
 const getExportsForPackage = (entries: PackageEntryPoint[]) => {
@@ -30,10 +27,10 @@ const getExportsForPackage = (entries: PackageEntryPoint[]) => {
   };
 
   for (const entryPoint of entries) {
-    const types = `./${entryPoint.getOutputPath('dts')}` as const;
     exports[entryPoint.isDefaultEntry ? '.' : `./${entryPoint.entryName}`] = {
-      import: { types, default: `./${entryPoint.getOutputPath('esm')}` },
-      require: { types, default: `./${entryPoint.getOutputPath('cjs')}` },
+      types: `./${entryPoint.getOutputPath('dts')}`,
+      import: `./${entryPoint.getOutputPath('esm')}`,
+      require: `./${entryPoint.getOutputPath('cjs')}`,
     };
   }
 

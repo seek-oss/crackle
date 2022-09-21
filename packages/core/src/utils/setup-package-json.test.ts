@@ -55,25 +55,15 @@ describe('diffPackageJson', () => {
             },
           },
           './css': {
-            import: {
-              default: './css/dist/index.esm.js',
-              types: './css/dist/index.cjs.d.ts',
-            },
-            require: {
-              default: './css/dist/index.cjs',
-              types: './css/dist/index.cjs.d.ts',
-            },
+            types: './css/dist/index.cjs.d.ts',
+            import: './css/dist/index.esm.js',
+            require: './css/dist/index.cjs',
           },
           './package.json': './package.json',
           './themes/apac': {
-            import: {
-              default: './themes/apac/dist/index.esm.js',
-              types: './themes/apac/dist/index.cjs.d.ts',
-            },
-            require: {
-              default: './themes/apac/dist/index.cjs',
-              types: './themes/apac/dist/index.cjs.d.ts',
-            },
+            types: './themes/apac/dist/index.cjs.d.ts',
+            import: './themes/apac/dist/index.esm.js',
+            require: './themes/apac/dist/index.cjs',
           },
         },
         files: ['/css', '/dist', '/apac'],
@@ -92,35 +82,20 @@ describe('diffPackageJson', () => {
       {
         exports: {
           '.': {
-            import: {
-              default: './dist/index.esm.js',
-              types: './dist/index.cjs.d.ts',
-            },
-            require: {
-              default: './dist/index.cjs',
-              types: './dist/index.cjs.d.ts',
-            },
+            types: './dist/index.cjs.d.ts',
+            import: './dist/index.esm.js',
+            require: './dist/index.cjs',
           },
           './css': {
-            import: {
-              default: './css/dist/index.esm.js',
-              types: './css/dist/index.cjs.d.ts',
-            },
-            require: {
-              default: './css/dist/index.cjs',
-              types: './css/dist/index.cjs.d.ts',
-            },
+            types: './css/dist/index.cjs.d.ts',
+            import: './css/dist/index.esm.js',
+            require: './css/dist/index.cjs',
           },
           './package.json': './package.json',
           './themes/apac': {
-            import: {
-              default: './themes/apac/dist/index.esm.js',
-              types: './themes/apac/dist/index.cjs.d.ts',
-            },
-            require: {
-              default: './themes/apac/dist/index.cjs',
-              types: './themes/apac/dist/index.cjs.d.ts',
-            },
+            types: './themes/apac/dist/index.cjs.d.ts',
+            import: './themes/apac/dist/index.esm.js',
+            require: './themes/apac/dist/index.cjs',
           },
         },
         files: ['/css', '/dist', '/themes/apac'],
