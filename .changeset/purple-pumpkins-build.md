@@ -2,4 +2,4 @@
 '@crackle/cli': minor
 ---
 
-Add a `--clean` option for `crackle package` to clean the output directory
+Add a `--clean` CLI argument for `crackle package` to clean the output directory
