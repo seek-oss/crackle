@@ -82,7 +82,8 @@ export const build = async (inlineConfig?: PartialConfig) => {
     return;
   }
 
-  const rendererOutDir = config.resolveFromRoot('dist-render');
+  const rendererDir = config.resolveFromRoot('dist-render');
+  const outDir = config.resolveFromRoot('dist');
 
   try {
     logger.info(`🛠  Building ${chalk.bold('renderer')}...`);
@@ -99,7 +100,7 @@ export const build = async (inlineConfig?: PartialConfig) => {
         rollupOptions: {
           input: require.resolve('../../entries/render/build.tsx'),
         },
-        outDir: rendererOutDir,
+        outDir: rendererDir,
       },
       // TODO: remove when this PR lands https://github.com/vitejs/vite/pull/9989
       legacy: {
@@ -124,26 +125,24 @@ export const build = async (inlineConfig?: PartialConfig) => {
     });
 
     const { renderAllPages } = (await import(
-      `${rendererOutDir}/${rendererOutput.fileName}`
+      `${rendererDir}/${rendererOutput.fileName}`
     )) as {
       renderAllPages: RenderAllPagesFn;
     };
-    const manifest = (await readJson(
-      config.resolveFromRoot('dist/manifest.json'),
-    )) as Manifest;
+    const manifest = (await readJson(`${outDir}/manifest.json`)) as Manifest;
     const pages = await renderAllPages(manifest, config.publicPath);
 
     await promiseMap(pages, async ({ route, html }) => {
-      const dir = config.resolveFromRoot(path.join('dist', route));
-      await fs.mkdir(dir, { recursive: true });
-      return fs.writeFile(`${dir}/index.html`, html);
+      const routeDir = path.join(outDir, route);
+      await fs.mkdir(routeDir, { recursive: true });
+      return fs.writeFile(`${routeDir}/index.html`, html);
     });
 
     logger.info('✅ Rendered all pages');
   } catch (error: any) {
     logger.errorWithExitCode(renderBuildError(`Render pages failed`, error));
   } finally {
-    await fs.rm(rendererOutDir, {
+    await fs.rm(rendererDir, {
       recursive: true,
       force: true,
     });
