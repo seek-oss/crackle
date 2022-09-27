@@ -1,15 +1,13 @@
-import commonjs from '@rollup/plugin-commonjs';
-import nodeResolve from '@rollup/plugin-node-resolve';
 import { cssFileFilter } from '@vanilla-extract/integration';
-import { rollup } from 'rollup';
 import type { OutputOptions } from 'rollup';
-import esbuild from 'rollup-plugin-esbuild';
+import { build as viteBuild } from 'vite';
 
 import type { EnhancedConfig } from '../config';
 import { externals } from '../plugins/rollup';
 import { addVanillaDebugIds } from '../plugins/vite';
 import type { Format, PackageEntryPoint } from '../types';
 import { extensionForFormat } from '../utils/files';
+import { commonViteConfig } from '../vite-config';
 
 export const createBundle = async (
   config: EnhancedConfig,
@@ -18,64 +16,77 @@ export const createBundle = async (
 ) => {
   const { format } = outputOptions;
 
-  // Vite 3 doesn't support multiple entrypoints in library mode, so we need to use rollup here directly.
-  const bundle = await rollup({
-    input: entries.map(({ entryPath }) => entryPath),
+  const extension = extensionForFormat(format as Format);
+
+  await viteBuild({
+    ...commonViteConfig,
     plugins: [
-      externals(config.root),
-      nodeResolve(),
-      commonjs(),
-      esbuild({
-        jsx: 'transform',
-      }),
+      {
+        ...externals(config.root),
+        enforce: 'pre',
+      },
       addVanillaDebugIds(),
     ],
-    treeshake: {
-      moduleSideEffects: (id, external) => {
-        if (external) {
-          return false;
-        }
+    logLevel: 'warn',
+    build: {
+      // output directory is the package root, so we don't want to remove it
+      emptyOutDir: false,
+      minify: false,
+      lib: {
+        // doesn't matter what the value is because it's overridden by rollupOptions.input
+        entry: '',
+        formats: [format === 'cjs' ? 'cjs' : 'es'],
+      },
+      outDir: config.root,
+      rollupOptions: {
+        input: entries.map(({ entryPath }) => entryPath),
+        treeshake: {
+          moduleSideEffects(id, external) {
+            if (external) {
+              return false;
+            }
 
-        if (cssFileFilter.test(id)) {
-          // Mark .css.ts files as side effect free except for reset and atoms as they
-          // need to be hoisted to ensure they are first in the CSS order
-          // TODO: make the reset and atom file checks more specific
-          return id.includes('reset') || id.includes('atoms');
-        }
+            if (cssFileFilter.test(id)) {
+              // Mark .css.ts files as side effect free except for reset and atoms as they
+              // need to be hoisted to ensure they are first in the CSS order
+              // TODO: make the reset and atom file checks more specific
+              return id.includes('reset') || id.includes('atoms');
+            }
 
-        return true;
+            return true;
+          },
+        },
+        output: {
+          ...outputOptions,
+          hoistTransitiveImports: false,
+          inlineDynamicImports: false,
+          manualChunks(id, { getModuleInfo }) {
+            if (
+              cssFileFilter.test(id) ||
+              getModuleInfo(id)?.importers.some((importer) =>
+                cssFileFilter.test(importer),
+              )
+            ) {
+              const [_projectRoot, rawLocalPath] = id.split('src/');
+              const localPath = rawLocalPath.replace('/', '-');
+
+              return cssFileFilter.test(id)
+                ? localPath.replace(cssFileFilter, `.css.${extension}`)
+                : localPath.replace(
+                    /\.(ts|tsx|js|mjs|cjs|jsx)$/,
+                    `.${extension}`,
+                  );
+            }
+          },
+          chunkFileNames(chunkInfo) {
+            const chunkPath = `dist/${chunkInfo.name}`;
+
+            return chunkPath.endsWith(extension)
+              ? chunkPath
+              : `${chunkPath}.chunk.${extension}`;
+          },
+        },
       },
     },
   });
-
-  const extension = extensionForFormat(format as Format);
-
-  await bundle.write({
-    ...outputOptions,
-    hoistTransitiveImports: false,
-    manualChunks(id, { getModuleInfo }) {
-      if (
-        cssFileFilter.test(id) ||
-        getModuleInfo(id)?.importers.some((importer) =>
-          cssFileFilter.test(importer),
-        )
-      ) {
-        const [_projectRoot, rawLocalPath] = id.split('src/');
-        const localPath = rawLocalPath.replace('/', '-');
-
-        return cssFileFilter.test(id)
-          ? localPath.replace(cssFileFilter, `.css.${extension}`)
-          : localPath.replace(/\.(ts|tsx|js|mjs|cjs|jsx)$/, `.${extension}`);
-      }
-    },
-    chunkFileNames(chunkInfo) {
-      const chunkPath = `dist/${chunkInfo.name}`;
-
-      return chunkPath.endsWith(extension)
-        ? chunkPath
-        : `${chunkPath}.chunk.${extension}`;
-    },
-  });
-
-  await bundle.close();
 };
