@@ -27,7 +27,7 @@
   "dependencies": {
     "@crackle/router": "workspace:*",
     "@vanilla-extract/css": "^1.7.3",
-    "braid-design-system": "0.0.0-crackel2-20220919072731",
+    "braid-design-system": "0.0.0-crackel2-20220927015259",
     "react": "17.0.2",
     "react-dom": "^17.0.2"
   },
