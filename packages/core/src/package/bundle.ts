@@ -5,14 +5,14 @@ import { rollup } from 'rollup';
 import type { OutputOptions } from 'rollup';
 import esbuild from 'rollup-plugin-esbuild';
 
-import type { Format } from '../package';
-import { extensionForFormat } from '../package';
+import type { EnhancedConfig } from '../config';
 import { externals } from '../plugins/rollup';
 import { addVanillaDebugIds } from '../plugins/vite';
-import type { PackageEntryPoint } from '../types';
+import type { Format, PackageEntryPoint } from '../types';
+import { extensionForFormat } from '../utils/files';
 
 export const createBundle = async (
-  packageRoot: string,
+  config: EnhancedConfig,
   entries: PackageEntryPoint[],
   outputOptions: OutputOptions,
 ) => {
@@ -22,7 +22,7 @@ export const createBundle = async (
   const bundle = await rollup({
     input: entries.map(({ entryPath }) => entryPath),
     plugins: [
-      externals(packageRoot),
+      externals(config.root),
       nodeResolve(),
       commonjs(),
       esbuild({
@@ -67,6 +67,13 @@ export const createBundle = async (
           ? localPath.replace(cssFileFilter, `.css.${extension}`)
           : localPath.replace(/\.(ts|tsx|js|mjs|cjs|jsx)$/, `.${extension}`);
       }
+    },
+    chunkFileNames(chunkInfo) {
+      const chunkPath = `dist/${chunkInfo.name}`;
+
+      return chunkPath.endsWith(extension)
+        ? chunkPath
+        : `${chunkPath}.chunk.${extension}`;
     },
   });
 

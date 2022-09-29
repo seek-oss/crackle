@@ -12,19 +12,13 @@ import { createBundle } from './package/bundle';
 import { createDtsBundle } from './package/dts';
 import { renderPackageJsonValidationError } from './reporters/package';
 import { renderBuildError } from './reporters/shared';
-import type { PackageJson } from './types';
+import type { Format, PackageJson } from './types';
 import { createEntryPackageJsons } from './utils/create-entry-package-json';
+import { toRollupFormat } from './utils/files';
 import { emptyDir } from './utils/files';
 import { getPackageEntryPoints } from './utils/get-packages';
 import { promiseMap } from './utils/promise-map';
 import { validatePackageJson } from './utils/setup-package-json';
-
-export type Format = 'esm' | 'cjs' | 'dts';
-
-export const extensionForFormat = (format: Format) =>
-  (({ esm: 'mjs', cjs: 'cjs', dts: 'cjs.d.ts' } as const)[format]);
-const toRollupFormat = (format: Format) =>
-  (({ esm: 'esm', cjs: 'cjs', dts: 'esm' } as const)[format]);
 
 const getPackageName = async (config: EnhancedConfig): Promise<string> => {
   const packageJsonPath = config.resolveFromRoot('package.json');
@@ -60,7 +54,9 @@ const build = async (config: EnhancedConfig, packageName: string) => {
 
   logger.info(`🛠  Building ${chalk.bold.green(packageName)}...`);
 
-  await promiseMap(entries, (entry) => emptyDir(entry.outputDir));
+  if (config.clean) {
+    await promiseMap(entries, (entry) => emptyDir(entry.outputDir));
+  }
 
   const withLogging = async (
     bundle: typeof createBundle | typeof createDtsBundle,
@@ -68,9 +64,7 @@ const build = async (config: EnhancedConfig, packageName: string) => {
   ) => {
     logger.info(`⚙️  Creating ${chalk.bold(format)} bundle...`);
 
-    const extension = extensionForFormat(format);
-
-    await bundle(config.root, entries, {
+    await bundle(config, entries, {
       dir: config.root,
       exports: 'auto',
       format: toRollupFormat(format),
@@ -83,14 +77,7 @@ const build = async (config: EnhancedConfig, packageName: string) => {
           throw new Error('Unable to name entry file');
         }
 
-        return `${entry.entryName}/index.${extension}`;
-      },
-      chunkFileNames(chunkInfo) {
-        const chunkPath = `dist/${chunkInfo.name}`;
-
-        return chunkPath.endsWith(extension)
-          ? chunkPath
-          : `${chunkPath}.chunk.${extension}`;
+        return entry.getOutputPath(format);
       },
     });
 

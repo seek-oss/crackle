@@ -7,48 +7,28 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "import": {
-        "types": "./dist/index.cjs.d.ts",
-        "default": "./dist/index.mjs"
-      },
-      "require": {
-        "types": "./dist/index.cjs.d.ts",
-        "default": "./dist/index.cjs"
-      }
+      "types": "./dist/index.cjs.d.ts",
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.cjs"
     },
     "./components": {
-      "import": {
-        "types": "./components/index.cjs.d.ts",
-        "default": "./components/index.mjs"
-      },
-      "require": {
-        "types": "./components/index.cjs.d.ts",
-        "default": "./components/index.cjs"
-      }
+      "types": "./components/dist/index.cjs.d.ts",
+      "import": "./components/dist/index.esm.js",
+      "require": "./components/dist/index.cjs"
     },
     "./extras": {
-      "import": {
-        "types": "./extras/index.cjs.d.ts",
-        "default": "./extras/index.mjs"
-      },
-      "require": {
-        "types": "./extras/index.cjs.d.ts",
-        "default": "./extras/index.cjs"
-      }
+      "types": "./extras/dist/index.cjs.d.ts",
+      "import": "./extras/dist/index.esm.js",
+      "require": "./extras/dist/index.cjs"
     },
     "./themes/apac": {
-      "import": {
-        "types": "./themes/apac/index.cjs.d.ts",
-        "default": "./themes/apac/index.mjs"
-      },
-      "require": {
-        "types": "./themes/apac/index.cjs.d.ts",
-        "default": "./themes/apac/index.cjs"
-      }
+      "types": "./themes/apac/dist/index.cjs.d.ts",
+      "import": "./themes/apac/dist/index.esm.js",
+      "require": "./themes/apac/dist/index.cjs"
     }
   },
-  "main": "dist/index.cjs",
-  "module": "dist/index.mjs",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.esm.js",
   "files": [
     "/components",
     "/dist",
@@ -63,7 +43,7 @@
   },
   "dependencies": {
     "@crackle/router": "workspace:*",
-    "braid-design-system": "0.0.0-crackel2-20220901020334",
+    "braid-design-system": "0.0.0-crackel2-20220919072731",
     "react": "17.0.2",
     "react-dom": "^17.0.2"
   },

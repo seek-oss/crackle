@@ -3,6 +3,12 @@ import path from 'path';
 
 export interface Config {
   /**
+   * Automatically clean output directory when running `package`.
+   * @default true
+   */
+  clean: boolean;
+
+  /**
    * Automatically run `fix` if necessary.
    * @default false
    */
@@ -37,6 +43,12 @@ export interface Config {
    * @default 'src/App.tsx'
    */
   appShell: `${string}.tsx`;
+
+  /**
+   * Override TypeScript `compilerOptions` for when generating `.d.ts` files
+   * @default '{ incremental: false, noEmitOnError: false }'
+   */
+  dtsOptions: Record<string, unknown>;
 }
 
 export interface EnhancedConfig extends Config {
@@ -46,12 +58,17 @@ export interface EnhancedConfig extends Config {
 export type PartialConfig = Partial<Config>;
 
 export const defaultConfig: Config = {
+  clean: true,
   fix: false,
   port: 5000,
   publicPath: '/',
   root: process.cwd(),
   pageRoots: ['src'],
   appShell: 'src/App.tsx',
+  dtsOptions: {
+    incremental: false,
+    noEmitOnError: false,
+  },
 };
 
 const determineAppShell = (
@@ -76,6 +93,10 @@ export const getConfig = (inlineConfig?: PartialConfig): EnhancedConfig => {
   const config = {
     ...defaultConfig,
     ...inlineConfig,
+    dtsOptions: {
+      ...defaultConfig.dtsOptions,
+      ...inlineConfig?.dtsOptions,
+    },
   };
 
   const resolveFromRoot = (filePath: string) =>

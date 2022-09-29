@@ -1,4 +1,5 @@
 import fs from 'fs/promises';
+import path from 'path';
 
 import type { EnhancedConfig } from '../config';
 
@@ -21,30 +22,26 @@ export const generateDevDeclarationFiles = async (config: EnhancedConfig) => {
       packageRoot: pkg.root,
     });
 
-    await promiseMap(
-      entryPaths,
-      async ({ entryName, entryPath, isDefaultEntry, outputDir }) => {
-        const declarationLines = [
-          isDefaultEntry
-            ? 'export * from "../src/index";'
-            : `export * from "../src/entries/${entryName}";`,
-        ];
+    await promiseMap(entryPaths, async ({ entryPath, getOutputPath }) => {
+      const outputPath = getOutputPath('dts');
+      const outputDir = path.join(pkg.root, path.dirname(outputPath));
+      const relativePath = path.relative(
+        outputDir,
+        entryPath.replace(path.extname(entryPath), ''),
+      );
 
-        if (await hasDefaultExport(entryPath)) {
-          declarationLines.push(
-            isDefaultEntry
-              ? 'export { default } from "../src/index";'
-              : `export { default } from "../src/entries/${entryName}";`,
-          );
-        }
+      const declarationLines = [`export * from "${relativePath}";`];
 
-        await writeIfRequired({
-          dir: outputDir,
-          fileName: 'index.cjs.d.ts',
-          contents: declarationLines.join('\n'),
-        });
-      },
-    );
+      if (await hasDefaultExport(entryPath)) {
+        declarationLines.push(`export { default } from "${relativePath}";`);
+      }
+
+      await writeIfRequired({
+        dir: outputDir,
+        fileName: path.basename(outputPath),
+        contents: declarationLines.join('\n'),
+      });
+    });
 
     await createEntryPackageJsons(entryPaths);
   }

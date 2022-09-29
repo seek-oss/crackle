@@ -4,7 +4,9 @@ import path from 'path';
 import glob from 'fast-glob';
 
 import type { EnhancedConfig } from '../config';
-import type { PackageEntryPoint } from '../types';
+import type { Format, PackageEntryPoint } from '../types';
+
+import { extensionForFormat } from './files';
 
 export interface Package {
   name: string;
@@ -44,15 +46,15 @@ export const getPackages = async (
   return packages;
 };
 
-const defaultEntry = 'src/index.ts';
-const otherEntries = 'src/entries';
-
 interface GetPackageEntryPointsOpts {
   packageRoot: string;
 }
 export const getPackageEntryPoints = async ({
   packageRoot,
 }: GetPackageEntryPointsOpts): Promise<PackageEntryPoint[]> => {
+  const defaultEntry = 'src/index.ts';
+  const otherEntries = 'src/entries';
+
   const entryPaths = await glob([defaultEntry, `${otherEntries}/**/*.ts`], {
     cwd: packageRoot,
     fs,
@@ -71,6 +73,12 @@ export const getPackageEntryPoints = async ({
       entryPath: path.join(packageRoot, entryPath),
       isDefaultEntry,
       outputDir,
+      getOutputPath: (format: Format) =>
+        path.join(
+          entryName,
+          isDefaultEntry ? '' : 'dist',
+          `index.${extensionForFormat(format)}`,
+        ),
     };
   });
 };

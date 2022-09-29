@@ -32,8 +32,8 @@ jobs:
           pnpm fix
           pnpm build
 
-      - name: Setup fixtures
-        run: pnpm dev-fixtures
+      - name: Set up fixtures
+        run: pnpm fixtures dev
 
       - name: Lint
         run: pnpm lint

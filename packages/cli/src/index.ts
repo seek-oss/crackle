@@ -94,6 +94,10 @@ yargs(process.argv.slice(2))
         description: 'Run `crackle fix` if necessary',
         type: 'boolean',
       },
+      clean: {
+        description: 'Clean output directory',
+        type: 'boolean',
+      },
     },
     handler: async (overrides) => {
       const config = await resolveConfig();

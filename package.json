@@ -5,9 +5,9 @@
   "scripts": {
     "fix": "preconstruct fix",
     "dev": "preconstruct dev",
-    "dev-fixtures": "pnpm -r dev",
     "build": "preconstruct build",
     "watch": "preconstruct watch",
+    "fixtures": "pnpm --recursive --filter='@crackle-fixtures/*'",
     "lint": "tsc --noEmit && eslint . && prettier --check .",
     "format": "eslint --fix . && prettier --write .",
     "test": "pnpm test:vitest --run && pnpm test:playwright",
