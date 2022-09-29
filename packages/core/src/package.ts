@@ -63,10 +63,12 @@ const build = async (config: EnhancedConfig, packageName: string) => {
   ) => {
     logger.info(`⚙️  Creating ${chalk.bold(format)} bundle...`);
 
+    const toRollupFormat = { esm: 'esm', cjs: 'cjs', dts: 'esm' } as const;
+
     await bundle(config, entries, {
       dir: config.root,
       exports: 'auto',
-      format: ({ esm: 'esm', cjs: 'cjs', dts: 'esm' } as const)[format],
+      format: toRollupFormat[format],
       entryFileNames(chunkInfo) {
         const entry = entries.find(
           ({ entryPath }) => chunkInfo.facadeModuleId === entryPath,
