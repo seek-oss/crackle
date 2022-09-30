@@ -1,5 +1,13 @@
 # @crackle/core
 
+## 0.12.0
+
+### Minor Changes
+
+- [#41](https://github.com/seek-oss/crackle/pull/41) [`7c71eb2`](https://github.com/seek-oss/crackle/commit/7c71eb25ddd2e2b9a0e4634ac227e727a7b170c5) Thanks [@mrm007](https://github.com/mrm007)! - Add a `clean` config option to clean the output directory on `crackle package`
+
+- [#41](https://github.com/seek-oss/crackle/pull/41) [`7c71eb2`](https://github.com/seek-oss/crackle/commit/7c71eb25ddd2e2b9a0e4634ac227e727a7b170c5) Thanks [@mrm007](https://github.com/mrm007)! - Add a `dtsOptions` config option to override the default TypeScript `compilerOptions` for `.d.ts` bundle generation
+
 ## 0.11.0
 
 ### Minor Changes
