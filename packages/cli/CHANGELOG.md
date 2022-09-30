@@ -1,5 +1,16 @@
 # @crackle/cli
 
+## 0.9.0
+
+### Minor Changes
+
+- [#41](https://github.com/seek-oss/crackle/pull/41) [`7c71eb2`](https://github.com/seek-oss/crackle/commit/7c71eb25ddd2e2b9a0e4634ac227e727a7b170c5) Thanks [@mrm007](https://github.com/mrm007)! - Add a `--clean` CLI argument for `crackle package` to clean the output directory
+
+### Patch Changes
+
+- Updated dependencies [[`7c71eb2`](https://github.com/seek-oss/crackle/commit/7c71eb25ddd2e2b9a0e4634ac227e727a7b170c5), [`7c71eb2`](https://github.com/seek-oss/crackle/commit/7c71eb25ddd2e2b9a0e4634ac227e727a7b170c5)]:
+  - @crackle/core@0.12.0
+
 ## 0.8.0
 
 ### Minor Changes
