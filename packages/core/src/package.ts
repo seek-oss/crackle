@@ -14,7 +14,6 @@ import { renderPackageJsonValidationError } from './reporters/package';
 import { renderBuildError } from './reporters/shared';
 import type { Format, PackageJson } from './types';
 import { createEntryPackageJsons } from './utils/create-entry-package-json';
-import { toRollupFormat } from './utils/files';
 import { emptyDir } from './utils/files';
 import { getPackageEntryPoints } from './utils/get-packages';
 import { promiseMap } from './utils/promise-map';
@@ -64,10 +63,12 @@ const build = async (config: EnhancedConfig, packageName: string) => {
   ) => {
     logger.info(`⚙️  Creating ${chalk.bold(format)} bundle...`);
 
+    const toRollupFormat = { esm: 'esm', cjs: 'cjs', dts: 'esm' } as const;
+
     await bundle(config, entries, {
       dir: config.root,
       exports: 'auto',
-      format: toRollupFormat(format),
+      format: toRollupFormat[format],
       entryFileNames(chunkInfo) {
         const entry = entries.find(
           ({ entryPath }) => chunkInfo.facadeModuleId === entryPath,
