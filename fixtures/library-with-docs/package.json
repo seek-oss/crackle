@@ -28,12 +28,14 @@
     "@crackle/router": "workspace:*",
     "@vanilla-extract/css": "^1.7.3",
     "braid-design-system": "0.0.0-crackel2-20220919072731",
+    "lodash": "^4.17.21",
     "react": "17.0.2",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@crackle/cli": "workspace:*",
     "@crackle/core": "workspace:*",
+    "@types/lodash": "^4.14.186",
     "@types/react": "^17",
     "@types/react-dom": "^17"
   }
