@@ -8,27 +8,27 @@
     "./package.json": "./package.json",
     ".": {
       "types": "./dist/index.cjs.d.ts",
-      "import": "./dist/index.esm.js",
+      "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
     "./components": {
       "types": "./components/dist/index.cjs.d.ts",
-      "import": "./components/dist/index.esm.js",
+      "import": "./components/dist/index.js",
       "require": "./components/dist/index.cjs"
     },
     "./extras": {
       "types": "./extras/dist/index.cjs.d.ts",
-      "import": "./extras/dist/index.esm.js",
+      "import": "./extras/dist/index.js",
       "require": "./extras/dist/index.cjs"
     },
     "./themes/apac": {
       "types": "./themes/apac/dist/index.cjs.d.ts",
-      "import": "./themes/apac/dist/index.esm.js",
+      "import": "./themes/apac/dist/index.js",
       "require": "./themes/apac/dist/index.cjs"
     }
   },
   "main": "./dist/index.cjs",
-  "module": "./dist/index.esm.js",
+  "module": "./dist/index.js",
   "files": [
     "/components",
     "/dist",

@@ -10,7 +10,7 @@ exports[`diffPackageJson > Empty package.json > diffs 1`] = `
   {
     "from": undefined,
     "key": "module",
-    "to": "./dist/index.mjs",
+    "to": "./dist/index.js",
   },
   {
     "additions": [
@@ -30,18 +30,18 @@ exports[`diffPackageJson > Empty package.json > expectedPackageJson 1`] = `
 {
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
+      "import": "./dist/index.js",
       "require": "./dist/index.cjs",
       "types": "./dist/index.cjs.d.ts",
     },
     "./css": {
-      "import": "./css/dist/index.mjs",
+      "import": "./css/dist/index.js",
       "require": "./css/dist/index.cjs",
       "types": "./css/dist/index.cjs.d.ts",
     },
     "./package.json": "./package.json",
     "./themes/apac": {
-      "import": "./themes/apac/dist/index.mjs",
+      "import": "./themes/apac/dist/index.js",
       "require": "./themes/apac/dist/index.cjs",
       "types": "./themes/apac/dist/index.cjs.d.ts",
     },
@@ -52,7 +52,7 @@ exports[`diffPackageJson > Empty package.json > expectedPackageJson 1`] = `
     "/themes/apac",
   ],
   "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
+  "module": "./dist/index.js",
 }
 `;
 
@@ -61,7 +61,7 @@ exports[`diffPackageJson > Incorrect package.json > diffs 1`] = `
   {
     "from": "dist/index.esm.invalid",
     "key": "module",
-    "to": "./dist/index.mjs",
+    "to": "./dist/index.js",
   },
   {
     "additions": [
@@ -79,18 +79,18 @@ exports[`diffPackageJson > Incorrect package.json > expectedPackageJson 1`] = `
 {
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
+      "import": "./dist/index.js",
       "require": "./dist/index.cjs",
       "types": "./dist/index.cjs.d.ts",
     },
     "./css": {
-      "import": "./css/dist/index.mjs",
+      "import": "./css/dist/index.js",
       "require": "./css/dist/index.cjs",
       "types": "./css/dist/index.cjs.d.ts",
     },
     "./package.json": "./package.json",
     "./themes/apac": {
-      "import": "./themes/apac/dist/index.mjs",
+      "import": "./themes/apac/dist/index.js",
       "require": "./themes/apac/dist/index.cjs",
       "types": "./themes/apac/dist/index.cjs.d.ts",
     },
@@ -102,6 +102,6 @@ exports[`diffPackageJson > Incorrect package.json > expectedPackageJson 1`] = `
     "/themes/apac",
   ],
   "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
+  "module": "./dist/index.js",
 }
 `;

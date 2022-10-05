@@ -2,4 +2,4 @@
 '@crackle/core': patch
 ---
 
-Use .mjs file extension for compiled artifacts
+Use `.js` file extension for compiled artifacts
