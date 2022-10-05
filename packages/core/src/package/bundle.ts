@@ -6,8 +6,7 @@ import type { OutputOptions } from 'rollup';
 import esbuild from 'rollup-plugin-esbuild';
 
 import type { EnhancedConfig } from '../config';
-import { externals } from '../plugins/rollup';
-import { addVanillaDebugIds } from '../plugins/vite';
+import { addVanillaDebugIds, externals } from '../plugins/rollup';
 import type { Format, PackageEntryPoint } from '../types';
 import { extensionForFormat } from '../utils/files';
 
@@ -22,13 +21,13 @@ export const createBundle = async (
   const bundle = await rollup({
     input: entries.map(({ entryPath }) => entryPath),
     plugins: [
+      addVanillaDebugIds(config.root),
       externals(config.root),
       nodeResolve(),
       commonjs(),
       esbuild({
         jsx: 'transform',
       }),
-      addVanillaDebugIds(),
     ],
     treeshake: {
       moduleSideEffects: (id, external) => {

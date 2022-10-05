@@ -1,5 +1,6 @@
 import { dirname } from 'path';
 
+import { cssFileFilter } from '@vanilla-extract/integration';
 import type { Plugin } from 'esbuild';
 import resolveFrom from 'resolve-from';
 
@@ -14,7 +15,7 @@ import resolveFrom from 'resolve-from';
 export const fixViteVanillaExtractDepScanPlugin = (): Plugin => ({
   name: 'crackle:fix-vite-vanilla-extract-dep-scan',
   setup(build) {
-    build.onResolve({ filter: /\.css(\.[cm]?js)$/ }, ({ importer, path }) => ({
+    build.onResolve({ filter: cssFileFilter }, ({ importer, path }) => ({
       path: resolveFrom(dirname(importer), path),
       external: true,
     }));
