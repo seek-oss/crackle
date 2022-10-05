@@ -8,12 +8,12 @@
     "./package.json": "./package.json",
     ".": {
       "types": "./dist/index.cjs.d.ts",
-      "import": "./dist/index.esm.js",
+      "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     }
   },
   "main": "./dist/index.cjs",
-  "module": "./dist/index.esm.js",
+  "module": "./dist/index.mjs",
   "files": [
     "/dist"
   ],
