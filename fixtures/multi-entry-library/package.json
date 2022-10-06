@@ -7,22 +7,22 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "types": "./dist/index.d.cts",
+      "types": "./dist/index.cjs.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
     "./components": {
-      "types": "./components/dist/index.d.cts",
+      "types": "./components/dist/index.cjs.d.ts",
       "import": "./components/dist/index.mjs",
       "require": "./components/dist/index.cjs"
     },
     "./extras": {
-      "types": "./extras/dist/index.d.cts",
+      "types": "./extras/dist/index.cjs.d.ts",
       "import": "./extras/dist/index.mjs",
       "require": "./extras/dist/index.cjs"
     },
     "./themes/apac": {
-      "types": "./themes/apac/dist/index.d.cts",
+      "types": "./themes/apac/dist/index.cjs.d.ts",
       "import": "./themes/apac/dist/index.mjs",
       "require": "./themes/apac/dist/index.cjs"
     }

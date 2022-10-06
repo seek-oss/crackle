@@ -7,7 +7,7 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "types": "./dist/index.d.cts",
+      "types": "./dist/index.cjs.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     }
@@ -27,13 +27,17 @@
   "dependencies": {
     "@crackle/router": "workspace:*",
     "@vanilla-extract/css": "^1.7.3",
+    "autosuggest-highlight": "^3.3.4",
     "braid-design-system": "0.0.0-crackel2-20221006060855",
+    "lodash": "^4.17.21",
     "react": "17.0.2",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@crackle/cli": "workspace:*",
     "@crackle/core": "workspace:*",
+    "@types/autosuggest-highlight": "^3.2.0",
+    "@types/lodash": "^4.14.186",
     "@types/react": "^17",
     "@types/react-dom": "^17"
   }
