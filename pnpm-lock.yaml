@@ -50,13 +50,13 @@ importers:
       '@types/react': ^17
       '@types/react-dom': ^17
       '@vanilla-extract/css': ^1.7.3
-      braid-design-system: 0.0.0-crackel2-20221005050634
+      braid-design-system: 0.0.0-crackel2-20221006060855
       react: 17.0.2
       react-dom: ^17.0.2
     dependencies:
       '@crackle/router': link:../../packages/router
       '@vanilla-extract/css': 1.9.0
-      braid-design-system: 0.0.0-crackel2-20221005050634_j6sw2p2tdbh6crpcmkxtmmhma4
+      braid-design-system: 0.0.0-crackel2-20221006060855_j6sw2p2tdbh6crpcmkxtmmhma4
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
     devDependencies:
@@ -70,21 +70,29 @@ importers:
       '@crackle/cli': workspace:*
       '@crackle/core': workspace:*
       '@crackle/router': workspace:*
+      '@types/autosuggest-highlight': ^3.2.0
+      '@types/lodash': ^4.14.186
       '@types/react': ^17
       '@types/react-dom': ^17
       '@vanilla-extract/css': ^1.7.3
-      braid-design-system: 0.0.0-crackel2-20221005050634
+      autosuggest-highlight: ^3.3.4
+      braid-design-system: 0.0.0-crackel2-20221006060855
+      lodash: ^4.17.21
       react: 17.0.2
       react-dom: ^17.0.2
     dependencies:
       '@crackle/router': link:../../packages/router
       '@vanilla-extract/css': 1.9.0
-      braid-design-system: 0.0.0-crackel2-20221005050634_j6sw2p2tdbh6crpcmkxtmmhma4
+      autosuggest-highlight: 3.3.4
+      braid-design-system: 0.0.0-crackel2-20221006060855_j6sw2p2tdbh6crpcmkxtmmhma4
+      lodash: 4.17.21
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
     devDependencies:
       '@crackle/cli': link:../../packages/cli
       '@crackle/core': link:../../packages/core
+      '@types/autosuggest-highlight': 3.2.0
+      '@types/lodash': 4.14.186
       '@types/react': 17.0.49
       '@types/react-dom': 17.0.17
 
@@ -95,12 +103,12 @@ importers:
       '@crackle/router': workspace:*
       '@types/react': ^17
       '@types/react-dom': ^17
-      braid-design-system: 0.0.0-crackel2-20221005050634
+      braid-design-system: 0.0.0-crackel2-20221006060855
       react: 17.0.2
       react-dom: ^17.0.2
     dependencies:
       '@crackle/router': link:../../packages/router
-      braid-design-system: 0.0.0-crackel2-20221005050634_j6sw2p2tdbh6crpcmkxtmmhma4
+      braid-design-system: 0.0.0-crackel2-20221006060855_j6sw2p2tdbh6crpcmkxtmmhma4
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
     devDependencies:
@@ -117,13 +125,13 @@ importers:
       '@types/react': ^17
       '@types/react-dom': ^17
       '@vanilla-extract/css': ^1.7.3
-      braid-design-system: 0.0.0-crackel2-20221005050634
+      braid-design-system: 0.0.0-crackel2-20221006060855
       react: 17.0.2
       react-dom: ^17.0.2
     dependencies:
       '@crackle-fixtures/multi-entry-library': link:../multi-entry-library
       '@vanilla-extract/css': 1.9.0
-      braid-design-system: 0.0.0-crackel2-20221005050634_j6sw2p2tdbh6crpcmkxtmmhma4
+      braid-design-system: 0.0.0-crackel2-20221006060855_j6sw2p2tdbh6crpcmkxtmmhma4
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
     devDependencies:
@@ -171,8 +179,6 @@ importers:
       '@babel/plugin-syntax-typescript': ^7.14.5
       '@crackle/babel-plugin-remove-exports': 0.1.0
       '@crackle/router': 0.1.2
-      '@rollup/plugin-commonjs': ^22.0.2
-      '@rollup/plugin-node-resolve': 14.1.0
       '@types/babel__core': ^7.1.15
       '@types/express': ^4.17.13
       '@types/fs-extra': ^9.0.12
@@ -201,10 +207,10 @@ importers:
       memfs: ^3.4.7
       mlly: ^0.5.16
       normalize-path: ^3.0.0
-      parse-json: ^5.2.0
       pretty-ms: ^7.0.1
       react: ^17.0.2
       react-dom: ^17.0.2
+      read-pkg-up: ^7.0.1
       resolve-from: ^5.0.0
       rollup: ^2.79.1
       rollup-plugin-dts: ^4.2.2
@@ -224,8 +230,6 @@ importers:
       '@babel/plugin-syntax-typescript': 7.18.6_@babel+core@7.19.0
       '@crackle/babel-plugin-remove-exports': link:../babel-plugin-remove-exports
       '@crackle/router': link:../router
-      '@rollup/plugin-commonjs': 22.0.2_rollup@2.79.1
-      '@rollup/plugin-node-resolve': 14.1.0_rollup@2.79.1
       '@vanilla-extract/babel-plugin': 1.2.0
       '@vanilla-extract/css': 1.9.0
       '@vanilla-extract/integration': 5.0.1
@@ -243,10 +247,10 @@ importers:
       ink: 3.2.0_t4v2ig6j532zggk4vxuuplsqcq
       mlly: 0.5.16
       normalize-path: 3.0.0
-      parse-json: 5.2.0
       pretty-ms: 7.0.1
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
+      read-pkg-up: 7.0.1
       resolve-from: 5.0.0
       rollup: 2.79.1
       rollup-plugin-dts: 4.2.2_rollup@2.79.1
@@ -2353,22 +2357,6 @@ packages:
       rollup: 2.78.1
     dev: false
 
-  /@rollup/plugin-commonjs/22.0.2_rollup@2.79.1:
-    resolution: {integrity: sha512-//NdP6iIwPbMTcazYsiBMbJW7gfmpHom33u1beiIoHDEM0Q9clvtQB1T0efvMqHeKsGohiHo97BCPCkBXdscwg==}
-    engines: {node: '>= 12.0.0'}
-    peerDependencies:
-      rollup: ^2.68.0
-    dependencies:
-      '@rollup/pluginutils': 3.1.0_rollup@2.79.1
-      commondir: 1.0.1
-      estree-walker: 2.0.2
-      glob: 7.2.3
-      is-reference: 1.2.1
-      magic-string: 0.25.9
-      resolve: 1.22.1
-      rollup: 2.79.1
-    dev: false
-
   /@rollup/plugin-json/4.1.0_rollup@2.79.0:
     resolution: {integrity: sha512-yfLbTdNS6amI/2OpmbiBoW12vngr5NW2jCJVZSBEz+H5KfUJZ2M7sDjk0U6GOOdCWFVScShte29o9NezJ53TPw==}
     peerDependencies:
@@ -2408,21 +2396,6 @@ packages:
       rollup: 2.78.1
     dev: false
 
-  /@rollup/plugin-node-resolve/14.1.0_rollup@2.79.1:
-    resolution: {integrity: sha512-5G2niJroNCz/1zqwXtk0t9+twOSDlG00k1Wfd7bkbbXmwg8H8dvgHdIWAun53Ps/rckfvOC7scDBjuGFg5OaWw==}
-    engines: {node: '>= 10.0.0'}
-    peerDependencies:
-      rollup: ^2.78.0
-    dependencies:
-      '@rollup/pluginutils': 3.1.0_rollup@2.79.1
-      '@types/resolve': 1.17.1
-      deepmerge: 4.2.2
-      is-builtin-module: 3.2.0
-      is-module: 1.0.0
-      resolve: 1.22.1
-      rollup: 2.79.1
-    dev: false
-
   /@rollup/plugin-replace/2.4.2_rollup@2.79.0:
     resolution: {integrity: sha512-IGcu+cydlUMZ5En85jxHH4qj2hta/11BHq95iHEyb2sbgiN0eCdzvUcHw5gt9pBL5lTi4JDYJ1acCoMGpTvEZg==}
     peerDependencies:
@@ -2457,18 +2430,6 @@ packages:
       rollup: 2.79.0
     dev: false
 
-  /@rollup/pluginutils/3.1.0_rollup@2.79.1:
-    resolution: {integrity: sha512-GksZ6pr6TpIjHm8h9lSQ8pi8BE9VeubNT0OMJ3B5uZJ8pz73NPiqOtCog/x2/QzM1ENChPKxMDhiQuRHsqc+lg==}
-    engines: {node: '>= 8.0.0'}
-    peerDependencies:
-      rollup: ^1.20.0||^2.0.0
-    dependencies:
-      '@types/estree': 0.0.39
-      estree-walker: 1.0.1
-      picomatch: 2.3.1
-      rollup: 2.79.1
-    dev: false
-
   /@rollup/pluginutils/4.2.1:
     resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
     engines: {node: '>= 8.0.0'}
@@ -2483,7 +2444,6 @@ packages:
 
   /@types/autosuggest-highlight/3.2.0:
     resolution: {integrity: sha512-bTcsL4YYypjhKfPaImxuoMPiTyiUp7VGKytMr15/413IoazrOIfV/gca2ysI/IW0ftZYCPI5xppRm6IVX1Efqw==}
-    dev: false
 
   /@types/babel-plugin-tester/9.0.5:
     resolution: {integrity: sha512-NRBPlhi5VkrTXMqDB1hSUnHs7vqLGRopeukC9u1zilOIFe9O1siwqeKZRiuJiVYakgpeDso/HE2Q5DU1aDqBog==}
@@ -2617,9 +2577,8 @@ packages:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
     dev: true
 
-  /@types/lodash/4.14.185:
-    resolution: {integrity: sha512-evMDG1bC4rgQg4ku9tKpuMh5iBNEwNa3tf9zRHdP1qlv+1WUg44xat4IxCE14gIpZRGUUWAx2VhItCZc25NfMA==}
-    dev: false
+  /@types/lodash/4.14.186:
+    resolution: {integrity: sha512-eHcVlLXP0c2FlMPm56ITode2AgLMSa6aJ05JTTbYbI+7EMkCEE5qk2E41d5g2lCVTqRe0GnnRFurmlCsDODrPw==}
 
   /@types/mime/3.0.1:
     resolution: {integrity: sha512-Y4XFY5VJAuw0FgAqPNd6NNoV44jbq9Bz2L7Rh/J6jLTiHBSBJa9fxqQIvkIld4GsoDOcCbvzOUAbLPsSKKg+uA==}
@@ -3328,8 +3287,8 @@ packages:
     dependencies:
       fill-range: 7.0.1
 
-  /braid-design-system/0.0.0-crackel2-20221005050634_j6sw2p2tdbh6crpcmkxtmmhma4:
-    resolution: {integrity: sha512-bfUDMIJxPighHMwTcJE4JOKyme3v3MWlAnRkjYcQOiAsmBF6pmav3qT8JPDi83q1nh3jESt9hukwpFHJ2ZPYTg==}
+  /braid-design-system/0.0.0-crackel2-20221006060855_j6sw2p2tdbh6crpcmkxtmmhma4:
+    resolution: {integrity: sha512-OOV3W0OF8+EEjTk2/HxHdEpSBASfFWpBdel4aCf0J4LVoMpm4hR14OfJBs6IaAcs8Gb/s6BOftSkODRy0wO5tw==}
     hasBin: true
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18
@@ -3341,7 +3300,7 @@ packages:
       '@crackle/cli': 0.9.0_@types+react@17.0.49
       '@types/autosuggest-highlight': 3.2.0
       '@types/dedent': 0.7.0
-      '@types/lodash': 4.14.185
+      '@types/lodash': 4.14.186
       '@vanilla-extract/css': 1.9.0
       '@vanilla-extract/css-utils': 0.1.2
       '@vanilla-extract/sprinkles': 1.5.0_@vanilla-extract+css@1.9.0

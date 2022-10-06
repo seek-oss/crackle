@@ -14,15 +14,14 @@ export const createBundle = async (
   entries: PackageEntryPoint[],
   outputOptions: OutputOptions,
 ) => {
-  const { format } = outputOptions;
-
-  const extension = extensionForFormat(format as Format);
+  const format = outputOptions.format as Format;
+  const extension = extensionForFormat(format);
 
   await viteBuild({
     ...commonViteConfig,
     plugins: [
       {
-        ...externals(config.root),
+        ...externals(config.root, format),
         enforce: 'pre',
       },
       addVanillaDebugIds(),
