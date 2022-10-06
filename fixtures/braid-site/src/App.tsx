@@ -9,7 +9,7 @@ import {
   Heading,
   Stack,
 } from 'braid-design-system';
-import apac from 'braid-design-system/apacTheme';
+import apac from 'braid-design-system/themes/apac';
 import React from 'react';
 
 const App: AppShell = ({ children }) => (
