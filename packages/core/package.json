@@ -63,6 +63,9 @@
     "/serve",
     "/start"
   ],
+  "scripts": {
+    "sync-dependencies": "sync-dependencies --source vite"
+  },
   "preconstruct": {
     "entrypoints": [
       "build.ts",
@@ -84,7 +87,7 @@
     "@crackle/babel-plugin-remove-exports": "0.1.0",
     "@crackle/router": "0.1.2",
     "@rollup/plugin-commonjs": "^22.0.2",
-    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@rollup/plugin-node-resolve": "14.1.0",
     "@vanilla-extract/babel-plugin": "^1.1.2",
     "@vanilla-extract/css": "^1.7.3",
     "@vanilla-extract/integration": "^5.0.1",
@@ -93,21 +96,21 @@
     "builtin-modules": "^3.2.0",
     "chalk": "^4.0.0",
     "ensure-gitignore": "^1.2.0",
-    "esbuild": ">= 0.13.3",
+    "esbuild": "^0.15.9",
     "eval": "^0.1.8",
     "express": "^4.17.1",
-    "fast-glob": "^3.2.7",
+    "fast-glob": "^3.2.12",
     "fs-extra": "^10.0.0",
     "history": "^5.0.1",
     "ink": "^3.0.9",
-    "mlly": "^0.5.14",
+    "mlly": "^0.5.16",
     "normalize-path": "^3.0.0",
     "parse-json": "^5.2.0",
     "pretty-ms": "^7.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "resolve-from": "^5.0.0",
-    "rollup": "~2.78.1",
+    "rollup": "^2.79.1",
     "rollup-plugin-dts": "^4.2.2",
     "rollup-plugin-esbuild": "^4.10.1",
     "rollup-plugin-node-externals": "^4.1.1",
@@ -130,6 +133,7 @@
     "ink-testing-library": "^2.1.0",
     "memfs": "^3.4.7",
     "strip-ansi": "^7.0.1",
+    "sync-dependencies": "^1.0.4",
     "type-fest": "^2.18.0"
   },
   "peerDependencies": {
