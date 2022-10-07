@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 import path from 'path';
 
-import readPackageUp from 'read-pkg-up';
 import type { FunctionPluginHooks, Plugin } from 'rollup';
 import rollupExternals, {
   type ExternalsOptions,
@@ -12,36 +10,32 @@ import type { Format } from '../../types';
 import { promiseMap } from '../../utils/promise-map';
 import { resolveFrom } from '../../utils/resolve-from';
 
-function patch(id: string) {
-  const resolvedId = require.resolve(id);
-  return resolvedId.slice(resolvedId.lastIndexOf(id));
-}
+class PackagesById extends Map<string, PackageJson> {}
 
 async function findDependencies(config: ExternalsOptions) {
   const packagePath = config.packagePath! as string;
-  const pkg = require(packagePath) as PackageJson;
+
+  const loadPackage = (id: string): PackageJson => require(id);
+
+  const packageJson = loadPackage(packagePath);
   const externalDeps = [
-    ...Object.keys((config.deps && pkg.dependencies) || {}),
-    ...Object.keys((config.devDeps && pkg.devDependencies) || {}),
-    ...Object.keys((config.peerDeps && pkg.peerDependencies) || {}),
-    ...Object.keys((config.optDeps && pkg.optionalDependencies) || {}),
+    ...Object.keys((config.deps && packageJson.dependencies) || {}),
+    ...Object.keys((config.devDeps && packageJson.devDependencies) || {}),
+    ...Object.keys((config.peerDeps && packageJson.peerDependencies) || {}),
+    ...Object.keys((config.optDeps && packageJson.optionalDependencies) || {}),
   ];
-  const pkgsById = new Map<string, PackageJson>();
+  const packagesById = new PackagesById();
 
   await promiseMap(externalDeps, async (dep) => {
-    const { packageJson } = (await readPackageUp({
-      cwd: resolveFrom(packagePath, `${dep}/package.json`),
-    }))!;
-    pkgsById.set(dep, packageJson);
+    const depPackagePath = await resolveFrom(packagePath, `${dep}/package.json`);
+    const depPackage = loadPackage(depPackagePath);
+    packagesById.set(dep, depPackage);
   });
 
-  return pkgsById;
+  return packagesById;
 }
 
-export const externals = (
-  packageRoot: string,
-  format: Format = 'esm',
-): Plugin => {
+export function externals(packageRoot: string, format: Format = 'esm'): Plugin {
   const packagePath = path.join(packageRoot, 'package.json');
   const config = {
     packagePath,
@@ -52,16 +46,25 @@ export const externals = (
   };
   const plugin = rollupExternals(config);
 
-  let pkgsById: Map<string, PackageJson>;
+  let packagesById: PackagesById;
+
+  const patch = (id: string) => {
+    const resolvedId = require.resolve(id);
+    return resolvedId.slice(resolvedId.lastIndexOf(id));
+  };
 
   return {
     ...plugin,
+
+    name: `crackle:patched-${plugin.name}`,
+
     async buildStart(options) {
       await Promise.all([
-        findDependencies(config).then((result) => (pkgsById = result)),
         (plugin as FunctionPluginHooks).buildStart.call(this, options),
+        findDependencies(config).then((result) => (packagesById = result)),
       ]);
     },
+
     async resolveId(source, importer, options) {
       const resolved = (plugin as FunctionPluginHooks).resolveId.call(
         this,
@@ -86,10 +89,10 @@ export const externals = (
           isSubpath = true;
         }
 
-        const pkg = pkgsById.get(id);
+        const packageJson = packagesById.get(id);
         const patched = {
           id:
-            format === 'esm' && isSubpath && !pkg?.exports
+            format === 'esm' && isSubpath && !packageJson?.exports
               ? patch(source)
               : source,
           external: true,
@@ -101,4 +104,4 @@ export const externals = (
       return resolved;
     },
   };
-};
+}
