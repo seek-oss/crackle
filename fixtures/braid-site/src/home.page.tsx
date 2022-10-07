@@ -1,3 +1,4 @@
+import { JobSummary } from '@crackle-fixtures/library-with-docs';
 import { createRouteData } from '@crackle/router';
 import { Card, Stack, Text, TextLink } from 'braid-design-system';
 import React from 'react';
@@ -14,6 +15,7 @@ export default function Home() {
         <Text>
           <TextLink href="/details">Details</TextLink>
         </Text>
+        <JobSummary title="Job title" isNew />
       </Stack>
     </Card>
   );

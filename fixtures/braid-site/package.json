@@ -1,6 +1,6 @@
 {
   "name": "@crackle-fixtures/braid-site",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "license": "MIT",
   "author": "Ben",
@@ -12,8 +12,9 @@
     "start": "crackle start"
   },
   "dependencies": {
+    "@crackle-fixtures/library-with-docs": "workspace:*",
     "@crackle/router": "workspace:*",
-    "@vanilla-extract/css": "^1.7.3",
+    "@vanilla-extract/css": "^1.9.1",
     "braid-design-system": "0.0.0-crackel2-20221006060855",
     "react": "17.0.2",
     "react-dom": "^17.0.2"

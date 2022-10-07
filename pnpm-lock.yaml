@@ -39,18 +39,20 @@ importers:
 
   fixtures/braid-site:
     specifiers:
+      '@crackle-fixtures/library-with-docs': workspace:*
       '@crackle/cli': workspace:*
       '@crackle/core': workspace:*
       '@crackle/router': workspace:*
       '@types/react': ^17
       '@types/react-dom': ^17
-      '@vanilla-extract/css': ^1.7.3
+      '@vanilla-extract/css': ^1.9.1
       braid-design-system: 0.0.0-crackel2-20221006060855
       react: 17.0.2
       react-dom: ^17.0.2
     dependencies:
+      '@crackle-fixtures/library-with-docs': link:../library-with-docs
       '@crackle/router': link:../../packages/router
-      '@vanilla-extract/css': 1.9.0
+      '@vanilla-extract/css': 1.9.1
       braid-design-system: 0.0.0-crackel2-20221006060855_j6sw2p2tdbh6crpcmkxtmmhma4
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
@@ -69,7 +71,7 @@ importers:
       '@types/lodash': ^4.14.186
       '@types/react': ^17
       '@types/react-dom': ^17
-      '@vanilla-extract/css': ^1.7.3
+      '@vanilla-extract/css': ^1.9.1
       autosuggest-highlight: ^3.3.4
       braid-design-system: 0.0.0-crackel2-20221006060855
       lodash: ^4.17.21
@@ -77,7 +79,7 @@ importers:
       react-dom: ^17.0.2
     dependencies:
       '@crackle/router': link:../../packages/router
-      '@vanilla-extract/css': 1.9.0
+      '@vanilla-extract/css': 1.9.1
       autosuggest-highlight: 3.3.4
       braid-design-system: 0.0.0-crackel2-20221006060855_j6sw2p2tdbh6crpcmkxtmmhma4
       lodash: 4.17.21
@@ -119,13 +121,13 @@ importers:
       '@crackle/core': workspace:*
       '@types/react': ^17
       '@types/react-dom': ^17
-      '@vanilla-extract/css': ^1.7.3
+      '@vanilla-extract/css': ^1.9.1
       braid-design-system: 0.0.0-crackel2-20221006060855
       react: 17.0.2
       react-dom: ^17.0.2
     dependencies:
       '@crackle-fixtures/multi-entry-library': link:../multi-entry-library
-      '@vanilla-extract/css': 1.9.0
+      '@vanilla-extract/css': 1.9.1
       braid-design-system: 0.0.0-crackel2-20221006060855_j6sw2p2tdbh6crpcmkxtmmhma4
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
@@ -158,7 +160,7 @@ importers:
 
   packages/cli:
     specifiers:
-      '@crackle/core': ^0.12.0
+      '@crackle/core': ^0.12.1
       '@types/yargs': ^17.0.2
       yargs: ^17.1.1
     dependencies:
@@ -183,9 +185,9 @@ importers:
       '@types/serialize-javascript': ^5.0.1
       '@types/serve-handler': ^6.1.1
       '@vanilla-extract/babel-plugin': ^1.1.2
-      '@vanilla-extract/css': ^1.7.3
-      '@vanilla-extract/integration': ^5.0.1
-      '@vanilla-extract/vite-plugin': ^3.3.1
+      '@vanilla-extract/css': ^1.9.1
+      '@vanilla-extract/integration': ^6.0.0
+      '@vanilla-extract/vite-plugin': ^3.6.1
       '@vitejs/plugin-react': ^2.1.0
       builtin-modules: ^3.2.0
       chalk: ^4.0.0
@@ -220,9 +222,9 @@ importers:
       '@crackle/babel-plugin-remove-exports': link:../babel-plugin-remove-exports
       '@crackle/router': link:../router
       '@vanilla-extract/babel-plugin': 1.2.0
-      '@vanilla-extract/css': 1.9.0
-      '@vanilla-extract/integration': 5.0.1
-      '@vanilla-extract/vite-plugin': 3.3.1_vite@3.2.0-beta.0
+      '@vanilla-extract/css': 1.9.1
+      '@vanilla-extract/integration': 6.0.0
+      '@vanilla-extract/vite-plugin': 3.6.1_vite@3.2.0-beta.0
       '@vitejs/plugin-react': 2.1.0_vite@3.2.0-beta.0
       builtin-modules: 3.3.0
       chalk: 4.1.2
@@ -1680,13 +1682,13 @@ packages:
     resolution: {integrity: sha512-tJNEWMmhHcU5z6ITAiVNN9z+PCTylybVIJqgX7Ts4zN66fe/W2Fe5UWJCCZIP/5uutsl5fYOaVVHZIjsuTVhBQ==}
     dev: false
 
-  /@capsizecss/vanilla-extract/1.0.0_@vanilla-extract+css@1.9.0:
+  /@capsizecss/vanilla-extract/1.0.0_@vanilla-extract+css@1.9.1:
     resolution: {integrity: sha512-/cY34CgCAmuf6SmpgPXmDJaIdJOaRe37MsoeZIeZme4k0F0HFts+poTxq4m8UtBH7LRxpUkfUHDoRO9OYjjVBg==}
     peerDependencies:
       '@vanilla-extract/css': ^1.2.1
     dependencies:
       '@capsizecss/core': 3.0.0
-      '@vanilla-extract/css': 1.9.0
+      '@vanilla-extract/css': 1.9.1
     dev: false
 
   /@changesets/apply-release-plan/6.1.0:
@@ -1930,9 +1932,9 @@ packages:
       '@rollup/plugin-commonjs': 22.0.2_rollup@2.78.1
       '@rollup/plugin-node-resolve': 13.3.0_rollup@2.78.1
       '@vanilla-extract/babel-plugin': 1.2.0
-      '@vanilla-extract/css': 1.9.0
+      '@vanilla-extract/css': 1.9.1
       '@vanilla-extract/integration': 5.0.1
-      '@vanilla-extract/vite-plugin': 3.3.1_vite@3.1.3
+      '@vanilla-extract/vite-plugin': 3.6.1_vite@3.1.3
       '@vitejs/plugin-react': 2.1.0_vite@3.1.3
       builtin-modules: 3.3.0
       chalk: 4.1.2
@@ -2808,8 +2810,17 @@ packages:
       eslint-visitor-keys: 3.3.0
     dev: true
 
+  /@vanilla-extract/babel-plugin-debug-ids/1.0.0:
+    resolution: {integrity: sha512-Q2Nh/0FEAENfcphAv+fvcMoKfl3bhPWO/2x3MPviNAhsTsvuvYPuRtLjcXwoe4aJ8MxxI46JLY33j8NBEzpTIg==}
+    dependencies:
+      '@babel/core': 7.19.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
   /@vanilla-extract/babel-plugin/1.2.0:
     resolution: {integrity: sha512-4R+hqoyzoyJIrE+NgrYxZuL6GqGH28hiBrPUOxwtvqnJJ5WnUl2/WzItLDDH9YT1Auwl3cIR7pcbrV6HIchORA==}
+    deprecated: The features of this plugin are now built-in to all vanilla-extract bundler integrations — making this plugin no longer required. For more information about test environment integrations, see https://vanilla-extract.style/documentation/test-environments/
     dependencies:
       '@babel/core': 7.19.0
       '@babel/template': 7.18.10
@@ -2822,18 +2833,18 @@ packages:
     resolution: {integrity: sha512-qoxIu5E/UhJtoKsPL1JaU9nhTN0Xl5zYV0pScOgsvc3JN46TvTTt0L3GV8x3PQpZP7x3elw8BsC9czYbhJy9Gg==}
     dev: false
 
-  /@vanilla-extract/css/1.9.0:
-    resolution: {integrity: sha512-YERVutWIpttfkEAynBUgdHKMcSPjMAtu5IFfDfEdXmeygilV12S5WUYMzjrqu0F/LZBtqrHG5fa2tiCiFpay+w==}
+  /@vanilla-extract/css/1.9.1:
+    resolution: {integrity: sha512-pu2SFiff5jRhPwvGoj8cM5l/qIyLvigOmy22ss5DGjwV5pJYezRjDLxWumi2luIwioMWvh9EozCjyfH8nq+7fQ==}
     dependencies:
       '@emotion/hash': 0.8.0
       '@vanilla-extract/private': 1.0.3
+      ahocorasick: 1.0.2
       chalk: 4.1.2
       css-what: 5.1.0
       cssesc: 3.0.0
       csstype: 3.1.0
       deep-object-diff: 1.1.7
       deepmerge: 4.2.2
-      escape-string-regexp: 4.0.0
       media-query-parser: 2.0.2
       outdent: 0.8.0
     dev: false
@@ -2841,7 +2852,7 @@ packages:
   /@vanilla-extract/integration/5.0.1:
     resolution: {integrity: sha512-HRV/HvC/lihb9wT3x5s7pf5qLjqxSd9nBePJ10juOuMB5cl2ZClEcts076m9BuRKM3wRK2h7KuwkNsaUtjujxQ==}
     dependencies:
-      '@vanilla-extract/css': 1.9.0
+      '@vanilla-extract/css': 1.9.1
       esbuild: 0.11.23
       eval: 0.1.6
       find-up: 5.0.0
@@ -2850,43 +2861,62 @@ packages:
       outdent: 0.8.0
     dev: false
 
+  /@vanilla-extract/integration/6.0.0:
+    resolution: {integrity: sha512-uBz4QAhKYswyhN3LYd4duuN3uq7WT1jKckd0sP2+Y8gL+6UXdhN9QOUvNBfvofkrYYWqS8efH4hnsGyyWW8f+w==}
+    dependencies:
+      '@babel/core': 7.19.0
+      '@babel/plugin-syntax-typescript': 7.18.6_@babel+core@7.19.0
+      '@vanilla-extract/babel-plugin-debug-ids': 1.0.0
+      '@vanilla-extract/css': 1.9.1
+      esbuild: 0.11.23
+      eval: 0.1.6
+      find-up: 5.0.0
+      javascript-stringify: 2.1.0
+      lodash: 4.17.21
+      outdent: 0.8.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
   /@vanilla-extract/private/1.0.3:
     resolution: {integrity: sha512-17kVyLq3ePTKOkveHxXuIJZtGYs+cSoev7BlP+Lf4916qfDhk/HBjvlYDe8egrea7LNPHKwSZJK/bzZC+Q6AwQ==}
     dev: false
 
-  /@vanilla-extract/sprinkles/1.5.0_@vanilla-extract+css@1.9.0:
+  /@vanilla-extract/sprinkles/1.5.0_@vanilla-extract+css@1.9.1:
     resolution: {integrity: sha512-W58f2Rzz5lLmk0jbhgStVlZl5wEiPB1Ur3fRvUaBM+MrifZ3qskmFq/CiH//fEYeG5Dh9vF1qRviMMH46cX9Nw==}
     peerDependencies:
       '@vanilla-extract/css': ^1.0.0
     dependencies:
-      '@vanilla-extract/css': 1.9.0
+      '@vanilla-extract/css': 1.9.1
     dev: false
 
-  /@vanilla-extract/vite-plugin/3.3.1_vite@3.1.3:
-    resolution: {integrity: sha512-x5tl1s7uELTKU5HDMrZB9zDW7z+rcTuiT+sGPJ5/OOb+DHS4Y5S8caXOEytk/lhGegBS2gib4fN7yaJ0azuJlQ==}
+  /@vanilla-extract/vite-plugin/3.6.1_vite@3.1.3:
+    resolution: {integrity: sha512-Pn3LhndH0NYPLdJejoExS1KdoFE2ZhtGnc2aH3EJDXKqobmDucdtmNZiIJ2NtI/1/cJ9ZnHuzXxpTE6V9yy8Cg==}
     peerDependencies:
-      vite: ^2.2.3
+      vite: ^2.2.3 || ^3.0.0
     dependencies:
-      '@vanilla-extract/integration': 5.0.1
+      '@vanilla-extract/integration': 6.0.0
       outdent: 0.8.0
       postcss: 8.4.16
       postcss-load-config: 3.1.4_postcss@8.4.16
       vite: 3.1.3
     transitivePeerDependencies:
+      - supports-color
       - ts-node
     dev: false
 
-  /@vanilla-extract/vite-plugin/3.3.1_vite@3.2.0-beta.0:
-    resolution: {integrity: sha512-x5tl1s7uELTKU5HDMrZB9zDW7z+rcTuiT+sGPJ5/OOb+DHS4Y5S8caXOEytk/lhGegBS2gib4fN7yaJ0azuJlQ==}
+  /@vanilla-extract/vite-plugin/3.6.1_vite@3.2.0-beta.0:
+    resolution: {integrity: sha512-Pn3LhndH0NYPLdJejoExS1KdoFE2ZhtGnc2aH3EJDXKqobmDucdtmNZiIJ2NtI/1/cJ9ZnHuzXxpTE6V9yy8Cg==}
     peerDependencies:
-      vite: ^2.2.3
+      vite: ^2.2.3 || ^3.0.0
     dependencies:
-      '@vanilla-extract/integration': 5.0.1
+      '@vanilla-extract/integration': 6.0.0
       outdent: 0.8.0
       postcss: 8.4.16
       postcss-load-config: 3.1.4_postcss@8.4.16
       vite: 3.2.0-beta.0
     transitivePeerDependencies:
+      - supports-color
       - ts-node
     dev: false
 
@@ -2946,6 +2976,10 @@ packages:
     resolution: {integrity: sha512-QOxyigPVrpZ2GXT+PFyZTl6TtOFc5egxHIP9IlQ+RbupQuX4RkT/Bee4/kQuC02Xkzg84JcT7oLYtDIQxp+v7w==}
     engines: {node: '>=0.4.0'}
     hasBin: true
+
+  /ahocorasick/1.0.2:
+    resolution: {integrity: sha512-hCOfMzbFx5IDutmWLAt6MZwOUjIfSM9G9FyVxytmE4Rs/5YDPWQrD/+IR1w+FweD9H2oOZEnv36TmkjhNURBVA==}
+    dev: false
 
   /ajv/6.12.6:
     resolution: {integrity: sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==}
@@ -3275,14 +3309,14 @@ packages:
       sku: '>=10.13.1'
     dependencies:
       '@capsizecss/core': 3.0.0
-      '@capsizecss/vanilla-extract': 1.0.0_@vanilla-extract+css@1.9.0
+      '@capsizecss/vanilla-extract': 1.0.0_@vanilla-extract+css@1.9.1
       '@crackle/cli': 0.9.0_@types+react@17.0.49
       '@types/autosuggest-highlight': 3.2.0
       '@types/dedent': 0.7.0
       '@types/lodash': 4.14.186
-      '@vanilla-extract/css': 1.9.0
+      '@vanilla-extract/css': 1.9.1
       '@vanilla-extract/css-utils': 0.1.2
-      '@vanilla-extract/sprinkles': 1.5.0_@vanilla-extract+css@1.9.0
+      '@vanilla-extract/sprinkles': 1.5.0_@vanilla-extract+css@1.9.1
       assert: 2.0.0
       autosuggest-highlight: 3.3.4
       clsx: 1.2.1
@@ -4133,6 +4167,7 @@ packages:
   /escape-string-regexp/4.0.0:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
+    dev: true
 
   /eslint-config-prettier/8.5.0_eslint@8.23.0:
     resolution: {integrity: sha512-obmWKLUNCnhtQRKc+tmnYuQl0pFU1ibYJQ5BGhTVB08bHe9wC8qUeG7c08dj9XX+AuPj1YSGSQIHl1pnDHZR0Q==}

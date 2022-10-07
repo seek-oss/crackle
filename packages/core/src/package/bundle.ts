@@ -5,8 +5,7 @@ import type { OutputOptions } from 'rollup';
 import { build as viteBuild } from 'vite';
 
 import type { EnhancedConfig } from '../config';
-import { externals } from '../plugins/rollup';
-import { addVanillaDebugIds } from '../plugins/vite';
+import { addVanillaDebugIds, externals } from '../plugins/rollup';
 import type { Format, PackageEntryPoint } from '../types';
 import { extensionForFormat } from '../utils/files';
 import { commonViteConfig } from '../vite-config';
@@ -22,11 +21,11 @@ export const createBundle = async (
   await viteBuild({
     ...commonViteConfig,
     plugins: [
+      addVanillaDebugIds(config.root),
       {
         ...externals(config.root, format),
         enforce: 'pre',
       },
-      addVanillaDebugIds(),
     ],
     logLevel: 'warn',
     build: {
