@@ -14,6 +14,7 @@ import {
   Stack,
   Text,
 } from 'braid-design-system';
+import values from 'lodash/values';
 import React from 'react';
 
 import { redBorder } from './styles.css';
@@ -57,7 +58,7 @@ export const JobSummary = ({ title, isNew }: JobSummaryProps) => (
           Long description of card details providing more information.
         </Text>
         <Text size="xsmall" tone="secondary">
-          2d ago
+          {values({ value: '2d', suffix: 'ago' }).join(' ')}
         </Text>
       </Stack>
     </Box>

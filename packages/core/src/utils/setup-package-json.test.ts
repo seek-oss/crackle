@@ -46,7 +46,7 @@ describe('diffPackageJson', () => {
         exports: {
           '.': {
             import: {
-              default: './dist/index.esm.js',
+              default: './dist/index.js',
               types: './dist/index.cjs.d.ts',
             },
             require: {
@@ -56,13 +56,13 @@ describe('diffPackageJson', () => {
           },
           './css': {
             types: './css/dist/index.cjs.d.ts',
-            import: './css/dist/index.esm.js',
+            import: './css/dist/index.js',
             require: './css/dist/index.cjs',
           },
           './package.json': './package.json',
           './themes/apac': {
             types: './themes/apac/dist/index.cjs.d.ts',
-            import: './themes/apac/dist/index.esm.js',
+            import: './themes/apac/dist/index.js',
             require: './themes/apac/dist/index.cjs',
           },
         },
@@ -83,24 +83,24 @@ describe('diffPackageJson', () => {
         exports: {
           '.': {
             types: './dist/index.cjs.d.ts',
-            import: './dist/index.esm.js',
+            import: './dist/index.js',
             require: './dist/index.cjs',
           },
           './css': {
             types: './css/dist/index.cjs.d.ts',
-            import: './css/dist/index.esm.js',
+            import: './css/dist/index.js',
             require: './css/dist/index.cjs',
           },
           './package.json': './package.json',
           './themes/apac': {
             types: './themes/apac/dist/index.cjs.d.ts',
-            import: './themes/apac/dist/index.esm.js',
+            import: './themes/apac/dist/index.js',
             require: './themes/apac/dist/index.cjs',
           },
         },
         files: ['/css', '/dist', '/themes/apac'],
         main: './dist/index.cjs',
-        module: './dist/index.esm.js',
+        module: './dist/index.js',
       },
       entries,
     );

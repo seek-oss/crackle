@@ -28,12 +28,10 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build
-        run: |
-          pnpm fix
-          pnpm build
+        run: pnpm build
 
       - name: Set up fixtures
-        run: pnpm fixtures dev
+        run: pnpm fixtures package
 
       - name: Lint
         run: pnpm lint
