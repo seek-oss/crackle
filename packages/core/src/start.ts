@@ -14,7 +14,7 @@ import type { PartialConfig } from './config';
 import { getConfig } from './config';
 import { clientEntry } from './constants';
 import { logger } from './logger';
-import { fixViteVanillaExtractDepScanPlugin } from './plugins/esbuild/fix-vite-vanilla-extract-dep-scan';
+import { fixViteVanillaExtractDepScanPlugin } from './plugins/esbuild';
 import {
   addPageRoots,
   internalPackageResolution,
