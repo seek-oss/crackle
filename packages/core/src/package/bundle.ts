@@ -1,3 +1,5 @@
+import path from 'path';
+
 import { cssFileFilter } from '@vanilla-extract/integration';
 import type { OutputOptions } from 'rollup';
 import { build as viteBuild } from 'vite';
@@ -71,10 +73,7 @@ export const createBundle = async (
 
               return cssFileFilter.test(id)
                 ? localPath.replace(cssFileFilter, `.css.${extension}`)
-                : localPath.replace(
-                    /\.(ts|tsx|js|mjs|cjs|jsx)$/,
-                    `.${extension}`,
-                  );
+                : localPath.replace(path.extname(localPath), `.${extension}`);
             }
           },
           chunkFileNames(chunkInfo) {
