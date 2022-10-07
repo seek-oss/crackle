@@ -2,7 +2,6 @@
 import path from 'path';
 
 import readPackageUp from 'read-pkg-up';
-import resolveFrom from 'resolve-from';
 import type { FunctionPluginHooks, Plugin } from 'rollup';
 import rollupExternals, {
   type ExternalsOptions,
@@ -11,6 +10,7 @@ import type { PackageJson } from 'type-fest';
 
 import type { Format } from '../../types';
 import { promiseMap } from '../../utils/promise-map';
+import { resolveFrom } from '../../utils/resolve-from';
 
 function patch(id: string) {
   const resolvedId = require.resolve(id);
