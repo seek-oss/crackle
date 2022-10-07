@@ -15,7 +15,7 @@
     "@crackle-fixtures/library-with-docs": "workspace:*",
     "@crackle/router": "workspace:*",
     "@vanilla-extract/css": "^1.9.1",
-    "braid-design-system": "0.0.0-crackel2-20221006060855",
+    "braid-design-system": "0.0.0-crackel2-20221007054115",
     "react": "17.0.2",
     "react-dom": "^17.0.2"
   },

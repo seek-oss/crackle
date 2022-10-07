@@ -46,14 +46,14 @@ importers:
       '@types/react': ^17
       '@types/react-dom': ^17
       '@vanilla-extract/css': ^1.9.1
-      braid-design-system: 0.0.0-crackel2-20221006060855
+      braid-design-system: 0.0.0-crackel2-20221007054115
       react: 17.0.2
       react-dom: ^17.0.2
     dependencies:
       '@crackle-fixtures/library-with-docs': link:../library-with-docs
       '@crackle/router': link:../../packages/router
       '@vanilla-extract/css': 1.9.1
-      braid-design-system: 0.0.0-crackel2-20221006060855_j6sw2p2tdbh6crpcmkxtmmhma4
+      braid-design-system: 0.0.0-crackel2-20221007054115_j6sw2p2tdbh6crpcmkxtmmhma4
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
     devDependencies:
@@ -73,7 +73,7 @@ importers:
       '@types/react-dom': ^17
       '@vanilla-extract/css': ^1.9.1
       autosuggest-highlight: ^3.3.4
-      braid-design-system: 0.0.0-crackel2-20221006060855
+      braid-design-system: 0.0.0-crackel2-20221007054115
       lodash: ^4.17.21
       react: 17.0.2
       react-dom: ^17.0.2
@@ -81,7 +81,7 @@ importers:
       '@crackle/router': link:../../packages/router
       '@vanilla-extract/css': 1.9.1
       autosuggest-highlight: 3.3.4
-      braid-design-system: 0.0.0-crackel2-20221006060855_j6sw2p2tdbh6crpcmkxtmmhma4
+      braid-design-system: 0.0.0-crackel2-20221007054115_j6sw2p2tdbh6crpcmkxtmmhma4
       lodash: 4.17.21
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
@@ -100,12 +100,12 @@ importers:
       '@crackle/router': workspace:*
       '@types/react': ^17
       '@types/react-dom': ^17
-      braid-design-system: 0.0.0-crackel2-20221006060855
+      braid-design-system: 0.0.0-crackel2-20221007054115
       react: 17.0.2
       react-dom: ^17.0.2
     dependencies:
       '@crackle/router': link:../../packages/router
-      braid-design-system: 0.0.0-crackel2-20221006060855_j6sw2p2tdbh6crpcmkxtmmhma4
+      braid-design-system: 0.0.0-crackel2-20221007054115_j6sw2p2tdbh6crpcmkxtmmhma4
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
     devDependencies:
@@ -122,13 +122,13 @@ importers:
       '@types/react': ^17
       '@types/react-dom': ^17
       '@vanilla-extract/css': ^1.9.1
-      braid-design-system: 0.0.0-crackel2-20221006060855
+      braid-design-system: 0.0.0-crackel2-20221007054115
       react: 17.0.2
       react-dom: ^17.0.2
     dependencies:
       '@crackle-fixtures/multi-entry-library': link:../multi-entry-library
       '@vanilla-extract/css': 1.9.1
-      braid-design-system: 0.0.0-crackel2-20221006060855_j6sw2p2tdbh6crpcmkxtmmhma4
+      braid-design-system: 0.0.0-crackel2-20221007054115_j6sw2p2tdbh6crpcmkxtmmhma4
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
     devDependencies:
@@ -3302,8 +3302,8 @@ packages:
     dependencies:
       fill-range: 7.0.1
 
-  /braid-design-system/0.0.0-crackel2-20221006060855_j6sw2p2tdbh6crpcmkxtmmhma4:
-    resolution: {integrity: sha512-OOV3W0OF8+EEjTk2/HxHdEpSBASfFWpBdel4aCf0J4LVoMpm4hR14OfJBs6IaAcs8Gb/s6BOftSkODRy0wO5tw==}
+  /braid-design-system/0.0.0-crackel2-20221007054115_j6sw2p2tdbh6crpcmkxtmmhma4:
+    resolution: {integrity: sha512-71Zq0Y9tn/qRGcYF9V7iz2xHTioqqRBm0snvLrGnNfgrSy1ltbgCpjM0IyaahbOCg7OVMl+xFkev5BBEx+2qeA==}
     hasBin: true
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18
