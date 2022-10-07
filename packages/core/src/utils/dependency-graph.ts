@@ -1,20 +1,26 @@
+import assert from 'assert';
 import path from 'path';
 
 import { readJson } from 'fs-extra';
 
+import type { PackageJson } from '../types';
+
 import { promiseMap } from './promise-map';
 import { resolveFrom } from './resolve-from';
 
-const root = 'ROOT';
+const ROOT = 'ROOT';
 
 interface Dependency {
-  version: string;
-  dependents: Array<string>;
-  dependencies: Array<string>;
-  peerDependencies: Array<string>;
+  version: PackageJson['version'];
+  dependents: string[];
+  dependencies: string[];
+  peerDependencies: string[];
 }
 
 type DepGraph = Map<string, Dependency>;
+
+const loadPackage = async (packageJsonPath: string) =>
+  (await readJson(packageJsonPath)) as PackageJson;
 
 const anaylyseDependency = async (
   dependent: string,
@@ -27,14 +33,10 @@ const anaylyseDependency = async (
   }
 
   const packageJsonPath = await resolveFrom(rootDir, `${dep}/package.json`);
-  const packageJson = await readJson(packageJsonPath);
+  const packageJson = await loadPackage(packageJsonPath);
 
-  const dependencies: Array<string> =
-    'dependencies' in packageJson ? Object.keys(packageJson.dependencies) : [];
-  const peerDependencies: Array<string> =
-    'peerDependencies' in packageJson
-      ? Object.keys(packageJson.peerDependencies)
-      : [];
+  const dependencies = Object.keys(packageJson.dependencies ?? {});
+  const peerDependencies = Object.keys(packageJson.peerDependencies ?? {});
 
   const dependency = depGraph.get(dep);
 
@@ -46,8 +48,8 @@ const anaylyseDependency = async (
           null,
           2,
         )}\n${JSON.stringify({
-          dependencies,
           version: packageJson.version,
+          dependencies,
         })}`,
       );
     }
@@ -55,9 +57,9 @@ const anaylyseDependency = async (
     dependency.dependents.push(dependent);
   } else {
     depGraph.set(dep, {
+      version: packageJson.version,
       dependents: [dependent],
       dependencies,
-      version: packageJson.version,
       peerDependencies,
     });
 
@@ -75,23 +77,22 @@ const anaylyseDependency = async (
 export const extractDependencyGraph = async (rootDir: string) => {
   const depGraph: DepGraph = new Map();
 
-  const packageJson = await readJson(path.join(rootDir, 'package.json'));
+  const packageJson = await loadPackage(`${rootDir}/package.json`);
 
-  const deps: Array<string> =
-    'dependencies' in packageJson ? Object.keys(packageJson.dependencies) : [];
+  const deps = Object.keys(packageJson.dependencies ?? {});
 
   const dependency: Dependency = {
+    version: packageJson.version,
     dependents: [],
     dependencies: deps,
-    version: packageJson.version,
     peerDependencies: [],
   };
 
-  depGraph.set(root, dependency);
+  depGraph.set(ROOT, dependency);
 
   await promiseMap(deps, async (childDep) => {
     try {
-      await anaylyseDependency(root, childDep, rootDir, depGraph);
+      await anaylyseDependency(ROOT, childDep, rootDir, depGraph);
     } catch (e) {
       // Ignore dep errors
     }
@@ -103,41 +104,29 @@ export const extractDependencyGraph = async (rootDir: string) => {
 export const getSsrExternalsForCompiledDependency = (
   depName: string,
   depGraph: DepGraph,
-): { external: Array<string>; noExternal: Array<string> } => {
+): { noExternal: string[] } => {
   const dependency = depGraph.get(depName);
 
   if (!dependency) {
     return {
-      external: [],
       noExternal: [],
     };
   }
 
-  const externals = new Set<string>();
   const noExternals = new Set<string>();
-
-  const dependents = [...dependency.dependents];
+  const dependents = new Set(dependency.dependents);
 
   for (const dependentName of dependents) {
     const dependent = depGraph.get(dependentName);
-
-    if (!dependent) {
-      throw new Error('WTF?');
-    }
+    assert(dependent);
 
     noExternals.add(dependentName);
-
-    for (const dep of dependent.dependencies) {
-      externals.add(dep);
-    }
-
-    dependents.push(...dependent.dependents.filter((d) => d !== root));
+    dependent.dependents.forEach((dep) => dependents.add(dep));
   }
 
+  noExternals.delete(ROOT);
+
   return {
-    external: Array.from(externals).filter(
-      (external) => !noExternals.has(external),
-    ),
     noExternal: Array.from(noExternals),
   };
 };

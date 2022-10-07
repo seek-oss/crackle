@@ -36,14 +36,13 @@ export const start = async (
   inlineConfig?: PartialConfig,
 ): Promise<CrackleServer> => {
   const config = getConfig(inlineConfig);
-  const app = express();
-
   const depGraph = await extractDependencyGraph(config.root);
   const ssrExternals = getSsrExternalsForCompiledDependency(
     '@vanilla-extract/css',
     depGraph,
   );
 
+  const app = express();
   const connections = new Map<string, Socket>();
 
   const vite = await createViteServer({
@@ -81,17 +80,15 @@ export const start = async (
     },
     ssr: {
       external: [
+        ...builtinModules,
         '@crackle/router',
         'serialize-javascript',
         'used-styles',
-        '@vanilla-extract/css/transformCss',
-        '@vanilla-extract/css/adapter',
-        ...builtinModules,
-        ...ssrExternals.external,
       ],
       noExternal: ssrExternals.noExternal,
     },
   });
+
   // use vite's connect instance as middleware
   app.use(vite.middlewares);
 
