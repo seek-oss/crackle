@@ -2,8 +2,12 @@
   "name": "@crackle/tests",
   "version": "0.0.3",
   "private": true,
+  "scripts": {
+    "sync-dependencies": "sync-dependencies --source crackle --from ../package.json"
+  },
   "devDependencies": {
     "@crackle/core": "workspace:*",
-    "@playwright/test": "^1.14.1"
+    "@playwright/test": "1.22.2",
+    "sync-dependencies": "^1.0.4"
   }
 }
