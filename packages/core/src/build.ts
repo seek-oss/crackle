@@ -102,15 +102,6 @@ export const build = async (inlineConfig?: PartialConfig) => {
         },
         outDir: rendererDir,
       },
-      // TODO: remove when this PR lands https://github.com/vitejs/vite/pull/9989
-      legacy: {
-        buildSsrCjsExternalHeuristics: true,
-      },
-      ssr: {
-        ...commonBuildConfig.ssr,
-        format: 'cjs',
-      },
-      // TODO: end remove
     })) as RollupOutput;
 
     logger.info(`✅ Successfully built ${chalk.bold('renderer')}!`);
@@ -124,6 +115,7 @@ export const build = async (inlineConfig?: PartialConfig) => {
       getIdentOption: () => 'short',
     });
 
+    // TODO: use vite-node instead
     const { renderAllPages } = (await import(
       `${rendererDir}/${rendererOutput.fileName}`
     )) as {
