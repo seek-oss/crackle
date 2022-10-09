@@ -27,7 +27,10 @@ async function findDependencies(config: ExternalsOptions) {
   const packagesById = new PackagesById();
 
   await promiseMap(externalDeps, async (dep) => {
-    const depPackagePath = await resolveFrom(packagePath, `${dep}/package.json`);
+    const depPackagePath = await resolveFrom(
+      packagePath,
+      `${dep}/package.json`,
+    );
     const depPackage = loadPackage(depPackagePath);
     packagesById.set(dep, depPackage);
   });
@@ -55,16 +58,13 @@ export function externals(packageRoot: string, format: Format = 'esm'): Plugin {
 
   return {
     ...plugin,
-
     name: `crackle:patched-${plugin.name}`,
-
     async buildStart(options) {
       await Promise.all([
         (plugin as FunctionPluginHooks).buildStart.call(this, options),
         findDependencies(config).then((result) => (packagesById = result)),
       ]);
     },
-
     async resolveId(source, importer, options) {
       const resolved = (plugin as FunctionPluginHooks).resolveId.call(
         this,
