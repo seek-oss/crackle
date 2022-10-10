@@ -20,6 +20,7 @@ import {
   internalPackageResolution,
   stripRouteData,
 } from './plugins/vite';
+import { pageGlobSuffix } from './route-data';
 import type { CrackleServer } from './types';
 import {
   extractDependencyGraph,
@@ -65,7 +66,7 @@ export const start = async (
     optimizeDeps: {
       entries: [
         ...config.pageRoots.map((pageRoot) =>
-          path.join(pageRoot, '/**/*.page.tsx'),
+          path.join(pageRoot, pageGlobSuffix),
         ),
         config.appShell,
       ],

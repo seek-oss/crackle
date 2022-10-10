@@ -1,3 +1,5 @@
+import path from 'path';
+
 import { transformFileAsync as babelTransform } from '@babel/core';
 import type { RouteData } from '@crackle/router';
 import { build as esbuild } from 'esbuild';
@@ -7,11 +9,13 @@ import glob from 'fast-glob';
 import type { PartialConfig } from './config';
 import { getConfig } from './config';
 
+export const pageGlobSuffix = '/**/*.page.tsx';
+
 const routesEntryName = 'ROUTES_ENTRY';
 const routeEntryNs = 'ROUTES_ENTRY_NAMESPACE';
 
-const transformWithBabel = async (path: string) => {
-  const transformedContents = await babelTransform(path, {
+const transformWithBabel = async (file: string) => {
+  const transformedContents = await babelTransform(file, {
     plugins: [
       [
         '@crackle/babel-plugin-remove-exports',
@@ -25,7 +29,7 @@ const transformWithBabel = async (path: string) => {
   });
 
   if (!transformedContents?.code) {
-    throw new Error(`No result from babel plugin transform of ${path}`);
+    throw new Error(`No result from babel plugin transform of ${file}`);
   }
 
   return {
@@ -38,7 +42,7 @@ export const getAllRoutes = async (inlineConfig?: PartialConfig) => {
   const { root, pageRoots } = getConfig(inlineConfig);
 
   const pageFiles = await glob(
-    pageRoots.map((pageRoot) => `${pageRoot}/**/*.page.tsx`),
+    pageRoots.map((pageRoot) => path.join(pageRoot, pageGlobSuffix)),
     { cwd: root },
   );
 
@@ -66,13 +70,14 @@ export const getAllRoutes = async (inlineConfig?: PartialConfig) => {
             namespace: routeEntryNs,
           }));
 
-          build.onLoad({ filter: new RegExp('.*.page.tsx$') }, ({ path }) =>
-            transformWithBabel(path),
+          // TODO: use pageGlobSuffix by compiling to RegExp
+
+          build.onLoad({ filter: new RegExp('.*.page.tsx$') }, (args) =>
+            transformWithBabel(args.path),
           );
 
-          build.onLoad(
-            { filter: new RegExp('.*src/pages/.*.tsx$') },
-            ({ path }) => transformWithBabel(path),
+          build.onLoad({ filter: new RegExp('.*src/pages/.*.tsx$') }, (args) =>
+            transformWithBabel(args.path),
           );
 
           build.onLoad({ filter, namespace: routeEntryNs }, () => ({
