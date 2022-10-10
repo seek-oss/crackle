@@ -70,7 +70,7 @@ yargs(process.argv.slice(2))
 
       const config = await resolveConfig({
         onUpdate: async (newConfig) => {
-          setConfigOverrides(config, overrides);
+          setConfigOverrides(newConfig, overrides);
 
           if (server) {
             logger.info('Updated config found. Restarting server...');
@@ -86,7 +86,7 @@ yargs(process.argv.slice(2))
       server = serve(config);
     },
   })
-  .command<Pick<CrackleConfig, 'fix'>>({
+  .command<Pick<CrackleConfig, 'fix' | 'clean'>>({
     command: 'package',
     describe: '#TODO',
     builder: {
