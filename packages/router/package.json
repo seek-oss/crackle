@@ -1,6 +1,6 @@
 {
   "name": "@crackle/router",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "main": "dist/crackle-router.cjs.js",
   "module": "dist/crackle-router.esm.js",
   "exports": {
