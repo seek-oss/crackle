@@ -1,5 +1,11 @@
 # @crackle/router
 
+## 0.2.0
+
+### Minor Changes
+
+- [#48](https://github.com/seek-oss/crackle/pull/48) [`87605cf`](https://github.com/seek-oss/crackle/commit/87605cf6b6fa0deba5d1abd0dbc4e6f7318f5845) Thanks [@mrm007](https://github.com/mrm007)! - Update entrypoints
+
 ## 0.1.2
 
 ### Patch Changes
