@@ -16,13 +16,14 @@ export type ManualChunksFn = NonNullable<
 >;
 
 type RoutePath = string;
-export type AppShell<
-  MetadataType extends Record<string, any> | undefined = undefined,
-> = MetadataType extends undefined
-  ? React.FC
-  : React.FC<{
-      routeMetadata: Record<RoutePath, MetadataType>;
-    }>;
+export type AppShell<MetadataType extends Record<string, any> | void = void> =
+  React.FC<
+    React.PropsWithChildren<
+      MetadataType extends void
+        ? unknown
+        : { routeMetadata: Record<RoutePath, MetadataType> }
+    >
+  >;
 
 export interface CrackleServer {
   url: string;

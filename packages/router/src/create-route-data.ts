@@ -4,11 +4,17 @@ export interface CrackleContext {
   site: 'en' | 'jobsdb';
 }
 
-type RouteDataFunction<T> = (crackleContext: CrackleContext) => RouteData<T>;
+type RouteDataFunction<T extends Record<string, any>> = (
+  crackleContext: CrackleContext,
+) => RouteData<T>;
 
 interface CreateRouteData {
-  <T>(routeData: RouteData<T>): RouteDataFunction<T>;
-  <T>(contextCallback: RouteDataFunction<T>): RouteDataFunction<T>;
+  <T extends Record<string, any>>(
+    routeData: RouteData<T>,
+  ): RouteDataFunction<T>;
+  <T extends Record<string, any>>(
+    contextCallback: RouteDataFunction<T>,
+  ): RouteDataFunction<T>;
 }
 
 export const createRouteData: CreateRouteData = (input) => {
