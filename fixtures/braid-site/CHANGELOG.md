@@ -1,5 +1,12 @@
 # @crackle-fixtures/braid-site
 
+## 1.0.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @crackle-fixtures/library-with-docs@1.0.1
+
 ## 1.0.2
 
 ### Patch Changes

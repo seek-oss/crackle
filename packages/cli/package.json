@@ -1,6 +1,6 @@
 {
   "name": "@crackle/cli",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "main": "dist/crackle-cli.cjs.js",
   "module": "dist/crackle-cli.esm.js",
   "exports": {
@@ -20,7 +20,7 @@
     "crackle": "bin.js"
   },
   "dependencies": {
-    "@crackle/core": "^0.12.2",
+    "@crackle/core": "^0.13.0",
     "yargs": "^17.1.1"
   },
   "devDependencies": {

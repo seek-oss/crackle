@@ -1,5 +1,12 @@
 # @crackle-fixtures/single-entry-library
 
+## 1.0.5
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @crackle-fixtures/multi-entry-library@1.0.1
+
 ## 1.0.4
 
 ### Patch Changes
