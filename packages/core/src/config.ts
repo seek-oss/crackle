@@ -105,7 +105,7 @@ export const getConfig = (inlineConfig?: PartialConfig): EnhancedConfig => {
   const appShell = determineAppShell(
     inlineConfig,
     resolveFromRoot,
-  ) as `${string}.tsx`;
+  ) as EnhancedConfig['appShell'];
 
   return {
     ...config,

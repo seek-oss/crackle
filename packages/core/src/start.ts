@@ -14,7 +14,7 @@ import type { PartialConfig } from './config';
 import { getConfig } from './config';
 import { clientEntry } from './constants';
 import { logger } from './logger';
-import { fixViteVanillaExtractDepScanPlugin } from './plugins/esbuild/fix-vite-vanilla-extract-dep-scan';
+import { fixViteVanillaExtractDepScanPlugin } from './plugins/esbuild';
 import {
   addPageRoots,
   internalPackageResolution,
@@ -88,16 +88,6 @@ export const start = async (
         '@vanilla-extract/css/adapter',
         ...builtinModules,
         ...ssrExternals.external,
-
-        // These externals are required to fix the following issue specifically for 'braid-design-system'
-        // https://github.com/vitejs/vite/issues/9926
-        // Other packages may be subject to the same issue
-        'autosuggest-highlight/match',
-        'autosuggest-highlight/parse',
-        'lodash/mapValues',
-        'lodash/merge',
-        'lodash/omit',
-        'lodash/values',
       ],
       noExternal: ssrExternals.noExternal,
     },

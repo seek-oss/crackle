@@ -31,7 +31,7 @@ jobs:
         run: pnpm build
 
       - name: Set up fixtures
-        run: pnpm fixtures package
+        run: pnpm fixtures --aggregate-output package
 
       - name: Lint
         run: pnpm lint

@@ -2,7 +2,8 @@ import { dirname } from 'path';
 
 import { cssFileFilter } from '@vanilla-extract/integration';
 import type { Plugin } from 'esbuild';
-import resolveFrom from 'resolve-from';
+
+import { resolveFrom } from '../../utils/resolve-from';
 
 /**
  * Forces all vanilla files (e.g. .css.ts/.js) to be excluded from dep optimisation.
@@ -11,12 +12,11 @@ import resolveFrom from 'resolve-from';
  *
  * https://github.com/evanw/esbuild/issues/465
  */
-
 export const fixViteVanillaExtractDepScanPlugin = (): Plugin => ({
   name: 'crackle:fix-vite-vanilla-extract-dep-scan',
   setup(build) {
-    build.onResolve({ filter: cssFileFilter }, ({ importer, path }) => ({
-      path: resolveFrom(dirname(importer), path),
+    build.onResolve({ filter: cssFileFilter }, async ({ importer, path }) => ({
+      path: await resolveFrom(dirname(importer), path),
       external: true,
     }));
   },
