@@ -1,9 +1,4 @@
-.yalc
+CHANGELOG.md
 dist
 node_modules
-CHANGELOG.md
 pnpm-lock.yaml
-
-fixtures/multi-entry-library/components
-fixtures/multi-entry-library/extras
-fixtures/multi-entry-library/themes
