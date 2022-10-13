@@ -20,13 +20,7 @@ export const createBundle = async (
 
   await viteBuild({
     ...commonViteConfig,
-    plugins: [
-      addVanillaDebugIds(config.root),
-      {
-        ...externals(config.root, format),
-        enforce: 'pre',
-      },
-    ],
+    plugins: [addVanillaDebugIds(config.root), externals(config.root, format)],
     logLevel: 'warn',
     build: {
       // output directory is the package root, so we don't want to remove it

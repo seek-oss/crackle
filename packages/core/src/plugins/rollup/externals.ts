@@ -58,50 +58,55 @@ export function externals(packageRoot: string, format: Format = 'esm'): Plugin {
 
   return {
     ...plugin,
+
     name: `crackle:patched-${plugin.name}`,
-    async buildStart(options) {
+
+    async buildStart(...args) {
       await Promise.all([
-        (plugin as FunctionPluginHooks).buildStart.call(this, options),
+        (plugin as FunctionPluginHooks).buildStart.call(this, ...args),
         findDependencies(config).then((result) => (packagesById = result)),
       ]);
     },
-    async resolveId(source, importer, options) {
-      const resolved = (plugin as FunctionPluginHooks).resolveId.call(
-        this,
-        source,
-        importer,
-        options,
-      );
 
-      if (
-        (typeof resolved === 'boolean' && !resolved) ||
-        (typeof resolved === 'object' && resolved?.external)
-      ) {
-        let id = source;
-        let isSubpath = false;
+    resolveId: {
+      order: 'pre',
+      async handler(id, ...rest) {
+        const resolved = (plugin as FunctionPluginHooks).resolveId.call(
+          this,
+          id,
+          ...rest,
+        );
 
-        if (!source.startsWith('@') && source.includes('/')) {
-          id = source.split('/')[0];
-          isSubpath = true;
+        if (
+          (typeof resolved === 'boolean' && !resolved) ||
+          (typeof resolved === 'object' && resolved?.external)
+        ) {
+          let packageId = id;
+          let isSubpath = false;
+
+          if (!id.startsWith('@') && id.includes('/')) {
+            packageId = id.split('/')[0];
+            isSubpath = true;
+          }
+          if (id.startsWith('@') && Number(id.match(/\//g)?.length) > 1) {
+            packageId = id.split('/').slice(0, 2).join('/');
+            isSubpath = true;
+          }
+
+          const packageJson = packagesById.get(packageId);
+          const patched = {
+            id:
+              format === 'esm' && isSubpath && !packageJson?.exports
+                ? patch(id)
+                : id,
+            external: true,
+          };
+
+          return patched;
         }
-        if (source.startsWith('@') && Number(source.match(/\//g)?.length) > 1) {
-          id = source.split('/').slice(0, 2).join('/');
-          isSubpath = true;
-        }
 
-        const packageJson = packagesById.get(id);
-        const patched = {
-          id:
-            format === 'esm' && isSubpath && !packageJson?.exports
-              ? patch(source)
-              : source,
-          external: true,
-        };
-
-        return patched;
-      }
-
-      return resolved;
+        return resolved;
+      },
     },
   };
 }
