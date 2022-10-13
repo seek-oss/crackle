@@ -1,5 +1,11 @@
 # @crackle/core
 
+## 0.13.0
+
+### Minor Changes
+
+- [#47](https://github.com/seek-oss/crackle/pull/47) [`4ea357f`](https://github.com/seek-oss/crackle/commit/4ea357faf06affe880741581689508a3b3b348e6) Thanks [@mrm007](https://github.com/mrm007)! - Use `.mjs` file extension for ESM bundles. Please read the [pull request description](https://github.com/seek-oss/crackle/pull/47) for more details.
+
 ## 0.12.2
 
 ### Patch Changes
