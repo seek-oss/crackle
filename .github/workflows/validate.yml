@@ -9,6 +9,11 @@ jobs:
     env:
       CI: true
     steps:
+      # The correct order is:
+      # 1. actions/checkout@ (so package.json can be read by actions/setup-node)
+      # 2. pnpm/action-setup (so the cache is available to actions/setup-node)
+      # 3. actions/setup-node
+
       - name: Checkout Repo
         uses: actions/checkout@main
         with:
@@ -21,7 +26,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@main
         with:
-          node-version-file: '.nvmrc'
+          node-version-file: 'package.json'
           cache: 'pnpm'
 
       - name: Install Dependencies
@@ -30,7 +35,7 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Set up fixtures
+      - name: Package fixtures
         run: pnpm fixtures --aggregate-output package
 
       - name: Lint
