@@ -5,6 +5,7 @@ on:
 
 jobs:
   init:
+    name: Checkout & Install
     runs-on: ubuntu-latest
     env:
       CI: true
