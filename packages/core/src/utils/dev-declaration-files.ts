@@ -3,9 +3,12 @@ import path from 'path';
 
 import type { EnhancedConfig } from '../config';
 
-import { createEntryPackageJsons } from './create-entry-package-json';
+import {
+  createEntryPackageJsons,
+  getPackageEntryPoints,
+  getPackages,
+} from './entry-points';
 import { writeIfRequired } from './files';
-import { getPackages, getPackageEntryPoints } from './get-packages';
 import { promiseMap } from './promise-map';
 
 const exportDefaultRegex = /^export default/m;
@@ -18,9 +21,7 @@ const hasDefaultExport = async (filePath: string) => {
 export const generateDevDeclarationFiles = async (config: EnhancedConfig) => {
   const packages = await getPackages(config);
   for (const pkg of packages.values()) {
-    const entryPaths = await getPackageEntryPoints({
-      packageRoot: pkg.root,
-    });
+    const entryPaths = await getPackageEntryPoints(pkg.root);
 
     await promiseMap(entryPaths, async ({ entryPath, getOutputPath }) => {
       const outputPath = getOutputPath('dts');

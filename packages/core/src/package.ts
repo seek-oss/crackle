@@ -13,10 +13,11 @@ import { createDtsBundle } from './package/dts';
 import { renderPackageJsonValidationError } from './reporters/package';
 import { renderBuildError } from './reporters/shared';
 import type { Format, PackageJson } from './types';
-import { createEntryPackageJsons } from './utils/create-entry-package-json';
-import { emptyDir } from './utils/files';
-import { getPackageEntryPoints } from './utils/get-packages';
-import { promiseMap } from './utils/promise-map';
+import {
+  cleanPackageEntryPoints,
+  createEntryPackageJsons,
+  getPackageEntryPoints,
+} from './utils/entry-points';
 import { validatePackageJson } from './utils/setup-package-json';
 
 const getPackageName = async (config: EnhancedConfig): Promise<string> => {
@@ -34,9 +35,7 @@ const getPackageName = async (config: EnhancedConfig): Promise<string> => {
 };
 
 const build = async (config: EnhancedConfig, packageName: string) => {
-  const entries = await getPackageEntryPoints({
-    packageRoot: config.root,
-  });
+  const entries = await getPackageEntryPoints(config.root);
 
   const diffs = await validatePackageJson(config.root, entries);
 
@@ -54,7 +53,7 @@ const build = async (config: EnhancedConfig, packageName: string) => {
   logger.info(`🛠  Building ${chalk.bold.green(packageName)}...`);
 
   if (config.clean) {
-    await promiseMap(entries, (entry) => emptyDir(entry.outputDir));
+    await cleanPackageEntryPoints(entries);
   }
 
   const withLogging = async (

@@ -1,10 +1,8 @@
 import path from 'path';
 
 import type { FunctionPluginHooks, Plugin } from 'rollup';
-import {
-  externals as rollupExternals,
-  type ExternalsOptions,
-} from 'rollup-plugin-node-externals';
+import { externals as rollupExternals } from 'rollup-plugin-node-externals';
+import type { ExternalsOptions } from 'rollup-plugin-node-externals';
 import type { PackageJson } from 'type-fest';
 
 import type { Format } from '../../types';
