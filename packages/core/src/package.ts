@@ -53,6 +53,7 @@ const build = async (config: EnhancedConfig, packageName: string) => {
   logger.info(`🛠  Building ${chalk.bold.green(packageName)}...`);
 
   if (config.clean) {
+    logger.info('🧹 Cleaning output directories...');
     await cleanPackageEntryPoints(entries);
   }
 
