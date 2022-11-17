@@ -21,9 +21,9 @@
   },
   "dependencies": {
     "@crackle/core": "^0.13.0",
-    "yargs": "^17.1.1"
+    "yargs": "^17.6.2"
   },
   "devDependencies": {
-    "@types/yargs": "^17.0.2"
+    "@types/yargs": "^17.0.13"
   }
 }

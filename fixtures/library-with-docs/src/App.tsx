@@ -1,4 +1,6 @@
 import 'braid-design-system/reset';
+
+import type { AppShell } from '@crackle/core';
 import { Link as ReactRouterLink } from '@crackle/router';
 import {
   Box,
@@ -19,7 +21,7 @@ const CustomLink = makeLinkComponent(({ href, ...restProps }, ref) =>
   ),
 );
 
-const App: React.FC = ({ children }) => (
+const App: AppShell = ({ children }) => (
   <BraidProvider theme={apac} linkComponent={CustomLink}>
     <Stack space="medium">
       <Box background="brand">

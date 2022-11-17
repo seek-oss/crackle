@@ -1,6 +1,7 @@
 name: Snapshot
 
 on: workflow_dispatch
+
 jobs:
   publish:
     name: Publish snapshot version
@@ -8,8 +9,13 @@ jobs:
     env:
       CI: true
     steps:
+      # The correct order is:
+      # 1. actions/checkout (so package.json can be read by actions/setup-node)
+      # 2. pnpm/action-setup (so the cache is available to actions/setup-node)
+      # 3. actions/setup-node
+
       - name: Checkout Repo
-        uses: actions/checkout@main
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
           token: ${{ secrets.SEEK_OSS_CI_GITHUB_TOKEN }}
@@ -18,9 +24,9 @@ jobs:
         uses: pnpm/action-setup@v2
 
       - name: Set up Node.js
-        uses: actions/setup-node@main
+        uses: actions/setup-node@v3
         with:
-          node-version-file: '.nvmrc'
+          node-version-file: 'package.json'
           cache: 'pnpm'
 
       - name: Install Dependencies

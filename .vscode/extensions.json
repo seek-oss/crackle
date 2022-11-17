@@ -1,6 +1,7 @@
 {
   "recommendations": [
     "bierner.comment-tagged-templates",
-    "ZixuanChen.vitest-explorer"
+    "ms-playwright.playwright",
+    "zixuanchen.vitest-explorer"
   ]
 }

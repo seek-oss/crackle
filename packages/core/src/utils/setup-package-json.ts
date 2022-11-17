@@ -40,11 +40,14 @@ const getExportsForPackage = (entries: PackageEntryPoint[]) => {
 export const diffPackageJson = (
   packageJson: PackageJson,
   entries: PackageEntryPoint[],
-) => {
+): {
+  diffs: Difference[];
+  expectedPackageJson: PackageJson;
+} => {
   const files = new Set<string>(packageJson.files ?? []);
 
-  let main: string | undefined;
-  let module: string | undefined;
+  let main: PackageJson['main'];
+  let module: PackageJson['module'];
 
   for (const entryPoint of entries) {
     if (entryPoint.isDefaultEntry) {
@@ -55,7 +58,7 @@ export const diffPackageJson = (
     files.add(`/${entryPoint.entryName}`);
   }
 
-  const exportsKey = getExportsForPackage(entries);
+  const exports = getExportsForPackage(entries);
 
   const filesArray = Array.from(files);
   const diffs: Difference[] = [];
@@ -85,18 +88,18 @@ export const diffPackageJson = (
 
   const packageJsonExports = packageJson.exports;
 
-  if (!isDeepStrictEqual(packageJsonExports, exportsKey)) {
+  if (!isDeepStrictEqual(packageJsonExports, exports)) {
     diffs.push({ key: 'exports' });
   }
 
   const expectedPackageJson =
     diffs.length > 0
-      ? {
+      ? ({
           main,
           module,
           files: filesArray.sort((a, b) => (a > b ? 1 : -1)),
-          exports: exportsKey,
-        }
+          exports,
+        } as PackageJson)
       : packageJson;
 
   return {

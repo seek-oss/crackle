@@ -1,7 +1,8 @@
 import path from 'path';
 
 import type { FunctionPluginHooks, Plugin } from 'rollup';
-import rollupExternals, {
+import {
+  externals as rollupExternals,
   type ExternalsOptions,
 } from 'rollup-plugin-node-externals';
 import type { PackageJson } from 'type-fest';
@@ -71,7 +72,8 @@ export function externals(packageRoot: string, format: Format = 'esm'): Plugin {
     resolveId: {
       order: 'pre',
       async handler(id, ...rest) {
-        const resolved = (plugin as FunctionPluginHooks).resolveId.call(
+        // `resolveId` is async in Rollup 3
+        const resolved = await (plugin as FunctionPluginHooks).resolveId.call(
           this,
           id,
           ...rest,

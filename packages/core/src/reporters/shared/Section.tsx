@@ -7,6 +7,7 @@ import { Stack } from './Stack';
 export const Section: React.FC<{
   message: string;
   messageColor?: typeof chalk.Color;
+  children: React.ReactNode;
 }> = ({ message, messageColor, children }) => (
   <Stack gap={0}>
     <Text color={messageColor}>{message}</Text>
