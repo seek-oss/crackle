@@ -4,9 +4,11 @@ import type { Plugin } from 'vite';
 import { normalizePath } from 'vite';
 
 import type { EnhancedConfig } from '../../config';
-import type { Packages } from '../../utils/entry-points';
-import { getPackages } from '../../utils/entry-points';
-import { getPackageEntryPoints } from '../../utils/entry-points';
+import {
+  getPackageEntryPoints,
+  getPackages,
+  type Packages,
+} from '../../utils/entry-points';
 
 export const internalPackageResolution = (config: EnhancedConfig): Plugin => {
   let packages: Packages | undefined;
