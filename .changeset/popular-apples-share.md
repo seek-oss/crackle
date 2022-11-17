@@ -1,8 +1,8 @@
 ---
-'@crackle/babel-plugin-remove-exports': minor
-'@crackle/cli': minor
-'@crackle/core': minor
-'@crackle/router': minor
+'@crackle/babel-plugin-remove-exports': patch
+'@crackle/cli': patch
+'@crackle/core': patch
+'@crackle/router': patch
 ---
 
 Update dependencies

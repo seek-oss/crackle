@@ -72,7 +72,8 @@ export function externals(packageRoot: string, format: Format = 'esm'): Plugin {
     resolveId: {
       order: 'pre',
       async handler(id, ...rest) {
-        const resolved = (plugin as FunctionPluginHooks).resolveId.call(
+        // `resolveId` is async in Rollup 3
+        const resolved = await (plugin as FunctionPluginHooks).resolveId.call(
           this,
           id,
           ...rest,
