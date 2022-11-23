@@ -1,6 +1,6 @@
 {
   "name": "@crackle/babel-plugin-remove-exports",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "dist/crackle-babel-plugin-remove-exports.cjs.js",
   "module": "dist/crackle-babel-plugin-remove-exports.esm.js",
   "exports": {
