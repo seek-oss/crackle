@@ -1,7 +1,7 @@
 import { fs, vol } from 'memfs';
 import { expect, test, vi } from 'vitest';
 
-import { getPackageEntryPoints } from './get-packages';
+import { getPackageEntryPoints } from './entry-points';
 
 vi.mock('fs', () => ({ default: fs }));
 
@@ -19,9 +19,7 @@ test('getPackageEntryPoints', async () => {
     packageRoot,
   );
 
-  const entryPoints = await getPackageEntryPoints({
-    packageRoot,
-  });
+  const entryPoints = await getPackageEntryPoints(packageRoot);
 
   expect(entryPoints).toMatchInlineSnapshot(`
     [

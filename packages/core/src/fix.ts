@@ -2,7 +2,7 @@ import type { PartialConfig } from './config';
 import { getConfig } from './config';
 import type { PackageDiffDetails } from './reporters/fix';
 import { renderApp } from './reporters/fix';
-import { getPackageEntryPoints, getPackages } from './utils/get-packages';
+import { getPackageEntryPoints, getPackages } from './utils/entry-points';
 import { promiseMap } from './utils/promise-map';
 import { fixPackageJson } from './utils/setup-package-json';
 
@@ -14,9 +14,7 @@ export const fix = async (inlineConfig?: PartialConfig) => {
   const packageDiffs: PackageDiffDetails[] = [];
 
   await promiseMap(packageList, async (pkg) => {
-    const entries = await getPackageEntryPoints({
-      packageRoot: pkg.root,
-    });
+    const entries = await getPackageEntryPoints(pkg.root);
     const diffs = await fixPackageJson(pkg.root, entries);
     packageDiffs.push({
       packageName: pkg.name,

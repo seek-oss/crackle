@@ -16,6 +16,10 @@
       "module": "./build/dist/crackle-core-build.esm.js",
       "default": "./build/dist/crackle-core-build.cjs.js"
     },
+    "./clean": {
+      "module": "./clean/dist/crackle-core-clean.esm.js",
+      "default": "./clean/dist/crackle-core-clean.cjs.js"
+    },
     ".": {
       "module": "./dist/crackle-core.esm.js",
       "default": "./dist/crackle-core.cjs.js"
@@ -50,6 +54,7 @@
   "license": "MIT",
   "files": [
     "/build",
+    "/clean",
     "/dev",
     "/dist",
     "/entries",
@@ -69,6 +74,7 @@
   "preconstruct": {
     "entrypoints": [
       "build.ts",
+      "clean.ts",
       "dev.ts",
       "fix.ts",
       "index.ts",
