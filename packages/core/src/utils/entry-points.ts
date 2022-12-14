@@ -19,6 +19,7 @@ export type Packages = Map<string, Package>;
 export const getPackages = async (
   config: EnhancedConfig,
 ): Promise<Packages> => {
+  // TODO: remove/replace with monorepo-aware library
   const monorepoPackages = await glob(['packages/*/package.json'], {
     cwd: config.root,
     absolute: true,
