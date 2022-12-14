@@ -1,6 +1,7 @@
 import path from 'path';
 
 import { cssFileFilter } from '@vanilla-extract/integration';
+import react from '@vitejs/plugin-react';
 import type { OutputOptions } from 'rollup';
 import { build as viteBuild } from 'vite';
 
@@ -20,7 +21,11 @@ export const createBundle = async (
 
   await viteBuild({
     ...commonViteConfig,
-    plugins: [addVanillaDebugIds(config.root), externals(config.root, format)],
+    plugins: [
+      addVanillaDebugIds(config.root),
+      externals(config.root, format),
+      react(),
+    ],
     logLevel: 'warn',
     build: {
       // output directory is the package root, so we don't want to remove it

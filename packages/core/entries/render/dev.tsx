@@ -2,7 +2,8 @@
 // eslint-disable-next-line import/order
 import { inlineCriticalCss } from './css-extractor';
 
-import React from 'react';
+import viteReact from '@vitejs/plugin-react';
+import * as React from 'react';
 import { renderToString } from 'react-dom/server';
 
 import type { RenderDevPageFn } from '../types';
@@ -10,15 +11,23 @@ import type { RenderDevPageFn } from '../types';
 import { NotFoundPage } from './NotFoundPage';
 import { Page, createRouteMap, nodePageModules } from './shared';
 
-const reactRefresh = `
-import RefreshRuntime from '/@react-refresh'
-RefreshRuntime.injectIntoGlobalHook(window)
-window.$RefreshReg$ = () => {}
-window.$RefreshSig$ = () => (type) => type
-window.__vite_plugin_react_preamble_installed__ = true
-`;
+const reactRefresh = viteReact.preambleCode.replace('__BASE__', '/');
 
 const criticalCssPlaceholder = '__CRACKLE_CRITICAL_CSS__';
+
+async function renderHtml(
+  element: React.ReactElement,
+  { routes, statusCode }: { routes: string[]; statusCode: number },
+) {
+  let html = renderToString(element);
+  html = await inlineCriticalCss(html, criticalCssPlaceholder);
+
+  return {
+    html: `<!DOCTYPE html>\n${html}`,
+    routes, // TODO: remove; not used
+    statusCode,
+  };
+}
 
 export const renderDevelopmentPage: RenderDevPageFn = async ({
   path,
@@ -29,14 +38,13 @@ export const renderDevelopmentPage: RenderDevPageFn = async ({
   const routes = Object.keys(routeMap);
 
   if (!routeMap[path]) {
-    const html = renderToString(
+    return renderHtml(
       <NotFoundPage attemptedPath={path} routeMap={routeMap} />,
+      {
+        routes,
+        statusCode: 404,
+      },
     );
-    return {
-      html: await inlineCriticalCss(html, criticalCssPlaceholder),
-      routes,
-      statusCode: 404,
-    };
   }
 
   const { default: PageComponent } = nodePageModules[routeMap[path].pageName];
@@ -53,7 +61,7 @@ export const renderDevelopmentPage: RenderDevPageFn = async ({
     <script key="entry" type="module" src={entry} />,
   ];
 
-  const html = renderToString(
+  return renderHtml(
     <Page
       path={path}
       headTags={null}
@@ -63,11 +71,9 @@ export const renderDevelopmentPage: RenderDevPageFn = async ({
     >
       <PageComponent />
     </Page>,
+    {
+      routes,
+      statusCode: 200,
+    },
   );
-
-  return {
-    html: await inlineCriticalCss(html, criticalCssPlaceholder),
-    routes,
-    statusCode: 200,
-  };
 };

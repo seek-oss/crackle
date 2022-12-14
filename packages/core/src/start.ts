@@ -74,7 +74,11 @@ export const start = async (
       // https://github.com/vitejs/vite/blob/bf0b631e7479ed70d02b98b780cf7e4b02d0344b/packages/vite/src/node/optimizer/scan.ts#L56-L61
       // https://github.com/vitejs/vite/blob/bf0b631e7479ed70d02b98b780cf7e4b02d0344b/packages/vite/src/node/optimizer/scan.ts#L124-L125
       // We can force include our internal dependencies here, so that they also get prebundled.
-      include: ['react-dom', '@crackle/router'],
+      include: [
+        'react-dom',
+        '@crackle/router',
+        '@vanilla-extract/css'
+      ],
       esbuildOptions: {
         plugins: [fixViteVanillaExtractDepScanPlugin()],
       },
