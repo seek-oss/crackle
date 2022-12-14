@@ -1,0 +1,87 @@
+diff --git a/createRuntimeSprinkles/dist/vanilla-extract-sprinkles-createRuntimeSprinkles.esm.js b/createRuntimeSprinkles/dist/vanilla-extract-sprinkles-createRuntimeSprinkles.esm.mjs
+similarity index 94%
+rename from createRuntimeSprinkles/dist/vanilla-extract-sprinkles-createRuntimeSprinkles.esm.js
+rename to createRuntimeSprinkles/dist/vanilla-extract-sprinkles-createRuntimeSprinkles.esm.mjs
+index 36dfa6c31d7a158f1bcdf231717d28180541f2a2..383e4e5f9159584ed37f9a85a0d5b49ce593c000 100644
+--- a/createRuntimeSprinkles/dist/vanilla-extract-sprinkles-createRuntimeSprinkles.esm.js
++++ b/createRuntimeSprinkles/dist/vanilla-extract-sprinkles-createRuntimeSprinkles.esm.mjs
+@@ -1,4 +1,4 @@
+-import { c as createSprinkles$1 } from '../../dist/createSprinkles-29d354c5.esm.js';
++import { c as createSprinkles$1 } from '../../dist/createSprinkles-29d354c5.esm.mjs';
+ 
+ var composeStyles = classList => classList;
+ 
+diff --git a/createRuntimeSprinkles/package.json b/createRuntimeSprinkles/package.json
+index ce226083cb078fa07cfa5d13e34ab7bd120260bb..a72dcbb953832f03a15f2e8d9d591301b6180657 100644
+--- a/createRuntimeSprinkles/package.json
++++ b/createRuntimeSprinkles/package.json
+@@ -1,4 +1,4 @@
+ {
+   "main": "dist/vanilla-extract-sprinkles-createRuntimeSprinkles.cjs.js",
+-  "module": "dist/vanilla-extract-sprinkles-createRuntimeSprinkles.esm.js"
++  "module": "dist/vanilla-extract-sprinkles-createRuntimeSprinkles.esm.mjs"
+ }
+diff --git a/createUtils/dist/vanilla-extract-sprinkles-createUtils.esm.js b/createUtils/dist/vanilla-extract-sprinkles-createUtils.esm.mjs
+similarity index 100%
+rename from createUtils/dist/vanilla-extract-sprinkles-createUtils.esm.js
+rename to createUtils/dist/vanilla-extract-sprinkles-createUtils.esm.mjs
+diff --git a/createUtils/package.json b/createUtils/package.json
+index 471591b03e911fb7b8458be06578348a63ea59bf..0b40306afe97a369c4ac13bd9e8cfd1e1c541b7a 100644
+--- a/createUtils/package.json
++++ b/createUtils/package.json
+@@ -1,4 +1,4 @@
+ {
+   "main": "dist/vanilla-extract-sprinkles-createUtils.cjs.js",
+-  "module": "dist/vanilla-extract-sprinkles-createUtils.esm.js"
++  "module": "dist/vanilla-extract-sprinkles-createUtils.esm.mjs"
+ }
+diff --git a/dist/createSprinkles-29d354c5.esm.js b/dist/createSprinkles-29d354c5.esm.mjs
+similarity index 100%
+rename from dist/createSprinkles-29d354c5.esm.js
+rename to dist/createSprinkles-29d354c5.esm.mjs
+diff --git a/dist/vanilla-extract-sprinkles.esm.js b/dist/vanilla-extract-sprinkles.esm.mjs
+similarity index 98%
+rename from dist/vanilla-extract-sprinkles.esm.js
+rename to dist/vanilla-extract-sprinkles.esm.mjs
+index b249d5c9d5e5554c27b5106eeb605bd814705b3b..9c5a2faa815b1935cbfbc963008fdd547ebe4986 100644
+--- a/dist/vanilla-extract-sprinkles.esm.js
++++ b/dist/vanilla-extract-sprinkles.esm.mjs
+@@ -1,8 +1,8 @@
+ import { composeStyles, style } from '@vanilla-extract/css';
+ import { addRecipe } from '@vanilla-extract/css/recipe';
+ import { hasFileScope } from '@vanilla-extract/css/fileScope';
+-import { c as createSprinkles$1 } from './createSprinkles-29d354c5.esm.js';
+-export { createMapValueFn, createNormalizeValueFn } from '../createUtils/dist/vanilla-extract-sprinkles-createUtils.esm.js';
++import { c as createSprinkles$1 } from './createSprinkles-29d354c5.esm.mjs';
++export { createMapValueFn, createNormalizeValueFn } from '../createUtils/dist/vanilla-extract-sprinkles-createUtils.esm.mjs';
+ 
+ function defineProperties(options) {
+   var styles = 'shorthands' in options ? Object.fromEntries(Object.entries(options.shorthands).map(_ref => {
+diff --git a/package.json b/package.json
+index 6edccc8149627cf41061ae1538e5b43ce00c8457..ae003d5287207c033512857fc13d8168795e1e87 100644
+--- a/package.json
++++ b/package.json
+@@ -4,19 +4,19 @@
+   "description": "Zero-runtime atomic CSS framework for vanilla-extract",
+   "sideEffects": false,
+   "main": "dist/vanilla-extract-sprinkles.cjs.js",
+-  "module": "dist/vanilla-extract-sprinkles.esm.js",
++  "module": "dist/vanilla-extract-sprinkles.esm.mjs",
+   "exports": {
+     "./package.json": "./package.json",
+     ".": {
+-      "module": "./dist/vanilla-extract-sprinkles.esm.js",
++      "module": "./dist/vanilla-extract-sprinkles.esm.mjs",
+       "default": "./dist/vanilla-extract-sprinkles.cjs.js"
+     },
+     "./createRuntimeSprinkles": {
+-      "module": "./createRuntimeSprinkles/dist/vanilla-extract-sprinkles-createRuntimeSprinkles.esm.js",
++      "module": "./createRuntimeSprinkles/dist/vanilla-extract-sprinkles-createRuntimeSprinkles.esm.mjs",
+       "default": "./createRuntimeSprinkles/dist/vanilla-extract-sprinkles-createRuntimeSprinkles.cjs.js"
+     },
+     "./createUtils": {
+-      "module": "./createUtils/dist/vanilla-extract-sprinkles-createUtils.esm.js",
++      "module": "./createUtils/dist/vanilla-extract-sprinkles-createUtils.esm.mjs",
+       "default": "./createUtils/dist/vanilla-extract-sprinkles-createUtils.cjs.js"
+     }
+   },

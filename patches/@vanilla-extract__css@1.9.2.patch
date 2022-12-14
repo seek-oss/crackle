@@ -1,0 +1,533 @@
+diff --git a/adapter/dist/vanilla-extract-css-adapter.browser.esm.js b/adapter/dist/vanilla-extract-css-adapter.browser.esm.mjs
+similarity index 100%
+rename from adapter/dist/vanilla-extract-css-adapter.browser.esm.js
+rename to adapter/dist/vanilla-extract-css-adapter.browser.esm.mjs
+diff --git a/adapter/dist/vanilla-extract-css-adapter.esm.js b/adapter/dist/vanilla-extract-css-adapter.esm.mjs
+similarity index 100%
+rename from adapter/dist/vanilla-extract-css-adapter.esm.js
+rename to adapter/dist/vanilla-extract-css-adapter.esm.mjs
+diff --git a/adapter/package.json b/adapter/package.json
+index 668d38a47dbd5088a990391126bb256bee8cf961..4579736b09e119a7f795d65e08cf45e38b3bdbaa 100644
+--- a/adapter/package.json
++++ b/adapter/package.json
+@@ -1,19 +1,19 @@
+ {
+   "main": "dist/vanilla-extract-css-adapter.cjs.js",
+-  "module": "dist/vanilla-extract-css-adapter.esm.js",
++  "module": "dist/vanilla-extract-css-adapter.esm.mjs",
+   "browser": {
+     "./dist/vanilla-extract-css-adapter.cjs.js": "./dist/vanilla-extract-css-adapter.browser.cjs.js",
+-    "./dist/vanilla-extract-css-adapter.esm.js": "./dist/vanilla-extract-css-adapter.browser.esm.js"
++    "./dist/vanilla-extract-css-adapter.esm.mjs": "./dist/vanilla-extract-css-adapter.browser.esm.mjs"
+   },
+   "sideEffects": false,
+   "exports": {
+     "./package.json": "./package.json",
+     ".": {
+       "browser": {
+-        "module": "./dist/vanilla-extract-css-adapter.browser.esm.js",
++        "module": "./dist/vanilla-extract-css-adapter.browser.esm.mjs",
+         "default": "./dist/vanilla-extract-css-adapter.browser.cjs.js"
+       },
+-      "module": "./dist/vanilla-extract-css-adapter.esm.js",
++      "module": "./dist/vanilla-extract-css-adapter.esm.mjs",
+       "default": "./dist/vanilla-extract-css-adapter.cjs.js"
+     }
+   }
+diff --git a/disableRuntimeStyles/dist/vanilla-extract-css-disableRuntimeStyles.browser.esm.js b/disableRuntimeStyles/dist/vanilla-extract-css-disableRuntimeStyles.browser.esm.mjs
+similarity index 68%
+rename from disableRuntimeStyles/dist/vanilla-extract-css-disableRuntimeStyles.browser.esm.js
+rename to disableRuntimeStyles/dist/vanilla-extract-css-disableRuntimeStyles.browser.esm.mjs
+index 4e8bb6afffd63bcb67e4c1746763351a05e998b8..538b275a7069b02eb9559ca58bebf4c8b4e830b2 100644
+--- a/disableRuntimeStyles/dist/vanilla-extract-css-disableRuntimeStyles.browser.esm.js
++++ b/disableRuntimeStyles/dist/vanilla-extract-css-disableRuntimeStyles.browser.esm.mjs
+@@ -1,3 +1,3 @@
+-import { setAdapter, mockAdapter } from '../../adapter/dist/vanilla-extract-css-adapter.browser.esm.js';
++import { setAdapter, mockAdapter } from '../../adapter/dist/vanilla-extract-css-adapter.browser.esm.mjs';
+ 
+ setAdapter(mockAdapter);
+diff --git a/disableRuntimeStyles/dist/vanilla-extract-css-disableRuntimeStyles.esm.js b/disableRuntimeStyles/dist/vanilla-extract-css-disableRuntimeStyles.esm.mjs
+similarity index 72%
+rename from disableRuntimeStyles/dist/vanilla-extract-css-disableRuntimeStyles.esm.js
+rename to disableRuntimeStyles/dist/vanilla-extract-css-disableRuntimeStyles.esm.mjs
+index f4ddb2b33a947cb6804fae2f9e8658568eac2bce..75204d0d9c9fdaac6cc059f36ff476c5ffd99eec 100644
+--- a/disableRuntimeStyles/dist/vanilla-extract-css-disableRuntimeStyles.esm.js
++++ b/disableRuntimeStyles/dist/vanilla-extract-css-disableRuntimeStyles.esm.mjs
+@@ -1,3 +1,3 @@
+-import { setAdapter, mockAdapter } from '../../adapter/dist/vanilla-extract-css-adapter.esm.js';
++import { setAdapter, mockAdapter } from '../../adapter/dist/vanilla-extract-css-adapter.esm.mjs';
+ 
+ setAdapter(mockAdapter);
+diff --git a/disableRuntimeStyles/package.json b/disableRuntimeStyles/package.json
+index e2f28e56925790ecfc536980a61d406e997401a1..2098b65b7609289a2c919cdff6506a4d37b0eb99 100644
+--- a/disableRuntimeStyles/package.json
++++ b/disableRuntimeStyles/package.json
+@@ -1,18 +1,18 @@
+ {
+   "main": "dist/vanilla-extract-css-disableRuntimeStyles.cjs.js",
+-  "module": "dist/vanilla-extract-css-disableRuntimeStyles.esm.js",
++  "module": "dist/vanilla-extract-css-disableRuntimeStyles.esm.mjs",
+   "browser": {
+     "./dist/vanilla-extract-css-disableRuntimeStyles.cjs.js": "./dist/vanilla-extract-css-disableRuntimeStyles.browser.cjs.js",
+-    "./dist/vanilla-extract-css-disableRuntimeStyles.esm.js": "./dist/vanilla-extract-css-disableRuntimeStyles.browser.esm.js"
++    "./dist/vanilla-extract-css-disableRuntimeStyles.esm.mjs": "./dist/vanilla-extract-css-disableRuntimeStyles.browser.esm.mjs"
+   },
+   "exports": {
+     "./package.json": "./package.json",
+     ".": {
+       "browser": {
+-        "module": "./dist/vanilla-extract-css-disableRuntimeStyles.browser.esm.js",
++        "module": "./dist/vanilla-extract-css-disableRuntimeStyles.browser.esm.mjs",
+         "default": "./dist/vanilla-extract-css-disableRuntimeStyles.browser.cjs.js"
+       },
+-      "module": "./dist/vanilla-extract-css-disableRuntimeStyles.esm.js",
++      "module": "./dist/vanilla-extract-css-disableRuntimeStyles.esm.mjs",
+       "default": "./dist/vanilla-extract-css-disableRuntimeStyles.cjs.js"
+     }
+   }
+diff --git a/dist/taggedTemplateLiteral-2d2668f5.browser.esm.js b/dist/taggedTemplateLiteral-2d2668f5.browser.esm.mjs
+similarity index 100%
+rename from dist/taggedTemplateLiteral-2d2668f5.browser.esm.js
+rename to dist/taggedTemplateLiteral-2d2668f5.browser.esm.mjs
+diff --git a/dist/taggedTemplateLiteral-b4c22b04.esm.js b/dist/taggedTemplateLiteral-b4c22b04.esm.mjs
+similarity index 100%
+rename from dist/taggedTemplateLiteral-b4c22b04.esm.js
+rename to dist/taggedTemplateLiteral-b4c22b04.esm.mjs
+diff --git a/dist/transformCss-6fe44699.browser.esm.js b/dist/transformCss-6fe44699.browser.esm.mjs
+similarity index 99%
+rename from dist/transformCss-6fe44699.browser.esm.js
+rename to dist/transformCss-6fe44699.browser.esm.mjs
+index 0b1d4dcd40ef2ec4f713d4d6e466454b16eb9f71..87a4974b096dddbd727ed6fb11129ba58b7db8e9 100644
+--- a/dist/transformCss-6fe44699.browser.esm.js
++++ b/dist/transformCss-6fe44699.browser.esm.mjs
+@@ -1,8 +1,8 @@
+ import { getVarName } from '@vanilla-extract/private';
+ import cssesc from 'cssesc';
+ import AhoCorasick from 'ahocorasick';
+-import { markCompositionUsed } from '../adapter/dist/vanilla-extract-css-adapter.browser.esm.js';
+-import { _ as _taggedTemplateLiteral } from './taggedTemplateLiteral-2d2668f5.browser.esm.js';
++import { markCompositionUsed } from '../adapter/dist/vanilla-extract-css-adapter.browser.esm.mjs';
++import { _ as _taggedTemplateLiteral } from './taggedTemplateLiteral-2d2668f5.browser.esm.mjs';
+ import { parse } from 'css-what';
+ import outdent from 'outdent';
+ import { toAST } from 'media-query-parser';
+diff --git a/dist/transformCss-c959c4ee.esm.js b/dist/transformCss-c959c4ee.esm.mjs
+similarity index 99%
+rename from dist/transformCss-c959c4ee.esm.js
+rename to dist/transformCss-c959c4ee.esm.mjs
+index f55ccc9e8b375cef6da5cfb175622d29a8289bda..dd53752d744242a57b932214089bc88367e199be 100644
+--- a/dist/transformCss-c959c4ee.esm.js
++++ b/dist/transformCss-c959c4ee.esm.mjs
+@@ -1,8 +1,8 @@
+ import { getVarName } from '@vanilla-extract/private';
+ import cssesc from 'cssesc';
+ import AhoCorasick from 'ahocorasick';
+-import { markCompositionUsed } from '../adapter/dist/vanilla-extract-css-adapter.esm.js';
+-import { _ as _taggedTemplateLiteral } from './taggedTemplateLiteral-b4c22b04.esm.js';
++import { markCompositionUsed } from '../adapter/dist/vanilla-extract-css-adapter.esm.mjs';
++import { _ as _taggedTemplateLiteral } from './taggedTemplateLiteral-b4c22b04.esm.mjs';
+ import { parse } from 'css-what';
+ import outdent from 'outdent';
+ import { toAST } from 'media-query-parser';
+diff --git a/dist/vanilla-extract-css.browser.esm.js b/dist/vanilla-extract-css.browser.esm.mjs
+similarity index 98%
+rename from dist/vanilla-extract-css.browser.esm.js
+rename to dist/vanilla-extract-css.browser.esm.mjs
+index 4486043332cd7a4884be406f4eefebd47c9e4d62..a736b19f9376745d4a6861afa14bc43956a6f1a0 100644
+--- a/dist/vanilla-extract-css.browser.esm.js
++++ b/dist/vanilla-extract-css.browser.esm.mjs
+@@ -1,13 +1,13 @@
+-import { injectStyles } from '../injectStyles/dist/vanilla-extract-css-injectStyles.browser.esm.js';
+-import { t as transformCss, _ as _objectSpread2, d as dudupeAndJoinClassList } from './transformCss-6fe44699.browser.esm.js';
+-import { setAdapterIfNotSet, getIdentOption, appendCss, registerClassName, registerComposition, markCompositionUsed } from '../adapter/dist/vanilla-extract-css-adapter.browser.esm.js';
++import { injectStyles } from '../injectStyles/dist/vanilla-extract-css-injectStyles.browser.esm.mjs';
++import { t as transformCss, _ as _objectSpread2, d as dudupeAndJoinClassList } from './transformCss-6fe44699.browser.esm.mjs';
++import { setAdapterIfNotSet, getIdentOption, appendCss, registerClassName, registerComposition, markCompositionUsed } from '../adapter/dist/vanilla-extract-css-adapter.browser.esm.mjs';
+ import hash from '@emotion/hash';
+-import { getAndIncrementRefCounter, getFileScope, hasFileScope } from '../fileScope/dist/vanilla-extract-css-fileScope.browser.esm.js';
++import { getAndIncrementRefCounter, getFileScope, hasFileScope } from '../fileScope/dist/vanilla-extract-css-fileScope.browser.esm.mjs';
+ import { walkObject, get } from '@vanilla-extract/private';
+ import cssesc from 'cssesc';
+ import { diff } from 'deep-object-diff';
+ import chalk from 'chalk';
+-import { _ as _taggedTemplateLiteral } from './taggedTemplateLiteral-2d2668f5.browser.esm.js';
++import { _ as _taggedTemplateLiteral } from './taggedTemplateLiteral-2d2668f5.browser.esm.mjs';
+ import outdent from 'outdent';
+ import deepmerge from 'deepmerge';
+ import 'ahocorasick';
+diff --git a/dist/vanilla-extract-css.esm.js b/dist/vanilla-extract-css.esm.mjs
+similarity index 98%
+rename from dist/vanilla-extract-css.esm.js
+rename to dist/vanilla-extract-css.esm.mjs
+index 1b8c9d747ad73b3ef588923a2fe95aa5ed934088..203dbf6f42f407cc0f8cd7217559795b3da56f80 100644
+--- a/dist/vanilla-extract-css.esm.js
++++ b/dist/vanilla-extract-css.esm.mjs
+@@ -1,13 +1,13 @@
+-import { injectStyles } from '../injectStyles/dist/vanilla-extract-css-injectStyles.esm.js';
+-import { t as transformCss, _ as _objectSpread2, d as dudupeAndJoinClassList } from './transformCss-c959c4ee.esm.js';
+-import { setAdapterIfNotSet, getIdentOption, appendCss, registerClassName, registerComposition, markCompositionUsed } from '../adapter/dist/vanilla-extract-css-adapter.esm.js';
++import { injectStyles } from '../injectStyles/dist/vanilla-extract-css-injectStyles.esm.mjs';
++import { t as transformCss, _ as _objectSpread2, d as dudupeAndJoinClassList } from './transformCss-c959c4ee.esm.mjs';
++import { setAdapterIfNotSet, getIdentOption, appendCss, registerClassName, registerComposition, markCompositionUsed } from '../adapter/dist/vanilla-extract-css-adapter.esm.mjs';
+ import hash from '@emotion/hash';
+-import { getAndIncrementRefCounter, getFileScope, hasFileScope } from '../fileScope/dist/vanilla-extract-css-fileScope.esm.js';
++import { getAndIncrementRefCounter, getFileScope, hasFileScope } from '../fileScope/dist/vanilla-extract-css-fileScope.esm.mjs';
+ import { walkObject, get } from '@vanilla-extract/private';
+ import cssesc from 'cssesc';
+ import { diff } from 'deep-object-diff';
+ import chalk from 'chalk';
+-import { _ as _taggedTemplateLiteral } from './taggedTemplateLiteral-b4c22b04.esm.js';
++import { _ as _taggedTemplateLiteral } from './taggedTemplateLiteral-b4c22b04.esm.mjs';
+ import outdent from 'outdent';
+ import deepmerge from 'deepmerge';
+ import 'ahocorasick';
+diff --git a/fileScope/dist/vanilla-extract-css-fileScope.browser.esm.js b/fileScope/dist/vanilla-extract-css-fileScope.browser.esm.mjs
+similarity index 94%
+rename from fileScope/dist/vanilla-extract-css-fileScope.browser.esm.js
+rename to fileScope/dist/vanilla-extract-css-fileScope.browser.esm.mjs
+index bc605d051683249e476e84eadc0dd2b186186cdf..69e884c5fffaf59cdac9f94afb37cb4cc937a748 100644
+--- a/fileScope/dist/vanilla-extract-css-fileScope.browser.esm.js
++++ b/fileScope/dist/vanilla-extract-css-fileScope.browser.esm.mjs
+@@ -1,6 +1,6 @@
+-import { _ as _taggedTemplateLiteral } from '../../dist/taggedTemplateLiteral-2d2668f5.browser.esm.js';
++import { _ as _taggedTemplateLiteral } from '../../dist/taggedTemplateLiteral-2d2668f5.browser.esm.mjs';
+ import outdent from 'outdent';
+-import { onEndFileScope } from '../../adapter/dist/vanilla-extract-css-adapter.browser.esm.js';
++import { onEndFileScope } from '../../adapter/dist/vanilla-extract-css-adapter.browser.esm.mjs';
+ 
+ var _templateObject;
+ var refCounter = 0;
+diff --git a/fileScope/dist/vanilla-extract-css-fileScope.esm.js b/fileScope/dist/vanilla-extract-css-fileScope.esm.mjs
+similarity index 95%
+rename from fileScope/dist/vanilla-extract-css-fileScope.esm.js
+rename to fileScope/dist/vanilla-extract-css-fileScope.esm.mjs
+index d666ed3b5ee1f6056f98248a72a0ab0e47266208..063907bf668ca5be6dc69dd9a1f6874f18a6013a 100644
+--- a/fileScope/dist/vanilla-extract-css-fileScope.esm.js
++++ b/fileScope/dist/vanilla-extract-css-fileScope.esm.mjs
+@@ -1,6 +1,6 @@
+-import { _ as _taggedTemplateLiteral } from '../../dist/taggedTemplateLiteral-b4c22b04.esm.js';
++import { _ as _taggedTemplateLiteral } from '../../dist/taggedTemplateLiteral-b4c22b04.esm.mjs';
+ import outdent from 'outdent';
+-import { onEndFileScope } from '../../adapter/dist/vanilla-extract-css-adapter.esm.js';
++import { onEndFileScope } from '../../adapter/dist/vanilla-extract-css-adapter.esm.mjs';
+ 
+ var _templateObject;
+ var refCounter = 0;
+diff --git a/fileScope/package.json b/fileScope/package.json
+index 011d1cb556f0f283f60288da78aa96d1b63d5c40..1280e2cd23eb5ffabe413b00fda5630b4464f46f 100644
+--- a/fileScope/package.json
++++ b/fileScope/package.json
+@@ -1,19 +1,19 @@
+ {
+   "main": "dist/vanilla-extract-css-fileScope.cjs.js",
+-  "module": "dist/vanilla-extract-css-fileScope.esm.js",
++  "module": "dist/vanilla-extract-css-fileScope.esm.mjs",
+   "browser": {
+     "./dist/vanilla-extract-css-fileScope.cjs.js": "./dist/vanilla-extract-css-fileScope.browser.cjs.js",
+-    "./dist/vanilla-extract-css-fileScope.esm.js": "./dist/vanilla-extract-css-fileScope.browser.esm.js"
++    "./dist/vanilla-extract-css-fileScope.esm.mjs": "./dist/vanilla-extract-css-fileScope.browser.esm.mjs"
+   },
+   "sideEffects": false,
+   "exports": {
+     "./package.json": "./package.json",
+     ".": {
+       "browser": {
+-        "module": "./dist/vanilla-extract-css-fileScope.browser.esm.js",
++        "module": "./dist/vanilla-extract-css-fileScope.browser.esm.mjs",
+         "default": "./dist/vanilla-extract-css-fileScope.browser.cjs.js"
+       },
+-      "module": "./dist/vanilla-extract-css-fileScope.esm.js",
++      "module": "./dist/vanilla-extract-css-fileScope.esm.mjs",
+       "default": "./dist/vanilla-extract-css-fileScope.cjs.js"
+     }
+   }
+diff --git a/functionSerializer/dist/vanilla-extract-css-functionSerializer.browser.esm.js b/functionSerializer/dist/vanilla-extract-css-functionSerializer.browser.esm.mjs
+similarity index 100%
+rename from functionSerializer/dist/vanilla-extract-css-functionSerializer.browser.esm.js
+rename to functionSerializer/dist/vanilla-extract-css-functionSerializer.browser.esm.mjs
+diff --git a/functionSerializer/dist/vanilla-extract-css-functionSerializer.esm.js b/functionSerializer/dist/vanilla-extract-css-functionSerializer.esm.mjs
+similarity index 100%
+rename from functionSerializer/dist/vanilla-extract-css-functionSerializer.esm.js
+rename to functionSerializer/dist/vanilla-extract-css-functionSerializer.esm.mjs
+diff --git a/functionSerializer/package.json b/functionSerializer/package.json
+index 83771b7e397acd1a17eaba572eb72d4ce5be3c8c..483a2b623d25c237aaebf48dba25f74a638fcd0b 100644
+--- a/functionSerializer/package.json
++++ b/functionSerializer/package.json
+@@ -1,18 +1,18 @@
+ {
+   "main": "dist/vanilla-extract-css-functionSerializer.cjs.js",
+-  "module": "dist/vanilla-extract-css-functionSerializer.esm.js",
++  "module": "dist/vanilla-extract-css-functionSerializer.esm.mjs",
+   "browser": {
+     "./dist/vanilla-extract-css-functionSerializer.cjs.js": "./dist/vanilla-extract-css-functionSerializer.browser.cjs.js",
+-    "./dist/vanilla-extract-css-functionSerializer.esm.js": "./dist/vanilla-extract-css-functionSerializer.browser.esm.js"
++    "./dist/vanilla-extract-css-functionSerializer.esm.mjs": "./dist/vanilla-extract-css-functionSerializer.browser.esm.mjs"
+   },
+   "exports": {
+     "./package.json": "./package.json",
+     ".": {
+       "browser": {
+-        "module": "./dist/vanilla-extract-css-functionSerializer.browser.esm.js",
++        "module": "./dist/vanilla-extract-css-functionSerializer.browser.esm.mjs",
+         "default": "./dist/vanilla-extract-css-functionSerializer.browser.cjs.js"
+       },
+-      "module": "./dist/vanilla-extract-css-functionSerializer.esm.js",
++      "module": "./dist/vanilla-extract-css-functionSerializer.esm.mjs",
+       "default": "./dist/vanilla-extract-css-functionSerializer.cjs.js"
+     }
+   }
+diff --git a/injectStyles/dist/vanilla-extract-css-injectStyles.browser.esm.js b/injectStyles/dist/vanilla-extract-css-injectStyles.browser.esm.mjs
+similarity index 100%
+rename from injectStyles/dist/vanilla-extract-css-injectStyles.browser.esm.js
+rename to injectStyles/dist/vanilla-extract-css-injectStyles.browser.esm.mjs
+diff --git a/injectStyles/dist/vanilla-extract-css-injectStyles.esm.js b/injectStyles/dist/vanilla-extract-css-injectStyles.esm.mjs
+similarity index 100%
+rename from injectStyles/dist/vanilla-extract-css-injectStyles.esm.js
+rename to injectStyles/dist/vanilla-extract-css-injectStyles.esm.mjs
+diff --git a/injectStyles/package.json b/injectStyles/package.json
+index 81edc79bf5648b2b9305ac5a7a20c555523c06c7..64d63366528c6fb35e0d6a49180b00c48d5851a7 100644
+--- a/injectStyles/package.json
++++ b/injectStyles/package.json
+@@ -1,18 +1,18 @@
+ {
+   "main": "dist/vanilla-extract-css-injectStyles.cjs.js",
+-  "module": "dist/vanilla-extract-css-injectStyles.esm.js",
++  "module": "dist/vanilla-extract-css-injectStyles.esm.mjs",
+   "browser": {
+     "./dist/vanilla-extract-css-injectStyles.cjs.js": "./dist/vanilla-extract-css-injectStyles.browser.cjs.js",
+-    "./dist/vanilla-extract-css-injectStyles.esm.js": "./dist/vanilla-extract-css-injectStyles.browser.esm.js"
++    "./dist/vanilla-extract-css-injectStyles.esm.mjs": "./dist/vanilla-extract-css-injectStyles.browser.esm.mjs"
+   },
+   "exports": {
+     "./package.json": "./package.json",
+     ".": {
+       "browser": {
+-        "module": "./dist/vanilla-extract-css-injectStyles.browser.esm.js",
++        "module": "./dist/vanilla-extract-css-injectStyles.browser.esm.mjs",
+         "default": "./dist/vanilla-extract-css-injectStyles.browser.cjs.js"
+       },
+-      "module": "./dist/vanilla-extract-css-injectStyles.esm.js",
++      "module": "./dist/vanilla-extract-css-injectStyles.esm.mjs",
+       "default": "./dist/vanilla-extract-css-injectStyles.cjs.js"
+     }
+   }
+diff --git a/package.json b/package.json
+index 970fb4ac2dcd754e6c631d39f7eb43be447cbe1e..571cfb91612b30872bc2d2a52a6b8bac2bade7fe 100644
+--- a/package.json
++++ b/package.json
+@@ -4,76 +4,76 @@
+   "description": "Zero-runtime Stylesheets-in-TypeScript",
+   "sideEffects": true,
+   "main": "dist/vanilla-extract-css.cjs.js",
+-  "module": "dist/vanilla-extract-css.esm.js",
++  "module": "dist/vanilla-extract-css.esm.mjs",
+   "browser": {
+     "./dist/vanilla-extract-css.cjs.js": "./dist/vanilla-extract-css.browser.cjs.js",
+-    "./dist/vanilla-extract-css.esm.js": "./dist/vanilla-extract-css.browser.esm.js"
++    "./dist/vanilla-extract-css.esm.mjs": "./dist/vanilla-extract-css.browser.esm.mjs"
+   },
+   "exports": {
+     "./package.json": "./package.json",
+     ".": {
+       "browser": {
+-        "module": "./dist/vanilla-extract-css.browser.esm.js",
++        "module": "./dist/vanilla-extract-css.browser.esm.mjs",
+         "default": "./dist/vanilla-extract-css.browser.cjs.js"
+       },
+-      "module": "./dist/vanilla-extract-css.esm.js",
++      "module": "./dist/vanilla-extract-css.esm.mjs",
+       "default": "./dist/vanilla-extract-css.cjs.js"
+     },
+     "./recipe": {
+       "browser": {
+-        "module": "./recipe/dist/vanilla-extract-css-recipe.browser.esm.js",
++        "module": "./recipe/dist/vanilla-extract-css-recipe.browser.esm.mjs",
+         "default": "./recipe/dist/vanilla-extract-css-recipe.browser.cjs.js"
+       },
+-      "module": "./recipe/dist/vanilla-extract-css-recipe.esm.js",
++      "module": "./recipe/dist/vanilla-extract-css-recipe.esm.mjs",
+       "default": "./recipe/dist/vanilla-extract-css-recipe.cjs.js"
+     },
+     "./functionSerializer": {
+       "browser": {
+-        "module": "./functionSerializer/dist/vanilla-extract-css-functionSerializer.browser.esm.js",
++        "module": "./functionSerializer/dist/vanilla-extract-css-functionSerializer.browser.esm.mjs",
+         "default": "./functionSerializer/dist/vanilla-extract-css-functionSerializer.browser.cjs.js"
+       },
+-      "module": "./functionSerializer/dist/vanilla-extract-css-functionSerializer.esm.js",
++      "module": "./functionSerializer/dist/vanilla-extract-css-functionSerializer.esm.mjs",
+       "default": "./functionSerializer/dist/vanilla-extract-css-functionSerializer.cjs.js"
+     },
+     "./adapter": {
+       "browser": {
+-        "module": "./adapter/dist/vanilla-extract-css-adapter.browser.esm.js",
++        "module": "./adapter/dist/vanilla-extract-css-adapter.browser.esm.mjs",
+         "default": "./adapter/dist/vanilla-extract-css-adapter.browser.cjs.js"
+       },
+-      "module": "./adapter/dist/vanilla-extract-css-adapter.esm.js",
++      "module": "./adapter/dist/vanilla-extract-css-adapter.esm.mjs",
+       "default": "./adapter/dist/vanilla-extract-css-adapter.cjs.js"
+     },
+     "./transformCss": {
+       "browser": {
+-        "module": "./transformCss/dist/vanilla-extract-css-transformCss.browser.esm.js",
++        "module": "./transformCss/dist/vanilla-extract-css-transformCss.browser.esm.mjs",
+         "default": "./transformCss/dist/vanilla-extract-css-transformCss.browser.cjs.js"
+       },
+-      "module": "./transformCss/dist/vanilla-extract-css-transformCss.esm.js",
++      "module": "./transformCss/dist/vanilla-extract-css-transformCss.esm.mjs",
+       "default": "./transformCss/dist/vanilla-extract-css-transformCss.cjs.js"
+     },
+     "./fileScope": {
+       "browser": {
+-        "module": "./fileScope/dist/vanilla-extract-css-fileScope.browser.esm.js",
++        "module": "./fileScope/dist/vanilla-extract-css-fileScope.browser.esm.mjs",
+         "default": "./fileScope/dist/vanilla-extract-css-fileScope.browser.cjs.js"
+       },
+-      "module": "./fileScope/dist/vanilla-extract-css-fileScope.esm.js",
++      "module": "./fileScope/dist/vanilla-extract-css-fileScope.esm.mjs",
+       "default": "./fileScope/dist/vanilla-extract-css-fileScope.cjs.js"
+     },
+     "./fileScope/package.json": "./fileScope/package.json",
+     "./injectStyles": {
+       "browser": {
+-        "module": "./injectStyles/dist/vanilla-extract-css-injectStyles.browser.esm.js",
++        "module": "./injectStyles/dist/vanilla-extract-css-injectStyles.browser.esm.mjs",
+         "default": "./injectStyles/dist/vanilla-extract-css-injectStyles.browser.cjs.js"
+       },
+-      "module": "./injectStyles/dist/vanilla-extract-css-injectStyles.esm.js",
++      "module": "./injectStyles/dist/vanilla-extract-css-injectStyles.esm.mjs",
+       "default": "./injectStyles/dist/vanilla-extract-css-injectStyles.cjs.js"
+     },
+     "./disableRuntimeStyles": {
+       "browser": {
+-        "module": "./disableRuntimeStyles/dist/vanilla-extract-css-disableRuntimeStyles.browser.esm.js",
++        "module": "./disableRuntimeStyles/dist/vanilla-extract-css-disableRuntimeStyles.browser.esm.mjs",
+         "default": "./disableRuntimeStyles/dist/vanilla-extract-css-disableRuntimeStyles.browser.cjs.js"
+       },
+-      "module": "./disableRuntimeStyles/dist/vanilla-extract-css-disableRuntimeStyles.esm.js",
++      "module": "./disableRuntimeStyles/dist/vanilla-extract-css-disableRuntimeStyles.esm.mjs",
+       "default": "./disableRuntimeStyles/dist/vanilla-extract-css-disableRuntimeStyles.cjs.js"
+     }
+   },
+diff --git a/recipe/dist/vanilla-extract-css-recipe.browser.esm.js b/recipe/dist/vanilla-extract-css-recipe.browser.esm.mjs
+similarity index 78%
+rename from recipe/dist/vanilla-extract-css-recipe.browser.esm.js
+rename to recipe/dist/vanilla-extract-css-recipe.browser.esm.mjs
+index 7d81bea8ff129acb5d8bf19a24c176c3682794af..cace7bdb581f0983b13e46dc54989343f6829a90 100644
+--- a/recipe/dist/vanilla-extract-css-recipe.browser.esm.js
++++ b/recipe/dist/vanilla-extract-css-recipe.browser.esm.mjs
+@@ -1,4 +1,4 @@
+-import { addFunctionSerializer } from '../../functionSerializer/dist/vanilla-extract-css-functionSerializer.browser.esm.js';
++import { addFunctionSerializer } from '../../functionSerializer/dist/vanilla-extract-css-functionSerializer.browser.esm.mjs';
+ 
+ /**
+  * @deprecated Use 'addFunctionSerializer' from '@vanilla-extract/css/functionSerializer'
+diff --git a/recipe/dist/vanilla-extract-css-recipe.esm.js b/recipe/dist/vanilla-extract-css-recipe.esm.mjs
+similarity index 80%
+rename from recipe/dist/vanilla-extract-css-recipe.esm.js
+rename to recipe/dist/vanilla-extract-css-recipe.esm.mjs
+index 5b33b276d94aa47bae51c7dff58fa8bb4d999459..295d981f2ad93a2bd240e5c3c467e876249bc34c 100644
+--- a/recipe/dist/vanilla-extract-css-recipe.esm.js
++++ b/recipe/dist/vanilla-extract-css-recipe.esm.mjs
+@@ -1,4 +1,4 @@
+-import { addFunctionSerializer } from '../../functionSerializer/dist/vanilla-extract-css-functionSerializer.esm.js';
++import { addFunctionSerializer } from '../../functionSerializer/dist/vanilla-extract-css-functionSerializer.esm.mjs';
+ 
+ /**
+  * @deprecated Use 'addFunctionSerializer' from '@vanilla-extract/css/functionSerializer'
+diff --git a/recipe/package.json b/recipe/package.json
+index ef6418faa2b46948455b473cb6cea227f208632d..22fb530e5dc96125782917d0bf5d1e11c65e3ddc 100644
+--- a/recipe/package.json
++++ b/recipe/package.json
+@@ -1,18 +1,18 @@
+ {
+   "main": "dist/vanilla-extract-css-recipe.cjs.js",
+-  "module": "dist/vanilla-extract-css-recipe.esm.js",
++  "module": "dist/vanilla-extract-css-recipe.esm.mjs",
+   "browser": {
+     "./dist/vanilla-extract-css-recipe.cjs.js": "./dist/vanilla-extract-css-recipe.browser.cjs.js",
+-    "./dist/vanilla-extract-css-recipe.esm.js": "./dist/vanilla-extract-css-recipe.browser.esm.js"
++    "./dist/vanilla-extract-css-recipe.esm.mjs": "./dist/vanilla-extract-css-recipe.browser.esm.mjs"
+   },
+   "exports": {
+     "./package.json": "./package.json",
+     ".": {
+       "browser": {
+-        "module": "./dist/vanilla-extract-css-recipe.browser.esm.js",
++        "module": "./dist/vanilla-extract-css-recipe.browser.esm.mjs",
+         "default": "./dist/vanilla-extract-css-recipe.browser.cjs.js"
+       },
+-      "module": "./dist/vanilla-extract-css-recipe.esm.js",
++      "module": "./dist/vanilla-extract-css-recipe.esm.mjs",
+       "default": "./dist/vanilla-extract-css-recipe.cjs.js"
+     }
+   }
+diff --git a/transformCss/dist/vanilla-extract-css-transformCss.browser.esm.js b/transformCss/dist/vanilla-extract-css-transformCss.browser.esm.mjs
+similarity index 73%
+rename from transformCss/dist/vanilla-extract-css-transformCss.browser.esm.js
+rename to transformCss/dist/vanilla-extract-css-transformCss.browser.esm.mjs
+index fb41c3ee6ab4bffaa96ceffcad7606b861dd9469..fd0f3bd9dea47bbc98a3f61eafb369d55891517a 100644
+--- a/transformCss/dist/vanilla-extract-css-transformCss.browser.esm.js
++++ b/transformCss/dist/vanilla-extract-css-transformCss.browser.esm.mjs
+@@ -1,9 +1,9 @@
+-export { t as transformCss } from '../../dist/transformCss-6fe44699.browser.esm.js';
++export { t as transformCss } from '../../dist/transformCss-6fe44699.browser.esm.mjs';
+ import '@vanilla-extract/private';
+ import 'cssesc';
+ import 'ahocorasick';
+-import '../../adapter/dist/vanilla-extract-css-adapter.browser.esm.js';
+-import '../../dist/taggedTemplateLiteral-2d2668f5.browser.esm.js';
++import '../../adapter/dist/vanilla-extract-css-adapter.browser.esm.mjs';
++import '../../dist/taggedTemplateLiteral-2d2668f5.browser.esm.mjs';
+ import 'css-what';
+ import 'outdent';
+ import 'media-query-parser';
+diff --git a/transformCss/dist/vanilla-extract-css-transformCss.esm.js b/transformCss/dist/vanilla-extract-css-transformCss.esm.mjs
+similarity index 59%
+rename from transformCss/dist/vanilla-extract-css-transformCss.esm.js
+rename to transformCss/dist/vanilla-extract-css-transformCss.esm.mjs
+index cc1f0c961950f17d7c80dc2bb5ac28c9c6a9eb6a..0be142858ad1a078fc7f03932dc9cf1de6c93546 100644
+--- a/transformCss/dist/vanilla-extract-css-transformCss.esm.js
++++ b/transformCss/dist/vanilla-extract-css-transformCss.esm.mjs
+@@ -1,9 +1,9 @@
+-export { t as transformCss } from '../../dist/transformCss-c959c4ee.esm.js';
++export { t as transformCss } from '../../dist/transformCss-c959c4ee.esm.mjs';
+ import '@vanilla-extract/private';
+ import 'cssesc';
+ import 'ahocorasick';
+-import '../../adapter/dist/vanilla-extract-css-adapter.esm.js';
+-import '../../dist/taggedTemplateLiteral-b4c22b04.esm.js';
++import '../../adapter/dist/vanilla-extract-css-adapter.esm.mjs';
++import '../../dist/taggedTemplateLiteral-b4c22b04.esm.mjs';
+ import 'css-what';
+ import 'outdent';
+ import 'media-query-parser';
+diff --git a/transformCss/package.json b/transformCss/package.json
+index 79b30174c3a02559eda8bfdaf89f6b43df516619..8cd0e9ab8e391a961bf3adf07414da6777f217b6 100644
+--- a/transformCss/package.json
++++ b/transformCss/package.json
+@@ -1,19 +1,19 @@
+ {
+   "main": "dist/vanilla-extract-css-transformCss.cjs.js",
+-  "module": "dist/vanilla-extract-css-transformCss.esm.js",
++  "module": "dist/vanilla-extract-css-transformCss.esm.mjs",
+   "browser": {
+     "./dist/vanilla-extract-css-transformCss.cjs.js": "./dist/vanilla-extract-css-transformCss.browser.cjs.js",
+-    "./dist/vanilla-extract-css-transformCss.esm.js": "./dist/vanilla-extract-css-transformCss.browser.esm.js"
++    "./dist/vanilla-extract-css-transformCss.esm.mjs": "./dist/vanilla-extract-css-transformCss.browser.esm.mjs"
+   },
+   "sideEffects": false,
+   "exports": {
+     "./package.json": "./package.json",
+     ".": {
+       "browser": {
+-        "module": "./dist/vanilla-extract-css-transformCss.browser.esm.js",
++        "module": "./dist/vanilla-extract-css-transformCss.browser.esm.mjs",
+         "default": "./dist/vanilla-extract-css-transformCss.browser.cjs.js"
+       },
+-      "module": "./dist/vanilla-extract-css-transformCss.esm.js",
++      "module": "./dist/vanilla-extract-css-transformCss.esm.mjs",
+       "default": "./dist/vanilla-extract-css-transformCss.cjs.js"
+     }
+   }

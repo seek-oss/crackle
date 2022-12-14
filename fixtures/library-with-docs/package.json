@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@crackle/router": "workspace:*",
-    "@vanilla-extract/css": "^1.9.1",
+    "@vanilla-extract/css": "^1.9.2",
     "autosuggest-highlight": "^3.3.4",
     "braid-design-system": "0.0.0-crackel2-20221007054115",
     "lodash": "^4.17.21",
