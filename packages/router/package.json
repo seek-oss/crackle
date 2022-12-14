@@ -2,18 +2,18 @@
   "name": "@crackle/router",
   "version": "0.2.1",
   "main": "dist/crackle-router.cjs.js",
-  "module": "dist/crackle-router.esm.js",
+  "module": "dist/crackle-router.esm.mjs",
   "exports": {
     ".": {
-      "module": "./dist/crackle-router.esm.js",
+      "module": "./dist/crackle-router.esm.mjs",
       "default": "./dist/crackle-router.cjs.js"
     },
     "./routes": {
-      "module": "./routes/dist/crackle-router-routes.esm.js",
+      "module": "./routes/dist/crackle-router-routes.esm.mjs",
       "default": "./routes/dist/crackle-router-routes.cjs.js"
     },
     "./server": {
-      "module": "./server/dist/crackle-router-server.esm.js",
+      "module": "./server/dist/crackle-router-server.esm.mjs",
       "default": "./server/dist/crackle-router-server.cjs.js"
     },
     "./package.json": "./package.json"
