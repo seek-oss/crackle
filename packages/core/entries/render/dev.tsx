@@ -2,7 +2,6 @@
 // eslint-disable-next-line import/order
 import { inlineCriticalCss } from './css-extractor';
 
-import viteReact from '@vitejs/plugin-react';
 import * as React from 'react';
 import { renderToString } from 'react-dom/server';
 
@@ -10,8 +9,6 @@ import type { RenderDevPageFn } from '../types';
 
 import { NotFoundPage } from './NotFoundPage';
 import { Page, createRouteMap, nodePageModules } from './shared';
-
-const reactRefresh = viteReact.preambleCode.replace('__BASE__', '/');
 
 const criticalCssPlaceholder = '__CRACKLE_CRITICAL_CSS__';
 
@@ -51,15 +48,7 @@ export const renderDevelopmentPage: RenderDevPageFn = async ({
 
   const pageData = { routeMap };
 
-  const bodyTags = [
-    <script
-      key="react-refresh"
-      type="module"
-      dangerouslySetInnerHTML={{ __html: reactRefresh }}
-    />,
-    <script key="vite-client" type="module" src="/@vite/client" />,
-    <script key="entry" type="module" src={entry} />,
-  ];
+  const bodyTags = <script type="module" src={entry} />;
 
   return renderHtml(
     <Page
