@@ -1,6 +1,4 @@
-import { resolvePath } from 'mlly';
+import resolveSync from 'resolve-from';
 
-export const resolveFrom = async (
-  fromDirectory: string,
-  moduleId: string,
-): Promise<string> => resolvePath(moduleId, { url: fromDirectory });
+export const resolveFrom = async (fromDirectory: string, moduleId: string) =>
+  resolveSync(fromDirectory, moduleId);
