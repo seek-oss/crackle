@@ -3,7 +3,7 @@
   "version": "1.0.6",
   "private": true,
   "license": "MIT",
-  "author": "Ben",
+  "author": "SEEK",
   "exports": {
     "./package.json": "./package.json",
     ".": {

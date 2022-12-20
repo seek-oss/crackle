@@ -10,7 +10,7 @@
     },
     "./package.json": "./package.json"
   },
-  "author": "Ben",
+  "author": "SEEK",
   "license": "MIT",
   "files": [
     "/dist"

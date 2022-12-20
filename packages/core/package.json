@@ -50,8 +50,8 @@
     },
     "./package.json": "./package.json"
   },
-  "author": "Ben",
   "license": "MIT",
+  "author": "SEEK",
   "files": [
     "/build",
     "/clean",
