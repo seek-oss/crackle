@@ -1,4 +1,5 @@
 {
-  "main": "dist/crackle-core-start.cjs.js",
-  "module": "dist/crackle-core-start.esm.js"
+  "main": "../dist/start.cjs",
+  "module": "../dist/start.mjs",
+  "types": "../dist/start.d.ts"
 }

@@ -1,4 +1,5 @@
 {
-  "main": "dist/crackle-core-route-data.cjs.js",
-  "module": "dist/crackle-core-route-data.esm.js"
+  "main": "../dist/route-data.cjs",
+  "module": "../dist/route-data.mjs",
+  "types": "../dist/route-data.d.ts"
 }

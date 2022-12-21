@@ -8,8 +8,8 @@ import type { EnhancedConfig, PartialConfig } from './config';
 import { getConfig } from './config';
 import { fix } from './fix';
 import { logger } from './logger';
-import { createBundle } from './package/bundle';
-import { createDtsBundle } from './package/dts';
+import { createBundle } from './package-utils/bundle';
+import { createDtsBundle } from './package-utils/dts';
 import { renderPackageJsonValidationError } from './reporters/package';
 import { renderBuildError } from './reporters/shared';
 import type { Format, PackageJson } from './types';
@@ -86,6 +86,7 @@ const build = async (config: EnhancedConfig, packageName: string) => {
   await Promise.all([
     withLogging(createBundle, 'cjs'),
     withLogging(createBundle, 'esm'),
+    // withLogging(createBundle, ['esm', 'cjs'] as any),
     withLogging(createDtsBundle, 'dts'),
   ]);
 

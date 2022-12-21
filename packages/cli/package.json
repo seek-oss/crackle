@@ -16,6 +16,20 @@
     "dist",
     "bin.js"
   ],
+  "scripts": {
+    "build": "wireit"
+  },
+  "unbuild": {
+    "failOnWarn": false
+  },
+  "wireit": {
+    "build": {
+      "command": "unbuild",
+      "files": [
+        "./src/**/*.{ts,tsx}"
+      ]
+    }
+  },
   "bin": {
     "crackle": "bin.js"
   },

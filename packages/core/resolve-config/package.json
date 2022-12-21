@@ -1,4 +1,5 @@
 {
-  "main": "dist/crackle-core-resolve-config.cjs.js",
-  "module": "dist/crackle-core-resolve-config.esm.js"
+  "main": "../dist/resolve-config.cjs",
+  "module": "../dist/resolve-config.mjs",
+  "types": "../dist/resolve-config.d.ts"
 }

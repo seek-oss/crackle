@@ -4,17 +4,18 @@
   "private": true,
   "scripts": {
     "fix": "preconstruct fix",
-    "dev": "preconstruct dev",
-    "build": "preconstruct build",
-    "watch": "preconstruct watch",
-    "fixtures": "pnpm --recursive --filter='@crackle-fixtures/*'",
+    "dev": "wireit",
+    "build": "wireit",
+    "watch": "wireit",
+    "packages": "pnpm --recursive --filter='@crackle/*'",
     "format": "npm-run-all format:eslint format:prettier",
     "format:eslint": "eslint --fix --cache .",
     "format:prettier": "prettier --write --cache .",
-    "lint": "npm-run-all --parallel --aggregate-output --continue-on-error 'lint:*'",
+    "lint": "wireit",
     "lint:eslint": "eslint --cache .",
     "lint:prettier": "prettier --cache --check .",
     "lint:tsc": "tsc --noEmit",
+    "fixtures": "pnpm --recursive --filter='./fixtures/*'",
     "test": "pnpm test:vitest --run && pnpm test:playwright",
     "test:vitest": "vitest",
     "test:playwright": "playwright test",
@@ -44,11 +45,31 @@
     "snapshot-diff": "^0.10.0",
     "tsx": "^3.12.1",
     "typescript": "~4.8.4",
-    "vitest": "^0.26.1"
+    "unbuild": "^1.0.2",
+    "vitest": "^0.26.1",
+    "wireit": "^0.9.2"
   },
   "packageManager": "pnpm@7.18.2",
   "volta": {
     "node": "18.12.1"
+  },
+  "wireit": {
+    "build": {
+      "command": "pnpm packages build"
+    },
+    "dev": {
+      "command": "pnpm packages dev"
+    },
+    "watch": {
+      "command": "pnpm packages --parallel build --watch"
+    },
+    "lint": {
+      "dependencies": [
+        "lint:eslint",
+        "lint:prettier",
+        "lint:tsc"
+      ]
+    }
   },
   "preconstruct": {
     "___experimentalFlags_WILL_CHANGE_IN_PATCH": {

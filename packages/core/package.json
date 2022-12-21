@@ -1,75 +1,90 @@
 {
   "name": "@crackle/core",
   "version": "0.14.0",
-  "main": "dist/crackle-core.cjs.js",
-  "module": "dist/crackle-core.esm.js",
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "exports": {
-    "./dev": {
-      "module": "./dev/dist/crackle-core-dev.esm.js",
-      "default": "./dev/dist/crackle-core-dev.cjs.js"
-    },
-    "./fix": {
-      "module": "./fix/dist/crackle-core-fix.esm.js",
-      "default": "./fix/dist/crackle-core-fix.cjs.js"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     },
     "./build": {
-      "module": "./build/dist/crackle-core-build.esm.js",
-      "default": "./build/dist/crackle-core-build.cjs.js"
+      "types": "./dist/build.d.ts",
+      "import": "./dist/build.mjs",
+      "require": "./dist/build.cjs"
     },
     "./clean": {
-      "module": "./clean/dist/crackle-core-clean.esm.js",
-      "default": "./clean/dist/crackle-core-clean.cjs.js"
+      "types": "./dist/clean.d.ts",
+      "import": "./dist/clean.mjs",
+      "require": "./dist/clean.cjs"
     },
-    ".": {
-      "module": "./dist/crackle-core.esm.js",
-      "default": "./dist/crackle-core.cjs.js"
+    "./dev": {
+      "types": "./dist/dev.d.ts",
+      "import": "./dist/dev.mjs",
+      "require": "./dist/dev.cjs"
     },
-    "./serve": {
-      "module": "./serve/dist/crackle-core-serve.esm.js",
-      "default": "./serve/dist/crackle-core-serve.cjs.js"
-    },
-    "./start": {
-      "module": "./start/dist/crackle-core-start.esm.js",
-      "default": "./start/dist/crackle-core-start.cjs.js"
+    "./fix": {
+      "types": "./dist/fix.d.ts",
+      "import": "./dist/fix.mjs",
+      "require": "./dist/fix.cjs"
     },
     "./logger": {
-      "module": "./logger/dist/crackle-core-logger.esm.js",
-      "default": "./logger/dist/crackle-core-logger.cjs.js"
+      "types": "./dist/logger.d.ts",
+      "import": "./dist/logger.mjs",
+      "require": "./dist/logger.cjs"
     },
     "./package": {
-      "module": "./package/dist/crackle-core-package.esm.js",
-      "default": "./package/dist/crackle-core-package.cjs.js"
-    },
-    "./route-data": {
-      "module": "./route-data/dist/crackle-core-route-data.esm.js",
-      "default": "./route-data/dist/crackle-core-route-data.cjs.js"
+      "types": "./dist/package.d.ts",
+      "import": "./dist/package.mjs",
+      "require": "./dist/package.cjs"
     },
     "./resolve-config": {
-      "module": "./resolve-config/dist/crackle-core-resolve-config.esm.js",
-      "default": "./resolve-config/dist/crackle-core-resolve-config.cjs.js"
+      "types": "./dist/resolve-config.d.ts",
+      "import": "./dist/resolve-config.mjs",
+      "require": "./dist/resolve-config.cjs"
     },
+    "./route-data": {
+      "types": "./dist/route-data.d.ts",
+      "import": "./dist/route-data.mjs",
+      "require": "./dist/route-data.cjs"
+    },
+    "./serve": {
+      "types": "./dist/serve.d.ts",
+      "import": "./dist/serve.mjs",
+      "require": "./dist/serve.cjs"
+    },
+    "./start": {
+      "types": "./dist/start.d.ts",
+      "import": "./dist/start.mjs",
+      "require": "./dist/start.cjs"
+    },
+    "./entries/*": "./entries/*",
+    "./mocks/*": "./mocks/*",
     "./package.json": "./package.json"
   },
   "license": "MIT",
   "author": "SEEK",
   "files": [
-    "/build",
-    "/clean",
-    "/dev",
-    "/dist",
-    "/entries",
-    "/fix",
-    "/index",
-    "/logger",
-    "/mocks",
-    "/package",
-    "/resolve-config",
-    "/route-data",
-    "/serve",
-    "/start"
+    "./dist",
+    "./entries",
+    "./mocks",
+    "./CHANGELOG.md"
   ],
   "scripts": {
+    "build": "wireit",
+    "dev": "unbuild --stub",
     "sync-dependencies": "sync-dependencies --source vite && prettier --write package.json"
+  },
+  "wireit": {
+    "build": {
+      "command": "unbuild",
+      "files": [
+        "./src/**/*.{ts,tsx}"
+      ]
+    }
   },
   "preconstruct": {
     "entrypoints": [

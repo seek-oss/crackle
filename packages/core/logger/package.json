@@ -1,4 +1,5 @@
 {
-  "main": "dist/crackle-core-logger.cjs.js",
-  "module": "dist/crackle-core-logger.esm.js"
+  "main": "../dist/logger.cjs",
+  "module": "../dist/logger.mjs",
+  "types": "../dist/logger.d.ts"
 }
