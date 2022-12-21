@@ -118,7 +118,7 @@
     "sort-package-json": "^1.57.0",
     "type-fest": "^3.2.0",
     "used-styles": "^2.4.1",
-    "vite": "^4.0.1"
+    "vite": "^4.0.3"
   },
   "devDependencies": {
     "@types/babel__core": "^7.1.20",

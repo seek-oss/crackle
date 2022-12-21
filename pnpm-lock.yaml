@@ -1,5 +1,10 @@
 lockfileVersion: 5.4
 
+patchedDependencies:
+  sync-dependencies@1.0.4:
+    hash: kmihzdv5wva4zagwidt2n34234
+    path: patches/sync-dependencies@1.0.4.patch
+
 importers:
 
   .:
@@ -232,7 +237,7 @@ importers:
       type-fest: ^3.2.0
       typescript: '*'
       used-styles: ^2.4.1
-      vite: ^4.0.1
+      vite: ^4.0.3
     dependencies:
       '@babel/core': 7.20.2
       '@babel/plugin-syntax-jsx': 7.18.6_@babel+core@7.20.2
@@ -278,7 +283,7 @@ importers:
       ink-testing-library: 2.1.0_@types+react@18.0.25
       memfs: 3.4.11
       strip-ansi: 7.0.1
-      sync-dependencies: 1.0.4
+      sync-dependencies: 1.0.4_kmihzdv5wva4zagwidt2n34234
       typescript: 4.9.4
 
   packages/router:
@@ -310,7 +315,7 @@ importers:
     dependencies:
       '@crackle/core': link:../packages/core
       '@playwright/test': 1.22.2
-      sync-dependencies: 1.0.4
+      sync-dependencies: 1.0.4_kmihzdv5wva4zagwidt2n34234
 
 packages:
 
@@ -3239,7 +3244,7 @@ packages:
       css-what: 5.1.0
       cssesc: 3.0.0
       csstype: 3.1.1
-      deep-object-diff: 1.1.7
+      deep-object-diff: 1.1.9
       deepmerge: 4.2.2
       media-query-parser: 2.0.2
       outdent: 0.8.0
@@ -3281,8 +3286,8 @@ packages:
     dependencies:
       '@vanilla-extract/integration': 6.0.1
       outdent: 0.8.0
-      postcss: 8.4.19
-      postcss-load-config: 3.1.4_postcss@8.4.19
+      postcss: 8.4.20
+      postcss-load-config: 3.1.4_postcss@8.4.20
       vite: 3.2.4
     transitivePeerDependencies:
       - supports-color
@@ -3296,8 +3301,8 @@ packages:
     dependencies:
       '@vanilla-extract/integration': 6.0.1
       outdent: 0.8.0
-      postcss: 8.4.19
-      postcss-load-config: 3.1.4_postcss@8.4.19
+      postcss: 8.4.20
+      postcss-load-config: 3.1.4_postcss@8.4.20
       vite: 4.0.3_@types+node@18.11.17
     transitivePeerDependencies:
       - supports-color
@@ -4170,8 +4175,8 @@ packages:
     resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}
     dev: false
 
-  /deep-object-diff/1.1.7:
-    resolution: {integrity: sha512-QkgBca0mL08P6HiOjoqvmm6xOAl2W6CT2+34Ljhg0OeFan8cwlcdq8jrLKsBBuUFAZLsN5b6y491KdKEoSo9lg==}
+  /deep-object-diff/1.1.9:
+    resolution: {integrity: sha512-Rn+RuwkmkDwCi2/oXOFS9Gsr5lJZu/yTGpK7wAaAIE75CC+LCGEZHpY6VQJa/RoJcrmaA/docWJZvYohlNkWPA==}
     dev: false
 
   /deepmerge/4.2.2:
@@ -7045,7 +7050,7 @@ packages:
       '@babel/runtime': 7.19.0
     dev: false
 
-  /postcss-load-config/3.1.4_postcss@8.4.19:
+  /postcss-load-config/3.1.4_postcss@8.4.20:
     resolution: {integrity: sha512-6DiM4E7v4coTE4uzA8U//WhtPwyhiim3eyjEMFCnUpzbrkK9wJHgKDT2mR+HbtSrd/NubVaYTOpSpjUl8NQeRg==}
     engines: {node: '>= 10'}
     peerDependencies:
@@ -7058,7 +7063,7 @@ packages:
         optional: true
     dependencies:
       lilconfig: 2.0.6
-      postcss: 8.4.19
+      postcss: 8.4.20
       yaml: 1.10.2
     dev: false
 
@@ -8173,13 +8178,14 @@ packages:
     engines: {node: '>= 0.4'}
     dev: false
 
-  /sync-dependencies/1.0.4:
+  /sync-dependencies/1.0.4_kmihzdv5wva4zagwidt2n34234:
     resolution: {integrity: sha512-1Jxm1CcjddtckYMeIVwx/S5Z+oze3NGXBD6uYDku5nDjcLa8HIKsgIg5FmzvrfAhACOnkI3xBkAseiUfx/sgsQ==}
     hasBin: true
     dependencies:
       npm-package-arg: 6.1.1
       request: 2.88.2
       yargs: 11.1.1
+    patched: true
 
   /temp-dir/1.0.0:
     resolution: {integrity: sha512-xZFXEGbG7SNC3itwBzI3RYjq/cEhBkx2hJuKGIUOcEULmkQExXiHat2z/qkISYsuR+IKumhEfKKbV5qXmhICFQ==}
