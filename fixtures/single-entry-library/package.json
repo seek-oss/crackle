@@ -5,12 +5,12 @@
   "license": "MIT",
   "author": "SEEK",
   "exports": {
-    "./package.json": "./package.json",
     ".": {
       "types": "./dist/index.cjs.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
-    }
+    },
+    "./package.json": "./package.json"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",

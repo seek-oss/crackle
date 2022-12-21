@@ -10,6 +10,10 @@ export default defineConfig({
   },
   test: {
     setupFiles: './test-utils/setup.ts',
-    snapshotFormat: { escapeString: false },
+    //* these values are used in test-utils/pkg-serializer.ts
+    snapshotFormat: {
+      escapeString: false,
+      printBasicPrototype: false,
+    },
   },
 });

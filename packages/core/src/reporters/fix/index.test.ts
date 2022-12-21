@@ -61,7 +61,7 @@ describe('fix reporter', () => {
     const { lastFrame } = renderWithArgs([
       {
         packageName: 'pkg-a',
-        diffs: [{ key: 'files', additions: ['entry-a', 'other-entry'] }],
+        diffs: [{ key: 'files', additions: [] }],
       },
     ]);
 
@@ -69,7 +69,7 @@ describe('fix reporter', () => {
       "
       Fixed package.json for:
         pkg-a
-          - "files" updated with: entry-a, other-entry
+          - "files" updated
       "
     `);
   });
@@ -80,7 +80,7 @@ describe('fix reporter', () => {
         packageName: 'pkg-a',
         diffs: [
           { key: 'exports' },
-          { key: 'files', additions: ['entry-a', 'other-entry'] },
+          { key: 'files', additions: ['/entry-a', '/other-entry'] },
           { key: 'main', from: 'index' },
           { key: 'module', from: 'module-index', to: 'module-new-index' },
         ],
@@ -96,7 +96,7 @@ describe('fix reporter', () => {
       Fixed package.json for:
         pkg-a
           - "exports" key updated
-          - "files" updated with: entry-a, other-entry
+          - "files" updated with: /entry-a, /other-entry
           - "main" was removed (previously index).
           - "module" was changed to module-new-index (previously module-index)
 

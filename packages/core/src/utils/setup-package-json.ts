@@ -21,10 +21,11 @@ type ExportObject = {
   require: ExportString;
 };
 
+const sortFiles = (files: Iterable<string>) =>
+  Array.from(files).sort((a, b) => (a > b ? 1 : -1));
+
 const getExportsForPackage = (entries: PackageEntryPoint[]) => {
-  const exports: Record<string, ExportString | ExportObject> = {
-    './package.json': './package.json',
-  };
+  const exports: Record<string, ExportString | ExportObject> = {};
 
   for (const entryPoint of entries) {
     exports[entryPoint.isDefaultEntry ? '.' : `./${entryPoint.entryName}`] = {
@@ -33,6 +34,7 @@ const getExportsForPackage = (entries: PackageEntryPoint[]) => {
       require: `./${entryPoint.getOutputPath('cjs')}`,
     };
   }
+  exports['./package.json'] = './package.json';
 
   return exports;
 };
@@ -54,13 +56,12 @@ export const diffPackageJson = (
       main = `./${entryPoint.getOutputPath('cjs')}`;
       module = `./${entryPoint.getOutputPath('esm')}`;
     }
-
     files.add(`/${entryPoint.entryName}`);
   }
 
   const exports = getExportsForPackage(entries);
 
-  const filesArray = Array.from(files);
+  const filesArray = sortFiles(files);
   const diffs: Difference[] = [];
 
   if (main !== packageJson.main) {
@@ -79,16 +80,19 @@ export const diffPackageJson = (
     });
   }
 
-  if (files.size !== packageJson.files?.length) {
+  if (!isDeepStrictEqual(filesArray, packageJson.files)) {
     const missingFiles = filesArray.filter(
       (file) => !packageJson.files?.includes(file),
     );
     diffs.push({ key: 'files', additions: missingFiles });
   }
 
-  const packageJsonExports = packageJson.exports;
-
-  if (!isDeepStrictEqual(packageJsonExports, exports)) {
+  if (
+    !isDeepStrictEqual(
+      Object.entries(packageJson.exports || {}),
+      Object.entries(exports),
+    )
+  ) {
     diffs.push({ key: 'exports' });
   }
 
@@ -97,7 +101,7 @@ export const diffPackageJson = (
       ? ({
           main,
           module,
-          files: filesArray.sort((a, b) => (a > b ? 1 : -1)),
+          files: sortFiles(filesArray),
           exports,
         } as PackageJson)
       : packageJson;
