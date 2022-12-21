@@ -26,7 +26,7 @@ exports[`diffPackageJson > empty package.json > diffs 1`] = `
 ]
 `;
 
-exports[`diffPackageJson > empty package.json > expectedPackageJson 1`] = `
+exports[`diffPackageJson > empty package.json > package.json 1`] = `
 {
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -64,7 +64,7 @@ exports[`diffPackageJson > incorrect package.json > exports missing > diffs 1`] 
 ]
 `;
 
-exports[`diffPackageJson > incorrect package.json > exports missing > expectedPackageJson 1`] = `
+exports[`diffPackageJson > incorrect package.json > exports missing > package.json 1`] = `
 Snapshot Diff:
 - Diff A
 + Diff B
@@ -104,7 +104,7 @@ exports[`diffPackageJson > incorrect package.json > exports out of order > diffs
 ]
 `;
 
-exports[`diffPackageJson > incorrect package.json > exports out of order > expectedPackageJson 1`] = `
+exports[`diffPackageJson > incorrect package.json > exports out of order > package.json 1`] = `
 Snapshot Diff:
 - Diff A
 + Diff B
@@ -149,7 +149,7 @@ exports[`diffPackageJson > incorrect package.json > files > diffs 1`] = `
 ]
 `;
 
-exports[`diffPackageJson > incorrect package.json > files > expectedPackageJson 1`] = `
+exports[`diffPackageJson > incorrect package.json > files > package.json 1`] = `
 Snapshot Diff:
 - Diff A
 + Diff B
@@ -194,7 +194,7 @@ exports[`diffPackageJson > incorrect package.json > kitchen sink > diffs 1`] = `
 ]
 `;
 
-exports[`diffPackageJson > incorrect package.json > kitchen sink > expectedPackageJson 1`] = `
+exports[`diffPackageJson > incorrect package.json > kitchen sink > package.json 1`] = `
 {
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -235,7 +235,7 @@ exports[`diffPackageJson > incorrect package.json > main > diffs 1`] = `
 ]
 `;
 
-exports[`diffPackageJson > incorrect package.json > main > expectedPackageJson 1`] = `
+exports[`diffPackageJson > incorrect package.json > main > package.json 1`] = `
 Snapshot Diff:
 - Diff A
 + Diff B
@@ -261,7 +261,7 @@ exports[`diffPackageJson > incorrect package.json > module > diffs 1`] = `
 ]
 `;
 
-exports[`diffPackageJson > incorrect package.json > module > expectedPackageJson 1`] = `
+exports[`diffPackageJson > incorrect package.json > module > package.json 1`] = `
 Snapshot Diff:
 - Diff A
 + Diff B

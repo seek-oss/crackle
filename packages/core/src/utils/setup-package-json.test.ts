@@ -66,7 +66,7 @@ describe('diffPackageJson', () => {
     const { diffs, expectedPackageJson } = diffPackageJson({}, entries);
 
     expect(diffs).toMatchSnapshot('diffs');
-    expect(expectedPackageJson).toMatchSnapshot('expectedPackageJson');
+    expect(expectedPackageJson).toMatchSnapshot('package.json');
   });
 
   test('correct package.json', async () => {
@@ -89,7 +89,7 @@ describe('diffPackageJson', () => {
       expect({
         diffA: packageJson,
         diffB: expectedPackageJson,
-      }).toMatchSnapshot('expectedPackageJson');
+      }).toMatchSnapshot('package.json');
     });
 
     test('module', () => {
@@ -105,7 +105,7 @@ describe('diffPackageJson', () => {
       expect({
         diffA: packageJson,
         diffB: expectedPackageJson,
-      }).toMatchSnapshot('expectedPackageJson');
+      }).toMatchSnapshot('package.json');
     });
 
     test('exports missing', () => {
@@ -120,7 +120,7 @@ describe('diffPackageJson', () => {
       expect({
         diffA: packageJson,
         diffB: expectedPackageJson,
-      }).toMatchSnapshot('expectedPackageJson');
+      }).toMatchSnapshot('package.json');
     });
 
     test('exports out of order', () => {
@@ -140,7 +140,7 @@ describe('diffPackageJson', () => {
       expect({
         diffA: packageJson,
         diffB: expectedPackageJson,
-      }).toMatchSnapshot('expectedPackageJson');
+      }).toMatchSnapshot('package.json');
     });
 
     test('files', () => {
@@ -156,7 +156,7 @@ describe('diffPackageJson', () => {
       expect({
         diffA: packageJson,
         diffB: expectedPackageJson,
-      }).toMatchSnapshot('expectedPackageJson');
+      }).toMatchSnapshot('package.json');
     });
 
     test('kitchen sink', async () => {
@@ -193,7 +193,7 @@ describe('diffPackageJson', () => {
       );
 
       expect(diffs).toMatchSnapshot('diffs');
-      expect(expectedPackageJson).toMatchSnapshot('expectedPackageJson');
+      expect(expectedPackageJson).toMatchSnapshot('package.json');
     });
   });
 });

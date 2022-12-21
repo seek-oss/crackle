@@ -16,6 +16,6 @@ export const updateGitignore = async (
   await ensureGitignore({
     filepath: path.join(packageRoot, '.gitignore'),
     comment: 'managed by crackle',
-    patterns: [...entries].map((entry) => `/${entry}`),
+    patterns: Array.from(entries).map((entry) => `/${entry}`),
   });
 };
