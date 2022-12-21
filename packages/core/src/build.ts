@@ -3,6 +3,7 @@ import path from 'path';
 
 import { setAdapter } from '@vanilla-extract/css/adapter';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
+import react from '@vitejs/plugin-react';
 import builtinModules from 'builtin-modules';
 import chalk from 'chalk';
 import { readJson } from 'fs-extra';
@@ -41,6 +42,7 @@ export const build = async (inlineConfig?: PartialConfig) => {
     ...commonViteConfig(config),
     plugins: [
       stripRouteData(),
+      react(),
       vanillaExtractPlugin({ identifiers: 'short' }),
       addPageRoots(config),
       // Crackle pretends it has knowledge of the monorepo at this stage
