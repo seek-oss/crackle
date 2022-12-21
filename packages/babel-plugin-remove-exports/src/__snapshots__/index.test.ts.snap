@@ -1,7 +1,6 @@
 // Vitest Snapshot v1
 
 exports[`babel-plugin-remove-exports > Braid import > Braid import 1`] = `
-"
 import { createRouteData } from "@crackle/router";
 import { Card, Stack } from "braid-design-system";
 import React from "react";
@@ -48,11 +47,9 @@ export const routeData = createRouteData<BraidMetadata>(() => {
     }
   };
 });
-"
 `;
 
 exports[`babel-plugin-remove-exports > Keep default export, Local variable used in an imported function > Keep default export, Local variable used in an imported function 1`] = `
-"
 import { createRouteData } from "@crackle/router";
 import React from "react";
 
@@ -84,11 +81,9 @@ const MyComponent = () => <div />;
 export default function () {
   return <MyComponent />;
 }
-"
 `;
 
 exports[`babel-plugin-remove-exports > Local variable used in an imported function > Local variable used in an imported function 1`] = `
-"
 import { createRouteData } from "@crackle/router";
 import React from "react";
 
@@ -127,11 +122,9 @@ const routeData = createRouteData<BraidMetadata>(() => ({
   }
 }));
 export { routeData };
-"
 `;
 
 exports[`babel-plugin-remove-exports > Nested object > Nested object 1`] = `
-"
 import { createRouteData } from "@crackle/router";
 import React from "react";
 
@@ -165,11 +158,9 @@ export const routeData = createRouteData<BraidMetadata>(() => ({
   route: "/details",
   globalMetadata: myMetadata
 }));
-"
 `;
 
 exports[`babel-plugin-remove-exports > Renamed export > Renamed export 1`] = `
-"
 import { createRouteData } from "@crackle/router";
 import React from "react";
 
@@ -200,11 +191,9 @@ const routes = createRouteData<BraidMetadata>(() => ({
   }
 }));
 export { routes as routeData };
-"
 `;
 
 exports[`babel-plugin-remove-exports > Separated named export > Separated named export 1`] = `
-"
 import { createRouteData } from "@crackle/router";
 import React from "react";
 
@@ -235,11 +224,9 @@ const routeData = createRouteData<BraidMetadata>(() => ({
   }
 }));
 export { routeData };
-"
 `;
 
 exports[`babel-plugin-remove-exports > Super nested object > Super nested object 1`] = `
-"
 import { createRouteData } from "@crackle/router";
 import React from "react";
 
@@ -276,11 +263,9 @@ const routeDetails = {
   globalMetadata: myMetadata
 };
 export const routeData = createRouteData<BraidMetadata>(() => routeDetails);
-"
 `;
 
 exports[`babel-plugin-remove-exports > Used import > Used import 1`] = `
-"
 import { createRouteData } from "@crackle/router";
 import React from "react";
 
@@ -319,11 +304,9 @@ export const routeData = createRouteData<BraidMetadata>(() => {
     }
   };
 });
-"
 `;
 
 exports[`babel-plugin-remove-exports > Used object > Used object 1`] = `
-"
 import { createRouteData } from "@crackle/router";
 import React from "react";
 
@@ -354,5 +337,4 @@ export const routeData = createRouteData<BraidMetadata>(() => ({
   route: "/details",
   globalMetadata: myMetadata
 }));
-"
 `;
