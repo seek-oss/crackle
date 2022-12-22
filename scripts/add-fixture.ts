@@ -4,7 +4,7 @@ import path from 'path';
 
 import { prompt } from 'enquirer';
 import glob from 'fast-glob';
-import fs from 'fs-extra';
+import fse from 'fs-extra';
 
 type Answers = {
   name: string;
@@ -96,11 +96,11 @@ const template = {
   const packageJson = template.packageJson(answers);
   const index = template.index(answers);
 
-  await fs.mkdirp(path.join(packageDir, 'src'));
-  await fs.writeJson(path.join(packageDir, 'package.json'), packageJson, {
+  await fse.mkdirp(path.join(packageDir, 'src'));
+  await fse.writeJson(path.join(packageDir, 'package.json'), packageJson, {
     spaces: 2,
   });
-  await fs.writeFile(path.join(packageDir, 'src/index.ts'), index);
+  await fse.writeFile(path.join(packageDir, 'src/index.ts'), index);
 
   console.log(packageJson);
   console.log();

@@ -1,6 +1,6 @@
 import path from 'path';
 
-import { readJson } from 'fs-extra';
+import fse from 'fs-extra';
 
 import { promiseMap } from './promise-map';
 import { resolveFrom } from './resolve-from';
@@ -27,7 +27,7 @@ const anaylyseDependency = async (
   }
 
   const packageJsonPath = await resolveFrom(rootDir, `${dep}/package.json`);
-  const packageJson = await readJson(packageJsonPath);
+  const packageJson = await fse.readJson(packageJsonPath);
 
   const dependencies: Array<string> =
     'dependencies' in packageJson ? Object.keys(packageJson.dependencies) : [];
@@ -75,7 +75,7 @@ const anaylyseDependency = async (
 export const extractDependencyGraph = async (rootDir: string) => {
   const depGraph: DepGraph = new Map();
 
-  const packageJson = await readJson(path.join(rootDir, 'package.json'));
+  const packageJson = await fse.readJson(path.join(rootDir, 'package.json'));
 
   const deps: Array<string> =
     'dependencies' in packageJson ? Object.keys(packageJson.dependencies) : [];

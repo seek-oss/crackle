@@ -4,22 +4,23 @@ import path from 'path';
 
 import chalk from 'chalk';
 
-import type { EnhancedConfig, PartialConfig } from './config';
-import { getConfig } from './config';
-import { fix } from './fix';
-import { logger } from './logger';
-import { createBundle } from './package-utils/bundle';
-import { createDtsBundle } from './package-utils/dts';
-import { renderPackageJsonValidationError } from './reporters/package';
-import { renderBuildError } from './reporters/shared';
-import type { Format, PackageJson } from './types';
+import type { EnhancedConfig, PartialConfig } from '../config';
+import { getConfig } from '../config';
+import { createBundle } from '../package-utils/bundle';
+import { createDtsBundle } from '../package-utils/dts';
+import { renderPackageJsonValidationError } from '../reporters/package';
+import { renderBuildError } from '../reporters/shared';
+import type { Format, PackageJson } from '../types';
 import {
   cleanPackageEntryPoints,
   createEntryPackageJsons,
   getPackageEntryPoints,
-} from './utils/entry-points';
-import { updateGitignore } from './utils/gitignore';
-import { validatePackageJson } from './utils/setup-package-json';
+} from '../utils/entry-points';
+import { updateGitignore } from '../utils/gitignore';
+import { validatePackageJson } from '../utils/setup-package-json';
+
+import { fix } from './fix';
+import { logger } from './logger';
 
 const getPackageName = async (config: EnhancedConfig): Promise<string> => {
   const packageJsonPath = config.resolveFromRoot('package.json');

@@ -1,12 +1,13 @@
 import chalk from 'chalk';
 
-import type { PartialConfig } from './config';
-import { getConfig } from './config';
-import { logger } from './logger';
+import type { PartialConfig } from '../config';
+import { getConfig } from '../config';
 import {
   cleanPackageEntryPoints,
   getPackageEntryPoints,
-} from './utils/entry-points';
+} from '../utils/entry-points';
+
+import { logger } from './logger';
 
 export const clean = async (inlineConfig?: PartialConfig) => {
   const config = getConfig(inlineConfig);

@@ -1,6 +1,7 @@
 import type { InlineConfig } from 'vite';
 
 import type { EnhancedConfig } from './config';
+import { resolveFromCrackle } from './utils/resolve-from';
 
 export const commonViteConfig = (config: EnhancedConfig): InlineConfig => ({
   root: config.root,
@@ -8,8 +9,8 @@ export const commonViteConfig = (config: EnhancedConfig): InlineConfig => ({
     alias: {
       __THE_ENTRY: config.appShell,
       // used when building the client
-      'sku/react-treat': require.resolve('../mocks/react-treat.mjs'),
-      'sku/treat': require.resolve('../mocks/treat.mjs'),
+      'sku/react-treat': resolveFromCrackle('./mocks/react-treat.mjs'),
+      'sku/treat': resolveFromCrackle('./mocks/treat.mjs'),
     },
   },
   define: {

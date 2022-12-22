@@ -4,7 +4,7 @@ import path from 'path';
 import { build as esbuild } from 'esbuild';
 import _eval from 'eval';
 
-import type { PartialConfig } from './config';
+import type { PartialConfig } from '../config';
 
 const evaluateConfig = (
   configFilePath: string,
