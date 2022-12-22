@@ -3,7 +3,7 @@ import { defineBuildConfig } from 'unbuild';
 export default defineBuildConfig({
   // entries are inferred from package.json
   entries: [
-    'src/entries/index',
+    'src/index',
     'src/entries/build',
     'src/entries/clean',
     'src/entries/dev',

@@ -14,12 +14,23 @@ import { resolveFrom } from '../../utils/resolve-from';
 
 class PackagesById extends Map<string, PackageJson> {}
 
-const loadPackage = (packagePath: string): PackageJson => require(packagePath);
+const loadPackage = async (packagePath: string): Promise<PackageJson> => {
+  // @ts-ignore
+  if (import.meta) {
+    const {
+      default: { createRequire },
+    } = await import('module');
+    // @ts-ignore
+    const require = createRequire(import.meta.url);
+    return require(packagePath);
+  }
+  return require(packagePath);
+};
 
 async function loadPackageFrom(from: string, id: string): Promise<PackageJson> {
   try {
     const pkgPath = await resolveFrom(from, `${id}/package.json`);
-    const pkg = loadPackage(pkgPath);
+    const pkg = await loadPackage(pkgPath);
     return pkg;
   } catch (e: any) {
     if (e.code === 'ERR_PACKAGE_PATH_NOT_EXPORTED') {
@@ -36,7 +47,7 @@ async function findDependencies(config: ExternalsOptions) {
   const packagePath = config.packagePath! as string;
   const packageRoot = path.dirname(packagePath);
 
-  const packageJson = loadPackage(packagePath);
+  const packageJson = await loadPackage(packagePath);
   const externalDeps = [
     ...Object.keys((config.deps && packageJson.dependencies) || {}),
     ...Object.keys((config.devDeps && packageJson.devDependencies) || {}),

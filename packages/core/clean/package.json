@@ -1,5 +1,0 @@
-{
-  "main": "../dist/clean.cjs",
-  "module": "../dist/clean.mjs",
-  "types": "../dist/clean.d.ts"
-}

@@ -122,7 +122,9 @@ export const build = async (inlineConfig?: PartialConfig) => {
     )) as {
       renderAllPages: RenderAllPagesFn;
     };
-    const manifest = (await fse.readJson(`${outDir}/manifest.json`)) as Manifest;
+    const manifest = (await fse.readJson(
+      `${outDir}/manifest.json`,
+    )) as Manifest;
     const pages = await renderAllPages(manifest, config.publicPath);
 
     await promiseMap(pages, async ({ route, html }) => {

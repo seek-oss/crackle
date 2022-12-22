@@ -5,7 +5,11 @@ import type { OutputOptions } from 'rollup';
 import { build as viteBuild } from 'vite';
 
 import type { EnhancedConfig } from '../config';
-import { addVanillaDebugIds, externals } from '../plugins/rollup';
+import {
+  addVanillaDebugIds,
+  dynamicImport,
+  externals,
+} from '../plugins/rollup';
 import type { Format, PackageEntryPoint } from '../types';
 import { extensionForFormat } from '../utils/files';
 import { commonViteConfig } from '../vite-config';
@@ -20,7 +24,11 @@ export const createBundle = async (
 
   await viteBuild({
     ...commonViteConfig,
-    plugins: [addVanillaDebugIds(config.root), externals(config.root, format)],
+    plugins: [
+      addVanillaDebugIds(config.root),
+      externals(config.root, format),
+      dynamicImport(format),
+    ],
     logLevel: 'warn',
     build: {
       // output directory is the package root, so we don't want to remove it

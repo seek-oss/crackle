@@ -1,5 +1,0 @@
-{
-  "main": "../dist/logger.cjs",
-  "module": "../dist/logger.mjs",
-  "types": "../dist/logger.d.ts"
-}

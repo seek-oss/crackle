@@ -1,5 +1,0 @@
-{
-  "main": "../dist/resolve-config.cjs",
-  "module": "../dist/resolve-config.mjs",
-  "types": "../dist/resolve-config.d.ts"
-}

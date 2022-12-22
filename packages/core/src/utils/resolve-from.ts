@@ -7,7 +7,7 @@ export const resolveFrom = async (fromDirectory: string, moduleId: string) =>
 
 export const resolveFromCrackle = (...paths: string[]) => {
   const crackleRoot = path.dirname(
-    require.resolve('@crackle/core/package.json'),
+    resolveSync('.', '@crackle/core/package.json'),
   );
   return path.join(crackleRoot, ...paths);
 };

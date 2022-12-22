@@ -1,5 +1,0 @@
-{
-  "main": "../dist/package.cjs",
-  "module": "../dist/package.mjs",
-  "types": "../dist/package.d.ts"
-}

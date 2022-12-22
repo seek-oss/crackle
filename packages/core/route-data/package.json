@@ -1,5 +1,0 @@
-{
-  "main": "../dist/route-data.cjs",
-  "module": "../dist/route-data.mjs",
-  "types": "../dist/route-data.d.ts"
-}

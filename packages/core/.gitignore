@@ -1,0 +1,14 @@
+# managed by crackle
+/build
+/clean
+/dev
+/dist
+/dist-render
+/fix
+/logger
+/package
+/resolve-config
+/route-data
+/serve
+/start
+# end managed by crackle

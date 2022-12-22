@@ -1,5 +1,0 @@
-{
-  "main": "../dist/build.cjs",
-  "module": "../dist/build.mjs",
-  "types": "../dist/build.d.ts"
-}

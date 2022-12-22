@@ -1,102 +1,90 @@
 {
   "name": "@crackle/core",
   "version": "0.14.0",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "license": "MIT",
+  "author": "SEEK",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
+      "types": "./dist/index.cjs.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
     "./build": {
-      "types": "./dist/build.d.ts",
-      "import": "./dist/build.mjs",
-      "require": "./dist/build.cjs"
+      "types": "./build/dist/index.cjs.d.ts",
+      "import": "./build/dist/index.mjs",
+      "require": "./build/dist/index.cjs"
     },
     "./clean": {
-      "types": "./dist/clean.d.ts",
-      "import": "./dist/clean.mjs",
-      "require": "./dist/clean.cjs"
+      "types": "./clean/dist/index.cjs.d.ts",
+      "import": "./clean/dist/index.mjs",
+      "require": "./clean/dist/index.cjs"
     },
     "./dev": {
-      "types": "./dist/dev.d.ts",
-      "import": "./dist/dev.mjs",
-      "require": "./dist/dev.cjs"
+      "types": "./dev/dist/index.cjs.d.ts",
+      "import": "./dev/dist/index.mjs",
+      "require": "./dev/dist/index.cjs"
     },
     "./fix": {
-      "types": "./dist/fix.d.ts",
-      "import": "./dist/fix.mjs",
-      "require": "./dist/fix.cjs"
+      "types": "./fix/dist/index.cjs.d.ts",
+      "import": "./fix/dist/index.mjs",
+      "require": "./fix/dist/index.cjs"
     },
     "./logger": {
-      "types": "./dist/logger.d.ts",
-      "import": "./dist/logger.mjs",
-      "require": "./dist/logger.cjs"
+      "types": "./logger/dist/index.cjs.d.ts",
+      "import": "./logger/dist/index.mjs",
+      "require": "./logger/dist/index.cjs"
     },
     "./package": {
-      "types": "./dist/package.d.ts",
-      "import": "./dist/package.mjs",
-      "require": "./dist/package.cjs"
+      "types": "./package/dist/index.cjs.d.ts",
+      "import": "./package/dist/index.mjs",
+      "require": "./package/dist/index.cjs"
     },
     "./resolve-config": {
-      "types": "./dist/resolve-config.d.ts",
-      "import": "./dist/resolve-config.mjs",
-      "require": "./dist/resolve-config.cjs"
+      "types": "./resolve-config/dist/index.cjs.d.ts",
+      "import": "./resolve-config/dist/index.mjs",
+      "require": "./resolve-config/dist/index.cjs"
     },
     "./route-data": {
-      "types": "./dist/route-data.d.ts",
-      "import": "./dist/route-data.mjs",
-      "require": "./dist/route-data.cjs"
+      "types": "./route-data/dist/index.cjs.d.ts",
+      "import": "./route-data/dist/index.mjs",
+      "require": "./route-data/dist/index.cjs"
     },
     "./serve": {
-      "types": "./dist/serve.d.ts",
-      "import": "./dist/serve.mjs",
-      "require": "./dist/serve.cjs"
+      "types": "./serve/dist/index.cjs.d.ts",
+      "import": "./serve/dist/index.mjs",
+      "require": "./serve/dist/index.cjs"
     },
     "./start": {
-      "types": "./dist/start.d.ts",
-      "import": "./dist/start.mjs",
-      "require": "./dist/start.cjs"
+      "types": "./start/dist/index.cjs.d.ts",
+      "import": "./start/dist/index.mjs",
+      "require": "./start/dist/index.cjs"
     },
     "./package.json": "./package.json"
   },
-  "license": "MIT",
-  "author": "SEEK",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "files": [
+    "./CHANGELOG.md",
     "./dist",
     "./entries",
     "./mocks",
-    "./CHANGELOG.md"
+    "/build",
+    "/clean",
+    "/dev",
+    "/dist",
+    "/fix",
+    "/logger",
+    "/package",
+    "/resolve-config",
+    "/route-data",
+    "/serve",
+    "/start"
   ],
   "scripts": {
     "build": "wireit",
     "dev": "unbuild --stub",
     "sync-dependencies": "sync-dependencies --source vite && prettier --write package.json"
-  },
-  "wireit": {
-    "build": {
-      "command": "unbuild",
-      "files": [
-        "./src/**/*.{ts,tsx}"
-      ]
-    }
-  },
-  "preconstruct": {
-    "entrypoints": [
-      "build.ts",
-      "clean.ts",
-      "dev.ts",
-      "fix.ts",
-      "index.ts",
-      "logger.ts",
-      "package.ts",
-      "resolve-config.ts",
-      "route-data.ts",
-      "serve.ts",
-      "start.ts"
-    ]
   },
   "dependencies": {
     "@babel/core": "^7.20.2",
@@ -149,5 +137,28 @@
   },
   "peerDependencies": {
     "typescript": "~4.7.4"
+  },
+  "preconstruct": {
+    "entrypoints": [
+      "build.ts",
+      "clean.ts",
+      "dev.ts",
+      "fix.ts",
+      "index.ts",
+      "logger.ts",
+      "package.ts",
+      "resolve-config.ts",
+      "route-data.ts",
+      "serve.ts",
+      "start.ts"
+    ]
+  },
+  "wireit": {
+    "build": {
+      "command": "unbuild",
+      "files": [
+        "./src/**/*.{ts,tsx}"
+      ]
+    }
   }
 }
