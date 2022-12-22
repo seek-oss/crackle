@@ -96,10 +96,10 @@ const template = {
   const packageJson = template.packageJson(answers);
   const index = template.index(answers);
 
+  await fs.mkdirp(path.join(packageDir, 'src'));
   await fs.writeJson(path.join(packageDir, 'package.json'), packageJson, {
     spaces: 2,
   });
-  await fs.mkdirp(path.join(packageDir, 'src'));
   await fs.writeFile(path.join(packageDir, 'src/index.ts'), index);
 
   console.log(packageJson);
