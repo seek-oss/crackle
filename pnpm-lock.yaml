@@ -125,15 +125,6 @@ importers:
       '@types/react': 18.0.21
       '@types/react-dom': 18.0.6
 
-  fixtures/multi-entry-library/components:
-    specifiers: {}
-
-  fixtures/multi-entry-library/extras:
-    specifiers: {}
-
-  fixtures/multi-entry-library/themes/apac:
-    specifiers: {}
-
   fixtures/single-entry-library:
     specifiers:
       '@crackle-fixtures/multi-entry-library': workspace:*
@@ -162,9 +153,6 @@ importers:
       '@crackle-fixtures/hidden-package-json': link:./hidden-package-json
     dependencies:
       '@crackle-fixtures/hidden-package-json': link:hidden-package-json
-
-  fixtures/with-dep-hidden-package-json/hidden-package-json:
-    specifiers: {}
 
   packages/babel-plugin-remove-exports:
     specifiers:
