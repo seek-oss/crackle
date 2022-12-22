@@ -5,59 +5,59 @@
   "author": "SEEK",
   "exports": {
     ".": {
-      "types": "./dist/index.cjs.d.ts",
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
     "./build": {
-      "types": "./build/dist/index.cjs.d.ts",
-      "import": "./build/dist/index.mjs",
-      "require": "./build/dist/index.cjs"
+      "types": "./dist/build.d.ts",
+      "import": "./dist/build.mjs",
+      "require": "./dist/build.cjs"
     },
     "./clean": {
-      "types": "./clean/dist/index.cjs.d.ts",
-      "import": "./clean/dist/index.mjs",
-      "require": "./clean/dist/index.cjs"
+      "types": "./dist/clean.d.ts",
+      "import": "./dist/clean.mjs",
+      "require": "./dist/clean.cjs"
     },
     "./dev": {
-      "types": "./dev/dist/index.cjs.d.ts",
-      "import": "./dev/dist/index.mjs",
-      "require": "./dev/dist/index.cjs"
+      "types": "./dist/dev.d.ts",
+      "import": "./dist/dev.mjs",
+      "require": "./dist/dev.cjs"
     },
     "./fix": {
-      "types": "./fix/dist/index.cjs.d.ts",
-      "import": "./fix/dist/index.mjs",
-      "require": "./fix/dist/index.cjs"
+      "types": "./dist/fix.d.ts",
+      "import": "./dist/fix.mjs",
+      "require": "./dist/fix.cjs"
     },
     "./logger": {
-      "types": "./logger/dist/index.cjs.d.ts",
-      "import": "./logger/dist/index.mjs",
-      "require": "./logger/dist/index.cjs"
+      "types": "./dist/logger.d.ts",
+      "import": "./dist/logger.mjs",
+      "require": "./dist/logger.cjs"
     },
     "./package": {
-      "types": "./package/dist/index.cjs.d.ts",
-      "import": "./package/dist/index.mjs",
-      "require": "./package/dist/index.cjs"
+      "types": "./dist/package.d.ts",
+      "import": "./dist/package.mjs",
+      "require": "./dist/package.cjs"
     },
     "./resolve-config": {
-      "types": "./resolve-config/dist/index.cjs.d.ts",
-      "import": "./resolve-config/dist/index.mjs",
-      "require": "./resolve-config/dist/index.cjs"
+      "types": "./dist/resolve-config.d.ts",
+      "import": "./dist/resolve-config.mjs",
+      "require": "./dist/resolve-config.cjs"
     },
     "./route-data": {
-      "types": "./route-data/dist/index.cjs.d.ts",
-      "import": "./route-data/dist/index.mjs",
-      "require": "./route-data/dist/index.cjs"
+      "types": "./dist/route-data.d.ts",
+      "import": "./dist/route-data.mjs",
+      "require": "./dist/route-data.cjs"
     },
     "./serve": {
-      "types": "./serve/dist/index.cjs.d.ts",
-      "import": "./serve/dist/index.mjs",
-      "require": "./serve/dist/index.cjs"
+      "types": "./dist/serve.d.ts",
+      "import": "./dist/serve.mjs",
+      "require": "./dist/serve.cjs"
     },
     "./start": {
-      "types": "./start/dist/index.cjs.d.ts",
-      "import": "./start/dist/index.mjs",
-      "require": "./start/dist/index.cjs"
+      "types": "./dist/start.d.ts",
+      "import": "./dist/start.mjs",
+      "require": "./dist/start.cjs"
     },
     "./package.json": "./package.json"
   },

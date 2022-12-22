@@ -94,14 +94,23 @@ export const cleanPackageEntryPoints = async (
 export const createEntryPackageJsons = async (
   entryPoints: PackageEntryPoint[],
 ) => {
-  const relativeOutputPath = (entryPoint: PackageEntryPoint, format: Format) =>
-    path.relative(entryPoint.outputDir, entryPoint.getOutputPath(format));
+  const relativeOutputPath = (
+    entryPoint: PackageEntryPoint,
+    format: Format,
+  ) => {
+    const result = path.relative(
+      entryPoint.outputDir,
+      entryPoint.getOutputPath(format),
+    );
+    return result.startsWith('.') ? result : `./${result}`;
+  };
 
   await promiseMap(entryPoints, async (entryPoint) => {
     if (!entryPoint.isDefaultEntry) {
       await writePackageJson({
         dir: entryPoint.outputDir,
         contents: {
+          exports: relativeOutputPath(entryPoint, 'esm'),
           main: relativeOutputPath(entryPoint, 'cjs'),
           module: relativeOutputPath(entryPoint, 'esm'),
           types: relativeOutputPath(entryPoint, 'dts'),

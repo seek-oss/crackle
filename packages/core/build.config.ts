@@ -1,7 +1,7 @@
 import { defineBuildConfig } from 'unbuild';
 
 export default defineBuildConfig({
-  // entries are inferred from package.json
+  // clean: false,
   entries: [
     'src/index',
     'src/entries/build',
@@ -21,9 +21,9 @@ export default defineBuildConfig({
     emitCJS: true,
     esbuild: {
       loaders: {
+        '.jsx': 'jsx',
         '.tsx': 'tsx',
       },
     },
   },
-  clean: false,
 });
