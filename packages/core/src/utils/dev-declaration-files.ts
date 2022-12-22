@@ -29,7 +29,7 @@ export const generateDevDeclarationFiles = async (config: EnhancedConfig) => {
     await promiseMap(
       entryPaths,
       async ({ entryPath, outputDir, getOutputPath }) => {
-        const outputPath = getOutputPath('dts');
+        const outputPath = getOutputPath('dts', { from: config.root });
         const relativePath = path.relative(
           outputDir,
           entryPath.replace(path.extname(entryPath), ''),

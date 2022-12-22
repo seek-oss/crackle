@@ -1,4 +1,4 @@
-import { existsSync } from 'fs';
+import fss from 'fs';
 import fs from 'fs/promises';
 import path from 'path';
 
@@ -11,6 +11,8 @@ interface WriteFileOpts {
   fileName: string;
   contents: string;
 }
+
+const { existsSync } = fss;
 
 export const writeFile = async ({ dir, fileName, contents }: WriteFileOpts) => {
   await fs.mkdir(dir, { recursive: true });
@@ -70,4 +72,4 @@ export const emptyDir = async (dir: string, skip = ['.git']): Promise<void> => {
 };
 
 export const extensionForFormat = (format: Format) =>
-  (({ esm: 'mjs', cjs: 'cjs', dts: 'cjs.d.ts' } as const)[format]);
+  (({ esm: 'mjs', cjs: 'cjs', dts: 'd.ts' } as const)[format]);

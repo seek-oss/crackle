@@ -31,14 +31,17 @@ global.structuredClone = global.structuredClone ?? structuredClonePolyfill;
 const sortFiles = (files: Iterable<string>) =>
   Array.from(files).sort((a, b) => (a > b ? 1 : -1));
 
-const getExportsForPackage = (entries: PackageEntryPoint[]) => {
+const getExportsForPackage = (
+  entries: PackageEntryPoint[],
+  { from }: { from: string },
+) => {
   const exports: Record<string, ExportString | ExportObject> = {};
 
   for (const entryPoint of entries) {
     exports[entryPoint.isDefaultEntry ? '.' : `./${entryPoint.entryName}`] = {
-      types: `./${entryPoint.getOutputPath('dts')}`,
-      import: `./${entryPoint.getOutputPath('esm')}`,
-      require: `./${entryPoint.getOutputPath('cjs')}`,
+      types: `./${entryPoint.getOutputPath('dts', { from })}`,
+      import: `./${entryPoint.getOutputPath('esm', { from })}`,
+      require: `./${entryPoint.getOutputPath('cjs', { from })}`,
     };
   }
   exports['./package.json'] = './package.json';
@@ -47,6 +50,7 @@ const getExportsForPackage = (entries: PackageEntryPoint[]) => {
 };
 
 export const diffPackageJson = (
+  packageRoot: string,
   packageJson: PackageJson,
   entries: PackageEntryPoint[],
 ): {
@@ -58,15 +62,18 @@ export const diffPackageJson = (
 
   const expectedPackageJson = sortPackageJson(structuredClone(packageJson));
 
-  expectedPackageJson.exports = getExportsForPackage(entries);
+  const opts = { from: packageRoot };
+  expectedPackageJson.exports = getExportsForPackage(entries, opts);
 
   const files = new Set(existingFiles);
   for (const entryPoint of entries) {
     if (entryPoint.isDefaultEntry) {
-      expectedPackageJson.main = `./${entryPoint.getOutputPath('cjs')}`;
-      expectedPackageJson.module = `./${entryPoint.getOutputPath('esm')}`;
+      expectedPackageJson.main = `./${entryPoint.getOutputPath('cjs', opts)}`;
+      expectedPackageJson.module = `./${entryPoint.getOutputPath('esm', opts)}`;
+      files.add('dist');
+    } else {
+      files.add(entryPoint.entryName);
     }
-    files.add(entryPoint.entryName);
   }
   expectedPackageJson.files = sortFiles(files);
 
@@ -118,6 +125,7 @@ const setupPackageJson =
     const packageJson: PackageJson = await fse.readJson(packagePath, { fs });
 
     const { diffs, expectedPackageJson } = diffPackageJson(
+      packageRoot,
       packageJson,
       entries,
     );

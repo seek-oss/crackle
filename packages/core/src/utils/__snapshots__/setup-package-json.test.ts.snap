@@ -30,19 +30,19 @@ exports[`diffPackageJson > empty package.json > package.json 1`] = `
 {
   "exports": {
     ".": {
-      "types": "./dist/index.cjs.d.ts",
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs",
     },
     "./css": {
-      "types": "./css/dist/index.cjs.d.ts",
-      "import": "./css/dist/index.mjs",
-      "require": "./css/dist/index.cjs",
+      "types": "./dist/css.d.ts",
+      "import": "./dist/css.mjs",
+      "require": "./dist/css.cjs",
     },
     "./themes/apac": {
-      "types": "./themes/apac/dist/index.cjs.d.ts",
-      "import": "./themes/apac/dist/index.mjs",
-      "require": "./themes/apac/dist/index.cjs",
+      "types": "./dist/themes/apac.d.ts",
+      "import": "./dist/themes/apac.mjs",
+      "require": "./dist/themes/apac.cjs",
     },
     "./package.json": "./package.json",
   },
@@ -77,19 +77,19 @@ Snapshot Diff:
     ],
 +   "exports": {
 +     ".": {
-+       "types": "./dist/index.cjs.d.ts",
++       "types": "./dist/index.d.ts",
 +       "import": "./dist/index.mjs",
 +       "require": "./dist/index.cjs",
 +     },
 +     "./css": {
-+       "types": "./css/dist/index.cjs.d.ts",
-+       "import": "./css/dist/index.mjs",
-+       "require": "./css/dist/index.cjs",
++       "types": "./dist/css.d.ts",
++       "import": "./dist/css.mjs",
++       "require": "./dist/css.cjs",
 +     },
 +     "./themes/apac": {
-+       "types": "./themes/apac/dist/index.cjs.d.ts",
-+       "import": "./themes/apac/dist/index.mjs",
-+       "require": "./themes/apac/dist/index.cjs",
++       "types": "./dist/themes/apac.d.ts",
++       "import": "./dist/themes/apac.mjs",
++       "require": "./dist/themes/apac.cjs",
 +     },
 +     "./package.json": "./package.json",
 +   },
@@ -113,23 +113,23 @@ Snapshot Diff:
   {
     "exports": {
 +     ".": {
-+       "types": "./dist/index.cjs.d.ts",
++       "types": "./dist/index.d.ts",
 +       "import": "./dist/index.mjs",
 +       "require": "./dist/index.cjs",
 +     },
       "./css": {
-        "types": "./css/dist/index.cjs.d.ts",
-        "import": "./css/dist/index.mjs",
-        "require": "./css/dist/index.cjs",
+        "types": "./dist/css.d.ts",
+        "import": "./dist/css.mjs",
+        "require": "./dist/css.cjs",
       },
 @@ --- --- @@
-        "types": "./themes/apac/dist/index.cjs.d.ts",
-        "import": "./themes/apac/dist/index.mjs",
-        "require": "./themes/apac/dist/index.cjs",
+        "types": "./dist/themes/apac.d.ts",
+        "import": "./dist/themes/apac.mjs",
+        "require": "./dist/themes/apac.cjs",
       },
       "./package.json": "./package.json",
 -     ".": {
--       "types": "./dist/index.cjs.d.ts",
+-       "types": "./dist/index.d.ts",
 -       "import": "./dist/index.mjs",
 -       "require": "./dist/index.cjs",
 -     },
@@ -228,19 +228,19 @@ exports[`diffPackageJson > incorrect package.json > kitchen sink > package.json 
 {
   "exports": {
     ".": {
-      "types": "./dist/index.cjs.d.ts",
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs",
     },
     "./css": {
-      "types": "./css/dist/index.cjs.d.ts",
-      "import": "./css/dist/index.mjs",
-      "require": "./css/dist/index.cjs",
+      "types": "./dist/css.d.ts",
+      "import": "./dist/css.mjs",
+      "require": "./dist/css.cjs",
     },
     "./themes/apac": {
-      "types": "./themes/apac/dist/index.cjs.d.ts",
-      "import": "./themes/apac/dist/index.mjs",
-      "require": "./themes/apac/dist/index.cjs",
+      "types": "./dist/themes/apac.d.ts",
+      "import": "./dist/themes/apac.mjs",
+      "require": "./dist/themes/apac.cjs",
     },
     "./package.json": "./package.json",
   },
@@ -271,8 +271,8 @@ Snapshot Diff:
 + Diff B
 
 @@ --- --- @@
-        "import": "./themes/apac/dist/index.mjs",
-        "require": "./themes/apac/dist/index.cjs",
+        "import": "./dist/themes/apac.mjs",
+        "require": "./dist/themes/apac.cjs",
       },
       "./package.json": "./package.json",
     },
@@ -301,7 +301,7 @@ Snapshot Diff:
 + Diff B
 
 @@ --- --- @@
-        "require": "./themes/apac/dist/index.cjs",
+        "require": "./dist/themes/apac.cjs",
       },
       "./package.json": "./package.json",
     },
