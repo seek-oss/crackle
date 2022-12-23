@@ -15,7 +15,7 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "files": [
-    "/dist"
+    "dist"
   ],
   "scripts": {
     "dev": "crackle dev",
