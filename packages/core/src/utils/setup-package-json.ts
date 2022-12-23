@@ -1,6 +1,9 @@
-import fs from 'fs/promises';
+import fs from 'fs';
 import path from 'path';
 import { isDeepStrictEqual } from 'util';
+
+import fse from 'fs-extra';
+import { sortPackageJson } from 'sort-package-json';
 
 import type { PackageEntryPoint, PackageJson } from '../types';
 
@@ -46,65 +49,54 @@ export const diffPackageJson = (
   diffs: Difference[];
   expectedPackageJson: PackageJson;
 } => {
-  const files = new Set<string>(packageJson.files ?? []);
-
-  let main: PackageJson['main'];
-  let module: PackageJson['module'];
-
-  for (const entryPoint of entries) {
-    if (entryPoint.isDefaultEntry) {
-      main = `./${entryPoint.getOutputPath('cjs')}`;
-      module = `./${entryPoint.getOutputPath('esm')}`;
-    }
-    files.add(`/${entryPoint.entryName}`);
-  }
-
-  const exports = getExportsForPackage(entries);
-
-  const filesArray = sortFiles(files);
+  const existingFiles = new Set(packageJson.files ?? []);
   const diffs: Difference[] = [];
 
-  if (main !== packageJson.main) {
+  const expectedPackageJson = sortPackageJson(structuredClone(packageJson));
+
+  expectedPackageJson.exports = getExportsForPackage(entries);
+
+  const files = new Set(existingFiles);
+  for (const entryPoint of entries) {
+    if (entryPoint.isDefaultEntry) {
+      expectedPackageJson.main = `./${entryPoint.getOutputPath('cjs')}`;
+      expectedPackageJson.module = `./${entryPoint.getOutputPath('esm')}`;
+    }
+    files.add(entryPoint.entryName);
+  }
+  expectedPackageJson.files = sortFiles(files);
+
+  if (expectedPackageJson.main !== packageJson.main) {
     diffs.push({
       key: 'main',
       from: packageJson.main,
-      to: main,
+      to: expectedPackageJson.main,
     });
   }
 
-  if (module !== packageJson.module) {
+  if (expectedPackageJson.module !== packageJson.module) {
     diffs.push({
       key: 'module',
       from: packageJson.module,
-      to: module,
+      to: expectedPackageJson.module,
     });
   }
 
-  if (!isDeepStrictEqual(filesArray, packageJson.files)) {
-    const missingFiles = filesArray.filter(
-      (file) => !packageJson.files?.includes(file),
+  if (!isDeepStrictEqual(expectedPackageJson.files, packageJson.files)) {
+    const missingFiles = expectedPackageJson.files.filter(
+      (file) => !existingFiles.has(file),
     );
     diffs.push({ key: 'files', additions: missingFiles });
   }
 
   if (
     !isDeepStrictEqual(
+      Object.entries(expectedPackageJson.exports!),
       Object.entries(packageJson.exports || {}),
-      Object.entries(exports),
     )
   ) {
     diffs.push({ key: 'exports' });
   }
-
-  const expectedPackageJson =
-    diffs.length > 0
-      ? ({
-          main,
-          module,
-          files: sortFiles(filesArray),
-          exports,
-        } as PackageJson)
-      : packageJson;
 
   return {
     diffs,
@@ -119,9 +111,7 @@ const setupPackageJson =
     entries: PackageEntryPoint[],
   ): Promise<Difference[]> => {
     const packagePath = path.join(packageRoot, 'package.json');
-    const packageJson = JSON.parse(
-      await fs.readFile(packagePath, 'utf-8'),
-    ) as PackageJson;
+    const packageJson: PackageJson = await fse.readJson(packagePath, { fs });
 
     const { diffs, expectedPackageJson } = diffPackageJson(
       packageJson,
@@ -131,10 +121,7 @@ const setupPackageJson =
     if (write && diffs.length > 0) {
       await writePackageJson({
         dir: packageRoot,
-        contents: {
-          ...packageJson,
-          ...expectedPackageJson,
-        },
+        contents: expectedPackageJson,
       });
     }
 

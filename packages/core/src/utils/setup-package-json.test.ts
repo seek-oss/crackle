@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { describe, expect, test } from 'vitest';
 
 import type { Format } from '../types';
@@ -39,9 +38,6 @@ const entries = [
 
 describe('diffPackageJson', () => {
   const correctPackageJson = {
-    main: './dist/index.cjs',
-    module: './dist/index.mjs',
-    files: ['/css', '/dist', '/themes/apac'],
     exports: {
       '.': {
         types: './dist/index.cjs.d.ts',
@@ -60,6 +56,9 @@ describe('diffPackageJson', () => {
       },
       './package.json': './package.json',
     },
+    main: './dist/index.cjs',
+    module: './dist/index.mjs',
+    files: ['css', 'dist', 'themes/apac'],
   };
 
   test('empty package.json', async () => {
@@ -77,7 +76,7 @@ describe('diffPackageJson', () => {
 
   describe('incorrect package.json', () => {
     test('main', () => {
-      const packageJson = _.clone(correctPackageJson);
+      const packageJson = structuredClone(correctPackageJson);
       packageJson.main = 'index.js';
 
       const { diffs, expectedPackageJson } = diffPackageJson(
@@ -93,7 +92,7 @@ describe('diffPackageJson', () => {
     });
 
     test('module', () => {
-      const packageJson = _.clone(correctPackageJson);
+      const packageJson = structuredClone(correctPackageJson);
       packageJson.module = 'something/else.js';
 
       const { diffs, expectedPackageJson } = diffPackageJson(
@@ -109,7 +108,7 @@ describe('diffPackageJson', () => {
     });
 
     test('exports missing', () => {
-      const { exports, ...packageJson } = _.clone(correctPackageJson);
+      const { exports, ...packageJson } = structuredClone(correctPackageJson);
 
       const { diffs, expectedPackageJson } = diffPackageJson(
         packageJson,
@@ -124,7 +123,7 @@ describe('diffPackageJson', () => {
     });
 
     test('exports out of order', () => {
-      const packageJson = _.clone(correctPackageJson);
+      const packageJson = structuredClone(correctPackageJson);
       const { '.': index, ...otherExports } = packageJson.exports;
       packageJson.exports = {
         ...otherExports,
@@ -143,9 +142,27 @@ describe('diffPackageJson', () => {
       }).toMatchSnapshot('package.json');
     });
 
-    test('files', () => {
-      const packageJson = _.clone(correctPackageJson);
-      packageJson.files = ['/css', '/themes/apac', '/dist'];
+    test('files missing', () => {
+      const packageJson = structuredClone(correctPackageJson);
+      // @ts-ignore
+      delete packageJson.files;
+
+      const { diffs, expectedPackageJson } = diffPackageJson(
+        packageJson,
+        entries,
+      );
+
+      expect(diffs).toMatchSnapshot('diffs');
+      expect({
+        diffA: packageJson,
+        diffB: expectedPackageJson,
+      }).toMatchSnapshot('package.json');
+    });
+
+    test('files out of order', () => {
+      const packageJson = structuredClone(correctPackageJson);
+      const [first, ...otherFiles] = packageJson.files;
+      packageJson.files = [...otherFiles, first];
 
       const { diffs, expectedPackageJson } = diffPackageJson(
         packageJson,
@@ -186,7 +203,7 @@ describe('diffPackageJson', () => {
             },
           },
           module: 'dist/index.esm.invalid',
-          files: ['/css', '/dist', '/extra'],
+          files: ['css', 'dist', 'extra'],
           main: 'index.js',
         },
         entries,
