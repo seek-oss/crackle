@@ -19,7 +19,7 @@
     "test:vitest": "vitest",
     "test:playwright": "playwright test",
     "add-fixture": "tsx ./scripts/add-fixture.ts",
-    "sync-dependencies": "pnpm --recursive sync-dependencies",
+    "sync-dependencies": "pnpm --recursive sync-dependencies && pnpm install",
     "release": "pnpm build && changeset publish",
     "version": "changeset version && pnpm install --lockfile-only"
   },
@@ -59,5 +59,10 @@
     "packages": [
       "packages/*"
     ]
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "sync-dependencies@1.0.4": "patches/sync-dependencies@1.0.4.patch"
+    }
   }
 }
