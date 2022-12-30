@@ -4,6 +4,7 @@ import React from 'react';
 
 import type { Difference } from '../../utils/setup-package-json';
 
+import { List } from './List';
 import { Stack } from './Stack';
 import type { BuildError, RollupError, SetRequired } from './types';
 
@@ -64,7 +65,11 @@ const Diff = ({ diff }: { diff: Difference }) => {
         {addition}
       </Text>
     ));
-    return <Text>- "files" is missing {missingFiles}</Text>;
+    return (
+      <Text>
+        - "files" is missing <List items={missingFiles} separator=", " />
+      </Text>
+    );
   }
 
   if (diff.key === 'exports') {
