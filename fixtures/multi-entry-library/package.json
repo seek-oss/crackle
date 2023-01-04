@@ -6,22 +6,22 @@
   "author": "SEEK",
   "exports": {
     ".": {
-      "types": "./dist/index.cjs.d.ts",
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
     "./components": {
-      "types": "./components/dist/index.cjs.d.ts",
+      "types": "./components/dist/index.d.ts",
       "import": "./components/dist/index.mjs",
       "require": "./components/dist/index.cjs"
     },
     "./extras": {
-      "types": "./extras/dist/index.cjs.d.ts",
+      "types": "./extras/dist/index.d.ts",
       "import": "./extras/dist/index.mjs",
       "require": "./extras/dist/index.cjs"
     },
     "./themes/apac": {
-      "types": "./themes/apac/dist/index.cjs.d.ts",
+      "types": "./themes/apac/dist/index.d.ts",
       "import": "./themes/apac/dist/index.mjs",
       "require": "./themes/apac/dist/index.cjs"
     },
