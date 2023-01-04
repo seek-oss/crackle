@@ -1,3 +1,4 @@
+import assert from 'assert';
 import fs from 'fs/promises';
 import path from 'path';
 
@@ -72,7 +73,8 @@ const build = async (config: EnhancedConfig, packageName: string) => {
       entryFileNames(chunkInfo) {
         const entry = entries.find(
           ({ entryPath }) => chunkInfo.facadeModuleId === entryPath,
-        )!;
+        );
+        assert(entry != null, 'entry not found');
 
         return entry.getOutputPath(format);
       },
