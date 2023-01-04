@@ -1,5 +1,6 @@
 import path from 'path';
 
+import fse from 'fs-extra';
 import type { FunctionPluginHooks, Plugin } from 'rollup';
 import {
   externals as rollupExternals,
@@ -14,18 +15,8 @@ import { resolveFrom } from '../../utils/resolve-from';
 
 class PackagesById extends Map<string, PackageJson> {}
 
-const loadPackage = async (packagePath: string): Promise<PackageJson> => {
-  // @ts-ignore
-  if (import.meta) {
-    const {
-      default: { createRequire },
-    } = await import('module');
-    // @ts-ignore
-    const require = createRequire(import.meta.url);
-    return require(packagePath);
-  }
-  return require(packagePath);
-};
+const loadPackage = async (packagePath: string): Promise<PackageJson> =>
+  fse.readJson(packagePath);
 
 async function loadPackageFrom(from: string, id: string): Promise<PackageJson> {
   try {
@@ -36,9 +27,10 @@ async function loadPackageFrom(from: string, id: string): Promise<PackageJson> {
     if (e.code === 'ERR_PACKAGE_PATH_NOT_EXPORTED') {
       // `./package.json` is not exported, but we're not bothered -- it means the package has
       // `exports` and that's all we care about
+      logger.info(`Stubbing package.json for ${id}`);
       return { name: id, exports: {} };
     }
-    logger.warn(`Error resolving package.json for ${id}`);
+    logger.warn(`Could not read package.json for ${id}`);
     return { name: id };
   }
 }
