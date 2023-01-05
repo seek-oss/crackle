@@ -58,25 +58,29 @@ export const getPackageEntryPoints = async (
     fs,
   });
 
-  return entryPaths.map((entryPath) => {
-    const extension = path.extname(entryPath);
-    const isDefaultEntry = entryPath === defaultEntry;
-    const entryName = isDefaultEntry
-      ? 'dist'
-      : path.relative(otherEntries, entryPath).replace(extension, '');
-    const outputDir = path.join(packageRoot, entryName);
+  return entryPaths.map((relativeEntryPath) => {
+    const extension = path.extname(relativeEntryPath);
+    const isDefaultEntry = relativeEntryPath === defaultEntry;
+
+    const entryPath = path.join(packageRoot, relativeEntryPath);
+    const entryFileName = isDefaultEntry
+      ? 'index'
+      : path.relative(otherEntries, relativeEntryPath).replace(extension, '');
+    const entryName = isDefaultEntry ? 'dist' : entryFileName;
+    const outputDir = path.join(packageRoot, 'dist');
+    const outputFileName = path.join(outputDir, entryFileName);
+    const packageDir = isDefaultEntry
+      ? outputDir
+      : path.join(packageRoot, entryName);
 
     return {
       entryName,
-      entryPath: path.join(packageRoot, entryPath),
+      entryPath,
       isDefaultEntry,
       outputDir,
-      getOutputPath: (format: Format) =>
-        path.join(
-          entryName,
-          isDefaultEntry ? '' : 'dist',
-          `index.${extensionForFormat(format)}`,
-        ),
+      packageDir,
+      getOutputPath: (format, { from = outputDir } = {}) =>
+        `${path.relative(from, outputFileName)}.${extensionForFormat(format)}`,
     };
   });
 };
@@ -87,7 +91,7 @@ export const cleanPackageEntryPoints = async (
 ) => {
   await promiseMap(entryPoints, async (entryPoint) => {
     pre?.(entryPoint);
-    await emptyDir(entryPoint.outputDir);
+    await emptyDir(entryPoint.packageDir);
   });
 };
 
@@ -98,19 +102,17 @@ export const createEntryPackageJsons = async (
     entryPoint: PackageEntryPoint,
     format: Format,
   ) => {
-    const result = path.relative(
-      entryPoint.outputDir,
-      entryPoint.getOutputPath(format),
-    );
+    const result = entryPoint.getOutputPath(format, {
+      from: entryPoint.packageDir,
+    });
     return result.startsWith('.') ? result : `./${result}`;
   };
 
   await promiseMap(entryPoints, async (entryPoint) => {
     if (!entryPoint.isDefaultEntry) {
       await writePackageJson({
-        dir: entryPoint.outputDir,
+        dir: entryPoint.packageDir,
         contents: {
-          exports: relativeOutputPath(entryPoint, 'esm'),
           main: relativeOutputPath(entryPoint, 'cjs'),
           module: relativeOutputPath(entryPoint, 'esm'),
           types: relativeOutputPath(entryPoint, 'dts'),

@@ -1,21 +1,26 @@
 import { fs, vol } from 'memfs';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
-import { getPackageEntryPoints } from './entry-points';
+import {
+  cleanPackageEntryPoints,
+  createEntryPackageJsons,
+  getPackageEntryPoints,
+} from './entry-points';
 
 vi.mock('fs', () => ({ default: fs }));
+vi.mock('fs/promises', () => ({ default: fs.promises }));
 
 describe('getPackageEntryPoints', () => {
-  const packageRoot = '/fixtures/multi-entry';
+  const packageRoot = '/__ROOT__/multi-entry';
 
   beforeEach(() => {
     vol.reset();
     vol.fromJSON(
       {
-        'src/index.ts': '',
-        'src/entries/components.ts': '',
-        'src/entries/extras.ts': '',
-        'src/entries/themes/apac.ts': '',
+        'src/index.ts': '__stuff__',
+        'src/entries/components.ts': '__stuff__',
+        'src/entries/extras.ts': '__stuff__',
+        'src/entries/themes/apac.ts': '__stuff__',
       },
       packageRoot,
     );
@@ -28,31 +33,35 @@ describe('getPackageEntryPoints', () => {
       [
         {
           "entryName": "dist",
-          "entryPath": "/fixtures/multi-entry/src/index.ts",
+          "entryPath": "/__ROOT__/multi-entry/src/index.ts",
           "getOutputPath": [Function],
           "isDefaultEntry": true,
-          "outputDir": "/fixtures/multi-entry/dist",
+          "outputDir": "/__ROOT__/multi-entry/dist",
+          "packageDir": "/__ROOT__/multi-entry/dist",
         },
         {
           "entryName": "components",
-          "entryPath": "/fixtures/multi-entry/src/entries/components.ts",
+          "entryPath": "/__ROOT__/multi-entry/src/entries/components.ts",
           "getOutputPath": [Function],
           "isDefaultEntry": false,
-          "outputDir": "/fixtures/multi-entry/components",
+          "outputDir": "/__ROOT__/multi-entry/dist",
+          "packageDir": "/__ROOT__/multi-entry/components",
         },
         {
           "entryName": "extras",
-          "entryPath": "/fixtures/multi-entry/src/entries/extras.ts",
+          "entryPath": "/__ROOT__/multi-entry/src/entries/extras.ts",
           "getOutputPath": [Function],
           "isDefaultEntry": false,
-          "outputDir": "/fixtures/multi-entry/extras",
+          "outputDir": "/__ROOT__/multi-entry/dist",
+          "packageDir": "/__ROOT__/multi-entry/extras",
         },
         {
           "entryName": "themes/apac",
-          "entryPath": "/fixtures/multi-entry/src/entries/themes/apac.ts",
+          "entryPath": "/__ROOT__/multi-entry/src/entries/themes/apac.ts",
           "getOutputPath": [Function],
           "isDefaultEntry": false,
-          "outputDir": "/fixtures/multi-entry/themes/apac",
+          "outputDir": "/__ROOT__/multi-entry/dist",
+          "packageDir": "/__ROOT__/multi-entry/themes/apac",
         },
       ]
     `);
@@ -62,15 +71,24 @@ describe('getPackageEntryPoints', () => {
     const entryPoints = await getPackageEntryPoints(packageRoot);
     const entry = entryPoints.find(({ isDefaultEntry }) => isDefaultEntry)!;
 
-    expect(entry.getOutputPath('esm')).toMatchInlineSnapshot(
-      '"dist/index.mjs"',
-    );
-    expect(entry.getOutputPath('cjs')).toMatchInlineSnapshot(
-      '"dist/index.cjs"',
-    );
-    expect(entry.getOutputPath('dts')).toMatchInlineSnapshot(
-      '"dist/index.d.ts"',
-    );
+    expect(entry.getOutputPath('esm')).toMatchInlineSnapshot('"index.mjs"');
+    expect(entry.getOutputPath('cjs')).toMatchInlineSnapshot('"index.cjs"');
+    expect(entry.getOutputPath('dts')).toMatchInlineSnapshot('"index.d.ts"');
+  });
+
+  test('getOutputPath (from root) for index', async () => {
+    const entryPoints = await getPackageEntryPoints(packageRoot);
+    const entry = entryPoints.find(({ isDefaultEntry }) => isDefaultEntry)!;
+
+    expect(
+      entry.getOutputPath('esm', { from: packageRoot }),
+    ).toMatchInlineSnapshot('"dist/index.mjs"');
+    expect(
+      entry.getOutputPath('cjs', { from: packageRoot }),
+    ).toMatchInlineSnapshot('"dist/index.cjs"');
+    expect(
+      entry.getOutputPath('dts', { from: packageRoot }),
+    ).toMatchInlineSnapshot('"dist/index.d.ts"');
   });
 
   test('getOutputPath for entry', async () => {
@@ -78,13 +96,81 @@ describe('getPackageEntryPoints', () => {
     const entry = entryPoints.find(({ isDefaultEntry }) => !isDefaultEntry)!;
 
     expect(entry.getOutputPath('esm')).toMatchInlineSnapshot(
-      '"components/dist/index.mjs"',
+      '"components.mjs"',
     );
     expect(entry.getOutputPath('cjs')).toMatchInlineSnapshot(
-      '"components/dist/index.cjs"',
+      '"components.cjs"',
     );
     expect(entry.getOutputPath('dts')).toMatchInlineSnapshot(
-      '"components/dist/index.d.ts"',
+      '"components.d.ts"',
     );
+  });
+
+  test('getOutputPath (from root) for entry', async () => {
+    const entryPoints = await getPackageEntryPoints(packageRoot);
+    const entry = entryPoints.find(({ isDefaultEntry }) => !isDefaultEntry)!;
+
+    expect(
+      entry.getOutputPath('esm', { from: packageRoot }),
+    ).toMatchInlineSnapshot('"dist/components.mjs"');
+    expect(
+      entry.getOutputPath('cjs', { from: packageRoot }),
+    ).toMatchInlineSnapshot('"dist/components.cjs"');
+    expect(
+      entry.getOutputPath('dts', { from: packageRoot }),
+    ).toMatchInlineSnapshot('"dist/components.d.ts"');
+  });
+
+  test('createEntryPackageJsons', async () => {
+    const entryPoints = await getPackageEntryPoints(packageRoot);
+
+    await createEntryPackageJsons(entryPoints);
+
+    expect(vol.toJSON()).toMatchInlineSnapshot(`
+      {
+        "/__ROOT__/multi-entry/components/package.json": "{
+        "main": "../dist/components.cjs",
+        "module": "../dist/components.mjs",
+        "types": "../dist/components.d.ts"
+      }
+      ",
+        "/__ROOT__/multi-entry/extras/package.json": "{
+        "main": "../dist/extras.cjs",
+        "module": "../dist/extras.mjs",
+        "types": "../dist/extras.d.ts"
+      }
+      ",
+        "/__ROOT__/multi-entry/src/entries/components.ts": "__stuff__",
+        "/__ROOT__/multi-entry/src/entries/extras.ts": "__stuff__",
+        "/__ROOT__/multi-entry/src/entries/themes/apac.ts": "__stuff__",
+        "/__ROOT__/multi-entry/src/index.ts": "__stuff__",
+        "/__ROOT__/multi-entry/themes/apac/package.json": "{
+        "main": "../../dist/themes/apac.cjs",
+        "module": "../../dist/themes/apac.mjs",
+        "types": "../../dist/themes/apac.d.ts"
+      }
+      ",
+      }
+    `);
+  });
+
+  test('cleanPackageEntryPoints', async () => {
+    const entryPoints = await getPackageEntryPoints(packageRoot);
+    await createEntryPackageJsons(entryPoints);
+
+    await cleanPackageEntryPoints(entryPoints);
+
+    expect(vol.toJSON()).toMatchInlineSnapshot(`
+      {
+        "/__ROOT__/multi-entry/components": null,
+        "/__ROOT__/multi-entry/dist": null,
+        "/__ROOT__/multi-entry/extras": null,
+        "/__ROOT__/multi-entry/src/entries/components.ts": "__stuff__",
+        "/__ROOT__/multi-entry/src/entries/extras.ts": "__stuff__",
+        "/__ROOT__/multi-entry/src/entries/themes/apac.ts": "__stuff__",
+        "/__ROOT__/multi-entry/src/index.ts": "__stuff__",
+        "/__ROOT__/multi-entry/themes/apac": null,
+      }
+    `);
   });
 });
