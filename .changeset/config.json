@@ -3,7 +3,7 @@
   "changelog": ["@changesets/changelog-github", { "repo": "seek-oss/crackle" }],
   "commit": false,
   "linked": [],
-  "ignore": ["@crackle-fixtures/*", "@crackle/test*"],
+  "ignore": ["@crackle-dev/*", "@crackle-fixtures/*"],
   "access": "public",
   "baseBranch": "master",
   "updateInternalDependencies": "patch",

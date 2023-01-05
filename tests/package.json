@@ -1,5 +1,5 @@
 {
-  "name": "@crackle/tests",
+  "name": "@crackle-dev/tests",
   "version": "0.0.3",
   "private": true,
   "scripts": {
