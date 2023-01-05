@@ -27,7 +27,7 @@ async function loadPackageFrom(from: string, id: string): Promise<PackageJson> {
     if (e.code === 'ERR_PACKAGE_PATH_NOT_EXPORTED') {
       // `./package.json` is not exported, but we're not bothered -- it means the package has
       // `exports` and that's all we care about
-      logger.info(`Stubbing package.json for ${id}`);
+      logger.debug(`Stubbing package.json for ${id}`);
       return { name: id, exports: {} };
     }
     logger.warn(`Could not read package.json for ${id}`);
