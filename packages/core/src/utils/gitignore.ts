@@ -9,9 +9,7 @@ export const updateGitignore = async (
   entryPoints: PackageEntryPoint[],
 ) => {
   const entries = new Set(entryPoints.map((entry) => entry.entryName));
-  // TODO: declare these as global constants
   entries.add('dist'); // site build dir
-  entries.add('dist-render'); // site renderer build dir
 
   await ensureGitignore({
     filepath: path.join(packageRoot, '.gitignore'),
