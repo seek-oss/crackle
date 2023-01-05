@@ -24,11 +24,13 @@ export const writeIfRequired = async ({
   fileName,
   contents,
 }: WriteFileOpts) => {
+  const filePath = path.join(dir, fileName);
+  fileName = path.basename(filePath); // eslint-disable-line no-param-reassign
+  dir = path.dirname(filePath); // eslint-disable-line no-param-reassign
+
   if (!existsSync(dir)) {
     await fs.mkdir(dir, { recursive: true });
   }
-
-  const filePath = path.join(dir, fileName);
 
   let write = false;
 

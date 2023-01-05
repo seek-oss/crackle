@@ -77,7 +77,7 @@ const build = async (config: EnhancedConfig, packageName: string) => {
         );
         assert(entry != null, 'entry not found');
 
-        return entry.getOutputPath(format);
+        return entry.getOutputPath(format, { from: config.root });
       },
     });
 

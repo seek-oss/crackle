@@ -2,6 +2,7 @@ import { defineBuildConfig } from 'unbuild';
 
 export default defineBuildConfig({
   // clean: false,
+  failOnWarn: false,
   entries: [
     'src/index',
     'src/entries/build',

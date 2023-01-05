@@ -65,26 +65,24 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
-    "./CHANGELOG.md",
-    "./dist",
-    "./entries",
-    "./mocks",
-    "/build",
-    "/clean",
-    "/dev",
-    "/dist",
-    "/fix",
-    "/logger",
-    "/package",
-    "/resolve-config",
-    "/route-data",
-    "/serve",
-    "/start"
+    "CHANGELOG.md",
+    "build",
+    "clean",
+    "dev",
+    "dist",
+    "fix",
+    "logger",
+    "package",
+    "resolve-config",
+    "route-data",
+    "serve",
+    "start"
   ],
   "scripts": {
-    "build": "wireit",
-    "dev": "unbuild --stub",
-    "sync-dependencies": "sync-dependencies --source vite && prettier --write package.json"
+    "build": "crackle package",
+    "sync-dependencies": "sync-dependencies --source vite && prettier --write package.json",
+    "unbuild": "wireit",
+    "unbuild:entries": "tsx ./scripts/unbuild-entries.ts"
   },
   "dependencies": {
     "@babel/core": "^7.20.2",
@@ -154,8 +152,11 @@
     ]
   },
   "wireit": {
-    "build": {
+    "unbuild": {
       "command": "unbuild",
+      "dependencies": [
+        "unbuild:entries"
+      ],
       "files": [
         "./src/**/*.{ts,tsx}"
       ]

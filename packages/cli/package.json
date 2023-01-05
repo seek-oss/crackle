@@ -1,37 +1,27 @@
 {
   "name": "@crackle/cli",
   "version": "0.10.0",
-  "main": "dist/crackle-cli.cjs.js",
-  "module": "dist/crackle-cli.esm.js",
+  "license": "MIT",
+  "author": "SEEK",
   "exports": {
     ".": {
-      "module": "./dist/crackle-cli.esm.js",
-      "default": "./dist/crackle-cli.cjs.js"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     },
     "./package.json": "./package.json"
   },
-  "author": "SEEK",
-  "license": "MIT",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "bin": {
+    "crackle": "bin.js"
+  },
   "files": [
-    "dist",
-    "bin.js"
+    "bin.js",
+    "dist"
   ],
   "scripts": {
     "build": "wireit"
-  },
-  "unbuild": {
-    "failOnWarn": false
-  },
-  "wireit": {
-    "build": {
-      "command": "unbuild",
-      "files": [
-        "./src/**/*.{ts,tsx}"
-      ]
-    }
-  },
-  "bin": {
-    "crackle": "bin.js"
   },
   "dependencies": {
     "@crackle/core": "^0.14.0",
@@ -39,5 +29,13 @@
   },
   "devDependencies": {
     "@types/yargs": "^17.0.13"
+  },
+  "wireit": {
+    "build": {
+      "command": "pnpm -w crackle package",
+      "files": [
+        "./src/**/*.{ts,tsx}"
+      ]
+    }
   }
 }
