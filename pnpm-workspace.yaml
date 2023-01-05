@@ -1,5 +1,6 @@
 packages:
   - 'packages/*'
   - 'fixtures/*'
+  - bootstrap
   - test-utils
   - tests

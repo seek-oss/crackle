@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "postinstall": "pnpm bootstrap",
+    "bootstrap": "pnpm packages exec node ../../bootstrap/node_modules/@crackle/cli/bin.js package --fix",
     "fix": "preconstruct fix",
     "dev": "wireit",
     "build": "wireit",
