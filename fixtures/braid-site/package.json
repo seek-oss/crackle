@@ -11,6 +11,8 @@
   "scripts": {
     "build": "crackle build",
     "dev": "crackle dev",
+    "fix": "echo NOOP",
+    "package": "echo NOOP",
     "serve": "crackle serve",
     "start": "crackle start"
   },
