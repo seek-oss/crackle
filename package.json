@@ -3,14 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "__postinstall": "pnpm bootstrap",
-    "bootstrap": "pnpm packages exec node ../../bootstrap/node_modules/@crackle/cli/bin.js package --fix",
-    "fix": "preconstruct fix",
+    "bootstrap": "pnpm packages exec crackle-bootstrap package --fix",
     "dev": "wireit",
     "build": "wireit",
     "watch": "wireit",
     "packages": "pnpm --recursive --filter='@crackle/*'",
-    "format": "npm-run-all format:eslint format:prettier",
+    "format": "wireit",
     "format:eslint": "eslint --fix --cache .",
     "format:prettier": "prettier --write --cache .",
     "lint": "wireit",
@@ -33,6 +31,7 @@
     "@babel/preset-typescript": "^7.18.6",
     "@changesets/changelog-github": "^0.4.7",
     "@changesets/cli": "^2.25.0",
+    "@crackle-dev/bootstrap": "workspace:*",
     "@crackle/cli": "workspace:*",
     "@crackle/core": "workspace:*",
     "@playwright/test": "1.22.2",
@@ -64,7 +63,13 @@
       "command": "pnpm packages dev"
     },
     "watch": {
-      "command": "pnpm packages --parallel build --watch"
+      "command": "pnpm packages --parallel build -- watch"
+    },
+    "format": {
+      "dependencies": [
+        "format:eslint",
+        "format:prettier"
+      ]
     },
     "lint": {
       "dependencies": [

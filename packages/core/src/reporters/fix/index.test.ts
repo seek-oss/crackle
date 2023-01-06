@@ -1,10 +1,9 @@
 import { render as inkRender } from 'ink';
 import { render } from 'ink-testing-library';
 import { afterEach, describe, expect, test, vi } from 'vitest';
+import inkSerializer from '~utils/ink-serializer';
 
 import { renderApp } from '.';
-
-import inkSerializer from '~utils/ink-serializer';
 
 vi.mock('ink', async () => {
   const ink = await vi.importActual<any>('ink');
