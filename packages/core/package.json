@@ -80,6 +80,7 @@
   ],
   "scripts": {
     "build": "crackle package",
+    "dev": "crackle dev",
     "sync-dependencies": "sync-dependencies --source vite && prettier --write package.json",
     "unbuild": "wireit",
     "unbuild:entries": "tsx ./scripts/unbuild-entries.ts"
@@ -88,6 +89,7 @@
     "@babel/core": "^7.20.2",
     "@babel/plugin-syntax-jsx": "^7.18.6",
     "@babel/plugin-syntax-typescript": "^7.20.0",
+    "@babel/preset-react": "^7.18.6",
     "@crackle/babel-plugin-remove-exports": "0.1.1",
     "@crackle/router": "^0.2.1",
     "@vanilla-extract/css": "^1.9.1",
@@ -96,14 +98,17 @@
     "@vitejs/plugin-react": "^2.2.0",
     "builtin-modules": "^3.3.0",
     "chalk": "^4.1.2",
+    "dedent": "^0.7.0",
     "ensure-gitignore": "^1.2.0",
-    "es-module-lexer": "^1.1.0",
     "esbuild": "^0.15.18",
+    "esbuild-runner": "^2.2.2",
     "eval": "^0.1.8",
     "express": "^4.18.2",
     "fast-glob": "^3.2.12",
     "fs-extra": "^11.1.0",
     "ink": "^3.2.0",
+    "jiti": "^1.16.1",
+    "mlly": "^1.0.0",
     "pretty-ms": "^7.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -158,7 +163,7 @@
         "unbuild:entries"
       ],
       "files": [
-        "./src/**/*.{ts,tsx}"
+        "src/**/*.{ts,tsx}"
       ]
     }
   }

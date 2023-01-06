@@ -1,8 +1,8 @@
 import type { PartialConfig } from '../config';
 import { getConfig } from '../config';
-import { generateDevDeclarationFiles } from '../utils/dev-declaration-files';
+import { generateDevFiles } from '../utils/dev-entry-points';
 
 export const dev = async (inlineConfig?: PartialConfig) => {
   const config = getConfig(inlineConfig);
-  await generateDevDeclarationFiles(config);
+  await generateDevFiles(config);
 };
