@@ -1,7 +1,6 @@
 import path from 'path';
 
-import dedent from 'dedent';
-import type jiti from 'jiti';
+import type { Loader, TransformOptions } from 'esbuild';
 import { resolveModuleExportNames } from 'mlly';
 import resolveFrom from 'resolve-from';
 
@@ -18,9 +17,19 @@ import { writeIfRequired } from './files';
 import { promiseMap } from './promise-map';
 
 const RESOLVE_EXTENSIONS = ['.ts', '.tsx', '.mjs', '.cjs', '.js', '.jsx'];
+const LOADERS_BY_EXTENSION: Record<string, Loader> = {
+  '.ts': 'ts',
+  '.tsx': 'tsx',
+  '.js': 'js',
+  '.jsx': 'jsx',
+};
 
 const getHookLoader = (id: string, format: Format) => {
-  const str = (value: any) => JSON.stringify(value);
+  const stringify = (value: any) => JSON.stringify(value, null, 2);
+  // unbuild looks for the string and inserts shims
+  const rekwire = 'req' + 'uire';
+  // ! don't change the formatting !
+  // unbuild checks for this exact string
   const shims = `
 
 // -- Unbuild CommonJS Shims --
@@ -32,36 +41,22 @@ const __dirname = __cjs_path__.dirname(__filename);
 const require = __cjs_mod__.createRequire(import.meta.url);
 `;
 
-  const jitiOptions = dedent`
-    {
-      ...${str({
-        debug: process.env.DEBUG != null || true, // TODO: change
-        esmResolve: true,
-        extensions: RESOLVE_EXTENSIONS,
-        interopDefault: true,
-      } satisfies Parameters<typeof jiti>[1])},
-      transformOptions: {
-        ts: true,
-        babel: {
-          plugins: [
-            // [require(${str(
-              resolveFrom('.', '@babel/plugin-transform-typescript'),
-            )}), { isTSX: true }],
-            // require(${str(
-              resolveFrom('.', '@babel/plugin-transform-react-jsx'),
-            )}),
-          ],
-        },
-      },
-    }
-  `;
+  const ext = path.extname(id);
+  const hookPath = stringify(resolveFrom('.', 'esbuild-runner'));
+  const hookOptions = stringify({
+    type: 'transform',
+    esbuild: {
+      target: 'esnext',
+      loader: LOADERS_BY_EXTENSION[ext] || LOADERS_BY_EXTENSION['.ts'],
+    } satisfies TransformOptions,
+  });
 
-  const jitiPath = str(resolveFrom('.', 'jiti'));
-  const load = dedent`
-    ${format === 'esm' ? shims : ''}
-    const jiti = require(${jitiPath});
-  `;
-  const call = `jiti(null, ${jitiOptions})(${str(id)})`;
+  const load = [
+    ...(format === 'esm' ? [shims, ''] : []),
+    `${rekwire}(${hookPath}).install(${hookOptions});`,
+  ].join('\n');
+  const call = `${rekwire}(${stringify(id)})`;
+
   return { load, call };
 };
 
