@@ -1,6 +1,6 @@
 import path from 'path';
 
-import type { Loader, TransformOptions } from 'esbuild';
+import type { TransformOptions } from 'esbuild';
 import { resolveModuleExportNames } from 'mlly';
 import resolveFrom from 'resolve-from';
 
@@ -17,19 +17,12 @@ import { writeIfRequired } from './files';
 import { promiseMap } from './promise-map';
 
 const RESOLVE_EXTENSIONS = ['.ts', '.tsx', '.mjs', '.cjs', '.js', '.jsx'];
-const LOADERS_BY_EXTENSION: Record<string, Loader> = {
-  '.ts': 'ts',
-  '.tsx': 'tsx',
-  '.js': 'js',
-  '.jsx': 'jsx',
-};
 
 const getHookLoader = (id: string, format: Format) => {
   const stringify = (value: any) => JSON.stringify(value, null, 2);
-  // unbuild looks for the string and inserts shims
+  // ! don't change this bullshit ! unbuild searches for the string and mangles our shims
   const rekwire = 'req' + 'uire';
-  // ! don't change the formatting !
-  // unbuild checks for this exact string
+  // ! don't change the formatting ! unbuild checks for this exact string
   const shims = `
 
 // -- Unbuild CommonJS Shims --
@@ -41,23 +34,21 @@ const __dirname = __cjs_path__.dirname(__filename);
 const require = __cjs_mod__.createRequire(import.meta.url);
 `;
 
-  const ext = path.extname(id);
   const hookPath = stringify(resolveFrom('.', 'esbuild-runner'));
   const hookOptions = stringify({
     type: 'transform',
     esbuild: {
       target: 'esnext',
-      loader: LOADERS_BY_EXTENSION[ext] || LOADERS_BY_EXTENSION['.ts'],
     } satisfies TransformOptions,
   });
 
-  const load = [
+  const setup = [
     ...(format === 'esm' ? [shims, ''] : []),
     `${rekwire}(${hookPath}).install(${hookOptions});`,
   ].join('\n');
-  const call = `${rekwire}(${stringify(id)})`;
+  const load = `${rekwire}(${stringify(id)})`;
 
-  return { load, call };
+  return { setup, load };
 };
 
 const getExports = async (filePath: string) => {
@@ -106,10 +97,10 @@ async function writeFile(
 }
 
 const getCjsContents: GetContents = async (entry) => {
-  const { load, call } = getHookLoader(entry.entryPath, 'cjs');
-  const contentLines = [load, '', `module.exports = ${call};`].join('\n');
+  const { setup, load } = getHookLoader(entry.entryPath, 'cjs');
+  const contentLines = [setup, '', `module.exports = ${load};`];
 
-  return contentLines;
+  return contentLines.join('\n');
 };
 
 const getEsmContents: GetContents = async (entry) => {
@@ -124,11 +115,11 @@ const getEsmContents: GetContents = async (entry) => {
     return 'export {}';
   }
 
-  const { load, call } = getHookLoader(entry.entryPath, 'esm');
+  const { setup, load } = getHookLoader(entry.entryPath, 'esm');
   const contentLines = [
-    load,
+    setup,
     '',
-    `const _mod = ${call};`,
+    `const _mod = ${load};`,
     '',
     ...exports.map((specifier) =>
       specifier === 'default'
