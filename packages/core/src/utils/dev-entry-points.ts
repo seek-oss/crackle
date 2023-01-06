@@ -34,17 +34,11 @@ const __dirname = __cjs_path__.dirname(__filename);
 const require = __cjs_mod__.createRequire(import.meta.url);
 `;
 
-  const hookPath = stringify(resolveFrom('.', 'esbuild-runner'));
-  const hookOptions = stringify({
-    type: 'transform',
-    esbuild: {
-      target: 'esnext',
-    } satisfies TransformOptions,
-  });
+  const hookPath = stringify(resolveFrom('.', 'tsm'));
 
   const setup = [
     ...(format === 'esm' ? [shims, ''] : []),
-    `${rekwire}(${hookPath}).install(${hookOptions});`,
+    `${rekwire}(${hookPath});`,
   ].join('\n');
   const load = `${rekwire}(${stringify(id)})`;
 

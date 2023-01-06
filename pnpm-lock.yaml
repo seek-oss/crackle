@@ -227,7 +227,6 @@ importers:
       dedent: ^0.7.0
       ensure-gitignore: ^1.2.0
       esbuild: ^0.15.18
-      esbuild-runner: ^2.2.2
       eval: ^0.1.8
       express: ^4.18.2
       fast-glob: ^3.2.12
@@ -248,6 +247,7 @@ importers:
       sort-package-json: ^1.57.0
       strip-ansi: ^7.0.1
       sync-dependencies: ^1.0.4
+      tsm: ^2.3.0
       type-fest: ^3.2.0
       typescript: '*'
       used-styles: ^2.4.1
@@ -268,7 +268,6 @@ importers:
       dedent: 0.7.0
       ensure-gitignore: 1.2.0
       esbuild: 0.15.18
-      esbuild-runner: 2.2.2_esbuild@0.15.18
       eval: 0.1.8
       express: 4.18.2
       fast-glob: 3.2.12
@@ -285,6 +284,7 @@ importers:
       serialize-javascript: 6.0.0
       serve-handler: 6.1.5
       sort-package-json: 1.57.0
+      tsm: 2.3.0
       type-fest: 3.2.0
       used-styles: 2.4.1
       vite: 3.2.4_@types+node@18.11.17
@@ -5229,17 +5229,6 @@ packages:
     dev: false
     optional: true
 
-  /esbuild-runner/2.2.2_esbuild@0.15.18:
-    resolution: {integrity: sha512-fRFVXcmYVmSmtYm2mL8RlUASt2TDkGh3uRcvHFOKNr/T58VrfVeKD9uT9nlgxk96u0LS0ehS/GY7Da/bXWKkhw==}
-    hasBin: true
-    peerDependencies:
-      esbuild: '*'
-    dependencies:
-      esbuild: 0.15.18
-      source-map-support: 0.5.21
-      tslib: 2.4.0
-    dev: false
-
   /esbuild-sunos-64/0.15.18:
     resolution: {integrity: sha512-On22LLFlBeLNj/YF3FT+cXcyKPEI263nflYlAhz5crxtp3yRG1Ugfr7ITyxmCmjm4vbN/dGrb/B7w7U8yJR9yw==}
     engines: {node: '>=12'}
@@ -9481,6 +9470,14 @@ packages:
 
   /tslib/2.4.0:
     resolution: {integrity: sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==}
+    dev: false
+
+  /tsm/2.3.0:
+    resolution: {integrity: sha512-++0HFnmmR+gMpDtKTnW3XJ4yv9kVGi20n+NfyQWB9qwJvTaIWY9kBmzek2YUQK5APTQ/1DTrXmm4QtFPmW9Rzw==}
+    engines: {node: '>=12'}
+    hasBin: true
+    dependencies:
+      esbuild: 0.15.18
     dev: false
 
   /tsutils/3.21.0_typescript@4.9.4:
