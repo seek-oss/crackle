@@ -1,5 +1,10 @@
 lockfileVersion: 5.4
 
+patchedDependencies:
+  mlly@1.0.0:
+    hash: i4xkzmeghdcfspe5spv7yvud5q
+    path: patches/mlly@1.0.0.patch
+
 importers:
 
   .:
@@ -7517,6 +7522,16 @@ packages:
       ufo: 1.0.1
     dev: false
 
+  /mlly/1.0.0_i4xkzmeghdcfspe5spv7yvud5q:
+    resolution: {integrity: sha512-QL108Hwt+u9bXdWgOI0dhzZfACovn5Aen4Xvc8Jasd9ouRH4NjnrXEiyP3nVvJo91zPlYjVRckta0Nt2zfoR6g==}
+    dependencies:
+      acorn: 8.8.1
+      pathe: 1.0.0
+      pkg-types: 1.0.1
+      ufo: 1.0.1
+    dev: false
+    patched: true
+
   /mri/1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
     engines: {node: '>=4'}
@@ -8051,7 +8066,7 @@ packages:
     resolution: {integrity: sha512-jHv9HB+Ho7dj6ItwppRDDl0iZRYBD0jsakHXtFgoLr+cHSF6xC+QL54sJmWxyGxOLYSHm0afhXhXcQDQqH9z8g==}
     dependencies:
       jsonc-parser: 3.2.0
-      mlly: 1.0.0
+      mlly: 1.0.0_i4xkzmeghdcfspe5spv7yvud5q
       pathe: 1.0.0
     dev: false
 
@@ -9630,7 +9645,7 @@ packages:
       magic-string: 0.27.0
       mkdirp: 1.0.4
       mkdist: 1.0.0_typescript@4.9.4
-      mlly: 1.0.0
+      mlly: 1.0.0_i4xkzmeghdcfspe5spv7yvud5q
       mri: 1.2.0
       pathe: 1.0.0
       pkg-types: 1.0.1
@@ -9833,7 +9848,7 @@ packages:
     hasBin: true
     dependencies:
       debug: 4.3.4
-      mlly: 1.0.0
+      mlly: 1.0.0_i4xkzmeghdcfspe5spv7yvud5q
       pathe: 0.2.0
       source-map: 0.6.1
       source-map-support: 0.5.21

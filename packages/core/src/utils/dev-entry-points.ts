@@ -1,6 +1,5 @@
 import path from 'path';
 
-import type { TransformOptions } from 'esbuild';
 import { resolveModuleExportNames } from 'mlly';
 import resolveFrom from 'resolve-from';
 
@@ -46,9 +45,13 @@ const require = __cjs_mod__.createRequire(import.meta.url);
 };
 
 const getExports = async (filePath: string) => {
+  // works with patch; remove patch when fix lands https://github.com/unjs/mlly/pull/135
   const exports = await resolveModuleExportNames(filePath, {
     extensions: RESOLVE_EXTENSIONS,
   });
+  logger.debug(`filePath: ${filePath}`);
+  logger.debug(`exports: ${exports}`);
+  logger.debug('---');
   return exports;
 };
 

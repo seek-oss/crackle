@@ -1,0 +1,14 @@
+diff --git a/dist/index.cjs b/dist/index.cjs
+index 29f99b7306c303d9c87a0b69d7fee88ef80a224f..e923d589431574b88e44ae744447c2f450f2c5c1 100644
+--- a/dist/index.cjs
++++ b/dist/index.cjs
+@@ -1065,6 +1065,9 @@ function _resolve(id, options = {}) {
+         break;
+       }
+     }
++    if (resolved) {
++      break;
++    }
+   }
+   if (!resolved) {
+     const error = new Error(`Cannot find module ${id} imported from ${urls.join(", ")}`);
