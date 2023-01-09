@@ -1,8 +1,8 @@
+import assert from 'assert';
 import fs from 'fs/promises';
 import path from 'path';
 
 import chalk from 'chalk';
-import ensureGitignore from 'ensure-gitignore';
 
 import type { EnhancedConfig, PartialConfig } from './config';
 import { getConfig } from './config';
@@ -18,6 +18,7 @@ import {
   createEntryPackageJsons,
   getPackageEntryPoints,
 } from './utils/entry-points';
+import { updateGitignore } from './utils/gitignore';
 import { validatePackageJson } from './utils/setup-package-json';
 
 const getPackageName = async (config: EnhancedConfig): Promise<string> => {
@@ -73,10 +74,7 @@ const build = async (config: EnhancedConfig, packageName: string) => {
         const entry = entries.find(
           ({ entryPath }) => chunkInfo.facadeModuleId === entryPath,
         );
-
-        if (!entry) {
-          throw new Error('Unable to name entry file');
-        }
+        assert(entry != null, 'entry not found');
 
         return entry.getOutputPath(format);
       },
@@ -93,11 +91,7 @@ const build = async (config: EnhancedConfig, packageName: string) => {
 
   await createEntryPackageJsons(entries);
 
-  await ensureGitignore({
-    filepath: config.resolveFromRoot('.gitignore'),
-    comment: 'managed by crackle',
-    patterns: entries.map((entry) => `/${entry.entryName}`),
-  });
+  await updateGitignore(config.root, entries);
 
   logger.info(`✅ Successfully built ${chalk.bold.green(packageName)}!`);
 };

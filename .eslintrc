@@ -15,6 +15,7 @@
         "ignoreRestSiblings": true
       }
     ],
+    "no-debugger": "warn",
     "import/order": [
       "error",
       {

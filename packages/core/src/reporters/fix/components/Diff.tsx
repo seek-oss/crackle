@@ -3,6 +3,7 @@ import { Text } from 'ink';
 import * as React from 'react';
 
 import type { Difference } from '../../../utils/setup-package-json';
+import { List } from '../../shared/List';
 
 export const Diff = ({ diff }: { diff: Difference }) => {
   if (diff.key === 'exports') {
@@ -10,7 +11,6 @@ export const Diff = ({ diff }: { diff: Difference }) => {
   }
 
   if (diff.key === 'files') {
-    // TODO: when diff.additions is []
     const missingFiles = diff.additions.map((addition) => (
       <Text key={addition} color="blueBright">
         {addition}
@@ -18,16 +18,10 @@ export const Diff = ({ diff }: { diff: Difference }) => {
     ));
     return missingFiles.length > 0 ? (
       <Text>
-        - "files" updated with:{' '}
-        {missingFiles.map((node, index) => (
-          <React.Fragment key={index}>
-            {index > 0 && ', '}
-            {node}
-          </React.Fragment>
-        ))}
+        - "files" updated with: <List items={missingFiles} separator=", " />
       </Text>
     ) : (
-      <Text>- "files" set to []</Text>
+      <Text>- "files" updated</Text>
     );
   }
 

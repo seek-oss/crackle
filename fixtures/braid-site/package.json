@@ -3,8 +3,11 @@
   "version": "1.0.4",
   "private": true,
   "license": "MIT",
-  "author": "Ben",
-  "main": "index.js",
+  "author": "SEEK",
+  "exports": {
+    "./package.json": "./package.json"
+  },
+  "files": [],
   "scripts": {
     "build": "crackle build",
     "dev": "crackle dev",

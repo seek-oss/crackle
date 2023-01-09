@@ -1,6 +1,6 @@
 {
-  "name": "@crackle-fixtures/single-entry-library",
-  "version": "1.0.6",
+  "name": "@crackle-fixtures/with-dep-hidden-package-json",
+  "version": "1.0.0",
   "private": true,
   "license": "MIT",
   "author": "SEEK",
@@ -18,22 +18,14 @@
     "dist"
   ],
   "scripts": {
+    "build": "crackle build",
     "dev": "crackle dev",
+    "fix": "crackle fix",
     "package": "crackle package",
     "serve": "crackle serve",
     "start": "crackle start"
   },
   "dependencies": {
-    "@crackle-fixtures/multi-entry-library": "workspace:*",
-    "@vanilla-extract/css": "^1.9.1",
-    "braid-design-system": "0.0.0-crackel2-20221007054115",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
-  "devDependencies": {
-    "@crackle/cli": "workspace:*",
-    "@crackle/core": "workspace:*",
-    "@types/react": "^18.0.21",
-    "@types/react-dom": "^18.0.6"
+    "@crackle-fixtures/hidden-package-json": "link:./hidden-package-json"
   }
 }
