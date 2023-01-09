@@ -37,6 +37,7 @@ export const internalPackageResolution = (config: EnhancedConfig): Plugin => {
           throw new Error(`Could not resolve package root: ${packageName}`);
         }
 
+        // TODO: use getPackageEntryPoints from src/utils/entry-points.ts
         if (source === packageName) {
           return normalizePath(path.join(root, 'src/index.ts'));
         }
