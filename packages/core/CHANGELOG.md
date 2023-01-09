@@ -1,5 +1,19 @@
 # @crackle/core
 
+## 0.15.0
+
+### Minor Changes
+
+- [#56](https://github.com/seek-oss/crackle/pull/56) [`db148fa`](https://github.com/seek-oss/crackle/commit/db148fab6810c2f55d8ee43f6e87a51da3f7870f) Thanks [@mrm007](https://github.com/mrm007)! - Upgrade to Vite 4
+
+### Patch Changes
+
+- [#55](https://github.com/seek-oss/crackle/pull/55) [`942264e`](https://github.com/seek-oss/crackle/commit/942264ebf21fe00be082e5e5b1ec179dace26f6f) Thanks [@mrm007](https://github.com/mrm007)! - Fix resolution for packages which don't expose their `package.json`
+
+- [#55](https://github.com/seek-oss/crackle/pull/55) [`942264e`](https://github.com/seek-oss/crackle/commit/942264ebf21fe00be082e5e5b1ec179dace26f6f) Thanks [@mrm007](https://github.com/mrm007)! - Update `.gitignore` on `crackle fix`
+
+- [#55](https://github.com/seek-oss/crackle/pull/55) [`942264e`](https://github.com/seek-oss/crackle/commit/942264ebf21fe00be082e5e5b1ec179dace26f6f) Thanks [@mrm007](https://github.com/mrm007)! - Better validation of `package.json`
+
 ## 0.14.0
 
 ### Minor Changes
