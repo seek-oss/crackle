@@ -2,12 +2,14 @@ import path from 'path';
 
 import { describe, expect, test } from 'vitest';
 import packageJsonSerializer from '~utils/pkg-serializer';
+import { createSerializer } from '~utils/snapshot-diff-serializer';
 
-import type { PackageEntryPoint } from '../types';
+import type { PackageEntryPoint, PackageJson } from '../types';
 
 import { extensionForFormat } from './files';
 import { diffPackageJson } from './setup-package-json';
 
+expect.addSnapshotSerializer(createSerializer({ contextLines: 1 })); // override default config
 expect.addSnapshotSerializer(packageJsonSerializer);
 
 describe('diffPackageJson', () => {
@@ -69,8 +71,9 @@ describe('diffPackageJson', () => {
     },
     main: './dist/index.cjs',
     module: './dist/index.mjs',
+    types: './dist/index.d.ts',
     files: ['css', 'dist', 'themes/apac'],
-  };
+  } satisfies PackageJson;
 
   test('empty package.json', async () => {
     const { diffs, expectedPackageJson } = diffPackageJson(
@@ -110,6 +113,24 @@ describe('diffPackageJson', () => {
     test('module', () => {
       const packageJson = structuredClone(correctPackageJson);
       packageJson.module = 'something/else.js';
+
+      const { diffs, expectedPackageJson } = diffPackageJson(
+        packageRoot,
+        packageJson,
+        entries,
+      );
+
+      expect(diffs).toMatchSnapshot('diffs');
+      expect({
+        diffA: packageJson,
+        diffB: expectedPackageJson,
+      }).toMatchSnapshot('package.json');
+    });
+
+    test('types', () => {
+      const packageJson = structuredClone(correctPackageJson);
+      // @ts-ignore
+      delete packageJson.types;
 
       const { diffs, expectedPackageJson } = diffPackageJson(
         packageRoot,
@@ -227,6 +248,7 @@ describe('diffPackageJson', () => {
           module: 'dist/index.esm.invalid',
           files: ['css', 'dist', 'extra'],
           main: 'index.js',
+          types: 'index.d.ts',
         },
         entries,
       );

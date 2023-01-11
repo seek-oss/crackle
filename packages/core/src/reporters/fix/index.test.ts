@@ -78,10 +78,11 @@ describe('fix reporter', () => {
       {
         packageName: 'pkg-a',
         diffs: [
-          { key: 'exports' },
-          { key: 'files', additions: ['/entry-a', '/other-entry'] },
           { key: 'main', from: 'index' },
           { key: 'module', from: 'module-index', to: 'module-new-index' },
+          { key: 'types', to: 'types-new.d.ts' },
+          { key: 'exports' },
+          { key: 'files', additions: ['/entry-a', '/other-entry'] },
         ],
       },
       {
@@ -94,10 +95,11 @@ describe('fix reporter', () => {
       "
       Fixed package.json for:
         pkg-a
-          - "exports" key updated
-          - "files" updated with: /entry-a, /other-entry
           - "main" was removed (previously index).
           - "module" was changed to module-new-index (previously module-index)
+          - "types" was changed to types-new.d.ts
+          - "exports" key updated
+          - "files" updated with: /entry-a, /other-entry
 
       Nothing to change for:
         pkg-b

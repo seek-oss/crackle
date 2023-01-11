@@ -11,7 +11,11 @@ import type { PackageEntryPoint, PackageJson } from '../types';
 
 import { writePackageJson } from './files';
 
-type FromToDifference = { key: 'main' | 'module'; from?: string; to?: string };
+type FromToDifference = {
+  key: 'main' | 'module' | 'types';
+  from?: string;
+  to?: string;
+};
 type AdditionsDifference = { key: 'files'; additions: string[] };
 type ExportsDifference = { key: 'exports' };
 export type Difference =
@@ -70,6 +74,7 @@ export const diffPackageJson = (
     if (entryPoint.isDefaultEntry) {
       expectedPackageJson.main = `./${entryPoint.getOutputPath('cjs', opts)}`;
       expectedPackageJson.module = `./${entryPoint.getOutputPath('esm', opts)}`;
+      expectedPackageJson.types = `./${entryPoint.getOutputPath('dts', opts)}`;
       files.add('dist');
     } else {
       files.add(entryPoint.entryName);
@@ -77,28 +82,15 @@ export const diffPackageJson = (
   }
   expectedPackageJson.files = sortFiles(files);
 
-  if (expectedPackageJson.main !== packageJson.main) {
-    diffs.push({
-      key: 'main',
-      from: packageJson.main,
-      to: expectedPackageJson.main,
-    });
-  }
-
-  if (expectedPackageJson.module !== packageJson.module) {
-    diffs.push({
-      key: 'module',
-      from: packageJson.module,
-      to: expectedPackageJson.module,
-    });
-  }
-
-  if (!isDeepStrictEqual(expectedPackageJson.files, packageJson.files)) {
-    const missingFiles = expectedPackageJson.files.filter(
-      (file) => !existingFiles.has(file),
-    );
-    diffs.push({ key: 'files', additions: missingFiles });
-  }
+  (['main', 'module', 'types'] as const).forEach((key) => {
+    if (expectedPackageJson[key] !== packageJson[key]) {
+      diffs.push({
+        key,
+        from: packageJson[key],
+        to: expectedPackageJson[key],
+      });
+    }
+  });
 
   if (
     !isDeepStrictEqual(
@@ -107,6 +99,13 @@ export const diffPackageJson = (
     )
   ) {
     diffs.push({ key: 'exports' });
+  }
+
+  if (!isDeepStrictEqual(expectedPackageJson.files, packageJson.files)) {
+    const missingFiles = expectedPackageJson.files.filter(
+      (file) => !existingFiles.has(file),
+    );
+    diffs.push({ key: 'files', additions: missingFiles });
   }
 
   return {
