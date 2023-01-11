@@ -2,26 +2,20 @@ import fs from 'fs';
 import path from 'path';
 import { isDeepStrictEqual } from 'util';
 
-// @ts-ignore
+// @ts-ignore no declaration file
 import structuredClonePolyfill from '@ungap/structured-clone';
 import fse from 'fs-extra';
 import { sortPackageJson } from 'sort-package-json';
 
-import type { PackageEntryPoint, PackageJson } from '../types';
+import type { PackageEntryPoint as Entry, PackageJson } from '../types';
 
 import { writePackageJson } from './files';
+import { partition } from './partition';
 
-type FromToDifference = {
-  key: 'main' | 'module' | 'types';
-  from?: string;
-  to?: string;
-};
-type AdditionsDifference = { key: 'files'; additions: string[] };
-type ExportsDifference = { key: 'exports' };
 export type Difference =
-  | FromToDifference
-  | AdditionsDifference
-  | ExportsDifference;
+  | { key: 'main' | 'module' | 'types'; from?: string; to?: string }
+  | { key: 'files'; additions: string[] }
+  | { key: 'exports' };
 
 type ExportString = `./${string}`;
 type ExportObject = {
@@ -30,22 +24,25 @@ type ExportObject = {
   require: ExportString;
 };
 
-global.structuredClone = global.structuredClone ?? structuredClonePolyfill;
+const structuredClone = global.structuredClone ?? structuredClonePolyfill;
 
-const sortFiles = (files: Iterable<string>) =>
-  Array.from(files).sort((a, b) => (a > b ? 1 : -1));
+const sort = <T>(items: Iterable<T>, key?: keyof T) =>
+  Array.from(items).sort((a, b) => {
+    const aValue = key ? a[key] : a;
+    const bValue = key ? b[key] : b;
+    return aValue > bValue ? 1 : -1;
+  });
 
-const getExportsForPackage = (
-  entries: PackageEntryPoint[],
-  { from }: { from: string },
-) => {
+const getExportsForPackage = (entries: Entry[], options: { from: string }) => {
+  const [$default, other] = partition(entries, (entry) => entry.isDefaultEntry);
+  const sortedEntries = [...$default, ...sort(other, 'entryName')];
+
   const exports: Record<string, ExportString | ExportObject> = {};
-
-  for (const entryPoint of entries) {
-    exports[entryPoint.isDefaultEntry ? '.' : `./${entryPoint.entryName}`] = {
-      types: `./${entryPoint.getOutputPath('dts', { from })}`,
-      import: `./${entryPoint.getOutputPath('esm', { from })}`,
-      require: `./${entryPoint.getOutputPath('cjs', { from })}`,
+  for (const entry of sortedEntries) {
+    exports[entry.isDefaultEntry ? '.' : `./${entry.entryName}`] = {
+      types: `./${entry.getOutputPath('dts', options)}`,
+      import: `./${entry.getOutputPath('esm', options)}`,
+      require: `./${entry.getOutputPath('cjs', options)}`,
     };
   }
   exports['./package.json'] = './package.json';
@@ -56,7 +53,7 @@ const getExportsForPackage = (
 export const diffPackageJson = (
   packageRoot: string,
   packageJson: PackageJson,
-  entries: PackageEntryPoint[],
+  entries: Entry[],
 ): {
   diffs: Difference[];
   expectedPackageJson: PackageJson;
@@ -66,19 +63,19 @@ export const diffPackageJson = (
 
   const expectedPackageJson = sortPackageJson(structuredClone(packageJson));
 
-  const opts = { from: packageRoot };
-  expectedPackageJson.exports = getExportsForPackage(entries, opts);
+  const options = { from: packageRoot };
+  expectedPackageJson.exports = getExportsForPackage(entries, options);
 
   const files = new Set(existingFiles);
-  for (const entryPoint of entries) {
-    if (entryPoint.isDefaultEntry) {
-      expectedPackageJson.main = `./${entryPoint.getOutputPath('cjs', opts)}`;
-      expectedPackageJson.module = `./${entryPoint.getOutputPath('esm', opts)}`;
-      expectedPackageJson.types = `./${entryPoint.getOutputPath('dts', opts)}`;
+  for (const entry of entries) {
+    if (entry.isDefaultEntry) {
+      expectedPackageJson.main = `./${entry.getOutputPath('cjs', options)}`;
+      expectedPackageJson.module = `./${entry.getOutputPath('esm', options)}`;
+      expectedPackageJson.types = `./${entry.getOutputPath('dts', options)}`;
     }
-    files.add(entryPoint.entryName);
+    files.add(entry.entryName);
   }
-  expectedPackageJson.files = sortFiles(files);
+  expectedPackageJson.files = sort(files);
 
   (['main', 'module', 'types'] as const).forEach((key) => {
     if (expectedPackageJson[key] !== packageJson[key]) {
@@ -93,7 +90,7 @@ export const diffPackageJson = (
   if (
     !isDeepStrictEqual(
       Object.entries(expectedPackageJson.exports!),
-      Object.entries(packageJson.exports || {}),
+      Object.entries(packageJson.exports ?? {}),
     )
   ) {
     diffs.push({ key: 'exports' });
@@ -114,10 +111,7 @@ export const diffPackageJson = (
 
 const setupPackageJson =
   (write: boolean) =>
-  async (
-    packageRoot: string,
-    entries: PackageEntryPoint[],
-  ): Promise<Difference[]> => {
+  async (packageRoot: string, entries: Entry[]): Promise<Difference[]> => {
     const packagePath = path.join(packageRoot, 'package.json');
     const packageJson: PackageJson = await fse.readJson(packagePath, { fs });
 
