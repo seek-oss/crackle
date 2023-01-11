@@ -75,10 +75,8 @@ export const diffPackageJson = (
       expectedPackageJson.main = `./${entryPoint.getOutputPath('cjs', opts)}`;
       expectedPackageJson.module = `./${entryPoint.getOutputPath('esm', opts)}`;
       expectedPackageJson.types = `./${entryPoint.getOutputPath('dts', opts)}`;
-      files.add('dist');
-    } else {
-      files.add(entryPoint.entryName);
     }
+    files.add(entryPoint.entryName);
   }
   expectedPackageJson.files = sortFiles(files);
 

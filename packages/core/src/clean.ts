@@ -14,6 +14,6 @@ export const clean = async (inlineConfig?: PartialConfig) => {
   const entries = await getPackageEntryPoints(config.root);
 
   await cleanPackageEntryPoints(entries, (entryPoint) => {
-    logger.info(`🧹 Cleaning ${chalk.bold(entryPoint.entryName)}`);
+    logger.info(`🧹  Cleaning ${chalk.bold(entryPoint.entryName)}`);
   });
 };
