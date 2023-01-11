@@ -206,6 +206,7 @@ importers:
       '@types/react-dom': ^18.0.9
       '@types/serialize-javascript': ^5.0.2
       '@types/serve-handler': ^6.1.1
+      '@ungap/structured-clone': ^1.0.1
       '@vanilla-extract/css': ^1.9.2
       '@vanilla-extract/integration': ^6.0.1
       '@vanilla-extract/vite-plugin': ^3.7.0
@@ -227,7 +228,7 @@ importers:
       react-dom: ^18.2.0
       resolve-from: ^5.0.0
       rollup: ^3.7.0
-      rollup-plugin-dts: ^5.0.0
+      rollup-plugin-dts: ^5.1.1
       rollup-plugin-node-externals: ^5.0.2
       serialize-javascript: ^6.0.0
       serve-handler: ^6.1.5
@@ -244,6 +245,7 @@ importers:
       '@babel/plugin-syntax-typescript': 7.20.0_@babel+core@7.20.2
       '@crackle/babel-plugin-remove-exports': link:../babel-plugin-remove-exports
       '@crackle/router': link:../router
+      '@ungap/structured-clone': 1.0.1
       '@vanilla-extract/css': 1.9.2
       '@vanilla-extract/integration': 6.0.1
       '@vanilla-extract/vite-plugin': 3.7.0_vite@4.0.3
@@ -263,7 +265,7 @@ importers:
       react-dom: 18.2.0_react@18.2.0
       resolve-from: 5.0.0
       rollup: 3.7.5
-      rollup-plugin-dts: 5.0.0_oj4jlwi3mkekxo3vucumcwebnq
+      rollup-plugin-dts: 5.1.1_oj4jlwi3mkekxo3vucumcwebnq
       rollup-plugin-node-externals: 5.0.2_rollup@3.7.5
       serialize-javascript: 6.0.0
       serve-handler: 6.1.5
@@ -3220,6 +3222,10 @@ packages:
     dependencies:
       '@typescript-eslint/types': 5.36.2
       eslint-visitor-keys: 3.3.0
+    dev: false
+
+  /@ungap/structured-clone/1.0.1:
+    resolution: {integrity: sha512-zKVyTt6rELvPXYwcVPTJcPFtY0AckN5A7xWuc7owBqR0FdtuDYhE9MZZUi6IY1kZUQFSXV1B3UOOIyLkVHYd2w==}
     dev: false
 
   /@vanilla-extract/babel-plugin-debug-ids/1.0.0:
@@ -7676,14 +7682,14 @@ packages:
       '@babel/code-frame': 7.18.6
     dev: false
 
-  /rollup-plugin-dts/5.0.0_oj4jlwi3mkekxo3vucumcwebnq:
-    resolution: {integrity: sha512-OO8ayCvuJCKaQSShyVTARxGurVVk4ulzbuvz+0zFd1f93vlnWFU5pBMT7HFeS6uj7MvvZLx4kUAarGATSU1+Ng==}
+  /rollup-plugin-dts/5.1.1_oj4jlwi3mkekxo3vucumcwebnq:
+    resolution: {integrity: sha512-zpgo52XmnLg8w4k3MScinFHZK1+ro6r7uVe34fJ0Ee8AM45FvgvTuvfWWaRgIpA4pQ1BHJuu2ospncZhkcJVeA==}
     engines: {node: '>=v14'}
     peerDependencies:
       rollup: ^3.0.0
       typescript: ^4.1
     dependencies:
-      magic-string: 0.26.7
+      magic-string: 0.27.0
       rollup: 3.7.5
       typescript: 4.9.4
     optionalDependencies:

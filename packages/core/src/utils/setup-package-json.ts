@@ -2,6 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import { isDeepStrictEqual } from 'util';
 
+// @ts-ignore
+import structuredClonePolyfill from '@ungap/structured-clone';
 import fse from 'fs-extra';
 import { sortPackageJson } from 'sort-package-json';
 
@@ -23,6 +25,8 @@ type ExportObject = {
   import: ExportString;
   require: ExportString;
 };
+
+global.structuredClone = global.structuredClone ?? structuredClonePolyfill;
 
 const sortFiles = (files: Iterable<string>) =>
   Array.from(files).sort((a, b) => (a > b ? 1 : -1));
