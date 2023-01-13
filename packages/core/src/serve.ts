@@ -1,17 +1,18 @@
-/* eslint-disable no-console */
 import http from 'http';
 
 import handler from 'serve-handler';
 
 import type { PartialConfig } from './config';
 import { getConfig } from './config';
+import { siteBuild } from './constants';
+import { logger } from './logger';
 import type { CrackleServer } from './types';
 
 export const serve = (inlineConfig?: PartialConfig): CrackleServer => {
   const config = getConfig(inlineConfig);
   const server = http.createServer((request, response) =>
     handler(request, response, {
-      public: config.resolveFromRoot('dist'),
+      public: config.resolveFromRoot(siteBuild.outDir),
       trailingSlash: false,
       headers: [
         {
@@ -30,7 +31,7 @@ export const serve = (inlineConfig?: PartialConfig): CrackleServer => {
   const url = `http://localhost:${config.port}`;
 
   server.listen(config.port, () => {
-    console.log('Serving static build from ./dist at ', url);
+    logger.info(`Serving static build from ./${siteBuild.outDir} at ${url}`);
   });
 
   return {

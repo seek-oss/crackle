@@ -5,9 +5,9 @@ import {
   externals as rollupExternals,
   type ExternalsOptions,
 } from 'rollup-plugin-node-externals';
-import type { PackageJson } from 'type-fest';
 
 import { logger } from '../../logger';
+import type { PackageJson } from '../../types';
 import type { Format } from '../../types';
 import { promiseMap } from '../../utils/promise-map';
 import { resolveFrom } from '../../utils/resolve-from';
