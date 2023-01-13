@@ -1,0 +1,61 @@
+{
+  "name": "@crackle-fixtures/with-side-effects",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "author": "SEEK",
+  "sideEffects": [
+    "**/atoms/**",
+    "**/reset/**",
+    "**/side-effects/**",
+    "**/themes/**",
+    "dist/side-effects/**",
+    "playroom/**"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./css": {
+      "types": "./dist/css.d.ts",
+      "import": "./dist/css.mjs",
+      "require": "./dist/css.cjs"
+    },
+    "./css-more": {
+      "types": "./dist/css-more.d.ts",
+      "import": "./dist/css-more.mjs",
+      "require": "./dist/css-more.cjs"
+    },
+    "./reset": {
+      "types": "./dist/reset.d.ts",
+      "import": "./dist/reset.mjs",
+      "require": "./dist/reset.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "css",
+    "css-more",
+    "dist",
+    "reset"
+  ],
+  "scripts": {
+    "fix": "crackle fix",
+    "package": "crackle package"
+  },
+  "dependencies": {
+    "@capsizecss/core": "^3.0.0",
+    "@capsizecss/vanilla-extract": "^1.0.0",
+    "@vanilla-extract/css": "^1.9.2",
+    "@vanilla-extract/sprinkles": "^1.5.1",
+    "dedent": "^0.7.0",
+    "lodash": "^4.17.21",
+    "polished": "^4.2.2"
+  },
+  "devDpendencies": {}
+}

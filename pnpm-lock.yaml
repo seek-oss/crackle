@@ -159,6 +159,24 @@ importers:
     dependencies:
       '@crackle-fixtures/hidden-package-json': link:hidden-package-json
 
+  fixtures/with-side-effects:
+    specifiers:
+      '@capsizecss/core': ^3.0.0
+      '@capsizecss/vanilla-extract': ^1.0.0
+      '@vanilla-extract/css': ^1.9.2
+      '@vanilla-extract/sprinkles': ^1.5.1
+      dedent: ^0.7.0
+      lodash: ^4.17.21
+      polished: ^4.2.2
+    dependencies:
+      '@capsizecss/core': 3.0.0
+      '@capsizecss/vanilla-extract': 1.0.0_@vanilla-extract+css@1.9.2
+      '@vanilla-extract/css': 1.9.2
+      '@vanilla-extract/sprinkles': 1.5.1_@vanilla-extract+css@1.9.2
+      dedent: 0.7.0
+      lodash: 4.17.21
+      polished: 4.2.2
+
   packages/babel-plugin-remove-exports:
     specifiers:
       '@babel/core': ^7.19.3
@@ -3555,6 +3573,14 @@ packages:
 
   /@vanilla-extract/sprinkles/1.5.0_@vanilla-extract+css@1.9.2:
     resolution: {integrity: sha512-W58f2Rzz5lLmk0jbhgStVlZl5wEiPB1Ur3fRvUaBM+MrifZ3qskmFq/CiH//fEYeG5Dh9vF1qRviMMH46cX9Nw==}
+    peerDependencies:
+      '@vanilla-extract/css': ^1.0.0
+    dependencies:
+      '@vanilla-extract/css': 1.9.2
+    dev: false
+
+  /@vanilla-extract/sprinkles/1.5.1_@vanilla-extract+css@1.9.2:
+    resolution: {integrity: sha512-xPYpeEZEC1mhiPqWCBPGdIHkpFaaQIbaAfG9W2JyIW0byqTP7CoaxdYNMPjhZuoV5lkTI14SJg8Bt+fZqmV5yQ==}
     peerDependencies:
       '@vanilla-extract/css': ^1.0.0
     dependencies:
@@ -7553,7 +7579,7 @@ packages:
     resolution: {integrity: sha512-Sz2Lkdxz6F2Pgnpi9U5Ng/WdWAUZxmHrNPoVlm3aAemxoy2Qy7LGjQg4uf8qKelDAUW94F4np3iH2YPf2qefcQ==}
     engines: {node: '>=10'}
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.19.4
     dev: false
 
   /postcss-load-config/3.1.4_postcss@8.4.20:
