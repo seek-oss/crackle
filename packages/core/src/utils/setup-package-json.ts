@@ -1,3 +1,4 @@
+import assert from 'assert';
 import fs from 'fs';
 import path from 'path';
 import { isDeepStrictEqual } from 'util';
@@ -7,11 +8,12 @@ import structuredClonePolyfill from '@ungap/structured-clone';
 import fse from 'fs-extra';
 import { sortPackageJson } from 'sort-package-json';
 
-import { sideEffectsFlag } from '../constants';
+import { distDir, sideEffectsDir } from '../constants';
 import type { PackageEntryPoint as Entry, PackageJson } from '../types';
 
 import { writePackageJson } from './files';
 import { partition } from './partition';
+import { moduleHasSideEffects } from './side-effects';
 
 export type Difference =
   | { key: 'main' | 'module' | 'types'; from?: string; to?: string }
@@ -36,8 +38,8 @@ const sort = <T>(items: Iterable<T>, key?: keyof T) =>
     return aValue > bValue ? 1 : -1;
   });
 
-const arrayDiff = <T>(array: T[], other: T[] | undefined) => {
-  const existingItems = new Set(other ?? []);
+const arrayDiff = <T>(array: T[], comparison: T[] | undefined) => {
+  const existingItems = new Set(comparison ?? []);
   const missingItems = array.filter((file) => !existingItems.has(file));
   return missingItems;
 };
@@ -59,6 +61,61 @@ const getExportsForPackage = (entries: Entry[], options: { from: string }) => {
   return exports;
 };
 
+const getSideEffectsForPackage = (
+  entries: Entry[],
+  existingSideEffects: PackageJson['sideEffects'],
+  options: { from: string },
+) => {
+  if (
+    typeof existingSideEffects === 'boolean' ||
+    typeof existingSideEffects === 'undefined'
+  ) {
+    return {
+      sideEffects: existingSideEffects,
+      missingSideEffects: [],
+    };
+  }
+
+  if (typeof existingSideEffects === 'string') {
+    // eslint-disable-next-line no-param-reassign
+    existingSideEffects = [existingSideEffects];
+  }
+
+  assert(
+    Array.isArray(existingSideEffects),
+    `sideEffects should be an array, but is ${existingSideEffects}.`,
+  );
+
+  const sideEffects = [...existingSideEffects];
+
+  const addIfRequired = (flag: string) => {
+    if (!sideEffects.includes(flag)) sideEffects.push(flag);
+  };
+
+  for (const entry of entries) {
+    // we must use the relative path to ensure the package path doesn't match the flag
+    const relativeEntryPath = path.relative(options.from, entry.entryPath);
+    if (moduleHasSideEffects(relativeEntryPath, sideEffects)) {
+      for (const outputPath of [
+        entry.getOutputPath('cjs', options),
+        entry.getOutputPath('esm', options),
+      ]) {
+        // add a new flag only if existing flags don't match
+        if (!moduleHasSideEffects(outputPath, sideEffects)) {
+          addIfRequired(outputPath.replace(path.extname(outputPath), '.*'));
+        }
+      }
+    }
+  }
+  // catch-all flag
+  addIfRequired(`${distDir}/${sideEffectsDir}/**`);
+
+  return {
+    sideEffects: sort(sideEffects),
+    missingSideEffects: arrayDiff(sideEffects, existingSideEffects),
+  };
+};
+
 export const diffPackageJson = (
   packageRoot: string,
   packageJson: PackageJson,
@@ -71,7 +128,7 @@ export const diffPackageJson = (
 
   // create expected package.json
 
-  const expectedPackageJson = sortPackageJson(structuredClone(packageJson));
+  let expectedPackageJson: PackageJson = structuredClone(packageJson);
 
   const options = { from: packageRoot };
   expectedPackageJson.exports = getExportsForPackage(entries, options);
@@ -87,25 +144,22 @@ export const diffPackageJson = (
   }
   expectedPackageJson.files = sort(files);
 
-  let missingSideEffects: string[] = [];
-  const { sideEffects } = packageJson;
-  if (Array.isArray(sideEffects) && !sideEffects.includes(sideEffectsFlag)) {
-    missingSideEffects = [sideEffectsFlag];
-    expectedPackageJson.sideEffects = sort([
-      ...sideEffects,
-      ...missingSideEffects,
-    ]);
+  const { sideEffects, missingSideEffects } = getSideEffectsForPackage(
+    entries,
+    packageJson.sideEffects,
+    options,
+  );
+  if (missingSideEffects.length) {
+    expectedPackageJson.sideEffects = sideEffects;
   }
 
-  // check against expected package.json
+  expectedPackageJson = sortPackageJson(expectedPackageJson);
+
+  // do checks against expected package.json
 
   (['main', 'module', 'types'] as const).forEach((key) => {
     if (expectedPackageJson[key] !== packageJson[key]) {
-      diffs.push({
-        key,
-        from: packageJson[key],
-        to: expectedPackageJson[key],
-      });
+      diffs.push({ key, from: packageJson[key], to: expectedPackageJson[key] });
     }
   });
 
@@ -121,24 +175,21 @@ export const diffPackageJson = (
   if (!isDeepStrictEqual(expectedPackageJson.files, packageJson.files)) {
     diffs.push({
       key: 'files',
-      additions: arrayDiff(expectedPackageJson.files, packageJson.files),
+      additions: arrayDiff(expectedPackageJson.files!, packageJson.files),
     });
   }
 
   if (
     !isDeepStrictEqual(expectedPackageJson.sideEffects, packageJson.sideEffects)
   ) {
-    diffs.push({
-      key: 'sideEffects',
-      additions: missingSideEffects,
-    });
+    diffs.push({ key: 'sideEffects', additions: missingSideEffects });
   }
 
+  const expectedPackageJsonKeys = Object.keys(expectedPackageJson);
+  const packageJsonKeys = Object.keys(packageJson);
   if (
-    !isDeepStrictEqual(
-      Object.keys(expectedPackageJson),
-      Object.keys(packageJson),
-    )
+    expectedPackageJsonKeys.length === packageJsonKeys.length &&
+    !isDeepStrictEqual(expectedPackageJsonKeys, packageJsonKeys)
   ) {
     diffs.push({ key: 'order' });
   }

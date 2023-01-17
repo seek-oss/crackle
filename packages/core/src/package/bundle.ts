@@ -9,7 +9,7 @@ import type { OutputOptions } from 'rollup';
 import { build as viteBuild } from 'vite';
 
 import type { EnhancedConfig } from '../config';
-import { sideEffectsDir, stylesDir } from '../constants';
+import { sideEffectsDir, srcDir, stylesDir } from '../constants';
 import { addVanillaDebugIds, externals } from '../plugins/rollup';
 import type { Format, PackageEntryPoint, PackageJson } from '../types';
 import { extensionForFormat } from '../utils/files';
@@ -64,7 +64,11 @@ export const createBundle = async (
           hoistTransitiveImports: false,
           inlineDynamicImports: false,
           manualChunks(id, { getModuleInfo }) {
-            const srcPath = path.relative(`${config.root}/src`, id);
+            const srcPath = path.relative(`${config.root}/${srcDir}`, id);
+
+            // internal package resolved by plugins/vite/internal-package-resolution.ts
+            if (srcPath.startsWith('../')) return;
+
             assert(
               !srcPath.startsWith('.'),
               `relative path ${srcPath} should not start with '.'`,
@@ -74,10 +78,14 @@ export const createBundle = async (
               isVanillaFile(id) ||
               getModuleInfo(id)?.importers.some(isVanillaFile)
             ) {
+              // TODO: check if bundling all styles works
               return replaceExtension(`${stylesDir}/${srcPath}`);
             }
 
-            if (moduleHasSideEffects(srcPath, packageJson.sideEffects)) {
+            if (
+              typeof packageJson.sideEffects !== 'boolean' &&
+              moduleHasSideEffects(srcPath, packageJson.sideEffects)
+            ) {
               return replaceExtension(`${sideEffectsDir}/${srcPath}`);
             }
           },

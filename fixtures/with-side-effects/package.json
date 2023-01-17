@@ -6,11 +6,13 @@
   "author": "SEEK",
   "sideEffects": [
     "**/atoms/**",
+    "**/entries/reset.*",
+    "**/playroom/**",
     "**/reset/**",
-    "**/side-effects/**",
     "**/themes/**",
-    "dist/side-effects/**",
-    "playroom/**"
+    "*.css.*",
+    "dist/reset.*",
+    "dist/side-effects/**"
   ],
   "exports": {
     ".": {
