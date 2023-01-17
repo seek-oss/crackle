@@ -54,7 +54,7 @@ const template = {
     })
   ).map((fixturePath: string) => path.basename(fixturePath));
   if (existingFixtures.length === 0) {
-    throw new Error(`No fixtures found in ${process.cwd()}`);
+    throw new Error(`No fixtures found in ${fixturesDir}`);
   }
 
   const answers = await prompt<Answers>([

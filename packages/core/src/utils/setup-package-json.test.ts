@@ -1,75 +1,93 @@
-import { describe, expect, test } from 'vitest';
+import path from 'path';
 
-import type { Format } from '../types';
+import { describe, expect, test } from 'vitest';
+import packageJsonSerializer from '~utils/pkg-serializer';
+import { createSerializer } from '~utils/snapshot-diff-serializer';
+
+import type { PackageEntryPoint, PackageJson } from '../types';
 
 import { extensionForFormat } from './files';
 import { diffPackageJson } from './setup-package-json';
 
-import packageJsonSerializer from '~utils/pkg-serializer';
-
+expect.addSnapshotSerializer(createSerializer({ contextLines: 1 })); // override default config
 expect.addSnapshotSerializer(packageJsonSerializer);
 
-const entries = [
-  {
-    isDefaultEntry: true,
-    entryName: 'dist',
-    entryPath: '/project/src/index.ts',
-    outputDir: '/project/dist',
-    getOutputPath: (format: Format) =>
-      `dist/index.${extensionForFormat(format)}`,
-  },
-  {
-    isDefaultEntry: false,
-    entryName: 'css',
-    entryPath: '/project/src/entries/css.ts',
-    outputDir: '/project/css',
-    getOutputPath: (format: Format) =>
-      `css/dist/index.${extensionForFormat(format)}`,
-  },
-  {
-    isDefaultEntry: false,
-    entryName: 'themes/apac',
-    entryPath: '/project/src/entries/themes/apac.ts',
-    outputDir: '/project/themes/apac',
-    getOutputPath: (format: Format) =>
-      `themes/apac/dist/index.${extensionForFormat(format)}`,
-  },
-];
-
 describe('diffPackageJson', () => {
+  const packageRoot = '/project';
+  const outputDir = '/project/dist';
+  const createGetOutputPath =
+    (fileName: string): PackageEntryPoint['getOutputPath'] =>
+    (format, { from = outputDir } = {}) =>
+      [
+        path.relative(from, `${outputDir}/${fileName}`),
+        extensionForFormat(format),
+      ].join('.');
+
+  const entries = [
+    {
+      isDefaultEntry: true,
+      entryName: 'dist',
+      entryPath: '/project/src/index.ts',
+      outputDir: '/project/dist',
+      packageDir: '/project/dist',
+      getOutputPath: createGetOutputPath('index'),
+    },
+    {
+      isDefaultEntry: false,
+      entryName: 'css',
+      entryPath: '/project/src/entries/css.ts',
+      outputDir: '/project/dist',
+      packageDir: '/project/css',
+      getOutputPath: createGetOutputPath('css'),
+    },
+    {
+      isDefaultEntry: false,
+      entryName: 'themes/apac',
+      entryPath: '/project/src/entries/themes/apac.ts',
+      outputDir: '/project/dist',
+      packageDir: '/project/themes/apac',
+      getOutputPath: createGetOutputPath('themes/apac'),
+    },
+  ] satisfies PackageEntryPoint[];
+
   const correctPackageJson = {
     exports: {
       '.': {
-        types: './dist/index.cjs.d.ts',
+        types: './dist/index.d.ts',
         import: './dist/index.mjs',
         require: './dist/index.cjs',
       },
       './css': {
-        types: './css/dist/index.cjs.d.ts',
-        import: './css/dist/index.mjs',
-        require: './css/dist/index.cjs',
+        types: './dist/css.d.ts',
+        import: './dist/css.mjs',
+        require: './dist/css.cjs',
       },
       './themes/apac': {
-        types: './themes/apac/dist/index.cjs.d.ts',
-        import: './themes/apac/dist/index.mjs',
-        require: './themes/apac/dist/index.cjs',
+        types: './dist/themes/apac.d.ts',
+        import: './dist/themes/apac.mjs',
+        require: './dist/themes/apac.cjs',
       },
       './package.json': './package.json',
     },
     main: './dist/index.cjs',
     module: './dist/index.mjs',
+    types: './dist/index.d.ts',
     files: ['css', 'dist', 'themes/apac'],
-  };
+  } satisfies PackageJson;
 
   test('empty package.json', async () => {
-    const { diffs, expectedPackageJson } = diffPackageJson({}, entries);
+    const { diffs, expectedPackageJson } = diffPackageJson(
+      packageRoot,
+      {},
+      entries,
+    );
 
     expect(diffs).toMatchSnapshot('diffs');
     expect(expectedPackageJson).toMatchSnapshot('package.json');
   });
 
   test('correct package.json', async () => {
-    const { diffs } = diffPackageJson(correctPackageJson, entries);
+    const { diffs } = diffPackageJson(packageRoot, correctPackageJson, entries);
 
     expect(diffs).toHaveLength(0);
   });
@@ -80,6 +98,7 @@ describe('diffPackageJson', () => {
       packageJson.main = 'index.js';
 
       const { diffs, expectedPackageJson } = diffPackageJson(
+        packageRoot,
         packageJson,
         entries,
       );
@@ -96,6 +115,25 @@ describe('diffPackageJson', () => {
       packageJson.module = 'something/else.js';
 
       const { diffs, expectedPackageJson } = diffPackageJson(
+        packageRoot,
+        packageJson,
+        entries,
+      );
+
+      expect(diffs).toMatchSnapshot('diffs');
+      expect({
+        diffA: packageJson,
+        diffB: expectedPackageJson,
+      }).toMatchSnapshot('package.json');
+    });
+
+    test('types', () => {
+      const packageJson = structuredClone(correctPackageJson);
+      // @ts-ignore
+      delete packageJson.types;
+
+      const { diffs, expectedPackageJson } = diffPackageJson(
+        packageRoot,
         packageJson,
         entries,
       );
@@ -111,6 +149,7 @@ describe('diffPackageJson', () => {
       const { exports, ...packageJson } = structuredClone(correctPackageJson);
 
       const { diffs, expectedPackageJson } = diffPackageJson(
+        packageRoot,
         packageJson,
         entries,
       );
@@ -131,6 +170,7 @@ describe('diffPackageJson', () => {
       };
 
       const { diffs, expectedPackageJson } = diffPackageJson(
+        packageRoot,
         packageJson,
         entries,
       );
@@ -148,6 +188,7 @@ describe('diffPackageJson', () => {
       delete packageJson.files;
 
       const { diffs, expectedPackageJson } = diffPackageJson(
+        packageRoot,
         packageJson,
         entries,
       );
@@ -165,6 +206,7 @@ describe('diffPackageJson', () => {
       packageJson.files = [...otherFiles, first];
 
       const { diffs, expectedPackageJson } = diffPackageJson(
+        packageRoot,
         packageJson,
         entries,
       );
@@ -178,6 +220,7 @@ describe('diffPackageJson', () => {
 
     test('kitchen sink', async () => {
       const { diffs, expectedPackageJson } = diffPackageJson(
+        packageRoot,
         {
           exports: {
             '.': {
@@ -205,6 +248,7 @@ describe('diffPackageJson', () => {
           module: 'dist/index.esm.invalid',
           files: ['css', 'dist', 'extra'],
           main: 'index.js',
+          types: 'index.d.ts',
         },
         entries,
       );

@@ -74,9 +74,9 @@ const build = async (config: EnhancedConfig, packageName: string) => {
         const entry = entries.find(
           ({ entryPath }) => chunkInfo.facadeModuleId === entryPath,
         );
-        assert(entry != null, 'entry not found');
+        assert(entry, `entry not found for ${chunkInfo.facadeModuleId}`);
 
-        return entry.getOutputPath(format);
+        return entry.getOutputPath(format, { from: config.root });
       },
     });
 

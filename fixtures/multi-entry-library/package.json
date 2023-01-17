@@ -6,29 +6,30 @@
   "author": "SEEK",
   "exports": {
     ".": {
-      "types": "./dist/index.cjs.d.ts",
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
     "./components": {
-      "types": "./components/dist/index.cjs.d.ts",
-      "import": "./components/dist/index.mjs",
-      "require": "./components/dist/index.cjs"
+      "types": "./dist/components.d.ts",
+      "import": "./dist/components.mjs",
+      "require": "./dist/components.cjs"
     },
     "./extras": {
-      "types": "./extras/dist/index.cjs.d.ts",
-      "import": "./extras/dist/index.mjs",
-      "require": "./extras/dist/index.cjs"
+      "types": "./dist/extras.d.ts",
+      "import": "./dist/extras.mjs",
+      "require": "./dist/extras.cjs"
     },
     "./themes/apac": {
-      "types": "./themes/apac/dist/index.cjs.d.ts",
-      "import": "./themes/apac/dist/index.mjs",
-      "require": "./themes/apac/dist/index.cjs"
+      "types": "./dist/themes/apac.d.ts",
+      "import": "./dist/themes/apac.mjs",
+      "require": "./dist/themes/apac.cjs"
     },
     "./package.json": "./package.json"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "files": [
     "components",
     "dist",

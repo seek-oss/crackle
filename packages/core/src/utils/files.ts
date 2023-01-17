@@ -1,7 +1,6 @@
-import { existsSync } from 'fs';
-import fs from 'fs/promises';
 import path from 'path';
 
+import fse from 'fs-extra';
 import sortPackageJson from 'sort-package-json';
 
 import type { Format, PackageJson } from '../types';
@@ -12,9 +11,18 @@ interface WriteFileOpts {
   contents: string;
 }
 
+const exists = async (filePath: string) => {
+  try {
+    await fse.stat(filePath);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
 export const writeFile = async ({ dir, fileName, contents }: WriteFileOpts) => {
-  await fs.mkdir(dir, { recursive: true });
-  return fs.writeFile(path.join(dir, fileName), contents, 'utf-8');
+  await fse.mkdir(dir, { recursive: true });
+  return fse.writeFile(path.join(dir, fileName), contents, 'utf-8');
 };
 
 export const writeIfRequired = async ({
@@ -22,8 +30,8 @@ export const writeIfRequired = async ({
   fileName,
   contents,
 }: WriteFileOpts) => {
-  if (!existsSync(dir)) {
-    await fs.mkdir(dir, { recursive: true });
+  if (!(await exists(dir))) {
+    await fse.mkdir(dir, { recursive: true });
   }
 
   const filePath = path.join(dir, fileName);
@@ -31,7 +39,7 @@ export const writeIfRequired = async ({
   let write = false;
 
   try {
-    const existingContents = await fs.readFile(filePath, 'utf-8');
+    const existingContents = await fse.readFile(filePath, 'utf-8');
     write = existingContents !== contents;
   } catch (e) {
     write = true;
@@ -56,18 +64,18 @@ export const writePackageJson = async <T extends PackageJson>({
   });
 
 export const emptyDir = async (dir: string, skip = ['.git']): Promise<void> => {
-  if (!existsSync(dir)) {
-    await fs.mkdir(dir, { recursive: true });
+  if (!(await exists(dir))) {
+    await fse.mkdir(dir, { recursive: true });
     return;
   }
 
-  for (const file of await fs.readdir(dir)) {
+  for (const file of await fse.readdir(dir)) {
     if (skip.includes(file)) {
       continue;
     }
-    await fs.rm(path.resolve(dir, file), { recursive: true, force: true });
+    await fse.rm(path.resolve(dir, file), { recursive: true, force: true });
   }
 };
 
 export const extensionForFormat = (format: Format) =>
-  (({ esm: 'mjs', cjs: 'cjs', dts: 'cjs.d.ts' } as const)[format]);
+  (({ esm: 'mjs', cjs: 'cjs', dts: 'd.ts' } as const)[format]);

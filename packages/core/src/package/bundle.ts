@@ -1,3 +1,4 @@
+import assert from 'assert';
 import path from 'path';
 
 import { cssFileFilter } from '@vanilla-extract/integration';
@@ -18,6 +19,11 @@ export const createBundle = async (
 ) => {
   const format = outputOptions.format as Format;
   const extension = extensionForFormat(format);
+
+  const defaultEntry = entries.find(({ isDefaultEntry }) => isDefaultEntry);
+  assert(defaultEntry, 'Could not find default entry');
+
+  const outputDir = path.relative(config.root, defaultEntry.outputDir);
 
   await viteBuild({
     ...commonViteConfig,
@@ -75,7 +81,7 @@ export const createBundle = async (
             }
           },
           chunkFileNames(chunkInfo) {
-            const chunkPath = `dist/${chunkInfo.name}`;
+            const chunkPath = `${outputDir}/${chunkInfo.name}`;
 
             return chunkPath.endsWith(extension)
               ? chunkPath

@@ -35,5 +35,6 @@ export type PackageEntryPoint = {
   entryName: string;
   entryPath: string;
   outputDir: string;
-  getOutputPath: (format: Format) => string;
+  packageDir: string;
+  getOutputPath: (format: Format, options?: { from?: string }) => string;
 };

@@ -13,15 +13,20 @@ exports[`diffPackageJson > empty package.json > diffs 1`] = `
     "to": "./dist/index.mjs",
   },
   {
+    "from": undefined,
+    "key": "types",
+    "to": "./dist/index.d.ts",
+  },
+  {
+    "key": "exports",
+  },
+  {
     "additions": [
       "css",
       "dist",
       "themes/apac",
     ],
     "key": "files",
-  },
-  {
-    "key": "exports",
   },
 ]
 `;
@@ -30,24 +35,25 @@ exports[`diffPackageJson > empty package.json > package.json 1`] = `
 {
   "exports": {
     ".": {
-      "types": "./dist/index.cjs.d.ts",
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs",
     },
     "./css": {
-      "types": "./css/dist/index.cjs.d.ts",
-      "import": "./css/dist/index.mjs",
-      "require": "./css/dist/index.cjs",
+      "types": "./dist/css.d.ts",
+      "import": "./dist/css.mjs",
+      "require": "./dist/css.cjs",
     },
     "./themes/apac": {
-      "types": "./themes/apac/dist/index.cjs.d.ts",
-      "import": "./themes/apac/dist/index.mjs",
-      "require": "./themes/apac/dist/index.cjs",
+      "types": "./dist/themes/apac.d.ts",
+      "import": "./dist/themes/apac.mjs",
+      "require": "./dist/themes/apac.cjs",
     },
     "./package.json": "./package.json",
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "files": [
     "css",
     "dist",
@@ -70,26 +76,22 @@ Snapshot Diff:
 + Diff B
 
 @@ --- --- @@
-    "files": [
-      "css",
-      "dist",
-      "themes/apac",
     ],
 +   "exports": {
 +     ".": {
-+       "types": "./dist/index.cjs.d.ts",
++       "types": "./dist/index.d.ts",
 +       "import": "./dist/index.mjs",
 +       "require": "./dist/index.cjs",
 +     },
 +     "./css": {
-+       "types": "./css/dist/index.cjs.d.ts",
-+       "import": "./css/dist/index.mjs",
-+       "require": "./css/dist/index.cjs",
++       "types": "./dist/css.d.ts",
++       "import": "./dist/css.mjs",
++       "require": "./dist/css.cjs",
 +     },
 +     "./themes/apac": {
-+       "types": "./themes/apac/dist/index.cjs.d.ts",
-+       "import": "./themes/apac/dist/index.mjs",
-+       "require": "./themes/apac/dist/index.cjs",
++       "types": "./dist/themes/apac.d.ts",
++       "import": "./dist/themes/apac.mjs",
++       "require": "./dist/themes/apac.cjs",
 +     },
 +     "./package.json": "./package.json",
 +   },
@@ -110,34 +112,21 @@ Snapshot Diff:
 + Diff B
 
 @@ --- --- @@
-  {
     "exports": {
 +     ".": {
-+       "types": "./dist/index.cjs.d.ts",
++       "types": "./dist/index.d.ts",
 +       "import": "./dist/index.mjs",
 +       "require": "./dist/index.cjs",
 +     },
       "./css": {
-        "types": "./css/dist/index.cjs.d.ts",
-        "import": "./css/dist/index.mjs",
-        "require": "./css/dist/index.cjs",
-      },
 @@ --- --- @@
-        "types": "./themes/apac/dist/index.cjs.d.ts",
-        "import": "./themes/apac/dist/index.mjs",
-        "require": "./themes/apac/dist/index.cjs",
-      },
       "./package.json": "./package.json",
 -     ".": {
--       "types": "./dist/index.cjs.d.ts",
+-       "types": "./dist/index.d.ts",
 -       "import": "./dist/index.mjs",
 -       "require": "./dist/index.cjs",
 -     },
     },
-    "main": "./dist/index.cjs",
-    "module": "./dist/index.mjs",
-    "files": [
-      "css",
 `;
 
 exports[`diffPackageJson > incorrect package.json > files missing > diffs 1`] = `
@@ -159,11 +148,7 @@ Snapshot Diff:
 + Diff B
 
 @@ --- --- @@
-      },
-      "./package.json": "./package.json",
-    },
-    "main": "./dist/index.cjs",
-    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
 +   "files": [
 +     "css",
 +     "dist",
@@ -187,17 +172,12 @@ Snapshot Diff:
 + Diff B
 
 @@ --- --- @@
-      "./package.json": "./package.json",
-    },
-    "main": "./dist/index.cjs",
-    "module": "./dist/index.mjs",
     "files": [
 +     "css",
       "dist",
       "themes/apac",
 -     "css",
     ],
-  }
 `;
 
 exports[`diffPackageJson > incorrect package.json > kitchen sink > diffs 1`] = `
@@ -213,13 +193,18 @@ exports[`diffPackageJson > incorrect package.json > kitchen sink > diffs 1`] = `
     "to": "./dist/index.mjs",
   },
   {
+    "from": "index.d.ts",
+    "key": "types",
+    "to": "./dist/index.d.ts",
+  },
+  {
+    "key": "exports",
+  },
+  {
     "additions": [
       "themes/apac",
     ],
     "key": "files",
-  },
-  {
-    "key": "exports",
   },
 ]
 `;
@@ -228,24 +213,25 @@ exports[`diffPackageJson > incorrect package.json > kitchen sink > package.json 
 {
   "exports": {
     ".": {
-      "types": "./dist/index.cjs.d.ts",
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs",
     },
     "./css": {
-      "types": "./css/dist/index.cjs.d.ts",
-      "import": "./css/dist/index.mjs",
-      "require": "./css/dist/index.cjs",
+      "types": "./dist/css.d.ts",
+      "import": "./dist/css.mjs",
+      "require": "./dist/css.cjs",
     },
     "./themes/apac": {
-      "types": "./themes/apac/dist/index.cjs.d.ts",
-      "import": "./themes/apac/dist/index.mjs",
-      "require": "./themes/apac/dist/index.cjs",
+      "types": "./dist/themes/apac.d.ts",
+      "import": "./dist/themes/apac.mjs",
+      "require": "./dist/themes/apac.cjs",
     },
     "./package.json": "./package.json",
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "files": [
     "css",
     "dist",
@@ -271,18 +257,10 @@ Snapshot Diff:
 + Diff B
 
 @@ --- --- @@
-        "import": "./themes/apac/dist/index.mjs",
-        "require": "./themes/apac/dist/index.cjs",
-      },
-      "./package.json": "./package.json",
     },
 -   "main": "index.js",
 +   "main": "./dist/index.cjs",
     "module": "./dist/index.mjs",
-    "files": [
-      "css",
-      "dist",
-      "themes/apac",
 `;
 
 exports[`diffPackageJson > incorrect package.json > module > diffs 1`] = `
@@ -301,16 +279,29 @@ Snapshot Diff:
 + Diff B
 
 @@ --- --- @@
-        "require": "./themes/apac/dist/index.cjs",
-      },
-      "./package.json": "./package.json",
-    },
     "main": "./dist/index.cjs",
 -   "module": "something/else.js",
 +   "module": "./dist/index.mjs",
-    "files": [
-      "css",
-      "dist",
-      "themes/apac",
+    "types": "./dist/index.d.ts",
+`;
+
+exports[`diffPackageJson > incorrect package.json > types > diffs 1`] = `
+[
+  {
+    "from": undefined,
+    "key": "types",
+    "to": "./dist/index.d.ts",
+  },
+]
+`;
+
+exports[`diffPackageJson > incorrect package.json > types > package.json 1`] = `
+Snapshot Diff:
+- Diff A
++ Diff B
+
+@@ --- --- @@
     ],
++   "types": "./dist/index.d.ts",
+  }
 `;
