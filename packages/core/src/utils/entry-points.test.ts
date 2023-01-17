@@ -9,6 +9,7 @@ import {
 
 vi.mock('fs', () => ({ default: fs }));
 vi.mock('fs/promises', () => ({ default: fs.promises }));
+vi.mock('fs-extra', () => ({ default: { ...fs, ...fs.promises } }));
 
 describe('getPackageEntryPoints', () => {
   const packageRoot = '/__ROOT__/multi-entry';
