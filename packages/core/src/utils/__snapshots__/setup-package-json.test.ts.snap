@@ -76,7 +76,7 @@ Snapshot Diff:
 + Diff B
 
 @@ --- --- @@
-    ],
+  {
 +   "exports": {
 +     ".": {
 +       "types": "./dist/index.d.ts",
@@ -95,7 +95,7 @@ Snapshot Diff:
 +     },
 +     "./package.json": "./package.json",
 +   },
-  }
+    "main": "./dist/index.cjs",
 `;
 
 exports[`diffPackageJson > incorrect package.json > exports out of order > diffs 1`] = `
@@ -180,6 +180,35 @@ Snapshot Diff:
     ],
 `;
 
+exports[`diffPackageJson > incorrect package.json > keys out of order > diffs 1`] = `
+[
+  {
+    "key": "order",
+  },
+]
+`;
+
+exports[`diffPackageJson > incorrect package.json > keys out of order > package.json 1`] = `
+Snapshot Diff:
+- Diff A
++ Diff B
+
+@@ --- --- @@
+  {
+-   "types": "./dist/index.d.ts",
+    "exports": {
+@@ --- --- @@
+    },
++   "main": "./dist/index.cjs",
+    "module": "./dist/index.mjs",
++   "types": "./dist/index.d.ts",
+    "files": [
+@@ --- --- @@
+    ],
+-   "main": "./dist/index.cjs",
+  }
+`;
+
 exports[`diffPackageJson > incorrect package.json > kitchen sink > diffs 1`] = `
 [
   {
@@ -205,6 +234,9 @@ exports[`diffPackageJson > incorrect package.json > kitchen sink > diffs 1`] = `
       "themes/apac",
     ],
     "key": "files",
+  },
+  {
+    "key": "order",
   },
 ]
 `;
@@ -285,6 +317,104 @@ Snapshot Diff:
     "types": "./dist/index.d.ts",
 `;
 
+exports[`diffPackageJson > incorrect package.json > sideEffects > array flag with complete overlap > diffs 1`] = `[]`;
+
+exports[`diffPackageJson > incorrect package.json > sideEffects > array flag with complete overlap > package.json 1`] = `
+Snapshot Diff:
+Compared values have no visual difference.
+`;
+
+exports[`diffPackageJson > incorrect package.json > sideEffects > array flag with no overlap > diffs 1`] = `
+[
+  {
+    "additions": [
+      "dist/side-effects/**",
+    ],
+    "key": "sideEffects",
+  },
+]
+`;
+
+exports[`diffPackageJson > incorrect package.json > sideEffects > array flag with no overlap > package.json 1`] = `
+Snapshot Diff:
+- Diff A
++ Diff B
+
+@@ --- --- @@
+    "sideEffects": [
++     "dist/side-effects/**",
+      "src/reset/**",
+`;
+
+exports[`diffPackageJson > incorrect package.json > sideEffects > array flag with partial overlap > diffs 1`] = `
+[
+  {
+    "additions": [
+      "dist/css.*",
+    ],
+    "key": "sideEffects",
+  },
+]
+`;
+
+exports[`diffPackageJson > incorrect package.json > sideEffects > array flag with partial overlap > package.json 1`] = `
+Snapshot Diff:
+- Diff A
++ Diff B
+
+@@ --- --- @@
+    "sideEffects": [
++     "dist/css.*",
+      "dist/side-effects/**",
+`;
+
+exports[`diffPackageJson > incorrect package.json > sideEffects > boolean flag false > diffs 1`] = `[]`;
+
+exports[`diffPackageJson > incorrect package.json > sideEffects > boolean flag false > package.json 1`] = `
+Snapshot Diff:
+Compared values have no visual difference.
+`;
+
+exports[`diffPackageJson > incorrect package.json > sideEffects > boolean flag true > diffs 1`] = `[]`;
+
+exports[`diffPackageJson > incorrect package.json > sideEffects > boolean flag true > package.json 1`] = `
+Snapshot Diff:
+Compared values have no visual difference.
+`;
+
+exports[`diffPackageJson > incorrect package.json > sideEffects > no flag > diffs 1`] = `[]`;
+
+exports[`diffPackageJson > incorrect package.json > sideEffects > no flag > package.json 1`] = `
+Snapshot Diff:
+Compared values have no visual difference.
+`;
+
+exports[`diffPackageJson > incorrect package.json > sideEffects > string flag > diffs 1`] = `
+[
+  {
+    "additions": [
+      "dist/side-effects/**",
+    ],
+    "key": "sideEffects",
+  },
+]
+`;
+
+exports[`diffPackageJson > incorrect package.json > sideEffects > string flag > package.json 1`] = `
+Snapshot Diff:
+- Diff A
++ Diff B
+
+@@ --- --- @@
+  {
+-   "sideEffects": "src/reset/**",
++   "sideEffects": [
++     "dist/side-effects/**",
++     "src/reset/**",
++   ],
+    "exports": {
+`;
+
 exports[`diffPackageJson > incorrect package.json > types > diffs 1`] = `
 [
   {
@@ -301,7 +431,7 @@ Snapshot Diff:
 + Diff B
 
 @@ --- --- @@
-    ],
+    "module": "./dist/index.mjs",
 +   "types": "./dist/index.d.ts",
-  }
+    "files": [
 `;
