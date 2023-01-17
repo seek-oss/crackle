@@ -219,6 +219,7 @@ importers:
       '@types/babel__core': ^7.1.20
       '@types/express': ^4.17.14
       '@types/fs-extra': ^9.0.13
+      '@types/glob-to-regexp': ^0.4.1
       '@types/node': ^18.11.17
       '@types/react': ^18.0.25
       '@types/react-dom': ^18.0.9
@@ -238,6 +239,7 @@ importers:
       express: ^4.18.2
       fast-glob: ^3.2.12
       fs-extra: ^10.1.0
+      glob-to-regexp: ^0.4.1
       ink: ^3.2.0
       ink-testing-library: ^2.1.0
       memfs: ^3.4.11
@@ -277,6 +279,7 @@ importers:
       express: 4.18.2
       fast-glob: 3.2.12
       fs-extra: 10.1.0
+      glob-to-regexp: 0.4.1
       ink: 3.2.0_fan5qbzahqtxlm5dzefqlqx5ia
       pretty-ms: 7.0.1
       react: 18.2.0
@@ -295,6 +298,7 @@ importers:
       '@types/babel__core': 7.1.20
       '@types/express': 4.17.14
       '@types/fs-extra': 9.0.13
+      '@types/glob-to-regexp': 0.4.1
       '@types/node': 18.11.17
       '@types/react': 18.0.25
       '@types/react-dom': 18.0.9
@@ -3157,6 +3161,10 @@ packages:
       '@types/node': 18.11.17
     dev: true
 
+  /@types/glob-to-regexp/0.4.1:
+    resolution: {integrity: sha512-S0mIukll6fbF0tvrKic/jj+jI8SHoSvGU+Cs95b/jzZEnBYCbj+7aJtQ9yeABuK3xP1okwA3jEH9qIRayijnvQ==}
+    dev: true
+
   /@types/glob/7.2.0:
     resolution: {integrity: sha512-ZUxbzKl0IfJILTS6t7ip5fQQM/J3TJYubDm3nMbgubNNYS62eXeUpoLUC8/7fJNiFYHTrGPQn7hspDUzIHX3UA==}
     dependencies:
@@ -5788,6 +5796,10 @@ packages:
     engines: {node: '>=10.13.0'}
     dependencies:
       is-glob: 4.0.3
+    dev: false
+
+  /glob-to-regexp/0.4.1:
+    resolution: {integrity: sha512-lkX1HJXwyMcprw/5YUZc2s7DrpAiHB21/V+E1rHUrVNokkvB6bqMzT0VfV6/86ZNabt1k14YOIaT7nDvOX3Iiw==}
     dev: false
 
   /glob/7.2.3:
