@@ -67,7 +67,7 @@ const Diff = ({ diff }: { diff: Difference }) => {
     ));
     return (
       <Text>
-        - "files" is missing <List items={missingFiles} separator=", " />
+        - "{diff.key}" is missing <List items={missingFiles} separator=", " />
       </Text>
     );
   }
