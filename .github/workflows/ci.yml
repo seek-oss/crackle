@@ -8,15 +8,27 @@ on:
   workflow_dispatch:
 
 jobs:
-  init:
-    name: Initialise
-    uses: ./.github/workflows/init.yml
-    secrets: inherit
-
-  lint-and-test:
-    name: Lint & Test
+  build:
+    name: Build
     runs-on: ubuntu-latest
-    needs: init
+    env:
+      CI: true
+    steps:
+      - name: Checkout & Install
+        uses: seek-oss/crackle/.github/actions/init@refactor-workflows # TODO: change to master
+        with:
+          token: ${{ secrets.SEEK_OSS_CI_GITHUB_TOKEN }}
+
+      - name: Build
+        run: pnpm build
+
+      - name: Package fixtures
+        run: pnpm fixtures --aggregate-output package
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    needs: [build]
     env:
       CI: true
     steps:
@@ -29,12 +41,13 @@ jobs:
       - name: TypeScript
         run: pnpm lint:tsc
 
-      - name: Build
-        run: pnpm build
-
-      - name: Package fixtures
-        run: pnpm fixtures --aggregate-output package
-
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    needs: [build]
+    env:
+      CI: true
+    steps:
       - name: Install Browsers
         run: pnpm playwright install chromium
 
