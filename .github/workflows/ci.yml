@@ -7,12 +7,13 @@ on:
   pull_request:
   workflow_dispatch:
 
+env:
+  CI: true
+
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    env:
-      CI: true
     steps:
       - name: Checkout & Install
         uses: seek-oss/crackle/.github/actions/init@refactor-workflows # TODO: change to master
@@ -22,16 +23,15 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Package fixtures
-        run: pnpm fixtures --aggregate-output package
-
   lint:
     name: Lint
     runs-on: ubuntu-latest
-    needs: [build]
-    env:
-      CI: true
     steps:
+      - name: Checkout & Install
+        uses: seek-oss/crackle/.github/actions/init@refactor-workflows # TODO: change to master
+        with:
+          token: ${{ secrets.SEEK_OSS_CI_GITHUB_TOKEN }}
+
       - name: ESLint
         run: pnpm lint:eslint
 
@@ -39,17 +39,24 @@ jobs:
         run: pnpm lint:prettier
 
       - name: TypeScript
-        run: pnpm lint:tsc
+        run: |
+          pnpm fixtures --aggregate-output package
+          pnpm lint:tsc
 
   test:
     name: Test
     runs-on: ubuntu-latest
     needs: [build]
-    env:
-      CI: true
     steps:
+      - name: Checkout & Install
+        uses: seek-oss/crackle/.github/actions/init@refactor-workflows # TODO: change to master
+        with:
+          token: ${{ secrets.SEEK_OSS_CI_GITHUB_TOKEN }}
+
       - name: Install Browsers
         run: pnpm playwright install chromium
 
       - name: Test
-        run: pnpm test
+        run: |
+          pnpm fixtures --aggregate-output package
+          pnpm test
