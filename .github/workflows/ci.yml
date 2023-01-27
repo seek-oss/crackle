@@ -28,15 +28,13 @@ jobs:
           path: ${{ env.dist-cache-paths }}
           key: ${{ runner.os }}-build-${{ github.ref }}
 
-      - name: Check Build Cache Hit
-        if: steps.dist-cache.outputs.cache-hit == 'true'
-        run: exit 0
-
       - name: Build
         run: pnpm build
+        if: steps.cache.outputs.cache-hit != 'true'
 
       - name: Save Build Cache
         uses: actions/cache/save@v3
+        if: steps.cache.outputs.cache-hit != 'true'
         with:
           path: ${{ env.dist-cache-paths }}
           key: ${{ steps.dist-cache.outputs.cache-primary-key }}

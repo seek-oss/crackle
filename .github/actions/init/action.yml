@@ -33,17 +33,14 @@ runs:
         node-version-file: package.json
         cache: pnpm
 
-    - name: Check Cache Hit
-      if: steps.cache.outputs.cache-hit == 'true'
-      run: exit 0
-      shell: bash
-
     - name: Install Dependencies
       run: pnpm install --frozen-lockfile
+      if: steps.cache.outputs.cache-hit != 'true'
       shell: bash
 
     - name: Save Cache
       uses: actions/cache/save@v3
+      if: steps.cache.outputs.cache-hit != 'true'
       with:
         path: '**/node_modules'
         key: ${{ steps.cache.outputs.cache-primary-key }}
