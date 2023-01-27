@@ -28,7 +28,7 @@ jobs:
         uses: actions/cache/save@v3
         id: cache-build
         with:
-          path: ${ env.dist-paths }}
+          path: ${{ env.dist-paths }}
           key: ${{ runner.os }}-build-${{ github.ref }}
 
   lint:
@@ -37,6 +37,12 @@ jobs:
     steps:
       - name: Checkout & Install
         uses: seek-oss/crackle/.github/actions/init@refactor-workflows # TODO: change to master
+
+      - name: Restore Build Cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.dist-paths }}
+          key: ${{ steps.cache-build.outputs.cache-primary-key }}
 
       - name: ESLint
         run: pnpm lint:eslint
@@ -60,7 +66,7 @@ jobs:
       - name: Restore Build Cache
         uses: actions/cache@v3
         with:
-          path: ${ env.dist-paths }}
+          path: ${{ env.dist-paths }}
           key: ${{ steps.cache-build.outputs.cache-primary-key }}
 
       - name: Install Browsers
