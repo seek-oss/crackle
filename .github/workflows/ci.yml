@@ -76,3 +76,17 @@ jobs:
         run: |
           pnpm fixtures --aggregate-output package
           pnpm test
+
+  snapshot:
+    name: Snapshot
+    runs-on: ubuntu-latest
+    environment: snapshot
+    steps:
+      - name: Checkout & Install
+        uses: seek-oss/crackle/.github/actions/init@refactor-workflows # TODO: change to master
+
+      - name: Publish
+        uses: seek-oss/changesets-snapshot@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.SEEK_OSS_CI_NPM_TOKEN }}
