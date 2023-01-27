@@ -23,7 +23,9 @@ runs:
       uses: actions/cache/restore@v3
       id: cache
       with:
-        path: '**/node_modules'
+        path: |
+          node_modules
+          package/*/node_modules
         key: ${{ runner.os }}-node-${{ hashFiles('**/pnpm-lock.yaml') }}
 
     - uses: pnpm/action-setup@v2
@@ -42,5 +44,7 @@ runs:
       uses: actions/cache/save@v3
       if: steps.cache.outputs.cache-hit != 'true'
       with:
-        path: '**/node_modules'
+        path: |
+          node_modules
+          package/*/node_modules
         key: ${{ steps.cache.outputs.cache-primary-key }}
