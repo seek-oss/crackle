@@ -18,7 +18,8 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - uses: seek-oss/crackle/.github/actions/init@refactor-workflows # TODO: change to master
+      - name: Checkout & Install
+        uses: seek-oss/crackle/.github/actions/init@refactor-workflows # TODO: change to master
 
       - name: Build
         run: pnpm build
