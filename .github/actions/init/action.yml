@@ -34,7 +34,7 @@ runs:
         cache: pnpm
 
     - name: Check Cache Hit
-      if: steps.cache.outputs.cache-hit != 'true'
+      if: steps.cache.outputs.cache-hit == 'true'
       run: exit 0
       shell: bash
 
