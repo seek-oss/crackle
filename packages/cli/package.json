@@ -18,11 +18,12 @@
     "crackle": "bin.js"
   },
   "files": [
+    "CHANGELOG.md",
     "bin.js",
     "dist"
   ],
   "scripts": {
-    "build": "wireit"
+    "build": "crackle package --fix"
   },
   "dependencies": {
     "@crackle/core": "^0.14.0",
@@ -30,13 +31,5 @@
   },
   "devDependencies": {
     "@types/yargs": "^17.0.13"
-  },
-  "wireit": {
-    "build": {
-      "command": "pnpm -w crackle package",
-      "files": [
-        "./src/**/*.{ts,tsx}"
-      ]
-    }
   }
 }

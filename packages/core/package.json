@@ -79,7 +79,7 @@
     "start"
   ],
   "scripts": {
-    "build": "crackle package",
+    "build": "crackle package --fix",
     "dev": "crackle dev",
     "sync-dependencies": "sync-dependencies --source vite && prettier --write package.json",
     "unbuild": "wireit",
@@ -139,21 +139,6 @@
   },
   "peerDependencies": {
     "typescript": ">=4.9.4"
-  },
-  "preconstruct": {
-    "entrypoints": [
-      "build.ts",
-      "clean.ts",
-      "dev.ts",
-      "fix.ts",
-      "index.ts",
-      "logger.ts",
-      "package.ts",
-      "resolve-config.ts",
-      "route-data.ts",
-      "serve.ts",
-      "start.ts"
-    ]
   },
   "wireit": {
     "unbuild": {

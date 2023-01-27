@@ -15,8 +15,12 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
+    "CHANGELOG.md",
     "dist"
   ],
+  "scripts": {
+    "build": "crackle package --fix"
+  },
   "dependencies": {
     "@babel/core": "^7.19.3",
     "@babel/traverse": "^7.19.4"

@@ -6,7 +6,6 @@
     "bootstrap": "pnpm packages exec crackle-bootstrap package --fix",
     "dev": "wireit",
     "build": "wireit",
-    "watch": "wireit",
     "packages": "pnpm --recursive --filter='@crackle/*'",
     "format": "wireit",
     "format:eslint": "eslint --fix --cache .",
@@ -16,12 +15,13 @@
     "lint:prettier": "prettier --cache --check .",
     "lint:tsc": "tsc --noEmit",
     "fixtures": "pnpm --recursive --filter='./fixtures/*'",
-    "test": "pnpm test:vitest --run && pnpm test:playwright",
+    "test": "wireit",
     "test:vitest": "vitest",
+    "test:vitest:ci": "vitest --run",
     "test:playwright": "playwright test",
     "add-fixture": "tsx ./scripts/add-fixture.ts",
     "sync-dependencies": "pnpm --recursive sync-dependencies",
-    "release": "pnpm build && changeset publish",
+    "release": "pnpm bootstrap && changeset publish",
     "version": "changeset version && pnpm install --lockfile-only"
   },
   "dependencies": {
@@ -35,7 +35,6 @@
     "@crackle/cli": "workspace:*",
     "@crackle/core": "workspace:*",
     "@playwright/test": "1.22.2",
-    "@preconstruct/cli": "^2.2.2",
     "@preconstruct/eslint-plugin-format-js-tag": "^0.2.0",
     "enquirer": "^2.3.6",
     "eslint": "^8.25.0",
@@ -57,13 +56,10 @@
   },
   "wireit": {
     "build": {
-      "command": "pnpm packages build"
+      "command": "pnpm packages --aggregate-output build"
     },
     "dev": {
-      "command": "pnpm packages dev"
-    },
-    "watch": {
-      "command": "pnpm packages --parallel build -- watch"
+      "command": "pnpm packages --aggregate-output dev"
     },
     "format": {
       "dependencies": [
@@ -77,16 +73,12 @@
         "lint:prettier",
         "lint:tsc"
       ]
-    }
-  },
-  "preconstruct": {
-    "___experimentalFlags_WILL_CHANGE_IN_PATCH": {
-      "exports": true,
-      "keepDynamicImportAsDynamicImportInCommonJS": true
     },
-    "exports": true,
-    "packages": [
-      "packages/*"
-    ]
+    "test": {
+      "dependencies": [
+        "test:vitest:ci",
+        "test:playwright"
+      ]
+    }
   }
 }

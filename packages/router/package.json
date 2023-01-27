@@ -25,11 +25,14 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
+    "CHANGELOG.md",
     "dist",
     "routes",
-    "server",
-    "valid-routes.d.ts"
+    "server"
   ],
+  "scripts": {
+    "build": "crackle package --fix"
+  },
   "dependencies": {
     "react": "^18.2.0",
     "react-router-dom": "6.4.3"
