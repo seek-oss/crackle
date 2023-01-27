@@ -9,13 +9,6 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Restore Cache
-      uses: actions/cache/restore@v3
-      id: cache
-      with:
-        path: '**/node_modules'
-        key: ${{ runner.os }}-node-${{ hashFiles('**/pnpm-lock.yaml') }}
-
     # The correct order is:
     # 1. actions/checkout (so package.json can be read by actions/setup-node)
     # 2. pnpm/action-setup (so the cache is available to actions/setup-node)
@@ -25,6 +18,13 @@ runs:
       with:
         fetch-depth: 0
         token: ${{ inputs.token }}
+
+    - name: Restore Cache
+      uses: actions/cache/restore@v3
+      id: cache
+      with:
+        path: '**/node_modules'
+        key: ${{ runner.os }}-node-${{ hashFiles('**/pnpm-lock.yaml') }}
 
     - uses: pnpm/action-setup@v2
 
