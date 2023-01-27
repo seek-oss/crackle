@@ -2,11 +2,18 @@ name: Checkout & Install
 description: ''
 inputs:
   token:
-    description: 'GitHub token'
-    required: true
+    description: GitHub token
+    default: ${{ secrets.SEEK_OSS_CI_GITHUB_TOKEN }}
 runs:
-  using: 'composite'
+  using: composite
   steps:
+    - name: Restore Cache
+      uses: actions/cache/restore@v3
+      id: cache
+      with:
+        path: '**/node_modules'
+        key: ${{ runner.os }}-node-${{ hashFiles('**/pnpm-lock.yaml') }}
+
     # The correct order is:
     # 1. actions/checkout (so package.json can be read by actions/setup-node)
     # 2. pnpm/action-setup (so the cache is available to actions/setup-node)
@@ -21,9 +28,20 @@ runs:
 
     - uses: actions/setup-node@v3
       with:
-        node-version-file: 'package.json'
-        cache: 'pnpm'
+        node-version-file: package.json
+        cache: pnpm
+
+    - name: Check Cache Hit
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: exit 1
+      shell: bash
 
     - name: Install Dependencies
       run: pnpm install --frozen-lockfile
       shell: bash
+
+    - name: Save Cache
+      uses: actions/cache/save@v3
+      with:
+        path: '**/node_modules'
+        key: ${{ steps.cache.outputs.cache-primary-key }}
