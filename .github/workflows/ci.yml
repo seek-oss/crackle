@@ -37,7 +37,7 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         with:
           path: ${{ env.dist-cache-paths }}
-          key: ${{ steps.dist-cache.outputs.cache-primary-key }}
+          key: ${{ runner.os }}-build-${{ github.sha }}
 
   lint:
     name: Lint
