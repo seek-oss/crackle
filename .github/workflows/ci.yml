@@ -1,11 +1,6 @@
 name: CI
 
-on:
-  push:
-    branches:
-      - refactor-workflows # TODO: change to master
-  pull_request:
-  workflow_dispatch:
+on: push
 
 env:
   CI: true
@@ -78,14 +73,14 @@ jobs:
           pnpm test
 
   snapshot:
-    name: Snapshot
+    name: Publish Snapshot
     runs-on: ubuntu-latest
     environment: snapshot
     steps:
       - name: Checkout & Install
         uses: seek-oss/crackle/.github/actions/init@refactor-workflows # TODO: change to master
 
-      - name: Publish
+      - name: Publish Snapshot
         uses: seek-oss/changesets-snapshot@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
