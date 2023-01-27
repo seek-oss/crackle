@@ -5,7 +5,6 @@
     "crackle-bootstrap": "bin.js"
   },
   "dependencies": {
-    "@crackle/cli": "0.0.0-vite-4-20221228070925",
-    "@crackle/core": "0.0.0-vite-4-20221228070925"
+    "@crackle/cli": "0.10.2"
   }
 }

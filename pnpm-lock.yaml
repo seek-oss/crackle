@@ -1,10 +1,5 @@
 lockfileVersion: 5.4
 
-patchedDependencies:
-  mlly@1.0.0:
-    hash: i4xkzmeghdcfspe5spv7yvud5q
-    path: patches/mlly@1.0.0.patch
-
 importers:
 
   .:
@@ -63,11 +58,9 @@ importers:
 
   bootstrap:
     specifiers:
-      '@crackle/cli': 0.0.0-vite-4-20221228070925
-      '@crackle/core': 0.0.0-vite-4-20221228070925
+      '@crackle/cli': 0.10.2
     dependencies:
-      '@crackle/cli': 0.0.0-vite-4-20221228070925
-      '@crackle/core': 0.0.0-vite-4-20221228070925
+      '@crackle/cli': 0.10.2
 
   fixtures/braid-site:
     specifiers:
@@ -239,7 +232,7 @@ importers:
       ink: ^3.2.0
       ink-testing-library: ^2.1.0
       memfs: ^3.4.11
-      mlly: ^1.0.0
+      mlly: ^1.1.0
       pretty-ms: ^7.0.1
       react: ^18.2.0
       react-dom: ^18.2.0
@@ -278,7 +271,7 @@ importers:
       fast-glob: 3.2.12
       fs-extra: 11.1.0
       ink: 3.2.0_fan5qbzahqtxlm5dzefqlqx5ia
-      mlly: 1.0.0
+      mlly: 1.1.0
       pretty-ms: 7.0.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -2399,11 +2392,11 @@ packages:
       - supports-color
     dev: false
 
-  /@crackle/cli/0.0.0-vite-4-20221228070925:
-    resolution: {integrity: sha512-VTqvh4zW3L4YRwDgFZiNb4fT4qzmRTiQ1lae8HI9PYjeY0qPNmKhQAUyDHL2SGOhERVtBsD2v//2++Jw6cMc2g==}
+  /@crackle/cli/0.10.2:
+    resolution: {integrity: sha512-Hc41aP/plhjO+TkbNpy2249PSjqScHEu5B4SN7DAVUQaWn2i8Bl7NPP0psIBmxGdmOgz+kPzJ5vQ5D3UybuXTg==}
     hasBin: true
     dependencies:
-      '@crackle/core': 0.0.0-vite-4-20221228070925
+      '@crackle/core': 0.16.0
       yargs: 17.6.2
     transitivePeerDependencies:
       - '@types/node'
@@ -2438,57 +2431,6 @@ packages:
       - terser
       - ts-node
       - typescript
-      - utf-8-validate
-    dev: false
-
-  /@crackle/core/0.0.0-vite-4-20221228070925:
-    resolution: {integrity: sha512-4mWfFURgYAIg6X/SwZnrI6yklwcGCEJYeYh5acDVi0i958pv+fCaxWjAFqd+SfZblDlsWlIMDL1U6MKI9yXTSA==}
-    peerDependencies:
-      typescript: ~4.7.4
-    dependencies:
-      '@babel/core': 7.20.12
-      '@babel/plugin-syntax-jsx': 7.18.6_@babel+core@7.20.12
-      '@babel/plugin-syntax-typescript': 7.20.0_@babel+core@7.20.12
-      '@crackle/babel-plugin-remove-exports': 0.1.1
-      '@crackle/router': 0.2.1_react-dom@18.2.0
-      '@vanilla-extract/css': 1.9.2
-      '@vanilla-extract/integration': 6.0.1
-      '@vanilla-extract/vite-plugin': 3.7.0_vite@4.0.4
-      '@vitejs/plugin-react': 3.0.0_vite@4.0.4
-      builtin-modules: 3.3.0
-      chalk: 4.1.2
-      ensure-gitignore: 1.2.0
-      es-module-lexer: 1.1.0
-      esbuild: 0.16.14
-      eval: 0.1.8
-      express: 4.18.2
-      fast-glob: 3.2.12
-      fs-extra: 10.1.0
-      ink: 3.2.0_react@18.2.0
-      pretty-ms: 7.0.1
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-      resolve-from: 5.0.0
-      rollup: 3.7.5
-      rollup-plugin-dts: 5.0.0_rollup@3.7.5
-      rollup-plugin-node-externals: 5.0.2_rollup@3.7.5
-      serialize-javascript: 6.0.0
-      serve-handler: 6.1.5
-      sort-package-json: 1.57.0
-      type-fest: 3.2.0
-      used-styles: 2.4.1
-      vite: 4.0.4
-    transitivePeerDependencies:
-      - '@types/node'
-      - '@types/react'
-      - bufferutil
-      - less
-      - sass
-      - stylus
-      - sugarss
-      - supports-color
-      - terser
-      - ts-node
       - utf-8-validate
     dev: false
 
@@ -2534,6 +2476,58 @@ packages:
       sort-package-json: 1.57.0
       used-styles: 2.4.1
       vite: 3.2.4
+    transitivePeerDependencies:
+      - '@types/node'
+      - '@types/react'
+      - bufferutil
+      - less
+      - sass
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+      - ts-node
+      - utf-8-validate
+    dev: false
+
+  /@crackle/core/0.16.0:
+    resolution: {integrity: sha512-Csoeno7/TrftTMyECPSXw2g9UMQXES8I08T5d3GAnCL93eRJJ8ISkHojsxnhK17Amim8g0sxrsYCOaDJuOYWDw==}
+    peerDependencies:
+      typescript: '>=4.9.4'
+    dependencies:
+      '@babel/core': 7.20.12
+      '@babel/plugin-syntax-jsx': 7.18.6_@babel+core@7.20.12
+      '@babel/plugin-syntax-typescript': 7.20.0_@babel+core@7.20.12
+      '@crackle/babel-plugin-remove-exports': 0.1.1
+      '@crackle/router': 0.2.1_react-dom@18.2.0
+      '@ungap/structured-clone': 1.0.1
+      '@vanilla-extract/css': 1.9.2
+      '@vanilla-extract/integration': 6.0.1
+      '@vanilla-extract/vite-plugin': 3.7.0_vite@4.0.4
+      '@vitejs/plugin-react': 3.0.0_vite@4.0.4
+      builtin-modules: 3.3.0
+      chalk: 4.1.2
+      ensure-gitignore: 1.2.0
+      es-module-lexer: 1.1.0
+      esbuild: 0.16.14
+      eval: 0.1.8
+      express: 4.18.2
+      fast-glob: 3.2.12
+      fs-extra: 10.1.0
+      ink: 3.2.0_react@18.2.0
+      pretty-ms: 7.0.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      resolve-from: 5.0.0
+      rollup: 3.7.5
+      rollup-plugin-dts: 5.1.1_rollup@3.7.5
+      rollup-plugin-node-externals: 5.0.2_rollup@3.7.5
+      serialize-javascript: 6.0.0
+      serve-handler: 6.1.5
+      sort-package-json: 1.57.0
+      type-fest: 3.2.0
+      used-styles: 2.4.1
+      vite: 4.0.4
     transitivePeerDependencies:
       - '@types/node'
       - '@types/react'
@@ -3777,6 +3771,10 @@ packages:
       eslint-visitor-keys: 3.3.0
     dev: false
 
+  /@ungap/structured-clone/1.0.1:
+    resolution: {integrity: sha512-zKVyTt6rELvPXYwcVPTJcPFtY0AckN5A7xWuc7owBqR0FdtuDYhE9MZZUi6IY1kZUQFSXV1B3UOOIyLkVHYd2w==}
+    dev: false
+
   /@vanilla-extract/babel-plugin-debug-ids/1.0.0:
     resolution: {integrity: sha512-Q2Nh/0FEAENfcphAv+fvcMoKfl3bhPWO/2x3MPviNAhsTsvuvYPuRtLjcXwoe4aJ8MxxI46JLY33j8NBEzpTIg==}
     dependencies:
@@ -3889,8 +3887,8 @@ packages:
     dependencies:
       '@vanilla-extract/integration': 6.0.1
       outdent: 0.8.0
-      postcss: 8.4.19
-      postcss-load-config: 3.1.4_postcss@8.4.19
+      postcss: 8.4.20
+      postcss-load-config: 3.1.4_postcss@8.4.20
       vite: 4.0.4
     transitivePeerDependencies:
       - supports-color
@@ -7316,7 +7314,7 @@ packages:
   /media-query-parser/2.0.2:
     resolution: {integrity: sha512-1N4qp+jE0pL5Xv4uEcwVUhIkwdUO3S/9gML90nqKA7v7FcOS5vUtatfzok9S9U1EJU8dHWlcv95WLnKmmxZI9w==}
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.19.4
     dev: false
 
   /media-typer/0.3.0:
@@ -7513,24 +7511,14 @@ packages:
       ufo: 0.8.5
     dev: false
 
-  /mlly/1.0.0:
-    resolution: {integrity: sha512-QL108Hwt+u9bXdWgOI0dhzZfACovn5Aen4Xvc8Jasd9ouRH4NjnrXEiyP3nVvJo91zPlYjVRckta0Nt2zfoR6g==}
+  /mlly/1.1.0:
+    resolution: {integrity: sha512-cwzBrBfwGC1gYJyfcy8TcZU1f+dbH/T+TuOhtYP2wLv/Fb51/uV7HJQfBPtEupZ2ORLRU1EKFS/QfS3eo9+kBQ==}
     dependencies:
       acorn: 8.8.1
       pathe: 1.0.0
       pkg-types: 1.0.1
       ufo: 1.0.1
     dev: false
-
-  /mlly/1.0.0_i4xkzmeghdcfspe5spv7yvud5q:
-    resolution: {integrity: sha512-QL108Hwt+u9bXdWgOI0dhzZfACovn5Aen4Xvc8Jasd9ouRH4NjnrXEiyP3nVvJo91zPlYjVRckta0Nt2zfoR6g==}
-    dependencies:
-      acorn: 8.8.1
-      pathe: 1.0.0
-      pkg-types: 1.0.1
-      ufo: 1.0.1
-    dev: false
-    patched: true
 
   /mri/1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
@@ -8066,7 +8054,7 @@ packages:
     resolution: {integrity: sha512-jHv9HB+Ho7dj6ItwppRDDl0iZRYBD0jsakHXtFgoLr+cHSF6xC+QL54sJmWxyGxOLYSHm0afhXhXcQDQqH9z8g==}
     dependencies:
       jsonc-parser: 3.2.0
-      mlly: 1.0.0_i4xkzmeghdcfspe5spv7yvud5q
+      mlly: 1.1.0
       pathe: 1.0.0
     dev: false
 
@@ -8099,7 +8087,7 @@ packages:
       yaml: 1.10.2
     dev: false
 
-  /postcss-load-config/3.1.4_postcss@8.4.19:
+  /postcss-load-config/3.1.4_postcss@8.4.20:
     resolution: {integrity: sha512-6DiM4E7v4coTE4uzA8U//WhtPwyhiim3eyjEMFCnUpzbrkK9wJHgKDT2mR+HbtSrd/NubVaYTOpSpjUl8NQeRg==}
     engines: {node: '>= 10'}
     peerDependencies:
@@ -8112,7 +8100,7 @@ packages:
         optional: true
     dependencies:
       lilconfig: 2.0.6
-      postcss: 8.4.19
+      postcss: 8.4.20
       yaml: 1.10.2
     dev: false
 
@@ -8792,14 +8780,14 @@ packages:
       '@babel/code-frame': 7.18.6
     dev: false
 
-  /rollup-plugin-dts/5.0.0_rollup@3.7.5:
-    resolution: {integrity: sha512-OO8ayCvuJCKaQSShyVTARxGurVVk4ulzbuvz+0zFd1f93vlnWFU5pBMT7HFeS6uj7MvvZLx4kUAarGATSU1+Ng==}
+  /rollup-plugin-dts/5.1.1_rollup@3.7.5:
+    resolution: {integrity: sha512-zpgo52XmnLg8w4k3MScinFHZK1+ro6r7uVe34fJ0Ee8AM45FvgvTuvfWWaRgIpA4pQ1BHJuu2ospncZhkcJVeA==}
     engines: {node: '>=v14'}
     peerDependencies:
       rollup: ^3.0.0
       typescript: ^4.1
     dependencies:
-      magic-string: 0.26.7
+      magic-string: 0.27.0
       rollup: 3.7.5
     optionalDependencies:
       '@babel/code-frame': 7.18.6
@@ -9645,7 +9633,7 @@ packages:
       magic-string: 0.27.0
       mkdirp: 1.0.4
       mkdist: 1.0.0_typescript@4.9.4
-      mlly: 1.0.0_i4xkzmeghdcfspe5spv7yvud5q
+      mlly: 1.1.0
       mri: 1.2.0
       pathe: 1.0.0
       pkg-types: 1.0.1
@@ -9848,7 +9836,7 @@ packages:
     hasBin: true
     dependencies:
       debug: 4.3.4
-      mlly: 1.0.0_i4xkzmeghdcfspe5spv7yvud5q
+      mlly: 1.1.0
       pathe: 0.2.0
       source-map: 0.6.1
       source-map-support: 0.5.21
