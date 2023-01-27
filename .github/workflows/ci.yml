@@ -9,7 +9,6 @@ on:
 
 env:
   CI: true
-  dist-cache-key: ${{ runner.os }}-build-${{ github.ref }}
   dist-cache-paths: |
     packages/*/dist
     packages/*/*/dist
@@ -29,7 +28,7 @@ jobs:
         uses: actions/cache/save@v3
         with:
           path: ${{ env.dist-cache-paths }}
-          key: ${{ env.dist-cache-key }}
+          key: ${{ runner.os }}-build-${{ github.ref }}
 
   lint:
     name: Lint
@@ -42,7 +41,7 @@ jobs:
         uses: actions/cache/restore@v3
         with:
           path: ${{ env.dist-cache-paths }}
-          key: ${{ env.dist-cache-key }}
+          key: ${{ runner.os }}-build-${{ github.ref }}
 
       - name: ESLint
         run: pnpm lint:eslint
@@ -67,7 +66,7 @@ jobs:
         uses: actions/cache/restore@v3
         with:
           path: ${{ env.dist-cache-paths }}
-          key: ${{ env.dist-cache-key }}
+          key: ${{ runner.os }}-build-${{ github.ref }}
 
       - name: Install Browsers
         run: pnpm playwright install chromium
