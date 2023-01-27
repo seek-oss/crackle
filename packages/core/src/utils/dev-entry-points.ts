@@ -1,5 +1,6 @@
 import path from 'path';
 
+import dedent from 'dedent';
 import { resolveModuleExportNames } from 'mlly';
 import resolveFrom from 'resolve-from';
 
@@ -19,26 +20,21 @@ const RESOLVE_EXTENSIONS = ['.ts', '.tsx', '.mjs', '.cjs', '.js', '.jsx'];
 
 const getHookLoader = (id: string, format: Format) => {
   const stringify = (value: any) => JSON.stringify(value, null, 2);
-  // ! don't change this bullshit ! unbuild searches for the string and mangles our shims
+  // ! don't change this ! unbuild searches for the string and inserts shims
   const rekwire = 'req' + 'uire';
-  // ! don't change the formatting ! unbuild checks for this exact string
-  const shims = `
+  const shims = dedent`
+    import { createRequire } from "module";
 
-// -- Unbuild CommonJS Shims --
-import __cjs_url__ from 'url';
-import __cjs_path__ from 'path';
-import __cjs_mod__ from 'module';
-const __filename = __cjs_url__.fileURLToPath(import.meta.url);
-const __dirname = __cjs_path__.dirname(__filename);
-const require = __cjs_mod__.createRequire(import.meta.url);
-`;
+    const ${rekwire} = createRequire(import.meta.url);
+  `;
 
   const hookPath = stringify(resolveFrom('.', 'tsm'));
 
-  const setup = [
-    ...(format === 'esm' ? [shims, ''] : []),
-    `${rekwire}(${hookPath});`,
-  ].join('\n');
+  const setup = dedent`
+    ${format === 'esm' ? shims : ''}
+
+    ${rekwire}(${hookPath});
+  `;
   const load = `${rekwire}(${stringify(id)})`;
 
   return { setup, load };
@@ -104,7 +100,7 @@ const getEsmContents: GetContents = async (entry) => {
   const exports = await getExports(entry.entryPath);
 
   if (exports.length === 0) {
-    logger.error(
+    logger.info(
       `Could not stub ESM exports for ${
         entry.isDefaultEntry ? 'index' : entry.entryName
       }`,
@@ -145,6 +141,8 @@ export const generateDevFiles = async (config: EnhancedConfig) => {
       await writeFile(entry, 'cjs', getCjsContents);
       await writeFile(entry, 'esm', getEsmContents);
       await writeFile(entry, 'dts', getDtsContents);
+
+      logger.info(`✅ Created stubs for ${entry.entryName}`);
     });
 
     await createEntryPackageJsons(entryPaths);
