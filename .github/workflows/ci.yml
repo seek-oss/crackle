@@ -21,6 +21,17 @@ jobs:
       - name: Checkout & Install
         uses: seek-oss/crackle/.github/actions/init@refactor-workflows # TODO: change to master
 
+      - name: Restore Build Cache
+        uses: actions/cache/restore@v3
+        id: dist-cache
+        with:
+          path: ${{ env.dist-cache-paths }}
+          key: ${{ runner.os }}-build-${{ github.ref }}
+
+      - name: Check Build Cache Hit
+        if: steps.dist-cache.outputs.cache-hit != 'true'
+        run: exit 0
+
       - name: Build
         run: pnpm build
 
@@ -28,7 +39,7 @@ jobs:
         uses: actions/cache/save@v3
         with:
           path: ${{ env.dist-cache-paths }}
-          key: ${{ runner.os }}-build-${{ github.ref }}
+          key: ${{ steps.dist-cache.outputs.cache-primary-key }}
 
   lint:
     name: Lint
