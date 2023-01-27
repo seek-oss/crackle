@@ -4,8 +4,11 @@ import type { Plugin } from 'vite';
 import { normalizePath } from 'vite';
 
 import type { EnhancedConfig } from '../../config';
-import { getPackageEntryPoints, getPackages } from '../../utils/get-packages';
-import type { Packages } from '../../utils/get-packages';
+import {
+  getPackageEntryPoints,
+  getPackages,
+  type Packages,
+} from '../../utils/entry-points';
 
 export const internalPackageResolution = (config: EnhancedConfig): Plugin => {
   let packages: Packages | undefined;
@@ -34,6 +37,7 @@ export const internalPackageResolution = (config: EnhancedConfig): Plugin => {
           throw new Error(`Could not resolve package root: ${packageName}`);
         }
 
+        // TODO: use getPackageEntryPoints from src/utils/entry-points.ts
         if (source === packageName) {
           return normalizePath(path.join(root, 'src/index.ts'));
         }
@@ -41,7 +45,7 @@ export const internalPackageResolution = (config: EnhancedConfig): Plugin => {
         if (!packageEntries.get(packageName)) {
           packageEntries.set(
             packageName,
-            (await getPackageEntryPoints({ packageRoot: root })).map(
+            (await getPackageEntryPoints(root)).map(
               ({ entryName }) => entryName,
             ),
           );

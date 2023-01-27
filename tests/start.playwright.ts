@@ -2,7 +2,7 @@ import path from 'path';
 
 import type { CrackleServer } from '@crackle/core';
 import { resolveConfig } from '@crackle/core/resolve-config';
-import { start as startCrackle } from '@crackle/core/start';
+import { start as crackleStart } from '@crackle/core/start';
 import { test, expect } from '@playwright/test';
 
 const serverTest = test.extend<
@@ -13,7 +13,7 @@ const serverTest = test.extend<
     async ({}, use) => {
       const cwd = path.join(__dirname, '../fixtures/braid-site');
       const config = await resolveConfig({ cwd });
-      const server = await startCrackle({
+      const server = await crackleStart({
         ...config,
         port: 9000,
       });

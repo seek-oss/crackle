@@ -1,6 +1,7 @@
 # managed by crackle
 /components
 /dist
+/dist-render
 /extras
 /themes/apac
 # end managed by crackle

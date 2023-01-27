@@ -1,9 +1,9 @@
 import path from 'path';
 
 import { readJson } from 'fs-extra';
-import { resolvePath } from 'mlly';
 
 import { promiseMap } from './promise-map';
+import { resolveFrom } from './resolve-from';
 
 const root = 'ROOT';
 
@@ -26,10 +26,7 @@ const anaylyseDependency = async (
     return depGraph;
   }
 
-  const packageJsonPath = await resolvePath(path.join(dep, 'package.json'), {
-    url: rootDir,
-  });
-
+  const packageJsonPath = await resolveFrom(rootDir, `${dep}/package.json`);
   const packageJson = await readJson(packageJsonPath);
 
   const dependencies: Array<string> =

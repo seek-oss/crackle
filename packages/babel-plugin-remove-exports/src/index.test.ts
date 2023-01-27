@@ -1,4 +1,4 @@
-import pluginTester from 'babel-plugin-tester/pure';
+import _pluginTester from 'babel-plugin-tester/pure';
 import { describe, expect, it } from 'vitest';
 
 import plugin from './';
@@ -9,8 +9,17 @@ globalAny.describe = describe;
 globalAny.it = it;
 globalAny.expect = expect;
 
+// @ts-ignore Vitest resolves differently
+const pluginTester = _pluginTester.default as typeof _pluginTester;
+
 // used with eslint-plugin-format-js-tag to format TypeSscript code inside template literals
 const ts = String.raw;
+
+// remove quotes around the snapshot
+expect.addSnapshotSerializer({
+  test: (val) => typeof val === 'string',
+  print: (val) => (val as string).trim(),
+});
 
 const tests = [
   {

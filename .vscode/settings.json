@@ -1,10 +1,10 @@
 {
   "search.exclude": {
-    "**/node_modules": true,
-    "**/bower_components": true,
     "**/*.code-search": true,
+    "**/node_modules": true,
     "**/pnpm-lock.yaml": true
   },
   "typescript.tsdk": "node_modules/typescript/lib",
+  "vitest.enable": true,
   "vitest.commandLine": "pnpm test:vitest"
 }

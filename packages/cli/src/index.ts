@@ -135,6 +135,15 @@ yargs(process.argv.slice(2))
       await fix(config);
     },
   })
+  .command({
+    command: 'clean',
+    describe: 'Clean output directories',
+    handler: async () => {
+      const config = await resolveConfig();
+      const { clean } = await import('@crackle/core/clean');
+      clean(config);
+    },
+  })
   .strict()
   .help()
   .wrap(null)

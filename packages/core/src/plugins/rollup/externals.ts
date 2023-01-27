@@ -7,16 +7,34 @@ import {
 } from 'rollup-plugin-node-externals';
 import type { PackageJson } from 'type-fest';
 
+import { logger } from '../../logger';
 import type { Format } from '../../types';
 import { promiseMap } from '../../utils/promise-map';
 import { resolveFrom } from '../../utils/resolve-from';
 
 class PackagesById extends Map<string, PackageJson> {}
 
+const loadPackage = (packagePath: string): PackageJson => require(packagePath);
+
+async function loadPackageFrom(from: string, id: string): Promise<PackageJson> {
+  try {
+    const pkgPath = await resolveFrom(from, `${id}/package.json`);
+    const pkg = loadPackage(pkgPath);
+    return pkg;
+  } catch (e: any) {
+    if (e.code === 'ERR_PACKAGE_PATH_NOT_EXPORTED') {
+      // `./package.json` is not exported, but we're not bothered -- it means the package has
+      // `exports` and that's all we care about
+      return { name: id, exports: {} };
+    }
+    logger.warn(`Error resolving package.json for ${id}`);
+    return { name: id };
+  }
+}
+
 async function findDependencies(config: ExternalsOptions) {
   const packagePath = config.packagePath! as string;
-
-  const loadPackage = (id: string): PackageJson => require(id);
+  const packageRoot = path.dirname(packagePath);
 
   const packageJson = loadPackage(packagePath);
   const externalDeps = [
@@ -28,11 +46,7 @@ async function findDependencies(config: ExternalsOptions) {
   const packagesById = new PackagesById();
 
   await promiseMap(externalDeps, async (dep) => {
-    const depPackagePath = await resolveFrom(
-      packagePath,
-      `${dep}/package.json`,
-    );
-    const depPackage = loadPackage(depPackagePath);
+    const depPackage = await loadPackageFrom(packageRoot, dep);
     packagesById.set(dep, depPackage);
   });
 
@@ -52,8 +66,8 @@ export function externals(packageRoot: string, format: Format = 'esm'): Plugin {
 
   let packagesById: PackagesById;
 
-  const patch = (id: string) => {
-    const resolvedId = require.resolve(id);
+  const patch = async (id: string) => {
+    const resolvedId = await resolveFrom(packagePath, id);
     return resolvedId.slice(resolvedId.lastIndexOf(id));
   };
 
@@ -72,7 +86,8 @@ export function externals(packageRoot: string, format: Format = 'esm'): Plugin {
     resolveId: {
       order: 'pre',
       async handler(id, ...rest) {
-        const resolved = (plugin as FunctionPluginHooks).resolveId.call(
+        // `resolveId` is async in Rollup 3
+        const resolved = await (plugin as FunctionPluginHooks).resolveId.call(
           this,
           id,
           ...rest,
@@ -98,7 +113,7 @@ export function externals(packageRoot: string, format: Format = 'esm'): Plugin {
           const patched = {
             id:
               format === 'esm' && isSubpath && !packageJson?.exports
-                ? patch(id)
+                ? await patch(id)
                 : id,
             external: true,
           };

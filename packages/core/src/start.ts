@@ -109,10 +109,13 @@ export const start = async (
         require.resolve('../../entries/render/dev.tsx'),
       )) as { renderDevelopmentPage: RenderDevPageFn };
 
-      const { html, statusCode } = await renderDevelopmentPage({
+      // eslint-disable-next-line prefer-const
+      let { html, statusCode } = await renderDevelopmentPage({
         path: req.originalUrl,
         entry: clientEntry,
       });
+
+      html = await vite.transformIndexHtml(req.originalUrl, html);
 
       res.status(statusCode).set({ 'Content-Type': 'text/html' }).end(html);
       // defineRoutes(routes);

@@ -1,0 +1,10 @@
+{
+  "name": "@crackle-fixtures/hidden-package-json",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./index.js"
+  },
+  "files": []
+}

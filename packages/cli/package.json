@@ -1,6 +1,6 @@
 {
   "name": "@crackle/cli",
-  "version": "0.9.3",
+  "version": "0.10.1",
   "main": "dist/crackle-cli.cjs.js",
   "module": "dist/crackle-cli.esm.js",
   "exports": {
@@ -10,7 +10,7 @@
     },
     "./package.json": "./package.json"
   },
-  "author": "Matt",
+  "author": "SEEK",
   "license": "MIT",
   "files": [
     "dist",
@@ -20,10 +20,10 @@
     "crackle": "bin.js"
   },
   "dependencies": {
-    "@crackle/core": "^0.13.0",
-    "yargs": "^17.1.1"
+    "@crackle/core": "^0.15.0",
+    "yargs": "^17.6.2"
   },
   "devDependencies": {
-    "@types/yargs": "^17.0.2"
+    "@types/yargs": "^17.0.13"
   }
 }

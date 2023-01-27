@@ -1,8 +1,8 @@
+import assert from 'assert';
 import fs from 'fs/promises';
 import path from 'path';
 
 import chalk from 'chalk';
-import ensureGitignore from 'ensure-gitignore';
 
 import type { EnhancedConfig, PartialConfig } from './config';
 import { getConfig } from './config';
@@ -13,10 +13,12 @@ import { createDtsBundle } from './package/dts';
 import { renderPackageJsonValidationError } from './reporters/package';
 import { renderBuildError } from './reporters/shared';
 import type { Format, PackageJson } from './types';
-import { createEntryPackageJsons } from './utils/create-entry-package-json';
-import { emptyDir } from './utils/files';
-import { getPackageEntryPoints } from './utils/get-packages';
-import { promiseMap } from './utils/promise-map';
+import {
+  cleanPackageEntryPoints,
+  createEntryPackageJsons,
+  getPackageEntryPoints,
+} from './utils/entry-points';
+import { updateGitignore } from './utils/gitignore';
 import { validatePackageJson } from './utils/setup-package-json';
 
 const getPackageName = async (config: EnhancedConfig): Promise<string> => {
@@ -34,9 +36,7 @@ const getPackageName = async (config: EnhancedConfig): Promise<string> => {
 };
 
 const build = async (config: EnhancedConfig, packageName: string) => {
-  const entries = await getPackageEntryPoints({
-    packageRoot: config.root,
-  });
+  const entries = await getPackageEntryPoints(config.root);
 
   const diffs = await validatePackageJson(config.root, entries);
 
@@ -54,7 +54,8 @@ const build = async (config: EnhancedConfig, packageName: string) => {
   logger.info(`🛠  Building ${chalk.bold.green(packageName)}...`);
 
   if (config.clean) {
-    await promiseMap(entries, (entry) => emptyDir(entry.outputDir));
+    logger.info('🧹 Cleaning output directories...');
+    await cleanPackageEntryPoints(entries);
   }
 
   const withLogging = async (
@@ -73,12 +74,9 @@ const build = async (config: EnhancedConfig, packageName: string) => {
         const entry = entries.find(
           ({ entryPath }) => chunkInfo.facadeModuleId === entryPath,
         );
+        assert(entry, `entry not found for ${chunkInfo.facadeModuleId}`);
 
-        if (!entry) {
-          throw new Error('Unable to name entry file');
-        }
-
-        return entry.getOutputPath(format);
+        return entry.getOutputPath(format, { from: config.root });
       },
     });
 
@@ -93,11 +91,7 @@ const build = async (config: EnhancedConfig, packageName: string) => {
 
   await createEntryPackageJsons(entries);
 
-  await ensureGitignore({
-    filepath: config.resolveFromRoot('.gitignore'),
-    comment: 'managed by crackle',
-    patterns: entries.map((entry) => `/${entry.entryName}`),
-  });
+  await updateGitignore(config.root, entries);
 
   logger.info(`✅ Successfully built ${chalk.bold.green(packageName)}!`);
 };

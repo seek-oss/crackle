@@ -1,21 +1,22 @@
 {
   "name": "@crackle-fixtures/single-entry-library",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "private": true,
   "license": "MIT",
-  "author": "Ben",
+  "author": "SEEK",
   "exports": {
-    "./package.json": "./package.json",
     ".": {
-      "types": "./dist/index.cjs.d.ts",
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
-    }
+    },
+    "./package.json": "./package.json"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "files": [
-    "/dist"
+    "dist"
   ],
   "scripts": {
     "dev": "crackle dev",
@@ -25,7 +26,7 @@
   },
   "dependencies": {
     "@crackle-fixtures/multi-entry-library": "workspace:*",
-    "@vanilla-extract/css": "^1.9.1",
+    "@vanilla-extract/css": "^1.9.2",
     "braid-design-system": "0.0.0-crackel2-20221007054115",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
