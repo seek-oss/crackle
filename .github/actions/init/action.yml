@@ -1,9 +1,5 @@
 name: Checkout & Install
 description: ''
-inputs:
-  token:
-    description: GitHub token
-    default: ${{ secrets.SEEK_OSS_CI_GITHUB_TOKEN }}
 runs:
   using: composite
   steps:
@@ -22,7 +18,7 @@ runs:
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
-        token: ${{ inputs.token }}
+        token: ${{ secrets.SEEK_OSS_CI_GITHUB_TOKEN }}
 
     - uses: pnpm/action-setup@v2
 
