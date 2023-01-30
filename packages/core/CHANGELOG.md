@@ -1,5 +1,19 @@
 # @crackle/core
 
+## 0.16.0
+
+### Minor Changes
+
+- [#58](https://github.com/seek-oss/crackle/pull/58) [`b28f124`](https://github.com/seek-oss/crackle/commit/b28f124bff011b04c7223751b4481abbdeab8c31) Thanks [@mrm007](https://github.com/mrm007)! - Put all output files in `dist`.
+
+  This allows library authors to have better control over the [`sideEffects` flag](https://github.com/webpack/webpack/blob/main/examples/side-effects/README.md).
+
+- [#58](https://github.com/seek-oss/crackle/pull/58) [`b28f124`](https://github.com/seek-oss/crackle/commit/b28f124bff011b04c7223751b4481abbdeab8c31) Thanks [@mrm007](https://github.com/mrm007)! - Set the value for `"types"` in `package.json` on `crackle fix`
+
+### Patch Changes
+
+- [#58](https://github.com/seek-oss/crackle/pull/58) [`b28f124`](https://github.com/seek-oss/crackle/commit/b28f124bff011b04c7223751b4481abbdeab8c31) Thanks [@mrm007](https://github.com/mrm007)! - Polyfill `structuredClone` when running in Node.js <17
+
 ## 0.15.0
 
 ### Minor Changes
