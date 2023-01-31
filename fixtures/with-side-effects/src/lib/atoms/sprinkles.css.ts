@@ -13,44 +13,13 @@ import {
 import type { Breakpoint } from '../breakpoints';
 import { breakpoints, breakpointNames } from '../breakpoints';
 
-import {
-  responsiveProperties,
-  unresponsiveProperties,
-  pseudoProperties,
-  colorProperties,
-} from './atomicProperties';
-
-const unresponsiveAtomicProperties = defineProperties({
-  properties: unresponsiveProperties,
-  shorthands: {
-    inset: ['top', 'bottom', 'left', 'right'],
-  },
-});
-
-const pseudoAtomicProperties = defineProperties({
-  defaultCondition: false,
-  conditions: {
-    active: {
-      selector: '&:active',
-    },
-  },
-  properties: pseudoProperties,
-});
+import { responsiveProperties } from './atomicProperties';
 
 export const darkMode = style({});
 export const colorModeSelectors = {
   light: `html:not(${darkMode}) &`,
   dark: `html${darkMode} &`,
 };
-
-const colorAtomicProperties = defineProperties({
-  defaultCondition: 'lightMode',
-  conditions: {
-    lightMode: { selector: colorModeSelectors.light },
-    darkMode: { selector: colorModeSelectors.dark },
-  },
-  properties: colorProperties,
-});
 
 const responsiveAtomicProperties = defineProperties({
   defaultCondition: 'mobile',
@@ -72,18 +41,10 @@ const responsiveAtomicProperties = defineProperties({
     padding: ['paddingBottom', 'paddingTop', 'paddingLeft', 'paddingRight'],
     paddingY: ['paddingTop', 'paddingBottom'],
     paddingX: ['paddingLeft', 'paddingRight'],
-    margin: ['marginBottom', 'marginTop', 'marginLeft', 'marginRight'],
-    marginY: ['marginTop', 'marginBottom'],
-    marginX: ['marginLeft', 'marginRight'],
   },
 });
 
-export const sprinkles = createSprinkles(
-  unresponsiveAtomicProperties,
-  responsiveAtomicProperties,
-  pseudoAtomicProperties,
-  colorAtomicProperties,
-);
+export const sprinkles = createSprinkles(responsiveAtomicProperties);
 
 export type OptionalResponsiveValue<Value extends string | number> =
   ConditionalValue<typeof responsiveAtomicProperties, Value>;
@@ -93,15 +54,9 @@ export type RequiredResponsiveValue<Value extends string | number> =
 export type RequiredResponsiveObject<Value> = Partial<
   Record<Breakpoint, Value>
 > &
-  Record<(typeof breakpointNames)[0], Value>;
+  Record<typeof breakpointNames[0], Value>;
 
 export const normalizeResponsiveValue = createNormalizeValueFn(
   responsiveAtomicProperties,
 );
 export const mapResponsiveValue = createMapValueFn(responsiveAtomicProperties);
-
-export type ColorModeValue<Value extends string | number> = ConditionalValue<
-  typeof colorAtomicProperties,
-  Value
->;
-export const mapColorModeValue = createMapValueFn(colorAtomicProperties);
