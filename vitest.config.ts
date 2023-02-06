@@ -1,7 +1,7 @@
 import { resolve } from 'path';
 
 import react from '@vitejs/plugin-react';
-import { defineConfig } from 'vitest/config';
+import { configDefaults, defineConfig } from 'vitest/config';
 
 export default defineConfig({
   plugins: [react()],
@@ -11,6 +11,7 @@ export default defineConfig({
     },
   },
   test: {
+    exclude: [...configDefaults.exclude, 'fixtures/braid-design-system/**'],
     setupFiles: './test-utils/setup.ts',
     //* these values are used in test-utils/pkg-serializer.ts
     snapshotFormat: {

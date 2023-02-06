@@ -4,6 +4,7 @@ import path from 'path';
 import glob from 'fast-glob';
 
 import type { EnhancedConfig } from '../config';
+import { distDir } from '../constants';
 import type { Format, PackageEntryPoint } from '../types';
 
 import { emptyDir, extensionForFormat, writePackageJson } from './files';
@@ -67,8 +68,8 @@ export const getPackageEntryPoints = async (
     const entryFileName = isDefaultEntry
       ? 'index'
       : path.relative(otherEntries, relativeEntryPath).replace(extension, '');
-    const entryName = isDefaultEntry ? 'dist' : entryFileName;
-    const outputDir = path.join(packageRoot, 'dist');
+    const entryName = isDefaultEntry ? distDir : entryFileName;
+    const outputDir = path.join(packageRoot, distDir);
     const outputFileName = path.join(outputDir, entryFileName);
     const packageDir = isDefaultEntry
       ? outputDir

@@ -10,7 +10,7 @@ export const Diff = ({ diff }: { diff: Difference }) => {
     return <Text>- "exports" key updated</Text>;
   }
 
-  if (diff.key === 'files') {
+  if (diff.key === 'files' || diff.key === 'sideEffects') {
     const missingFiles = diff.additions.map((addition) => (
       <Text key={addition} color="blueBright">
         {addition}
@@ -18,11 +18,16 @@ export const Diff = ({ diff }: { diff: Difference }) => {
     ));
     return missingFiles.length > 0 ? (
       <Text>
-        - "files" updated with: <List items={missingFiles} separator=", " />
+        - "{diff.key}" updated with:{' '}
+        <List items={missingFiles} separator=", " />
       </Text>
     ) : (
       <Text>- "files" updated</Text>
     );
+  }
+
+  if (diff.key === 'order') {
+    return <Text>- keys sorted</Text>;
   }
 
   if (diff.from && !diff.to) {

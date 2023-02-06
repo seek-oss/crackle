@@ -59,7 +59,7 @@ export const ErrorStack = ({ error, title }: ErrorStackProps) => (
 );
 
 const Diff = ({ diff }: { diff: Difference }) => {
-  if (diff.key === 'files') {
+  if (diff.key === 'files' || diff.key === 'sideEffects') {
     const missingFiles = diff.additions.map((addition) => (
       <Text key={addition} color="blueBright">
         {addition}
@@ -67,13 +67,17 @@ const Diff = ({ diff }: { diff: Difference }) => {
     ));
     return (
       <Text>
-        - "files" is missing <List items={missingFiles} separator=", " />
+        - "{diff.key}" is missing <List items={missingFiles} separator=", " />
       </Text>
     );
   }
 
   if (diff.key === 'exports') {
     return <Text>- The "exports" key is incorrect</Text>;
+  }
+
+  if (diff.key === 'order') {
+    return <Text>- keys are not sorted</Text>;
   }
 
   if (diff.from && !diff.to) {
