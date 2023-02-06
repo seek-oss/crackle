@@ -78,7 +78,6 @@ export const createBundle = async (
               isVanillaFile(id) ||
               getModuleInfo(id)?.importers.some(isVanillaFile)
             ) {
-              // TODO: check if bundling all styles works
               return replaceExtension(`${stylesDir}/${srcPath}`);
             }
 
