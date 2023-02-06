@@ -1,5 +1,13 @@
 # @crackle/core
 
+## 0.17.0
+
+### Minor Changes
+
+- [#59](https://github.com/seek-oss/crackle/pull/59) [`ce03d87`](https://github.com/seek-oss/crackle/commit/ce03d875cdbb082dd3895868f378a2edd5b9b991) Thanks [@mrm007](https://github.com/mrm007)! - Update `"sideEffects"` flag if needed.
+
+  If an entry point has side-effects (as defined via the **package.json**'s `"sideEffects"` key) Crackle will update the `"sideEffects"` key so it also matches the output path in `dist`.
+
 ## 0.16.0
 
 ### Minor Changes
