@@ -6,6 +6,7 @@ import {
   type ExternalsOptions,
 } from 'rollup-plugin-node-externals';
 
+import type { EnhancedConfig } from '../../config';
 import { logger } from '../../logger';
 import type { PackageJson } from '../../types';
 import type { Format } from '../../types';
@@ -53,7 +54,11 @@ async function findDependencies(config: ExternalsOptions) {
   return packagesById;
 }
 
-export function externals(packageRoot: string, format: Format = 'esm'): Plugin {
+export function externals(
+  config: EnhancedConfig,
+  format: Format = 'esm',
+): Plugin {
+  const packageRoot = config.root;
   const packagePath = path.join(packageRoot, 'package.json');
   const config = {
     packagePath,
