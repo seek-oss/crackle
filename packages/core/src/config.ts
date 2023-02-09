@@ -49,6 +49,8 @@ export interface Config {
    * @default '{ incremental: false, noEmitOnError: false }'
    */
   dtsOptions: Record<string, unknown>;
+
+  esmAlwaysPatchImports: Record<string, string>;
 }
 
 export interface EnhancedConfig extends Config {
@@ -69,6 +71,7 @@ export const defaultConfig: Config = {
     incremental: false,
     noEmitOnError: false,
   },
+  esmAlwaysPatchImports: {},
 };
 
 const determineAppShell = (

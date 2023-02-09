@@ -5,6 +5,7 @@ import {
   externals as rollupExternals,
   type ExternalsOptions,
 } from 'rollup-plugin-node-externals';
+import semverIntersects from 'semver/ranges/intersects';
 
 import type { EnhancedConfig } from '../../config';
 import { logger } from '../../logger';
@@ -16,6 +17,32 @@ import { resolveFrom } from '../../utils/resolve-from';
 class PackagesById extends Map<string, PackageJson> {}
 
 const loadPackage = (packagePath: string): PackageJson => require(packagePath);
+
+const parseImportSpecifier = (id: string) => {
+  let scope: string | undefined;
+  let scopedPackageId = id;
+  let packageId = id;
+  let isSubpath = false;
+
+  if (!id.startsWith('@') && id.includes('/')) {
+    isSubpath = true;
+    packageId = id.split('/')[0];
+    scopedPackageId = packageId;
+  }
+  if (id.startsWith('@') && Number(id.match(/\//g)?.length) > 1) {
+    isSubpath = true;
+    [scope, packageId] = id.split('/');
+    scopedPackageId = packageId;
+    packageId = `${scope}/${packageId}`;
+  }
+
+  return {
+    isSubpath,
+    packageId,
+    scope,
+    scopedPackageId,
+  };
+};
 
 async function loadPackageFrom(from: string, id: string): Promise<PackageJson> {
   try {
@@ -60,21 +87,32 @@ export function externals(
 ): Plugin {
   const packageRoot = config.root;
   const packagePath = path.join(packageRoot, 'package.json');
-  const config = {
+  const rootPackageJson = loadPackage(packagePath);
+  const externalsConfig = {
     packagePath,
     deps: true,
     devDeps: false,
     peerDeps: true,
     optDeps: true,
   };
-  const plugin = rollupExternals(config);
+  const plugin = rollupExternals(externalsConfig);
 
   let packagesById: PackagesById;
 
   const patch = async (id: string) => {
     const resolvedId = await resolveFrom(packagePath, id);
-    return resolvedId.slice(resolvedId.lastIndexOf(id));
+    const { scope, scopedPackageId } = parseImportSpecifier(id);
+    return (
+      (scope ? `${scope}/` : '') +
+      resolvedId.slice(resolvedId.lastIndexOf(scopedPackageId))
+    );
   };
+  const shouldAlwaysPatch = (packageId: string) =>
+    config.esmAlwaysPatchImports[packageId] &&
+    semverIntersects(
+      rootPackageJson.peerDependencies?.[packageId] ?? '*',
+      config.esmAlwaysPatchImports[packageId],
+    );
 
   return {
     ...plugin,
@@ -84,7 +122,9 @@ export function externals(
     async buildStart(...args) {
       await Promise.all([
         (plugin as FunctionPluginHooks).buildStart.call(this, ...args),
-        findDependencies(config).then((result) => (packagesById = result)),
+        findDependencies(externalsConfig).then(
+          (result) => (packagesById = result),
+        ),
       ]);
     },
 
@@ -102,22 +142,13 @@ export function externals(
           (typeof resolved === 'boolean' && !resolved) ||
           (typeof resolved === 'object' && resolved?.external)
         ) {
-          let packageId = id;
-          let isSubpath = false;
-
-          if (!id.startsWith('@') && id.includes('/')) {
-            packageId = id.split('/')[0];
-            isSubpath = true;
-          }
-          if (id.startsWith('@') && Number(id.match(/\//g)?.length) > 1) {
-            packageId = id.split('/').slice(0, 2).join('/');
-            isSubpath = true;
-          }
-
+          const { packageId, isSubpath } = parseImportSpecifier(id);
           const packageJson = packagesById.get(packageId);
           const patched = {
             id:
-              format === 'esm' && isSubpath && !packageJson?.exports
+              format === 'esm' &&
+              isSubpath &&
+              (!packageJson?.exports || shouldAlwaysPatch(packageId))
                 ? await patch(id)
                 : id,
             external: true,
