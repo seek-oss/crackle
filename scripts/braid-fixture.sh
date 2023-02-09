@@ -3,7 +3,7 @@ set -eox pipefail
 
 repo=git@github.com:seek-oss/braid-design-system.git
 submodule=fixtures/braid-design-system
-branch=compiled-braid
+branch=v32
 
 # Modified from https://stackoverflow.com/questions/45688121/how-to-do-submodule-sparse-checkout-with-git/45689692#45689692
 
