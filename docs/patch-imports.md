@@ -12,7 +12,7 @@ For example, this code
 import mapValues from 'lodash/mapValues';
 ```
 
-is valid in CommonJS but will not work in ESM and needs to be patched. It doesn't work because the package doesn't have an `"exports"` field the bare specifier needs to be patched to point to an actual file (including the extension).
+is valid in CommonJS but will not work in ESM and needs to be patched. It doesn't work because the package doesn't have an `"exports"` field, so the bare specifier needs to be patched to point to an actual file (including the extension).
 
 Crackle will output:
 
