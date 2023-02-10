@@ -38,9 +38,9 @@ const parseImportSpecifier = (id: string) => {
 
   return {
     isSubpath,
-    packageId,
+    packageId, // full package id, including the scope
     scope,
-    scopedPackageId,
+    scopedPackageId, // package id without the scope
   };
 };
 

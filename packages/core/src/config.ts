@@ -50,6 +50,10 @@ export interface Config {
    */
   dtsOptions: Record<string, unknown>;
 
+  /**
+   * List of peer dependencies with semver ranges for which imports will always be patched.
+   * @default '{}'
+   */
   esmAlwaysPatchImports: Record<string, string>;
 }
 
