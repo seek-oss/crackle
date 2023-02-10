@@ -246,6 +246,7 @@ importers:
       eval: ^0.1.8
       express: ^4.18.2
       fast-glob: ^3.2.12
+      fast-memoize: ^2.5.2
       fs-extra: ^10.1.0
       glob-to-regexp: ^0.4.1
       ink: ^3.2.0
@@ -287,6 +288,7 @@ importers:
       eval: 0.1.8
       express: 4.18.2
       fast-glob: 3.2.12
+      fast-memoize: 2.5.2
       fs-extra: 10.1.0
       glob-to-regexp: 0.4.1
       ink: 3.2.0_fan5qbzahqtxlm5dzefqlqx5ia
@@ -4954,6 +4956,10 @@ packages:
 
   /fast-levenshtein/2.0.6:
     resolution: {integrity: sha512-DCXu6Ifhqcks7TZKY3Hxp3y6qphY5SJZmrWMDrKcERSOXWQdMhU9Ig/PYrzyw/ul9jOIyh0N4M0tbC5hodg8dw==}
+    dev: false
+
+  /fast-memoize/2.5.2:
+    resolution: {integrity: sha512-Ue0LwpDYErFbmNnZSF0UH6eImUwDmogUO1jyE+JbN2gsQz/jICm1Ve7t9QT0rNSsfJt+Hs4/S3GnsDVjL4HVrw==}
     dev: false
 
   /fast-url-parser/1.1.3:

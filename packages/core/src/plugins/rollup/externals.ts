@@ -1,5 +1,6 @@
 import path from 'path';
 
+import memoize from 'fast-memoize';
 import type { FunctionPluginHooks, Plugin } from 'rollup';
 import {
   externals as rollupExternals,
@@ -18,7 +19,7 @@ class PackagesById extends Map<string, PackageJson> {}
 
 const loadPackage = (packagePath: string): PackageJson => require(packagePath);
 
-const parseImportSpecifier = (id: string) => {
+const parseImportSpecifier = memoize((id: string) => {
   let scope: string | undefined;
   let scopedPackageId = id;
   let packageId = id;
@@ -42,7 +43,7 @@ const parseImportSpecifier = (id: string) => {
     scope,
     scopedPackageId, // package id without the scope
   };
-};
+});
 
 async function loadPackageFrom(from: string, id: string): Promise<PackageJson> {
   try {
@@ -60,17 +61,17 @@ async function loadPackageFrom(from: string, id: string): Promise<PackageJson> {
   }
 }
 
-async function findDependencies(config: ExternalsOptions) {
-  const packagePath = config.packagePath! as string;
+async function findDependencies(options: ExternalsOptions) {
+  const packagePath = options.packagePath! as string;
   const packageRoot = path.dirname(packagePath);
 
   const packageJson = loadPackage(packagePath);
-  const externalDeps = [
-    ...Object.keys((config.deps && packageJson.dependencies) || {}),
-    ...Object.keys((config.devDeps && packageJson.devDependencies) || {}),
-    ...Object.keys((config.peerDeps && packageJson.peerDependencies) || {}),
-    ...Object.keys((config.optDeps && packageJson.optionalDependencies) || {}),
-  ];
+  const externalDeps = Object.keys({
+    ...(options.deps ? packageJson.dependencies : undefined),
+    ...(options.devDeps ? packageJson.devDependencies : undefined),
+    ...(options.peerDeps ? packageJson.peerDependencies : undefined),
+    ...(options.optDeps ? packageJson.optionalDependencies : undefined),
+  });
   const packagesById = new PackagesById();
 
   await promiseMap(externalDeps, async (dep) => {
@@ -88,31 +89,34 @@ export function externals(
   const packageRoot = config.root;
   const packagePath = path.join(packageRoot, 'package.json');
   const rootPackageJson = loadPackage(packagePath);
-  const externalsConfig = {
+  // preconstruct doesn't understand `satisfies`
+  const options: ExternalsOptions = {
     packagePath,
     deps: true,
     devDeps: false,
     peerDeps: true,
     optDeps: true,
   };
-  const plugin = rollupExternals(externalsConfig);
+  const plugin = rollupExternals(options);
 
   let packagesById: PackagesById;
 
-  const patch = async (id: string) => {
+  const patch = memoize(async (id: string) => {
     const resolvedId = await resolveFrom(packagePath, id);
     const { scope, scopedPackageId } = parseImportSpecifier(id);
     return (
       (scope ? `${scope}/` : '') +
       resolvedId.slice(resolvedId.lastIndexOf(scopedPackageId))
     );
-  };
-  const shouldAlwaysPatch = (packageId: string) =>
-    config.esmAlwaysPatchImports[packageId] &&
-    semverIntersects(
-      rootPackageJson.peerDependencies?.[packageId] ?? '*',
-      config.esmAlwaysPatchImports[packageId],
-    );
+  });
+  const shouldAlwaysPatch = memoize(
+    (packageId: string) =>
+      config.esmAlwaysPatchImports[packageId] &&
+      semverIntersects(
+        rootPackageJson.peerDependencies?.[packageId] ?? '*',
+        config.esmAlwaysPatchImports[packageId],
+      ),
+  );
 
   return {
     ...plugin,
@@ -122,9 +126,7 @@ export function externals(
     async buildStart(...args) {
       await Promise.all([
         (plugin as FunctionPluginHooks).buildStart.call(this, ...args),
-        findDependencies(externalsConfig).then(
-          (result) => (packagesById = result),
-        ),
+        findDependencies(options).then((result) => (packagesById = result)),
       ]);
     },
 
