@@ -84,14 +84,18 @@ importers:
       '@crackle-fixtures/dep-with-exports-always-patch': link:./dep-with-exports-always-patch
       '@crackle/cli': workspace:*
       '@crackle/core': workspace:*
+      '@types/autosuggest-highlight': ^3.1.1
+      autosuggest-highlight: ^3.3.4
       react: ^18.2.0
       react-dom: ^18.2.0
     dependencies:
       '@crackle-fixtures/dep-with-exports': link:dep-with-exports
+      autosuggest-highlight: 3.3.4
     devDependencies:
       '@crackle-fixtures/dep-with-exports-always-patch': link:dep-with-exports-always-patch
       '@crackle/cli': link:../../packages/cli
       '@crackle/core': link:../../packages/core
+      '@types/autosuggest-highlight': 3.2.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
 
@@ -100,12 +104,10 @@ importers:
       '@crackle/cli': workspace:*
       '@crackle/core': workspace:*
       '@crackle/router': workspace:*
-      '@types/autosuggest-highlight': ^3.2.0
       '@types/lodash': ^4.14.186
       '@types/react': ^18.0.21
       '@types/react-dom': ^18.0.6
       '@vanilla-extract/css': ^1.9.2
-      autosuggest-highlight: ^3.3.4
       braid-design-system: 0.0.0-crackel2-20221007054115
       lodash: ^4.17.21
       react: ^18.2.0
@@ -113,7 +115,6 @@ importers:
     dependencies:
       '@crackle/router': link:../../packages/router
       '@vanilla-extract/css': 1.9.2
-      autosuggest-highlight: 3.3.4
       braid-design-system: 0.0.0-crackel2-20221007054115_2zx2umvpluuhvlq44va5bta2da
       lodash: 4.17.21
       react: 18.2.0
@@ -121,7 +122,6 @@ importers:
     devDependencies:
       '@crackle/cli': link:../../packages/cli
       '@crackle/core': link:../../packages/core
-      '@types/autosuggest-highlight': 3.2.0
       '@types/lodash': 4.14.186
       '@types/react': 18.0.25
       '@types/react-dom': 18.0.9
