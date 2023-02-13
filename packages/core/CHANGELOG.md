@@ -1,5 +1,28 @@
 # @crackle/core
 
+## 0.18.0
+
+### Minor Changes
+
+- [#63](https://github.com/seek-oss/crackle/pull/63) [`ff23b47`](https://github.com/seek-oss/crackle/commit/ff23b477b7a7e96f98948e4eac6af3cf2febb5e3) Thanks [@mrm007](https://github.com/mrm007)! - Add a config option to [reconcile peer dependencies][reconcile] from a package:
+
+  [reconcile]: https://github.com/seek-oss/crackle/blob/master/docs/esm-reconciliation.md#reconciling-peer-dependencies
+
+  ```ts
+  // crackle.config.ts
+  import type { CrackleConfig } from '@crackle/core';
+
+  export default {
+    reconcileDependencies: {
+      react: '<18',
+    },
+  } satisfies CrackleConfig;
+  ```
+
+### Patch Changes
+
+- [#63](https://github.com/seek-oss/crackle/pull/63) [`ff23b47`](https://github.com/seek-oss/crackle/commit/ff23b477b7a7e96f98948e4eac6af3cf2febb5e3) Thanks [@mrm007](https://github.com/mrm007)! - Fix import specifier patching with scoped packages
+
 ## 0.17.0
 
 ### Minor Changes
