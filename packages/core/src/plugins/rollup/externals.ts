@@ -101,7 +101,7 @@ export function externals(
 
   let packagesById: PackagesById;
 
-  const patch = memoize(async (id: string) => {
+  const patchImportSpecifier = memoize(async (id: string) => {
     const resolvedId = await resolveFrom(packagePath, id);
     const { scope, scopedPackageId } = parseImportSpecifier(id);
     return (
@@ -109,12 +109,12 @@ export function externals(
       resolvedId.slice(resolvedId.lastIndexOf(scopedPackageId))
     );
   });
-  const shouldAlwaysPatch = memoize(
+  const shouldReconcilePackage = memoize(
     (packageId: string) =>
-      config.esmAlwaysPatchImports[packageId] &&
+      config.reconcileDependencies[packageId] &&
       semverIntersects(
         rootPackageJson.peerDependencies?.[packageId] ?? '*',
-        config.esmAlwaysPatchImports[packageId],
+        config.reconcileDependencies[packageId],
       ),
   );
 
@@ -150,8 +150,8 @@ export function externals(
             id:
               format === 'esm' &&
               isSubpath &&
-              (!packageJson?.exports || shouldAlwaysPatch(packageId))
-                ? await patch(id)
+              (!packageJson?.exports || shouldReconcilePackage(packageId))
+                ? await patchImportSpecifier(id)
                 : id,
             external: true,
           };
