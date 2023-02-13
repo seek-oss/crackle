@@ -4,51 +4,61 @@ import path from 'path';
 export interface Config {
   /**
    * Automatically clean output directory when running `package`.
+   *
    * @default true
    */
   clean: boolean;
-
   /**
    * Automatically run `fix` if necessary.
+   *
    * @default false
    */
   fix: boolean;
-
   /**
-   * Port for the server used in `start` and `serve`.
+   * Port for the server used in `start` and `serve`
+   *
    * @default 5000
    */
   port: number;
-
   /**
-   * The path that static assets will be served from in production.
+   * The path that static assets will be served from in production
+   *
    * @default  '/'
    */
   publicPath: string;
-
   /**
-   * The root of the application that all paths are resolved relative to.
+   * The root of the application that all paths are resolved relative to
+   *
    * @default process.cwd
    */
   root: string;
-
   /**
-   * Directories that crackle should search to find .page.tsx files.
+   * Directories that crackle should search to find .page.tsx files
+   *
    * @default ['src']
    */
   pageRoots: string[];
-
   /**
    * Path to the App shell component
+   *
    * @default 'src/App.tsx'
    */
   appShell: `${string}.tsx`;
-
   /**
-   * Override TypeScript `compilerOptions` for when generating `.d.ts` files
+   * Override TypeScript `compilerOptions` for when generating `.d.ts` files.
+   *
    * @default '{ incremental: false, noEmitOnError: false }'
    */
   dtsOptions: Record<string, unknown>;
+  /**
+   * Peer dependencies that require ESM reconciliation.
+   *
+   * Specify the package and corresponding version range for which ESM compatibility is required.
+   *
+   * @see https://github.com/seek-oss/crackle/blob/master/docs/esm-reconciliation.md#reconciling-peer-dependencies
+   * @default '{}'
+   */
+  reconcileDependencies: Record<string, string>;
 }
 
 export interface EnhancedConfig extends Config {
@@ -69,6 +79,7 @@ export const defaultConfig: Config = {
     incremental: false,
     noEmitOnError: false,
   },
+  reconcileDependencies: {},
 };
 
 const determineAppShell = (

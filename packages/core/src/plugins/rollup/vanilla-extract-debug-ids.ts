@@ -3,7 +3,9 @@ import path from 'path';
 import { cssFileFilter, transform } from '@vanilla-extract/integration';
 import type { Plugin } from 'rollup';
 
-export const addVanillaDebugIds = (packageRoot: string): Plugin => ({
+import type { EnhancedConfig } from '../../config';
+
+export const addVanillaDebugIds = (config: EnhancedConfig): Plugin => ({
   name: 'crackle:vanilla-extract-debug-ids',
   async transform(code, id) {
     if (!cssFileFilter.test(id)) {
@@ -13,8 +15,8 @@ export const addVanillaDebugIds = (packageRoot: string): Plugin => ({
     const result = await transform({
       source: code,
       filePath: id,
-      rootPath: packageRoot,
-      packageName: path.basename(packageRoot),
+      rootPath: config.root,
+      packageName: path.basename(config.root),
       identOption: 'debug',
     });
 
