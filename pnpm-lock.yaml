@@ -176,6 +176,12 @@ importers:
     dependencies:
       '@crackle-fixtures/hidden-package-json': link:hidden-package-json
 
+  fixtures/with-flatten-children:
+    specifiers:
+      react-keyed-flatten-children: ^1.3.0
+    dependencies:
+      react-keyed-flatten-children: 1.3.0
+
   fixtures/with-side-effects:
     specifiers:
       '@vanilla-extract/css': ^1.9.2
@@ -7245,6 +7251,14 @@ packages:
 
   /react-is/18.2.0:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
+    dev: false
+
+  /react-keyed-flatten-children/1.3.0:
+    resolution: {integrity: sha512-qB7A6n+NHU0x88qTZGAJw6dsqwI941jcRPBB640c/CyWqjPQQ+YUmXOuzPziuHb7iqplM3xksWAbGYwkQT0tXA==}
+    peerDependencies:
+      react: '>=15.0.0'
+    dependencies:
+      react-is: 16.13.1
     dev: false
 
   /react-popper-tooltip/4.4.2_biqbaboplfbrettd7655fr4n2y:
