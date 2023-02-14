@@ -48,7 +48,7 @@ yargs(process.argv.slice(2))
   })
   .command({
     command: 'build',
-    describe: '#TODO',
+    describe: 'Build a static version the site (e.g. for deploying to S3)',
     handler: async () => {
       const config = await resolveConfig();
 
@@ -58,7 +58,7 @@ yargs(process.argv.slice(2))
   })
   .command<Pick<CrackleConfig, 'port'>>({
     command: 'serve',
-    describe: 'Serve static build from ./dist',
+    describe: 'Serve static site build from ./dist',
     builder: {
       port: {
         description: 'Override the HTTP server port',
@@ -88,7 +88,7 @@ yargs(process.argv.slice(2))
   })
   .command<Pick<CrackleConfig, 'fix' | 'clean'>>({
     command: 'package',
-    describe: '#TODO',
+    describe: 'Compile package for publishing',
     builder: {
       fix: {
         description: 'Run `crackle fix` if necessary',
@@ -119,7 +119,7 @@ yargs(process.argv.slice(2))
   })
   .command({
     command: 'dev',
-    describe: '#TODO',
+    describe: 'Stub entry points for local development',
     handler: async () => {
       const config = await resolveConfig();
       const { dev } = await import('@crackle/core/dev');
@@ -128,7 +128,7 @@ yargs(process.argv.slice(2))
   })
   .command({
     command: 'fix',
-    describe: '#TODO',
+    describe: 'Fix all issues',
     handler: async () => {
       const config = await resolveConfig();
       const { fix } = await import('@crackle/core/fix');
