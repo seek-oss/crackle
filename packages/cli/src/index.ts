@@ -119,7 +119,7 @@ yargs(process.argv.slice(2))
   })
   .command({
     command: 'dev',
-    describe: 'Stub entry points for local development',
+    describe: 'Generate entry points for local development',
     handler: async () => {
       const config = await resolveConfig();
       const { dev } = await import('@crackle/core/dev');
@@ -128,7 +128,7 @@ yargs(process.argv.slice(2))
   })
   .command({
     command: 'fix',
-    describe: 'Fix all issues',
+    describe: 'Fixes invalid project configuration',
     handler: async () => {
       const config = await resolveConfig();
       const { fix } = await import('@crackle/core/fix');
