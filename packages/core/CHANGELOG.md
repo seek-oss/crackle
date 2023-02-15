@@ -1,5 +1,13 @@
 # @crackle/core
 
+## 0.18.1
+
+### Patch Changes
+
+- [#66](https://github.com/seek-oss/crackle/pull/66) [`5ba5e57`](https://github.com/seek-oss/crackle/commit/5ba5e57694763c8a52f43b47906dbecda578a040) Thanks [@mrm007](https://github.com/mrm007)! - When bundling, make sure the output is compatible with faux ESM exports e.g. code transpiled with the [TypeScript `esModuleInterop` flag](https://www.typescriptlang.org/tsconfig#esModuleInterop)
+
+- [#66](https://github.com/seek-oss/crackle/pull/66) [`5ba5e57`](https://github.com/seek-oss/crackle/commit/5ba5e57694763c8a52f43b47906dbecda578a040) Thanks [@mrm007](https://github.com/mrm007)! - Bump Vite to 4.1.1 and sync dependencies
+
 ## 0.18.0
 
 ### Minor Changes
