@@ -59,6 +59,7 @@ export const createBundle = async (
           ...outputOptions,
           hoistTransitiveImports: false,
           inlineDynamicImports: false,
+          interop: 'compat',
           manualChunks(id, { getModuleInfo }) {
             const srcPath = path.relative(`${config.root}/${srcDir}`, id);
 
