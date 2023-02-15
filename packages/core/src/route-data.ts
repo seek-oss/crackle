@@ -89,5 +89,5 @@ export const getAllRoutes = async (inlineConfig?: PartialConfig) => {
 
   const [{ text: routesSource }] = result.outputFiles;
 
-  return _eval(routesSource) as RouteData<any>;
+  return _eval(routesSource, `${routesEntryName}.js`) as RouteData<any>;
 };
