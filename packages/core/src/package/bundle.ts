@@ -85,7 +85,8 @@ export const createBundle = async (
 
             if (
               typeof packageJson.sideEffects !== 'boolean' &&
-              moduleHasSideEffects(srcPath, packageJson.sideEffects)
+              moduleHasSideEffects(srcPath, packageJson.sideEffects) &&
+              !getModuleInfo(id)?.isEntry
             ) {
               return replaceExtension(`${sideEffectsDir}/${srcPath}`);
             }
