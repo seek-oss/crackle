@@ -1,5 +1,11 @@
 # @crackle/core
 
+## 0.18.2
+
+### Patch Changes
+
+- [#68](https://github.com/seek-oss/crackle/pull/68) [`b87adf8`](https://github.com/seek-oss/crackle/commit/b87adf823ea7876139be27d30e82eb6a1b2e93f7) Thanks [@mrm007](https://github.com/mrm007)! - Don't put output files for entry points in `dist/side-effects`
+
 ## 0.18.1
 
 ### Patch Changes
