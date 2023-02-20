@@ -1,4 +1,4 @@
 [submodule "fixtures/braid-design-system"]
 	path = fixtures/braid-design-system
 	url = git@github.com:seek-oss/braid-design-system.git
-	branch = v32
+	branch = version-32

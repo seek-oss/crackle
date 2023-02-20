@@ -53,7 +53,12 @@ export const createBundle = async (
       rollupOptions: {
         input: entries.map(({ entryPath }) => entryPath),
         treeshake: {
-          moduleSideEffects: 'no-external',
+          moduleSideEffects(id, external) {
+            if (moduleHasSideEffects(id, packageJson.sideEffects)) {
+              return true;
+            }
+            return !external;
+          },
         },
         output: {
           ...outputOptions,
@@ -80,7 +85,8 @@ export const createBundle = async (
 
             if (
               typeof packageJson.sideEffects !== 'boolean' &&
-              moduleHasSideEffects(srcPath, packageJson.sideEffects)
+              moduleHasSideEffects(srcPath, packageJson.sideEffects) &&
+              !getModuleInfo(id)?.isEntry
             ) {
               return replaceExtension(`${sideEffectsDir}/${srcPath}`);
             }
