@@ -2,6 +2,7 @@
   "name": "@crackle/test-utils",
   "private": true,
   "dependencies": {
+    "pretty-format": "^29.0.0",
     "strip-ansi": "^7.0.1",
     "snapshot-diff": "^0.10.0"
   }

@@ -1,0 +1,12 @@
+{
+  "name": "@crackle-fixtures/dep-with-exports",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": "./index.js",
+    "./subpath": "./index.js",
+    "./package.json": "./package.json"
+  }
+}

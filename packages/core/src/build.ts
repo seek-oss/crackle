@@ -15,7 +15,7 @@ import type { RenderAllPagesFn } from '../entries/types';
 
 import type { PartialConfig } from './config';
 import { getConfig } from './config';
-import { clientEntry } from './constants';
+import { clientEntry, siteBuild } from './constants';
 import { logger } from './logger';
 import {
   addPageRoots,
@@ -84,8 +84,8 @@ export const build = async (inlineConfig?: PartialConfig) => {
     return;
   }
 
-  const rendererDir = config.resolveFromRoot('dist-render');
-  const outDir = config.resolveFromRoot('dist');
+  const outDir = config.resolveFromRoot(siteBuild.outDir);
+  const rendererDir = config.resolveFromRoot(siteBuild.rendererDir);
 
   try {
     logger.info(`🛠  Building ${chalk.bold('renderer')}...`);

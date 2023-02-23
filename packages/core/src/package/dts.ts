@@ -17,7 +17,7 @@ export const createDtsBundle = async (
     const bundle = await rollup({
       input: entry.entryPath,
       plugins: [
-        externals(config.root),
+        externals(config),
         dts({
           respectExternal: true,
           compilerOptions: config.dtsOptions as any,

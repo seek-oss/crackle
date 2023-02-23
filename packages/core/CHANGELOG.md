@@ -1,5 +1,50 @@
 # @crackle/core
 
+## 0.18.2
+
+### Patch Changes
+
+- [#68](https://github.com/seek-oss/crackle/pull/68) [`b87adf8`](https://github.com/seek-oss/crackle/commit/b87adf823ea7876139be27d30e82eb6a1b2e93f7) Thanks [@mrm007](https://github.com/mrm007)! - Don't put output files for entry points in `dist/side-effects`
+
+## 0.18.1
+
+### Patch Changes
+
+- [#66](https://github.com/seek-oss/crackle/pull/66) [`5ba5e57`](https://github.com/seek-oss/crackle/commit/5ba5e57694763c8a52f43b47906dbecda578a040) Thanks [@mrm007](https://github.com/mrm007)! - When bundling, make sure the output is compatible with faux ESM exports e.g. code transpiled with the [TypeScript `esModuleInterop` flag](https://www.typescriptlang.org/tsconfig#esModuleInterop)
+
+- [#66](https://github.com/seek-oss/crackle/pull/66) [`5ba5e57`](https://github.com/seek-oss/crackle/commit/5ba5e57694763c8a52f43b47906dbecda578a040) Thanks [@mrm007](https://github.com/mrm007)! - Bump Vite to 4.1.1 and sync dependencies
+
+## 0.18.0
+
+### Minor Changes
+
+- [#63](https://github.com/seek-oss/crackle/pull/63) [`ff23b47`](https://github.com/seek-oss/crackle/commit/ff23b477b7a7e96f98948e4eac6af3cf2febb5e3) Thanks [@mrm007](https://github.com/mrm007)! - Add a config option to [reconcile peer dependencies][reconcile] from a package:
+
+  [reconcile]: https://github.com/seek-oss/crackle/blob/master/docs/esm-reconciliation.md#reconciling-peer-dependencies
+
+  ```ts
+  // crackle.config.ts
+  import type { CrackleConfig } from '@crackle/core';
+
+  export default {
+    reconcileDependencies: {
+      react: '<18',
+    },
+  } satisfies CrackleConfig;
+  ```
+
+### Patch Changes
+
+- [#63](https://github.com/seek-oss/crackle/pull/63) [`ff23b47`](https://github.com/seek-oss/crackle/commit/ff23b477b7a7e96f98948e4eac6af3cf2febb5e3) Thanks [@mrm007](https://github.com/mrm007)! - Fix import specifier patching with scoped packages
+
+## 0.17.0
+
+### Minor Changes
+
+- [#59](https://github.com/seek-oss/crackle/pull/59) [`ce03d87`](https://github.com/seek-oss/crackle/commit/ce03d875cdbb082dd3895868f378a2edd5b9b991) Thanks [@mrm007](https://github.com/mrm007)! - Update `"sideEffects"` flag if needed.
+
+  If an entry point has side-effects (as defined via the **package.json**'s `"sideEffects"` key) Crackle will update the `"sideEffects"` key so it also matches the output path in `dist`.
+
 ## 0.16.0
 
 ### Minor Changes

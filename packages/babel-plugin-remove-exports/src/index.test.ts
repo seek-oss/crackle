@@ -1,4 +1,4 @@
-import _pluginTester from 'babel-plugin-tester/pure';
+import pluginTester from 'babel-plugin-tester/pure';
 import { describe, expect, it } from 'vitest';
 
 import plugin from './';
@@ -8,9 +8,6 @@ const globalAny: any = global;
 globalAny.describe = describe;
 globalAny.it = it;
 globalAny.expect = expect;
-
-// @ts-ignore Vitest resolves differently
-const pluginTester = _pluginTester.default as typeof _pluginTester;
 
 // used with eslint-plugin-format-js-tag to format TypeSscript code inside template literals
 const ts = String.raw;

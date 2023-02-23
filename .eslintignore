@@ -1,6 +1,4 @@
 # match dist and dist-render
 dist*
+fixtures/braid-design-system
 node_modules/
-
-fixtures/monorepo/packages/multi-entry-library/components
-fixtures/monorepo/packages/multi-entry-library/extras

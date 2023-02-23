@@ -1,16 +1,22 @@
 import assert from 'assert';
+import fs from 'fs';
 import path from 'path';
 
-import { cssFileFilter } from '@vanilla-extract/integration';
+import { cssFileFilter as vanillaCssFileFilter } from '@vanilla-extract/integration';
 import react from '@vitejs/plugin-react';
+import fse from 'fs-extra';
 import type { OutputOptions } from 'rollup';
 import { build as viteBuild } from 'vite';
 
 import type { EnhancedConfig } from '../config';
+import { sideEffectsDir, srcDir, stylesDir } from '../constants';
 import { addVanillaDebugIds, externals } from '../plugins/rollup';
-import type { Format, PackageEntryPoint } from '../types';
+import type { Format, PackageEntryPoint, PackageJson } from '../types';
 import { extensionForFormat } from '../utils/files';
+import { moduleHasSideEffects } from '../utils/side-effects';
 import { commonViteConfig } from '../vite-config';
+
+const isVanillaFile = (id: string) => vanillaCssFileFilter.test(id);
 
 export const createBundle = async (
   config: EnhancedConfig,
@@ -24,14 +30,15 @@ export const createBundle = async (
   assert(defaultEntry, 'Could not find default entry');
 
   const outputDir = path.relative(config.root, defaultEntry.outputDir);
+  const packagePath = path.join(config.root, 'package.json');
+  const packageJson: PackageJson = await fse.readJson(packagePath, { fs });
+
+  const replaceExtension = (srcPath: string) =>
+    srcPath.replace(path.extname(srcPath), `.${extension}`);
 
   await viteBuild({
     ...commonViteConfig,
-    plugins: [
-      addVanillaDebugIds(config.root),
-      externals(config.root, format),
-      react(),
-    ],
+    plugins: [addVanillaDebugIds(config), externals(config, format), react()],
     logLevel: 'warn',
     build: {
       // output directory is the package root, so we don't want to remove it
@@ -47,37 +54,41 @@ export const createBundle = async (
         input: entries.map(({ entryPath }) => entryPath),
         treeshake: {
           moduleSideEffects(id, external) {
-            if (external) {
-              return false;
+            if (moduleHasSideEffects(id, packageJson.sideEffects)) {
+              return true;
             }
-
-            if (cssFileFilter.test(id)) {
-              // Mark .css.ts files as side effect free except for reset and atoms as they
-              // need to be hoisted to ensure they are first in the CSS order
-              // TODO: make the reset and atom file checks more specific
-              return id.includes('reset') || id.includes('atoms');
-            }
-
-            return true;
+            return !external;
           },
         },
         output: {
           ...outputOptions,
           hoistTransitiveImports: false,
           inlineDynamicImports: false,
+          interop: 'compat',
           manualChunks(id, { getModuleInfo }) {
-            if (
-              cssFileFilter.test(id) ||
-              getModuleInfo(id)?.importers.some((importer) =>
-                cssFileFilter.test(importer),
-              )
-            ) {
-              const [_projectRoot, rawLocalPath] = id.split('src/');
-              const localPath = rawLocalPath.replace('/', '-');
+            const srcPath = path.relative(`${config.root}/${srcDir}`, id);
 
-              return cssFileFilter.test(id)
-                ? localPath.replace(cssFileFilter, `.css.${extension}`)
-                : localPath.replace(path.extname(localPath), `.${extension}`);
+            // internal package resolved by plugins/vite/internal-package-resolution.ts
+            if (srcPath.startsWith('../')) return;
+
+            assert(
+              !srcPath.startsWith('.'),
+              `relative path ${srcPath} should not start with '.'`,
+            );
+
+            if (
+              isVanillaFile(id) ||
+              getModuleInfo(id)?.importers.some(isVanillaFile)
+            ) {
+              return replaceExtension(`${stylesDir}/${srcPath}`);
+            }
+
+            if (
+              typeof packageJson.sideEffects !== 'boolean' &&
+              moduleHasSideEffects(srcPath, packageJson.sideEffects) &&
+              !getModuleInfo(id)?.isEntry
+            ) {
+              return replaceExtension(`${sideEffectsDir}/${srcPath}`);
             }
           },
           chunkFileNames(chunkInfo) {

@@ -1,5 +1,35 @@
 # @crackle/cli
 
+## 0.10.6
+
+### Patch Changes
+
+- Updated dependencies [[`b87adf8`](https://github.com/seek-oss/crackle/commit/b87adf823ea7876139be27d30e82eb6a1b2e93f7)]:
+  - @crackle/core@0.18.2
+
+## 0.10.5
+
+### Patch Changes
+
+- [#65](https://github.com/seek-oss/crackle/pull/65) [`3f0da5c`](https://github.com/seek-oss/crackle/commit/3f0da5cecee68850a11f92bf38e978abe037e03e) Thanks [@mrm007](https://github.com/mrm007)! - Add descriptions to CLI commands
+
+- Updated dependencies [[`5ba5e57`](https://github.com/seek-oss/crackle/commit/5ba5e57694763c8a52f43b47906dbecda578a040), [`5ba5e57`](https://github.com/seek-oss/crackle/commit/5ba5e57694763c8a52f43b47906dbecda578a040)]:
+  - @crackle/core@0.18.1
+
+## 0.10.4
+
+### Patch Changes
+
+- Updated dependencies [[`ff23b47`](https://github.com/seek-oss/crackle/commit/ff23b477b7a7e96f98948e4eac6af3cf2febb5e3), [`ff23b47`](https://github.com/seek-oss/crackle/commit/ff23b477b7a7e96f98948e4eac6af3cf2febb5e3)]:
+  - @crackle/core@0.18.0
+
+## 0.10.3
+
+### Patch Changes
+
+- Updated dependencies [[`ce03d87`](https://github.com/seek-oss/crackle/commit/ce03d875cdbb082dd3895868f378a2edd5b9b991)]:
+  - @crackle/core@0.17.0
+
 ## 0.10.2
 
 ### Patch Changes
