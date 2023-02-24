@@ -12,7 +12,7 @@ jobs:
     environment: snapshot
     steps:
       - name: Checkout & Install
-        uses: seek-oss/crackle/.github/actions/init@refactor-workflows # TODO: change to master
+        uses: seek-oss/crackle/.github/actions/init
 
       - name: Publish
         uses: seek-oss/changesets-snapshot@v0

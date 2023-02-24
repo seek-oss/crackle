@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout & Install
-        uses: seek-oss/crackle/.github/actions/init@refactor-workflows # TODO: change to master
+        uses: seek-oss/crackle/.github/actions/init
 
       - name: Build
         run: pnpm build
@@ -31,7 +31,7 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout & Install
-        uses: seek-oss/crackle/.github/actions/init@refactor-workflows # TODO: change to master
+        uses: seek-oss/crackle/.github/actions/init
 
       - name: Restore Build Cache
         uses: actions/cache/restore@v3
@@ -56,7 +56,7 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout & Install
-        uses: seek-oss/crackle/.github/actions/init@refactor-workflows # TODO: change to master
+        uses: seek-oss/crackle/.github/actions/init
 
       - name: Restore Build Cache
         uses: actions/cache/restore@v3
