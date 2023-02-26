@@ -12,7 +12,7 @@ jobs:
     environment: snapshot
     steps:
       - name: Checkout & Install
-        uses: seek-oss/crackle/.github/actions/init
+        uses: seek-oss/crackle/.github/actions/init@master
 
       - name: Publish
         uses: seek-oss/changesets-snapshot@v0
