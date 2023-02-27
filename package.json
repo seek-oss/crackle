@@ -20,7 +20,8 @@
     "test:playwright": "playwright test",
     "add-fixture": "tsx ./scripts/add-fixture.ts",
     "sync-dependencies": "pnpm --recursive sync-dependencies && pnpm install",
-    "release": "pnpm build && changeset publish",
+    "prepare-publish": "pnpm build",
+    "release": "pnpm prepare-publish && changeset publish",
     "version": "changeset version && pnpm install --lockfile-only"
   },
   "dependencies": {
