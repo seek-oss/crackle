@@ -9,14 +9,15 @@ export const stripRouteData = (): Plugin => ({
       return;
     }
 
+    // TODO: merge with src/route-data.ts
     const transformedContents = await babelTransform(code, {
       plugins: [
         [
-          '@crackle/babel-plugin-remove-exports',
+          require.resolve('@crackle/babel-plugin-remove-exports'),
           { retainDefault: true, retainIdentifiers: ['React'] },
         ],
-        '@babel/plugin-syntax-jsx',
-        ['@babel/plugin-syntax-typescript', { isTSX: true }],
+        require.resolve('@babel/plugin-syntax-jsx'),
+        [require.resolve('@babel/plugin-syntax-typescript'), { isTSX: true }],
       ],
       babelrc: false,
       configFile: false,

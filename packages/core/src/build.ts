@@ -1,7 +1,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 
-import { setAdapter } from '@vanilla-extract/css/adapter';
+import { mockAdapter, setAdapter } from '@vanilla-extract/css/adapter';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import react from '@vitejs/plugin-react';
 import builtinModules from 'builtin-modules';
@@ -53,12 +53,7 @@ export const build = async (inlineConfig?: PartialConfig) => {
     ],
     logLevel: 'silent',
     ssr: {
-      external: [
-        'serialize-javascript',
-        'used-styles',
-        ...builtinModules,
-        ...ssrExternals.external,
-      ],
+      external: [...builtinModules, 'serialize-javascript', 'used-styles'],
       noExternal: ssrExternals.noExternal,
     },
   };
@@ -108,14 +103,7 @@ export const build = async (inlineConfig?: PartialConfig) => {
 
     logger.info(`✅ Successfully built ${chalk.bold('renderer')}!`);
 
-    setAdapter({
-      appendCss: () => {},
-      registerClassName: () => {},
-      onEndFileScope: () => {},
-      registerComposition: () => {},
-      markCompositionUsed: () => {},
-      getIdentOption: () => 'short',
-    });
+    setAdapter(mockAdapter);
 
     // TODO: use vite-node instead
     const { renderAllPages } = (await import(
