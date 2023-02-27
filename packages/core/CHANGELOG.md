@@ -1,5 +1,11 @@
 # @crackle/core
 
+## 0.19.0
+
+### Minor Changes
+
+- [#49](https://github.com/seek-oss/crackle/pull/49) [`7d64541`](https://github.com/seek-oss/crackle/commit/7d6454191f60059bed50fa0b898428e30cadf85e) Thanks [@mrm007](https://github.com/mrm007)! - Remove `externals` logic from dependency graph scanner
+
 ## 0.18.2
 
 ### Patch Changes
