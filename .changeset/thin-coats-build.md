@@ -2,4 +2,4 @@
 '@crackle/core': minor
 ---
 
-Remove dependency graph scanner
+Remove `externals` logic from dependency graph scanner
