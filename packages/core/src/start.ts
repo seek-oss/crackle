@@ -83,6 +83,7 @@ export const start = async (
       external: [
         ...builtinModules,
         '@crackle/router',
+        '@vanilla-extract/css/adapter',
         'serialize-javascript',
         'used-styles',
       ],
