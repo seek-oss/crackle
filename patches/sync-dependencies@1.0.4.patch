@@ -7,7 +7,7 @@ index 4e8bcce0d140d30720fe52896b5987f04253d25c..e10a320e7d55b9cd7eee0e4358c109b9
      for (var dependency in dependencies) {
          if (dependencies.hasOwnProperty(dependency)) {
 -            var version = targetJson.dependencies[dependency] || targetJson.devDependencies[dependency];
-+            var version = (targetJson.dependencies || {})[dependency] || (targetJson.devDependencies || {})[dependency];
++            var version = targetJson.dependencies?.[dependency] || targetJson.devDependencies?.[dependency];
              if (version && version !== dependencies[dependency]) {
                  console.log('Updating ' + dependency + ' from ' + dependencies[dependency] + ' to ' + version + '.');
                  dependencies[dependency] = version;

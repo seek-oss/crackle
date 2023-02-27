@@ -24,6 +24,7 @@
     "package": "crackle package"
   },
   "dependencies": {
+    "react": "^18.2.0",
     "react-keyed-flatten-children": "^1.3.0"
   },
   "devDpendencies": {}

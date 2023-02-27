@@ -15,14 +15,15 @@ const routesEntryName = 'ROUTES_ENTRY';
 const routeEntryNs = 'ROUTES_ENTRY_NAMESPACE';
 
 const transformWithBabel = async (file: string) => {
+  // TODO: merge with src/plugins/vite/strip-route-data.ts
   const transformedContents = await babelTransform(file, {
     plugins: [
       [
-        '@crackle/babel-plugin-remove-exports',
+        require.resolve('@crackle/babel-plugin-remove-exports'),
         { retainExports: ['routeData'] },
       ],
-      '@babel/plugin-syntax-jsx',
-      ['@babel/plugin-syntax-typescript', { isTSX: true }],
+      require.resolve('@babel/plugin-syntax-jsx'),
+      [require.resolve('@babel/plugin-syntax-typescript'), { isTSX: true }],
     ],
     babelrc: false,
     configFile: false,
