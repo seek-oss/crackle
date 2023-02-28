@@ -70,7 +70,8 @@
     },
     "peerDependencyRules": {
       "ignoreMissing": [
-        "jest"
+        "jest",
+        "sku"
       ]
     }
   }
