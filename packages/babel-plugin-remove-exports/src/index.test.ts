@@ -295,8 +295,8 @@ pluginTester({
   babelOptions: {
     filename: 'test-file.tsx',
     plugins: [
-      '@babel/plugin-syntax-jsx',
-      ['@babel/plugin-syntax-typescript', { isTSX: true }],
+      require.resolve('@babel/plugin-syntax-jsx'),
+      [require.resolve('@babel/plugin-syntax-typescript'), { isTSX: true }],
     ],
   },
   snapshot: true,

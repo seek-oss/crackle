@@ -53,7 +53,7 @@ export const build = async (inlineConfig?: PartialConfig) => {
     ],
     logLevel: 'silent',
     ssr: {
-      external: [...builtinModules, 'serialize-javascript', 'used-styles'],
+      external: [...builtinModules],
       noExternal: ssrExternals.noExternal,
     },
   };

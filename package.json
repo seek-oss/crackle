@@ -35,11 +35,14 @@
     "@playwright/test": "1.22.2",
     "@preconstruct/cli": "^2.2.2",
     "@preconstruct/eslint-plugin-format-js-tag": "^0.2.0",
+    "@types/fs-extra": "^9.0.13",
+    "@vitejs/plugin-react": "^3.0.0",
     "enquirer": "^2.3.6",
     "eslint": "^8.25.0",
     "eslint-config-seek": "^10.1.3",
     "fast-glob": "^3.2.12",
     "fixturez": "^1.1.0",
+    "fs-extra": "^10.1.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.8.2",
     "snapshot-diff": "^0.10.0",
@@ -47,9 +50,9 @@
     "typescript": "~4.9.4",
     "vitest": "^0.28.5"
   },
-  "packageManager": "pnpm@7.18.2",
+  "packageManager": "pnpm@7.28.0",
   "volta": {
-    "node": "18.12.1"
+    "node": "18.13.0"
   },
   "preconstruct": {
     "___experimentalFlags_WILL_CHANGE_IN_PATCH": {
@@ -70,7 +73,8 @@
     },
     "peerDependencyRules": {
       "ignoreMissing": [
-        "jest"
+        "jest",
+        "sku"
       ]
     }
   }
