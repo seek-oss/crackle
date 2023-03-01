@@ -3014,9 +3014,6 @@ packages:
     resolution: {integrity: sha512-Sq54d1f+Bww09e9Q5acFsNKjlSYMQ4GewJthdb3CVwUeGVzV10rJBChw6zufs7ndmJVCzQ4I2IcNMy2OiAlkmA==}
     peerDependencies:
       vite: ^2.2.3 || ^3.0.0
-    peerDependenciesMeta:
-      vite:
-        optional: true
     dependencies:
       '@vanilla-extract/integration': 6.0.1
       outdent: 0.8.0
@@ -3033,9 +3030,6 @@ packages:
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       vite: ^4.0.0
-    peerDependenciesMeta:
-      vite:
-        optional: true
     dependencies:
       '@babel/core': 7.20.12
       '@babel/plugin-transform-react-jsx-self': 7.18.6_@babel+core@7.20.12
@@ -3051,9 +3045,6 @@ packages:
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       vite: ^4.0.0
-    peerDependenciesMeta:
-      vite:
-        optional: true
     dependencies:
       '@babel/core': 7.20.12
       '@babel/plugin-transform-react-jsx-self': 7.18.6_@babel+core@7.20.12

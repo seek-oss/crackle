@@ -82,6 +82,7 @@ export const start = async (
     ssr: {
       external: [
         ...builtinModules,
+        // deps of ../../entries/render/dev.tsx
         '@crackle/router',
         '@vanilla-extract/css/adapter',
         'serialize-javascript',
