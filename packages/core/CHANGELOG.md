@@ -1,5 +1,11 @@
 # @crackle/core
 
+## 0.19.1
+
+### Patch Changes
+
+- [#75](https://github.com/seek-oss/crackle/pull/75) [`578a1ee`](https://github.com/seek-oss/crackle/commit/578a1ee16e3e8b5f3e120b1758418fa6d17494c1) Thanks [@mrm007](https://github.com/mrm007)! - Clean up references to treat
+
 ## 0.19.0
 
 ### Minor Changes
