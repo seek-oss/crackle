@@ -1,6 +1,11 @@
 name: Snapshot
 
-on: push
+on:
+  push:
+    branches-ignore:
+      - master
+    tags-ignore:
+      - '**'
 
 env:
   CI: true
