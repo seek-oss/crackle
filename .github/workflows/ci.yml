@@ -23,7 +23,7 @@ jobs:
         uses: actions/cache/save@v3
         with:
           path: ${{ env.dist-cache-paths }}
-          key: ${{ runner.os }}-build-${{ github.sha }}
+          key: build-${{ runner.os }}-${{ github.sha }}
 
   lint:
     name: Lint
@@ -37,7 +37,7 @@ jobs:
         uses: actions/cache/restore@v3
         with:
           path: ${{ env.dist-cache-paths }}
-          key: ${{ runner.os }}-build-${{ github.sha }}
+          key: build-${{ runner.os }}-${{ github.sha }}
 
       - name: ESLint
         run: pnpm lint:eslint
@@ -62,7 +62,7 @@ jobs:
         uses: actions/cache/restore@v3
         with:
           path: ${{ env.dist-cache-paths }}
-          key: ${{ runner.os }}-build-${{ github.sha }}
+          key: build-${{ runner.os }}-${{ github.sha }}
 
       - name: Install Browsers
         run: pnpm playwright install chromium
