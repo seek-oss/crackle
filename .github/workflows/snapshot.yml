@@ -3,6 +3,7 @@ name: Snapshot
 on:
   push:
     branches-ignore:
+      - changeset-release/master
       - master
     tags-ignore:
       - '**'
