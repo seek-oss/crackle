@@ -52,7 +52,7 @@ jobs:
 
       - name: TypeScript
         run: |
-          pnpm fixtures --aggregate-output package
+          pnpm fixtures --aggregate-output dev
           pnpm lint:tsc
 
   test:
@@ -74,5 +74,5 @@ jobs:
 
       - name: Test
         run: |
-          pnpm fixtures --aggregate-output package
+          pnpm fixtures --aggregate-output dev
           pnpm test
