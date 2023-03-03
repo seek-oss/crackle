@@ -12,7 +12,7 @@ import type { EnhancedConfig } from '../config';
 import { sideEffectsDir, srcDir, stylesDir } from '../constants';
 import { addVanillaDebugIds, externals } from '../plugins/rollup';
 import type { Format, PackageEntryPoint, PackageJson } from '../types';
-import { extensionForFormat } from '../utils/files';
+import { extensionForFormat, toRollupFormat } from '../utils/files';
 import { moduleHasSideEffects } from '../utils/side-effects';
 import { commonOutputOptions, commonViteConfig } from '../vite-config';
 
@@ -34,6 +34,7 @@ export const createBundle = async (
       ...commonOutputOptions(config, entries, format),
       inlineDynamicImports: false,
       interop: 'compat',
+      format: toRollupFormat(format),
       manualChunks(id, { getModuleInfo }) {
         const srcPath = replaceExtension(
           path.relative(`${config.root}/${srcDir}`, id),
