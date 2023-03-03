@@ -14,91 +14,77 @@ import { addVanillaDebugIds, externals } from '../plugins/rollup';
 import type { Format, PackageEntryPoint, PackageJson } from '../types';
 import { extensionForFormat } from '../utils/files';
 import { moduleHasSideEffects } from '../utils/side-effects';
-import { commonViteConfig } from '../vite-config';
+import { commonOutputOptions, commonViteConfig } from '../vite-config';
 
 const isVanillaFile = (id: string) => vanillaCssFileFilter.test(id);
 
 export const createBundle = async (
   config: EnhancedConfig,
   entries: PackageEntryPoint[],
-  outputOptions: OutputOptions,
 ) => {
-  const format = outputOptions.format as Format;
-  const extension = extensionForFormat(format);
-
-  const defaultEntry = entries.find(({ isDefaultEntry }) => isDefaultEntry);
-  assert(defaultEntry, 'Could not find default entry');
-
-  const outputDir = path.relative(config.root, defaultEntry.outputDir);
   const packagePath = path.join(config.root, 'package.json');
   const packageJson: PackageJson = await fse.readJson(packagePath, { fs });
 
-  const replaceExtension = (srcPath: string) =>
-    srcPath.replace(path.extname(srcPath), `.${extension}`);
+  const createOutputOptionsForFormat = (format: Format) => {
+    const extension = extensionForFormat(format);
+    const replaceExtension = (srcPath: string) =>
+      srcPath.replace(path.extname(srcPath), `.${extension}`);
+
+    return {
+      ...commonOutputOptions(config, entries, format),
+      inlineDynamicImports: false,
+      interop: 'compat',
+      manualChunks(id, { getModuleInfo }) {
+        const srcPath = replaceExtension(
+          path.relative(`${config.root}/${srcDir}`, id),
+        );
+
+        // internal package resolved by plugins/vite/internal-package-resolution.ts
+        if (srcPath.startsWith('../')) return;
+
+        assert(
+          !srcPath.startsWith('.'),
+          `relative path ${srcPath} should not start with '.'`,
+        );
+
+        if (
+          isVanillaFile(id) ||
+          getModuleInfo(id)?.importers.some(isVanillaFile)
+        ) {
+          return `${stylesDir}/${srcPath}`;
+        }
+
+        if (
+          typeof packageJson.sideEffects !== 'boolean' &&
+          moduleHasSideEffects(srcPath, packageJson.sideEffects) &&
+          !getModuleInfo(id)?.isEntry
+        ) {
+          return `${sideEffectsDir}/${srcPath}`;
+        }
+      },
+    } satisfies OutputOptions;
+  };
 
   await viteBuild({
     ...commonViteConfig,
-    plugins: [addVanillaDebugIds(config), externals(config, format), react()],
+    plugins: [addVanillaDebugIds(config), externals(config, 'esm'), react()],
     logLevel: 'warn',
     build: {
       // output directory is the package root, so we don't want to remove it
       emptyOutDir: false,
       minify: false,
       lib: {
-        // doesn't matter what the value is because it's overridden by rollupOptions.input
-        entry: '',
-        formats: [format === 'cjs' ? 'cjs' : 'es'],
+        entry: entries.map(({ entryPath }) => entryPath),
+        // "build.lib.formats" will be ignored because "build.rollupOptions.output" is already an array format.
       },
       outDir: config.root,
       rollupOptions: {
-        input: entries.map(({ entryPath }) => entryPath),
         treeshake: {
-          moduleSideEffects(id, external) {
-            if (moduleHasSideEffects(id, packageJson.sideEffects)) {
-              return true;
-            }
-            return !external;
-          },
+          moduleSideEffects: 'no-external',
         },
-        output: {
-          ...outputOptions,
-          hoistTransitiveImports: false,
-          inlineDynamicImports: false,
-          interop: 'compat',
-          manualChunks(id, { getModuleInfo }) {
-            const srcPath = path.relative(`${config.root}/${srcDir}`, id);
-
-            // internal package resolved by plugins/vite/internal-package-resolution.ts
-            if (srcPath.startsWith('../')) return;
-
-            assert(
-              !srcPath.startsWith('.'),
-              `relative path ${srcPath} should not start with '.'`,
-            );
-
-            if (
-              isVanillaFile(id) ||
-              getModuleInfo(id)?.importers.some(isVanillaFile)
-            ) {
-              return replaceExtension(`${stylesDir}/${srcPath}`);
-            }
-
-            if (
-              typeof packageJson.sideEffects !== 'boolean' &&
-              moduleHasSideEffects(srcPath, packageJson.sideEffects) &&
-              !getModuleInfo(id)?.isEntry
-            ) {
-              return replaceExtension(`${sideEffectsDir}/${srcPath}`);
-            }
-          },
-          chunkFileNames(chunkInfo) {
-            const chunkPath = `${outputDir}/${chunkInfo.name}`;
-
-            return chunkPath.endsWith(extension)
-              ? chunkPath
-              : `${chunkPath}.chunk.${extension}`;
-          },
-        },
+        output: (['cjs', 'esm'] as const).map((format) =>
+          createOutputOptionsForFormat(format),
+        ),
       },
     },
   });

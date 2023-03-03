@@ -1,4 +1,3 @@
-import assert from 'assert';
 import fs from 'fs/promises';
 import path from 'path';
 
@@ -12,7 +11,7 @@ import { createBundle } from './package/bundle';
 import { createDtsBundle } from './package/dts';
 import { renderPackageJsonValidationError } from './reporters/package';
 import { renderBuildError } from './reporters/shared';
-import type { Format, PackageJson } from './types';
+import type { PackageJson } from './types';
 import {
   cleanPackageEntryPoints,
   createEntryPackageJsons,
@@ -60,32 +59,15 @@ const build = async (config: EnhancedConfig, packageName: string) => {
 
   const withLogging = async (
     bundle: typeof createBundle | typeof createDtsBundle,
-    format: Format,
+    label: string,
   ) => {
-    logger.info(`⚙️  Creating ${chalk.bold(format)} bundle...`);
-
-    const toRollupFormat = { esm: 'esm', cjs: 'cjs', dts: 'esm' } as const;
-
-    await bundle(config, entries, {
-      dir: config.root,
-      exports: 'auto',
-      format: toRollupFormat[format],
-      entryFileNames(chunkInfo) {
-        const entry = entries.find(
-          ({ entryPath }) => chunkInfo.facadeModuleId === entryPath,
-        );
-        assert(entry, `entry not found for ${chunkInfo.facadeModuleId}`);
-
-        return entry.getOutputPath(format, { from: config.root });
-      },
-    });
-
-    logger.info(`⚙️  Finished creating ${chalk.bold(format)} bundle`);
+    logger.info(`⚙️  Creating ${chalk.bold(label)} bundle...`);
+    await bundle(config, entries);
+    logger.info(`⚙️  Finished creating ${chalk.bold(label)} bundle`);
   };
 
   await Promise.all([
-    withLogging(createBundle, 'cjs'),
-    withLogging(createBundle, 'esm'),
+    withLogging(createBundle, 'esm/cjs'),
     withLogging(createDtsBundle, 'dts'),
   ]);
 
