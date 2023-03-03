@@ -1,0 +1,662 @@
+// Vitest Snapshot v1
+
+exports[`package > fixture esm-patch-imports > dist/index.cjs 1`] = `
+"use strict";
+Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+const subpath = require("@crackle-fixtures/dep-with-exports/subpath");
+const index_js = require("@crackle-fixtures/dep-with-exports-always-patch/index.js");
+const index_js$1 = require("autosuggest-highlight/parse/index.js");
+const jsxRuntime_js = require("react/jsx-runtime.js");
+const ReactDOM = require("react-dom/server.node.js");
+const _interopDefaultCompat = (e) => e && typeof e === "object" && "default" in e ? e : { default: e };
+const subpath__default = /* @__PURE__ */ _interopDefaultCompat(subpath);
+const index_js__default = /* @__PURE__ */ _interopDefaultCompat(index_js);
+const index_js__default$1 = /* @__PURE__ */ _interopDefaultCompat(index_js$1);
+const ReactDOM__default = /* @__PURE__ */ _interopDefaultCompat(ReactDOM);
+const App = () => /* @__PURE__ */ jsxRuntime_js.jsx("div", { children: "App" });
+const render = () => ReactDOM__default.default.renderToStaticMarkup(/* @__PURE__ */ jsxRuntime_js.jsx(App, {}));
+Object.defineProperty(exports, "scopedSubpath", {
+  enumerable: true,
+  get: () => subpath__default.default
+});
+Object.defineProperty(exports, "scopedPatchedSubpath", {
+  enumerable: true,
+  get: () => index_js__default.default
+});
+Object.defineProperty(exports, "cjsDirIndex", {
+  enumerable: true,
+  get: () => index_js__default$1.default
+});
+exports.App = App;
+exports.render = render;
+`;
+
+exports[`package > fixture esm-patch-imports > dist/index.d.ts 1`] = `
+export { default as scopedSubpath } from '@crackle-fixtures/dep-with-exports/subpath';
+export { default as scopedPatchedSubpath } from '@crackle-fixtures/dep-with-exports-always-patch/index.js';
+export { default as cjsDirIndex } from 'autosuggest-highlight/parse/index.js';
+import React from 'react';
+
+declare const App: React.FC;
+declare const render: () => string;
+
+export { App, render };
+`;
+
+exports[`package > fixture esm-patch-imports > dist/index.mjs 1`] = `
+import { default as default2 } from "@crackle-fixtures/dep-with-exports/subpath";
+import { default as default3 } from "@crackle-fixtures/dep-with-exports-always-patch/index.js";
+import { default as default4 } from "autosuggest-highlight/parse/index.js";
+import { jsx } from "react/jsx-runtime.js";
+import ReactDOM from "react-dom/server.node.js";
+const App = () => /* @__PURE__ */ jsx("div", { children: "App" });
+const render = () => ReactDOM.renderToStaticMarkup(/* @__PURE__ */ jsx(App, {}));
+export {
+  App,
+  default4 as cjsDirIndex,
+  render,
+  default3 as scopedPatchedSubpath,
+  default2 as scopedSubpath
+};
+`;
+
+exports[`package > fixture library-with-docs > dist/index.cjs 1`] = `
+"use strict";
+Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+const sideEffects_components_JobSummary_JobSummary_cjs = require("./side-effects/components/JobSummary/JobSummary.cjs");
+exports.JobSummary = sideEffects_components_JobSummary_JobSummary_cjs.JobSummary;
+`;
+
+exports[`package > fixture library-with-docs > dist/index.d.ts 1`] = `
+interface JobSummaryProps {
+    title: string;
+    isNew: boolean;
+}
+declare const JobSummary: ({ title, isNew }: JobSummaryProps) => JSX.Element;
+
+export { JobSummary };
+`;
+
+exports[`package > fixture library-with-docs > dist/index.mjs 1`] = `
+import { JobSummary } from "./side-effects/components/JobSummary/JobSummary.mjs";
+export {
+  JobSummary
+};
+`;
+
+exports[`package > fixture library-with-docs > dist/side-effects/components/JobSummary/JobSummary.cjs 1`] = `
+"use strict";
+const jsxRuntime = require("react/jsx-runtime");
+const braidDesignSystem = require("braid-design-system");
+const values = require("lodash/values.js");
+const styles_components_JobSummary_styles_css_cjs = require("../../../styles/components/JobSummary/styles.css.cjs");
+const _interopDefaultCompat = (e) => e && typeof e === "object" && "default" in e ? e : { default: e };
+const values__default = /* @__PURE__ */ _interopDefaultCompat(values);
+const JobSummary = ({ title, isNew }) => /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Card, { children: /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Box, { className: styles_components_JobSummary_styles_css_cjs.redBorder, id: "CUSTOM_STYLED_BOX_COMPONENT", children: /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Stack, { space: "gutter", children: [
+  /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Columns, { space: "gutter", children: [
+    /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Column, { children: /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Stack, { space: "small", children: [
+      isNew && /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Badge, { tone: "positive", children: "New" }),
+      /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Heading, { level: "3", children: title }),
+      /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Inline, { space: "small", children: [
+        /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Text, { tone: "secondary", children: "Braid Design Pty Ltd" }),
+        /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Rating, { rating: 4.5 })
+      ] })
+    ] }) }),
+    /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Column, { width: "content", children: /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.IconBookmark, {}) })
+  ] }),
+  /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Stack, { space: "small", children: [
+    /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Text, { size: "small", tone: "secondary", children: [
+      /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.IconLocation, {}),
+      " Melbourne"
+    ] }),
+    /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Text, { size: "small", tone: "secondary", children: [
+      /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.IconTag, {}),
+      " Information Technology"
+    ] }),
+    /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Text, { size: "small", tone: "secondary", children: [
+      /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.IconMoney, {}),
+      " 150k+"
+    ] })
+  ] }),
+  /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Text, { children: "Long description of card details providing more information." }),
+  /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Text, { size: "xsmall", tone: "secondary", children: values__default.default({ value: "2d", suffix: "ago" }).join(" ") })
+] }) }) });
+exports.JobSummary = JobSummary;
+`;
+
+exports[`package > fixture library-with-docs > dist/side-effects/components/JobSummary/JobSummary.mjs 1`] = `
+import { jsx, jsxs } from "react/jsx-runtime";
+import { Card, Box, Stack, Columns, Column, Badge, Heading, Inline, Text, Rating, IconBookmark, IconLocation, IconTag, IconMoney } from "braid-design-system";
+import values from "lodash/values.js";
+import { redBorder } from "../../../styles/components/JobSummary/styles.css.mjs";
+const JobSummary = ({ title, isNew }) => /* @__PURE__ */ jsx(Card, { children: /* @__PURE__ */ jsx(Box, { className: redBorder, id: "CUSTOM_STYLED_BOX_COMPONENT", children: /* @__PURE__ */ jsxs(Stack, { space: "gutter", children: [
+  /* @__PURE__ */ jsxs(Columns, { space: "gutter", children: [
+    /* @__PURE__ */ jsx(Column, { children: /* @__PURE__ */ jsxs(Stack, { space: "small", children: [
+      isNew && /* @__PURE__ */ jsx(Badge, { tone: "positive", children: "New" }),
+      /* @__PURE__ */ jsx(Heading, { level: "3", children: title }),
+      /* @__PURE__ */ jsxs(Inline, { space: "small", children: [
+        /* @__PURE__ */ jsx(Text, { tone: "secondary", children: "Braid Design Pty Ltd" }),
+        /* @__PURE__ */ jsx(Rating, { rating: 4.5 })
+      ] })
+    ] }) }),
+    /* @__PURE__ */ jsx(Column, { width: "content", children: /* @__PURE__ */ jsx(IconBookmark, {}) })
+  ] }),
+  /* @__PURE__ */ jsxs(Stack, { space: "small", children: [
+    /* @__PURE__ */ jsxs(Text, { size: "small", tone: "secondary", children: [
+      /* @__PURE__ */ jsx(IconLocation, {}),
+      " Melbourne"
+    ] }),
+    /* @__PURE__ */ jsxs(Text, { size: "small", tone: "secondary", children: [
+      /* @__PURE__ */ jsx(IconTag, {}),
+      " Information Technology"
+    ] }),
+    /* @__PURE__ */ jsxs(Text, { size: "small", tone: "secondary", children: [
+      /* @__PURE__ */ jsx(IconMoney, {}),
+      " 150k+"
+    ] })
+  ] }),
+  /* @__PURE__ */ jsx(Text, { children: "Long description of card details providing more information." }),
+  /* @__PURE__ */ jsx(Text, { size: "xsmall", tone: "secondary", children: values({ value: "2d", suffix: "ago" }).join(" ") })
+] }) }) });
+export {
+  JobSummary
+};
+`;
+
+exports[`package > fixture library-with-docs > dist/styles/components/JobSummary/styles.css.cjs 1`] = `
+"use strict";
+const fileScope = require("@vanilla-extract/css/fileScope");
+const css = require("@vanilla-extract/css");
+fileScope.setFileScope("src/components/JobSummary/styles.css.ts?used", "library-with-docs");
+const redBorder = css.style({
+  border: "5px solid red"
+}, "redBorder");
+fileScope.endFileScope();
+exports.redBorder = redBorder;
+`;
+
+exports[`package > fixture library-with-docs > dist/styles/components/JobSummary/styles.css.mjs 1`] = `
+import { setFileScope, endFileScope } from "@vanilla-extract/css/fileScope";
+import { style } from "@vanilla-extract/css";
+setFileScope("src/components/JobSummary/styles.css.ts?used", "library-with-docs");
+const redBorder = style({
+  border: "5px solid red"
+}, "redBorder");
+endFileScope();
+export {
+  redBorder
+};
+`;
+
+exports[`package > fixture multi-entry-library > dist/apac.chunk.d.ts 1`] = `
+interface JobSummaryProps {
+    title: string;
+    isNew: boolean;
+}
+declare const JobSummary: ({ title, isNew }: JobSummaryProps) => JSX.Element;
+
+declare const add: (a: number, b: number) => number;
+
+interface Config$1 {
+    /**
+     * Automatically clean output directory when running \`package\`.
+     *
+     * @default true
+     */
+    clean: boolean;
+    /**
+     * Automatically run \`fix\` if necessary.
+     *
+     * @default false
+     */
+    fix: boolean;
+    /**
+     * Port for the server used in \`start\` and \`serve\`
+     *
+     * @default 5000
+     */
+    port: number;
+    /**
+     * The path that static assets will be served from in production
+     *
+     * @default  '/'
+     */
+    publicPath: string;
+    /**
+     * The root of the application that all paths are resolved relative to
+     *
+     * @default process.cwd
+     */
+    root: string;
+    /**
+     * Directories that crackle should search to find .page.tsx files
+     *
+     * @default ['src']
+     */
+    pageRoots: string[];
+    /**
+     * Path to the App shell component
+     *
+     * @default 'src/App.tsx'
+     */
+    appShell: \`\${string}.tsx\`;
+    /**
+     * Override TypeScript \`compilerOptions\` for when generating \`.d.ts\` files.
+     *
+     * @default '{ incremental: false, noEmitOnError: false }'
+     */
+    dtsOptions: Record<string, unknown>;
+    /**
+     * Peer dependencies that require ESM reconciliation.
+     *
+     * Specify the package and corresponding version range for which ESM compatibility is required.
+     *
+     * @see https://github.com/seek-oss/crackle/blob/master/docs/esm-reconciliation.md#reconciling-peer-dependencies
+     * @default '{}'
+     */
+    reconcileDependencies: Record<string, string>;
+}
+type PartialConfig = Partial<Config$1>;
+
+interface ResolveConfigOptions {
+    cwd?: string;
+    onUpdate?: (config: PartialConfig) => void;
+}
+declare const resolveConfig: ({ cwd, onUpdate, }?: ResolveConfigOptions) => Promise<PartialConfig>;
+
+type MathsFn = (a: number, b: number) => number;
+
+type Config = Awaited<ReturnType<typeof resolveConfig>>;
+
+declare const logger: () => void;
+declare const calcAndLog: (a: number, b: number, fn: MathsFn) => void;
+
+declare const theme = "I am theme";
+
+export { Config, JobSummary, add, calcAndLog, logger, theme };
+`;
+
+exports[`package > fixture multi-entry-library > dist/components.cjs 1`] = `
+"use strict";
+Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+const sideEffects_components_JobSummary_cjs = require("./side-effects/components/JobSummary.cjs");
+exports.JobSummary = sideEffects_components_JobSummary_cjs.JobSummary;
+`;
+
+exports[`package > fixture multi-entry-library > dist/components.d.ts 1`] = `export { JobSummary } from './apac.chunk.js';`;
+
+exports[`package > fixture multi-entry-library > dist/components.mjs 1`] = `
+import { JobSummary } from "./side-effects/components/JobSummary.mjs";
+export {
+  JobSummary
+};
+`;
+
+exports[`package > fixture multi-entry-library > dist/extras.cjs 1`] = `
+"use strict";
+Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+const sideEffects_extras_index_cjs = require("./side-effects/extras/index.cjs");
+exports.calcAndLog = sideEffects_extras_index_cjs.calcAndLog;
+exports.logger = sideEffects_extras_index_cjs.logger;
+`;
+
+exports[`package > fixture multi-entry-library > dist/extras.d.ts 1`] = `export { Config, calcAndLog, logger } from './apac.chunk.js';`;
+
+exports[`package > fixture multi-entry-library > dist/extras.mjs 1`] = `
+import { calcAndLog, logger } from "./side-effects/extras/index.mjs";
+export {
+  calcAndLog,
+  logger
+};
+`;
+
+exports[`package > fixture multi-entry-library > dist/index.cjs 1`] = `
+"use strict";
+Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+const sideEffects_components_JobSummary_cjs = require("./side-effects/components/JobSummary.cjs");
+const add = (a, b) => a + b;
+exports.JobSummary = sideEffects_components_JobSummary_cjs.JobSummary;
+exports.add = add;
+`;
+
+exports[`package > fixture multi-entry-library > dist/index.d.ts 1`] = `export { JobSummary, add } from './apac.chunk.js';`;
+
+exports[`package > fixture multi-entry-library > dist/index.mjs 1`] = `
+import { JobSummary } from "./side-effects/components/JobSummary.mjs";
+const add = (a, b) => a + b;
+export {
+  JobSummary,
+  add
+};
+`;
+
+exports[`package > fixture multi-entry-library > dist/side-effects/common/commonLogger.cjs 1`] = `
+"use strict";
+const logger = {
+  info: (msg) => console.info(msg),
+  warn: (msg) => console.warn(msg),
+  error: (msg) => console.error(msg),
+  errorWithExitCode: (msg) => {
+    console.error(msg);
+    process.exitCode = 1;
+  }
+};
+const logThePhrase = (input) => logger.info(\`Logged: \${input}\`);
+exports.logThePhrase = logThePhrase;
+`;
+
+exports[`package > fixture multi-entry-library > dist/side-effects/common/commonLogger.mjs 1`] = `
+const logger = {
+  info: (msg) => console.info(msg),
+  warn: (msg) => console.warn(msg),
+  error: (msg) => console.error(msg),
+  errorWithExitCode: (msg) => {
+    console.error(msg);
+    process.exitCode = 1;
+  }
+};
+const logThePhrase = (input) => logger.info(\`Logged: \${input}\`);
+export {
+  logThePhrase
+};
+`;
+
+exports[`package > fixture multi-entry-library > dist/side-effects/components/JobSummary.cjs 1`] = `
+"use strict";
+const jsxRuntime = require("react/jsx-runtime");
+const braidDesignSystem = require("braid-design-system");
+const JobSummary = ({ title, isNew }) => /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Card, { children: /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Stack, { space: "gutter", children: [
+  /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Columns, { space: "gutter", children: [
+    /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Column, { children: /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Stack, { space: "small", children: [
+      isNew && /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Badge, { tone: "positive", children: "New" }),
+      /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Heading, { level: "3", children: title }),
+      /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Inline, { space: "small", children: [
+        /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Text, { tone: "secondary", children: "Braid Design Pty Ltd" }),
+        /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Rating, { rating: 4.5 })
+      ] })
+    ] }) }),
+    /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Column, { width: "content", children: /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.IconBookmark, {}) })
+  ] }),
+  /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Stack, { space: "small", children: [
+    /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Text, { size: "small", tone: "secondary", children: [
+      /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.IconLocation, {}),
+      " Melbourne"
+    ] }),
+    /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Text, { size: "small", tone: "secondary", children: [
+      /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.IconTag, {}),
+      " Information Technology"
+    ] }),
+    /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Text, { size: "small", tone: "secondary", children: [
+      /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.IconMoney, {}),
+      " 150k+"
+    ] })
+  ] }),
+  /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Text, { children: "Long description of card details providing more information." }),
+  /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Text, { size: "xsmall", tone: "secondary", children: "2d ago" })
+] }) });
+exports.JobSummary = JobSummary;
+`;
+
+exports[`package > fixture multi-entry-library > dist/side-effects/components/JobSummary.mjs 1`] = `
+import { jsx, jsxs } from "react/jsx-runtime";
+import { Card, Stack, Columns, Column, Badge, Heading, Inline, Text, Rating, IconBookmark, IconLocation, IconTag, IconMoney } from "braid-design-system";
+const JobSummary = ({ title, isNew }) => /* @__PURE__ */ jsx(Card, { children: /* @__PURE__ */ jsxs(Stack, { space: "gutter", children: [
+  /* @__PURE__ */ jsxs(Columns, { space: "gutter", children: [
+    /* @__PURE__ */ jsx(Column, { children: /* @__PURE__ */ jsxs(Stack, { space: "small", children: [
+      isNew && /* @__PURE__ */ jsx(Badge, { tone: "positive", children: "New" }),
+      /* @__PURE__ */ jsx(Heading, { level: "3", children: title }),
+      /* @__PURE__ */ jsxs(Inline, { space: "small", children: [
+        /* @__PURE__ */ jsx(Text, { tone: "secondary", children: "Braid Design Pty Ltd" }),
+        /* @__PURE__ */ jsx(Rating, { rating: 4.5 })
+      ] })
+    ] }) }),
+    /* @__PURE__ */ jsx(Column, { width: "content", children: /* @__PURE__ */ jsx(IconBookmark, {}) })
+  ] }),
+  /* @__PURE__ */ jsxs(Stack, { space: "small", children: [
+    /* @__PURE__ */ jsxs(Text, { size: "small", tone: "secondary", children: [
+      /* @__PURE__ */ jsx(IconLocation, {}),
+      " Melbourne"
+    ] }),
+    /* @__PURE__ */ jsxs(Text, { size: "small", tone: "secondary", children: [
+      /* @__PURE__ */ jsx(IconTag, {}),
+      " Information Technology"
+    ] }),
+    /* @__PURE__ */ jsxs(Text, { size: "small", tone: "secondary", children: [
+      /* @__PURE__ */ jsx(IconMoney, {}),
+      " 150k+"
+    ] })
+  ] }),
+  /* @__PURE__ */ jsx(Text, { children: "Long description of card details providing more information." }),
+  /* @__PURE__ */ jsx(Text, { size: "xsmall", tone: "secondary", children: "2d ago" })
+] }) });
+export {
+  JobSummary
+};
+`;
+
+exports[`package > fixture multi-entry-library > dist/side-effects/components/index.cjs 1`] = `"use strict";`;
+
+exports[`package > fixture multi-entry-library > dist/side-effects/components/index.mjs 1`] = ``;
+
+exports[`package > fixture multi-entry-library > dist/side-effects/extras/index.cjs 1`] = `
+"use strict";
+const sideEffects_common_commonLogger_cjs = require("../common/commonLogger.cjs");
+const logger = () => sideEffects_common_commonLogger_cjs.logThePhrase("This is a logger");
+const calcAndLog = (a, b, fn) => {
+  sideEffects_common_commonLogger_cjs.logThePhrase(fn(a, b).toString());
+};
+exports.calcAndLog = calcAndLog;
+exports.logger = logger;
+`;
+
+exports[`package > fixture multi-entry-library > dist/side-effects/extras/index.mjs 1`] = `
+import { logThePhrase } from "../common/commonLogger.mjs";
+const logger = () => logThePhrase("This is a logger");
+const calcAndLog = (a, b, fn) => {
+  logThePhrase(fn(a, b).toString());
+};
+export {
+  calcAndLog,
+  logger
+};
+`;
+
+exports[`package > fixture multi-entry-library > dist/themes/apac.cjs 1`] = `
+"use strict";
+Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+const theme = "I am theme";
+exports.theme = theme;
+`;
+
+exports[`package > fixture multi-entry-library > dist/themes/apac.d.ts 1`] = `export { theme } from '../apac.chunk.js';`;
+
+exports[`package > fixture multi-entry-library > dist/themes/apac.mjs 1`] = `
+const theme = "I am theme";
+export {
+  theme
+};
+`;
+
+exports[`package > fixture single-entry-library > dist/index.cjs 1`] = `
+"use strict";
+Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+const sideEffects_components_JobSummary_cjs = require("./side-effects/components/JobSummary.cjs");
+const components = require("@crackle-fixtures/multi-entry-library/components");
+exports.JobSummary = sideEffects_components_JobSummary_cjs.JobSummary;
+Object.defineProperty(exports, "MultiJobSummary", {
+  enumerable: true,
+  get: () => components.JobSummary
+});
+`;
+
+exports[`package > fixture single-entry-library > dist/index.d.ts 1`] = `
+export { JobSummary as MultiJobSummary } from '@crackle-fixtures/multi-entry-library/components';
+
+interface JobSummaryProps {
+    title: string;
+    isNew: boolean;
+}
+declare const JobSummary: ({ title, isNew }: JobSummaryProps) => JSX.Element;
+
+export { JobSummary };
+`;
+
+exports[`package > fixture single-entry-library > dist/index.mjs 1`] = `
+import { JobSummary } from "./side-effects/components/JobSummary.mjs";
+import { JobSummary as JobSummary2 } from "@crackle-fixtures/multi-entry-library/components";
+export {
+  JobSummary,
+  JobSummary2 as MultiJobSummary
+};
+`;
+
+exports[`package > fixture single-entry-library > dist/side-effects/components/JobSummary.cjs 1`] = `
+"use strict";
+const jsxRuntime = require("react/jsx-runtime");
+const braidDesignSystem = require("braid-design-system");
+const styles_components_addFn_cjs = require("../../styles/components/add-fn.cjs");
+const styles_components_styles_css_cjs = require("../../styles/components/styles.css.cjs");
+const JobSummary = ({ title, isNew }) => /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Card, { children: /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Box, { className: styles_components_styles_css_cjs.redBorder, id: "CUSTOM_STYLED_BOX_COMPONENT", children: /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Stack, { space: "gutter", children: [
+  /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Columns, { space: "gutter", children: [
+    /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Column, { children: /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Stack, { space: "small", children: [
+      isNew && /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Badge, { tone: "positive", children: "New" }),
+      /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Heading, { level: "3", children: title }),
+      /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Inline, { space: "small", children: [
+        /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Text, { tone: "secondary", children: "Braid Design Pty Ltd" }),
+        /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Rating, { rating: styles_components_addFn_cjs.add(2, 1) })
+      ] })
+    ] }) }),
+    /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Column, { width: "content", children: /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.IconBookmark, {}) })
+  ] }),
+  /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Stack, { space: "small", children: [
+    /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Text, { size: "small", tone: "secondary", children: [
+      /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.IconLocation, {}),
+      " Melbourne"
+    ] }),
+    /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Text, { size: "small", tone: "secondary", children: [
+      /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.IconTag, {}),
+      " Information Technology"
+    ] }),
+    /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Text, { size: "small", tone: "secondary", children: [
+      /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.IconMoney, {}),
+      " 150k+"
+    ] })
+  ] }),
+  /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Text, { children: "Long description of card details providing more information." }),
+  /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Text, { size: "xsmall", tone: "secondary", children: "2d ago" })
+] }) }) });
+exports.JobSummary = JobSummary;
+`;
+
+exports[`package > fixture single-entry-library > dist/side-effects/components/JobSummary.mjs 1`] = `
+import { jsx, jsxs } from "react/jsx-runtime";
+import { Card, Box, Stack, Columns, Column, Badge, Heading, Inline, Text, Rating, IconBookmark, IconLocation, IconTag, IconMoney } from "braid-design-system";
+import { add } from "../../styles/components/add-fn.mjs";
+import { redBorder } from "../../styles/components/styles.css.mjs";
+const JobSummary = ({ title, isNew }) => /* @__PURE__ */ jsx(Card, { children: /* @__PURE__ */ jsx(Box, { className: redBorder, id: "CUSTOM_STYLED_BOX_COMPONENT", children: /* @__PURE__ */ jsxs(Stack, { space: "gutter", children: [
+  /* @__PURE__ */ jsxs(Columns, { space: "gutter", children: [
+    /* @__PURE__ */ jsx(Column, { children: /* @__PURE__ */ jsxs(Stack, { space: "small", children: [
+      isNew && /* @__PURE__ */ jsx(Badge, { tone: "positive", children: "New" }),
+      /* @__PURE__ */ jsx(Heading, { level: "3", children: title }),
+      /* @__PURE__ */ jsxs(Inline, { space: "small", children: [
+        /* @__PURE__ */ jsx(Text, { tone: "secondary", children: "Braid Design Pty Ltd" }),
+        /* @__PURE__ */ jsx(Rating, { rating: add(2, 1) })
+      ] })
+    ] }) }),
+    /* @__PURE__ */ jsx(Column, { width: "content", children: /* @__PURE__ */ jsx(IconBookmark, {}) })
+  ] }),
+  /* @__PURE__ */ jsxs(Stack, { space: "small", children: [
+    /* @__PURE__ */ jsxs(Text, { size: "small", tone: "secondary", children: [
+      /* @__PURE__ */ jsx(IconLocation, {}),
+      " Melbourne"
+    ] }),
+    /* @__PURE__ */ jsxs(Text, { size: "small", tone: "secondary", children: [
+      /* @__PURE__ */ jsx(IconTag, {}),
+      " Information Technology"
+    ] }),
+    /* @__PURE__ */ jsxs(Text, { size: "small", tone: "secondary", children: [
+      /* @__PURE__ */ jsx(IconMoney, {}),
+      " 150k+"
+    ] })
+  ] }),
+  /* @__PURE__ */ jsx(Text, { children: "Long description of card details providing more information." }),
+  /* @__PURE__ */ jsx(Text, { size: "xsmall", tone: "secondary", children: "2d ago" })
+] }) }) });
+export {
+  JobSummary
+};
+`;
+
+exports[`package > fixture single-entry-library > dist/styles/components/add-fn.cjs 1`] = `
+"use strict";
+const add = (a, b) => a - b;
+exports.add = add;
+`;
+
+exports[`package > fixture single-entry-library > dist/styles/components/add-fn.mjs 1`] = `
+const add = (a, b) => a - b;
+export {
+  add
+};
+`;
+
+exports[`package > fixture single-entry-library > dist/styles/components/styles.css.cjs 1`] = `
+"use strict";
+const fileScope = require("@vanilla-extract/css/fileScope");
+const css = require("@vanilla-extract/css");
+const styles_components_addFn_cjs = require("./add-fn.cjs");
+fileScope.setFileScope("src/components/styles.css.ts?used", "single-entry-library");
+const redBorder = css.style({
+  border: "5px solid papayawhip",
+  margin: styles_components_addFn_cjs.add(10, 5)
+}, "redBorder");
+fileScope.endFileScope();
+exports.redBorder = redBorder;
+`;
+
+exports[`package > fixture single-entry-library > dist/styles/components/styles.css.mjs 1`] = `
+import { setFileScope, endFileScope } from "@vanilla-extract/css/fileScope";
+import { style } from "@vanilla-extract/css";
+import { add } from "./add-fn.mjs";
+setFileScope("src/components/styles.css.ts?used", "single-entry-library");
+const redBorder = style({
+  border: "5px solid papayawhip",
+  margin: add(10, 5)
+}, "redBorder");
+endFileScope();
+export {
+  redBorder
+};
+`;
+
+exports[`package > fixture with-dep-hidden-package-json > dist/index.cjs 1`] = `
+"use strict";
+const hiddenPackageJson = require("@crackle-fixtures/hidden-package-json");
+const _interopDefaultCompat = (e) => e && typeof e === "object" && "default" in e ? e : { default: e };
+const hiddenPackageJson__default = /* @__PURE__ */ _interopDefaultCompat(hiddenPackageJson);
+module.exports = hiddenPackageJson__default.default;
+`;
+
+exports[`package > fixture with-dep-hidden-package-json > dist/index.d.ts 1`] = `export { default } from '@crackle-fixtures/hidden-package-json';`;
+
+exports[`package > fixture with-dep-hidden-package-json > dist/index.mjs 1`] = `
+import { default as default2 } from "@crackle-fixtures/hidden-package-json";
+export {
+  default2 as default
+};
+`;
+
+exports[`package > fixture with-flatten-children > dist/index.cjs 1`] = `
+"use strict";
+const flattenChildren = require("react-keyed-flatten-children");
+const _interopDefaultCompat = (e) => e && typeof e === "object" && "default" in e ? e : { default: e };
+const flattenChildren__default = /* @__PURE__ */ _interopDefaultCompat(flattenChildren);
+flattenChildren__default.default([]);
+`;
+
+exports[`package > fixture with-flatten-children > dist/index.d.ts 1`] = `export { }`;
+
+exports[`package > fixture with-flatten-children > dist/index.mjs 1`] = `
+import flattenChildren from "react-keyed-flatten-children";
+flattenChildren([]);
+`;
