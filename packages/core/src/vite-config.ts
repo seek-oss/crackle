@@ -1,25 +1,26 @@
 import assert from 'assert';
 
 import type { OutputOptions } from 'rollup';
-import type { InlineConfig } from 'vite';
+import type { UserConfig } from 'vite';
 
 import type { EnhancedConfig } from './config';
 import { distDir } from './constants';
 import type { Format, PackageEntryPoint } from './types';
 import { extensionForFormat } from './utils/files';
 
-export const commonViteConfig = (config: EnhancedConfig): InlineConfig => ({
-  root: config.root,
-  resolve: {
-    alias: {
-      __THE_ENTRY: config.appShell,
+export const commonViteConfig = (config: EnhancedConfig) =>
+  ({
+    root: config.root,
+    resolve: {
+      alias: {
+        __THE_ENTRY: config.appShell,
+      },
     },
-  },
-  define: {
-    'process.env.NODE_DEBUG': JSON.stringify(false),
-    global: JSON.stringify({}),
-  },
-});
+    define: {
+      'process.env.NODE_DEBUG': JSON.stringify(false),
+      global: JSON.stringify({}),
+    },
+  } satisfies UserConfig);
 
 export const commonOutputOptions = (
   config: EnhancedConfig,
@@ -29,7 +30,7 @@ export const commonOutputOptions = (
   const extension = extensionForFormat(format);
 
   return {
-    dir: distDir,
+    dir: `${config.root}/${distDir}`,
     hoistTransitiveImports: false,
     minifyInternalExports: false,
     entryFileNames(chunkInfo) {

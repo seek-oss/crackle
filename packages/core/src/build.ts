@@ -8,7 +8,7 @@ import builtinModules from 'builtin-modules';
 import chalk from 'chalk';
 import { readJson } from 'fs-extra';
 import type { RollupOutput } from 'rollup';
-import type { InlineConfig as ViteConfig, Manifest } from 'vite';
+import type { UserConfig as ViteConfig, Manifest } from 'vite';
 import { build as viteBuild } from 'vite';
 
 import type { RenderAllPagesFn } from '../entries/types';

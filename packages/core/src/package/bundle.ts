@@ -71,14 +71,14 @@ export const createBundle = async (
     plugins: [addVanillaDebugIds(config), externals(config, 'esm'), react()],
     logLevel: 'warn',
     build: {
-      // output directory is the package root, so we don't want to remove it
+      outDir: config.root,
+      // we don't want to remove the output of the DTS build
       emptyOutDir: false,
-      minify: false,
       lib: {
         entry: entries.map(({ entryPath }) => entryPath),
         // don't need to specify "build.lib.formats" because it will be ignored when "build.rollupOptions.output" is an array
       },
-      outDir: config.root,
+      minify: false,
       rollupOptions: {
         treeshake: {
           moduleSideEffects: 'no-external',
