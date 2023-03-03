@@ -75,7 +75,7 @@ export const createBundle = async (
       minify: false,
       lib: {
         entry: entries.map(({ entryPath }) => entryPath),
-        // "build.lib.formats" will be ignored because "build.rollupOptions.output" is already an array format.
+        // don't need to specify "build.lib.formats" because it will be ignored when "build.rollupOptions.output" is an array
       },
       outDir: config.root,
       rollupOptions: {
