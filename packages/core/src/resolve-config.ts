@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import { build as esbuild } from 'esbuild';
+import * as esbuild from 'esbuild';
 import _eval from 'eval';
 
 import type { PartialConfig } from './config';
@@ -37,31 +37,38 @@ export const resolveConfig = async ({
     return { root: cwd };
   }
 
-  const result = await esbuild({
+  let firstBuild = true;
+
+  const context = await esbuild.context({
     entryPoints: [configFilePath],
     bundle: true,
     write: false,
     outdir: 'out',
     target: ['node14'],
     format: 'cjs',
-    watch: onUpdate
-      ? {
-          onRebuild: (err, rebuildResult) => {
-            if (err || !rebuildResult || !rebuildResult?.outputFiles) {
-              // eslint-disable-next-line no-console
-              console.error(`Invalid config file: ${configFilePath}\n`, err);
-              return;
-            }
+    plugins: onUpdate
+      ? [
+          {
+            name: 'onReload',
+            setup(build) {
+              build.onEnd((result) => {
+                if (firstBuild) return;
+                firstBuild = false;
 
-            const [{ text: configSource }] = rebuildResult.outputFiles;
-
-            onUpdate(evaluateConfig(configFilePath, configSource));
+                const [{ text: configSource }] = result.outputFiles!;
+                onUpdate(evaluateConfig(configFilePath, configSource));
+              });
+            },
           },
-        }
-      : undefined,
+        ]
+      : [],
   });
 
+  const result = await context.rebuild();
+
   const [{ text: configSource }] = result.outputFiles;
+
+  context.watch();
 
   return evaluateConfig(configFilePath, configSource);
 };
