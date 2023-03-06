@@ -1,17 +1,17 @@
 import { format as prettyFormat } from 'pretty-format';
-import type { expect } from 'vitest';
 import type { UserConfig } from 'vitest/config';
 
 import vitestConfig from '../vitest.config';
 
-type Plugin = Parameters<typeof expect.addSnapshotSerializer>[0];
+import type { Plugin } from './types';
+
 type PickVal<T, Condition, Base = Required<T>> = {
   [Key in keyof Base as Base[Key] extends Condition ? Key : never]: Base[Key];
 };
 
 const snapshotOptions = (vitestConfig as UserConfig).test!.snapshotFormat!;
 
-const serializer: Plugin = {
+export default {
   test(val) {
     return typeof val === 'object' && val?.main;
   },
@@ -22,6 +22,4 @@ const serializer: Plugin = {
       compareKeys: null,
     });
   },
-};
-
-export default serializer;
+} satisfies Plugin;

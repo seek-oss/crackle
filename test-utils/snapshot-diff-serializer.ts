@@ -1,7 +1,7 @@
 import snapshotDiff from 'snapshot-diff';
-import type { expect } from 'vitest';
 
-type Plugin = Parameters<typeof expect.addSnapshotSerializer>[0];
+import type { Plugin } from './types';
+
 type DiffOptions = Parameters<typeof snapshotDiff>[2];
 type ExpectDiff = {
   diffA: unknown;
