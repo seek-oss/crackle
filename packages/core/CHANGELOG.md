@@ -1,5 +1,35 @@
 # @crackle/core
 
+## 0.20.0
+
+### Minor Changes
+
+- [#78](https://github.com/seek-oss/crackle/pull/78) [`c82606f`](https://github.com/seek-oss/crackle/commit/c82606f9d2e63ea82f533709a9c0140d791f7a4f) Thanks [@mrm007](https://github.com/mrm007)! - Build ESM and CJS bundles simultaneously and run DTS build once for all entries.
+
+  This means building Braid is now over twice as fast and Metropolis packages would see a huge boost as well.
+
+  #### `@crackle/cli@0.10.8`
+
+  ```
+  ➜ hyperfine "nr build"
+  Benchmark 1: nr build
+    Time (mean ± σ):     28.016 s ±  0.630 s    [User: 39.951 s, System: 5.235 s]
+    Range (min … max):   26.568 s … 28.737 s    10 runs
+  ```
+
+  #### This release
+
+  ```
+  ➜ hyperfine "nr build"
+  Benchmark 1: nr build
+    Time (mean ± σ):     13.141 s ±  0.448 s    [User: 19.233 s, System: 2.623 s]
+    Range (min … max):   12.614 s … 14.199 s    10 runs
+  ```
+
+### Patch Changes
+
+- [#78](https://github.com/seek-oss/crackle/pull/78) [`c82606f`](https://github.com/seek-oss/crackle/commit/c82606f9d2e63ea82f533709a9c0140d791f7a4f) Thanks [@mrm007](https://github.com/mrm007)! - Upgrade Vite and Rollup to latest
+
 ## 0.19.1
 
 ### Patch Changes
