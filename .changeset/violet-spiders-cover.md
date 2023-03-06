@@ -4,7 +4,7 @@
 
 Build ESM and CJS bundles simultaneously and run DTS build once for all entries.
 
-This means building Braid is now twice as fast.
+This means building Braid is now over twice as fast and Metropolis packages would see a huge boost as well.
 
 #### `@crackle/cli@0.10.8`
 
