@@ -1,0 +1,4 @@
+{
+  "main": "dist/crackle-core-ssr-render.cjs.js",
+  "module": "dist/crackle-core-ssr-render.esm.js"
+}

@@ -3,7 +3,11 @@ import { setAdapter } from '@vanilla-extract/css/adapter';
 import { transformCss } from '@vanilla-extract/css/transformCss';
 import { loadStyleDefinitions, getCriticalStyles } from 'used-styles';
 
+import { logger } from '../../src/logger';
+
 type CSSObj = any;
+
+export const criticalCssPlaceholder = '__CRACKLE_CRITICAL_CSS__';
 
 function stringifyFileScope({ packageName, filePath }: FileScope): string {
   return packageName ? `${filePath}$$$${packageName}` : filePath;
@@ -55,10 +59,7 @@ setAdapter({
   },
 });
 
-export const inlineCriticalCss = async (
-  html: string,
-  criticalCssPlaceholder: string,
-) => {
+export const inlineCriticalCss = async (html: string, placeholder: string) => {
   const unusedCompositions = composedClassLists
     .filter(({ identifier }) => !usedCompositions.has(identifier))
     .map(({ identifier }) => identifier);
@@ -81,5 +82,7 @@ export const inlineCriticalCss = async (
     ? html.replace(unusedCompositionRegex, '')
     : html;
 
-  return cleanedHtml.replace(criticalCssPlaceholder, styles);
+  logger.info(`criticalStyles: ${styles.substring(0, 150)}`);
+
+  return { html: cleanedHtml.replace(placeholder, styles), styles };
 };

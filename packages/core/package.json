@@ -40,9 +40,17 @@
       "module": "./package/dist/crackle-core-package.esm.js",
       "default": "./package/dist/crackle-core-package.cjs.js"
     },
+    "./ssr-start": {
+      "module": "./ssr-start/dist/crackle-core-ssr-start.esm.js",
+      "default": "./ssr-start/dist/crackle-core-ssr-start.cjs.js"
+    },
     "./route-data": {
       "module": "./route-data/dist/crackle-core-route-data.esm.js",
       "default": "./route-data/dist/crackle-core-route-data.cjs.js"
+    },
+    "./ssr-render": {
+      "module": "./ssr-render/dist/crackle-core-ssr-render.esm.js",
+      "default": "./ssr-render/dist/crackle-core-ssr-render.cjs.js"
     },
     "./resolve-config": {
       "module": "./resolve-config/dist/crackle-core-resolve-config.esm.js",
@@ -66,6 +74,8 @@
     "/resolve-config",
     "/route-data",
     "/serve",
+    "/ssr-render",
+    "/ssr-start",
     "/start"
   ],
   "scripts": {
@@ -83,6 +93,8 @@
       "resolve-config.ts",
       "route-data.ts",
       "serve.ts",
+      "ssr-render.ts",
+      "ssr-start.ts",
       "start.ts"
     ]
   },
@@ -123,6 +135,7 @@
     "type-fest": "^3.2.0",
     "used-styles": "^2.4.1",
     "vite": "^4.2.0-beta.0",
+    "vite-plugin-ssr": "^0.4.90"
   },
   "devDependencies": {
     "@types/babel__core": "^7.1.20",

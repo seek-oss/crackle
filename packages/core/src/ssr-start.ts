@@ -1,26 +1,19 @@
 import type http from 'http';
-import path from 'path';
 import { performance } from 'perf_hooks';
 
-import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
+// import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import react from '@vitejs/plugin-react';
 import builtinModules from 'builtin-modules';
 import express from 'express';
 import { createServer as createViteServer } from 'vite';
-
-import type { RenderDevPageFn } from '../entries/types';
+import { renderPage } from 'vite-plugin-ssr';
+import { ssr } from 'vite-plugin-ssr/plugin';
 
 import type { PartialConfig } from './config';
 import { getConfig } from './config';
-import { clientEntry } from './constants';
 import { logger } from './logger';
 import { fixViteVanillaExtractDepScanPlugin } from './plugins/esbuild';
-import {
-  addPageRoots,
-  internalPackageResolution,
-  stripRouteData,
-} from './plugins/vite';
-import { pageGlobSuffix } from './route-data';
+import { internalPackageResolution } from './plugins/vite';
 import type { CrackleServer } from './types';
 import {
   extractDependencyGraph,
@@ -48,45 +41,27 @@ export const start = async (
 
   const vite = await createViteServer({
     ...commonViteConfig(config),
-    appType: 'custom',
-    server: { middlewareMode: true, port: config.port },
+    server: {
+      middlewareMode: true,
+      port: config.port,
+    },
     plugins: [
-      stripRouteData(),
       react(),
-      vanillaExtractPlugin(),
-      addPageRoots(config),
+      // vanillaExtractPlugin(),
       internalPackageResolution({
         ...config,
         root: config.resolveFromRoot('..'),
       }),
+      ssr(),
     ],
-    build: {
-      rollupOptions: { input: clientEntry },
-    },
     optimizeDeps: {
-      entries: [
-        ...config.pageRoots.map((pageRoot) =>
-          path.join(pageRoot, pageGlobSuffix),
-        ),
-        config.appShell,
-      ],
-      // Vite doesn't allow dependency bundling if the entry file is inside node_modules, so our client entry file is not scanned for deps.
-      // https://github.com/vitejs/vite/blob/bf0b631e7479ed70d02b98b780cf7e4b02d0344b/packages/vite/src/node/optimizer/scan.ts#L56-L61
-      // https://github.com/vitejs/vite/blob/bf0b631e7479ed70d02b98b780cf7e4b02d0344b/packages/vite/src/node/optimizer/scan.ts#L124-L125
-      // We can force include our internal dependencies here, so that they also get prebundled.
-      include: ['react-dom', 'react-dom/client', '@crackle/router'],
       esbuildOptions: {
         plugins: [fixViteVanillaExtractDepScanPlugin()],
       },
     },
     ssr: {
-      external: [
-        ...builtinModules,
-        // deps of ../../entries/render/dev.tsx
-        '@crackle/router',
-        '@vanilla-extract/css/adapter',
-        'serialize-javascript',
-        'used-styles',
+      external: [...builtinModules,
+        '@vanilla-extract/css'
       ],
       noExternal: ssrExternals.noExternal,
     },
@@ -95,7 +70,7 @@ export const start = async (
   // use vite's connect instance as middleware
   app.use(vite.middlewares);
 
-  app.use('*', async (req, res) => {
+  app.use('*', async (req, res, next) => {
     const startTime = performance.now();
     logger.info(`Received request: ${req.originalUrl}`);
 
@@ -105,20 +80,19 @@ export const start = async (
     }
 
     try {
-      const { renderDevelopmentPage } = (await vite.ssrLoadModule(
-        require.resolve('../../entries/render/dev.tsx'),
-      )) as { renderDevelopmentPage: RenderDevPageFn };
+      const pageContextInit = {
+        urlOriginal: req.originalUrl,
+      };
+      const pageContext = await renderPage(pageContextInit);
+      const { httpResponse } = pageContext;
 
-      // eslint-disable-next-line prefer-const
-      let { html, statusCode } = await renderDevelopmentPage({
-        path: req.originalUrl,
-        entry: clientEntry,
-      });
+      if (!httpResponse) return next();
 
-      html = await vite.transformIndexHtml(req.originalUrl, html);
-
-      res.status(statusCode).set({ 'Content-Type': 'text/html' }).end(html);
-      // defineRoutes(routes);
+      const { body, statusCode, contentType, earlyHints } = httpResponse;
+      if (res.writeEarlyHints) {
+        res.writeEarlyHints({ link: earlyHints.map((e) => e.earlyHintLink) });
+      }
+      res.status(statusCode).type(contentType).send(body);
     } catch (e: any) {
       // If an error is caught, let vite fix the stracktrace so it maps back to
       // your actual source code.

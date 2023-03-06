@@ -47,6 +47,47 @@ yargs(process.argv.slice(2))
     },
   })
   .command({
+    command: 'ssr-render',
+    describe: 'Build a static version the site (e.g. for deploying to S3)',
+    handler: async () => {
+      const config = await resolveConfig();
+
+      const { render } = await import('@crackle/core/ssr-render');
+      await render(config);
+    },
+  })
+  .command<Pick<CrackleConfig, 'port'>>({
+    command: 'ssr-start',
+    describe:
+      'Start an HTTP server (with hot reloading) to preview the website',
+    builder: {
+      port: {
+        description: 'Override the HTTP server port',
+        type: 'number',
+      },
+    },
+    handler: async (overrides) => {
+      let server: CrackleServer | null = null;
+
+      const config = await resolveConfig({
+        onUpdate: async (newConfig) => {
+          setConfigOverrides(newConfig, overrides);
+
+          if (server) {
+            logger.info('Updated config found. Restarting server...');
+            await server.close();
+            server = null;
+          }
+          server = await start(newConfig);
+        },
+      });
+      setConfigOverrides(config, overrides);
+
+      const { start } = await import('@crackle/core/ssr-start');
+      server = await start(config);
+    },
+  })
+  .command({
     command: 'build',
     describe: 'Build a static version the site (e.g. for deploying to S3)',
     handler: async () => {

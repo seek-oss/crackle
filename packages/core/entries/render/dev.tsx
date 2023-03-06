@@ -1,6 +1,6 @@
 // The css-extractor must be imported first to ensure all CSS is collected
 // eslint-disable-next-line import/order
-import { inlineCriticalCss } from './css-extractor';
+import { criticalCssPlaceholder, inlineCriticalCss } from './css-extractor';
 
 import * as React from 'react';
 import { renderToString } from 'react-dom/server';
@@ -10,14 +10,12 @@ import type { RenderDevPageFn } from '../types';
 import { NotFoundPage } from './NotFoundPage';
 import { Page, createRouteMap, nodePageModules } from './shared';
 
-const criticalCssPlaceholder = '__CRACKLE_CRITICAL_CSS__';
-
 async function renderHtml(
   element: React.ReactElement,
   { routes, statusCode }: { routes: string[]; statusCode: number },
 ) {
   let html = renderToString(element);
-  html = await inlineCriticalCss(html, criticalCssPlaceholder);
+  ({ html } = await inlineCriticalCss(html, criticalCssPlaceholder));
 
   return {
     html: `<!DOCTYPE html>\n${html}`,
