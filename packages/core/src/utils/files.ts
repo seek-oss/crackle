@@ -79,3 +79,6 @@ export const emptyDir = async (dir: string, skip = ['.git']): Promise<void> => {
 
 export const extensionForFormat = (format: Format) =>
   (({ esm: 'mjs', cjs: 'cjs', dts: 'd.ts' } as const)[format]);
+
+export const toRollupFormat = (format: Format) =>
+  (({ esm: 'esm', cjs: 'cjs', dts: 'esm' } as const)[format]);
