@@ -11,8 +11,8 @@ import { build as viteBuild } from 'vite';
 import type { EnhancedConfig } from '../config';
 import { sideEffectsDir, srcDir, stylesDir } from '../constants';
 import { addVanillaDebugIds, externals } from '../plugins/rollup';
-import type { Format, PackageEntryPoint, PackageJson } from '../types';
-import { extensionForFormat, toRollupFormat } from '../utils/files';
+import type { PackageEntryPoint, PackageJson } from '../types';
+import { extensionForFormat } from '../utils/files';
 import { moduleHasSideEffects } from '../utils/side-effects';
 import { commonOutputOptions, commonViteConfig } from '../vite-config';
 
@@ -25,7 +25,9 @@ export const createBundle = async (
   const packagePath = path.join(config.root, 'package.json');
   const packageJson: PackageJson = await fse.readJson(packagePath, { fs });
 
-  const createOutputOptionsForFormat = (format: Format) => {
+  const formats = ['cjs', 'esm'] as const;
+
+  const createOutputOptionsForFormat = (format: (typeof formats)[number]) => {
     const extension = extensionForFormat(format);
     const replaceExtension = (srcPath: string) =>
       srcPath.replace(path.extname(srcPath), `.${extension}`);
@@ -34,7 +36,7 @@ export const createBundle = async (
       ...commonOutputOptions(config, entries, format),
       inlineDynamicImports: false,
       interop: 'compat',
-      format: toRollupFormat(format),
+      format,
       manualChunks(id, { getModuleInfo }) {
         const srcPath = replaceExtension(
           path.relative(`${config.root}/${srcDir}`, id),
@@ -83,9 +85,7 @@ export const createBundle = async (
         treeshake: {
           moduleSideEffects: 'no-external',
         },
-        output: (['cjs', 'esm'] as const).map((format) =>
-          createOutputOptionsForFormat(format),
-        ),
+        output: formats.map((format) => createOutputOptionsForFormat(format)),
       },
     },
   });
