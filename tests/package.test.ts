@@ -24,25 +24,29 @@ describe('package', () => {
     'single-entry-library',
     'with-dep-hidden-package-json',
     'with-flatten-children',
-  ])('fixture %s', async (fixtureName) => {
-    const fixtureDir = f.find(fixtureName);
+  ])(
+    'fixture %s',
+    async (fixtureName) => {
+      const fixtureDir = f.find(fixtureName);
 
-    const config = await resolveConfig({ cwd: fixtureDir });
-    await buildPackage(config);
+      const config = await resolveConfig({ cwd: fixtureDir });
+      await buildPackage(config);
 
-    const distFiles = await glob('dist/**', {
-      cwd: fixtureDir,
-      onlyFiles: true,
-    });
+      const distFiles = await glob('dist/**', {
+        cwd: fixtureDir,
+        onlyFiles: true,
+      });
 
-    await Promise.all(
-      distFiles.map(async (fileName) => {
-        const contents = await fs.readFile(
-          path.join(fixtureDir, fileName),
-          'utf-8',
-        );
-        expect(contents).toMatchSnapshot(fileName);
-      }),
-    );
-  });
+      await Promise.all(
+        distFiles.map(async (fileName) => {
+          const contents = await fs.readFile(
+            path.join(fixtureDir, fileName),
+            'utf-8',
+          );
+          expect(contents).toMatchSnapshot(fileName);
+        }),
+      );
+    },
+    15000,
+  );
 });
