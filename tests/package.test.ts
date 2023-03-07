@@ -29,8 +29,8 @@ describe('package', () => {
     async (fixtureName) => {
       const fixtureDir = f.find(fixtureName);
 
-    const config = await resolveConfig({ cwd: fixtureDir });
-    await buildPackage(config);
+      const config = await resolveConfig({ cwd: fixtureDir });
+      await buildPackage(config);
 
       const distFiles = await glob('dist/**', {
         cwd: fixtureDir,
