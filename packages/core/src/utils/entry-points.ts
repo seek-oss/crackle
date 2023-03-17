@@ -1,13 +1,19 @@
 import fs from 'fs';
 import path from 'path';
 
+import { parse } from 'es-module-lexer';
 import glob from 'fast-glob';
 
 import type { EnhancedConfig } from '../config';
 import { distDir } from '../constants';
 import type { Format, PackageEntryPoint } from '../types';
 
-import { emptyDir, extensionForFormat, writePackageJson } from './files';
+import {
+  emptyDir,
+  extensionForFormat,
+  writeIfRequired,
+  writePackageJson,
+} from './files';
 import { promiseMap } from './promise-map';
 
 export interface Package {
@@ -16,6 +22,14 @@ export interface Package {
 }
 
 export type Packages = Map<string, Package>;
+
+export const hasDefaultExport = async (filePath: string) => {
+  const fileContents = await fs.promises.readFile(filePath, 'utf-8');
+  // `parse` returns a promise if not initialised
+  // https://github.com/guybedford/es-module-lexer/blob/1.1.0/src/lexer.ts#L156-L159
+  const [, exports] = await parse(fileContents, filePath);
+  return exports.some((specifier) => specifier.n === 'default');
+};
 
 export const getPackages = async (
   config: EnhancedConfig,
@@ -112,12 +126,28 @@ export const createEntryPackageJsons = async (
 
   await promiseMap(entryPoints, async (entryPoint) => {
     if (!entryPoint.isDefaultEntry) {
+      const typesOutputPath = relativeOutputPath(entryPoint, 'dts').replace(
+        `.${extensionForFormat('dts')}`,
+        '',
+      );
+      const declarationLines = [`export * from "${typesOutputPath}";`];
+      if (await hasDefaultExport(entryPoint.entryPath)) {
+        declarationLines.push(`export { default } from "${typesOutputPath}";`);
+      }
+
+      const typesPath = './index.d.ts';
+      await writeIfRequired({
+        dir: entryPoint.packageDir,
+        fileName: typesPath,
+        contents: declarationLines.join('\n'),
+      });
+
       await writePackageJson({
         dir: entryPoint.packageDir,
         contents: {
           main: relativeOutputPath(entryPoint, 'cjs'),
           module: relativeOutputPath(entryPoint, 'esm'),
-          types: relativeOutputPath(entryPoint, 'dts'),
+          types: typesPath,
         },
       });
     }

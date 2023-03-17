@@ -1,7 +1,4 @@
-import fs from 'fs/promises';
 import path from 'path';
-
-import { parse } from 'es-module-lexer';
 
 import type { EnhancedConfig } from '../config';
 
@@ -9,17 +6,10 @@ import {
   createEntryPackageJsons,
   getPackageEntryPoints,
   getPackages,
+  hasDefaultExport,
 } from './entry-points';
 import { writeIfRequired } from './files';
 import { promiseMap } from './promise-map';
-
-const hasDefaultExport = async (filePath: string) => {
-  const fileContents = await fs.readFile(filePath, 'utf-8');
-  // `parse` returns a promise if not initialised
-  // https://github.com/guybedford/es-module-lexer/blob/1.1.0/src/lexer.ts#L156-L159
-  const [, exports] = await parse(fileContents, filePath);
-  return exports.some((specifier) => specifier.n === 'default');
-};
 
 export const generateDevDeclarationFiles = async (config: EnhancedConfig) => {
   const packages = await getPackages(config);
