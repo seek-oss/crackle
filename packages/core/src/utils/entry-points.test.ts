@@ -129,14 +129,16 @@ describe('getPackageEntryPoints', () => {
 
     expect(vol.toJSON()).toMatchInlineSnapshot(`
       {
-        "/___/components/index.d.ts": "export * from "../dist/components";",
+        "/___/components/index.d.ts": "export * from "../dist/components";
+      ",
         "/___/components/package.json": "{
         "main": "../dist/components.cjs",
         "module": "../dist/components.mjs",
         "types": "./index.d.ts"
       }
       ",
-        "/___/extras/index.d.ts": "export * from "../dist/extras";",
+        "/___/extras/index.d.ts": "export * from "../dist/extras";
+      ",
         "/___/extras/package.json": "{
         "main": "../dist/extras.cjs",
         "module": "../dist/extras.mjs",
@@ -148,7 +150,8 @@ describe('getPackageEntryPoints', () => {
         "/___/src/entries/themes/apac.ts": "export default {}",
         "/___/src/index.ts": "export default {}",
         "/___/themes/apac/index.d.ts": "export * from "../../dist/themes/apac";
-      export { default } from "../../dist/themes/apac";",
+      export { default } from "../../dist/themes/apac";
+      ",
         "/___/themes/apac/package.json": "{
         "main": "../../dist/themes/apac.cjs",
         "module": "../../dist/themes/apac.mjs",

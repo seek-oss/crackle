@@ -139,7 +139,7 @@ export const createEntryPackageJsons = async (
       await writeIfRequired({
         dir: entryPoint.packageDir,
         fileName: typesPath,
-        contents: declarationLines.join('\n'),
+        contents: `${declarationLines.join('\n')}\n`,
       });
 
       await writePackageJson({
