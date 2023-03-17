@@ -13,7 +13,7 @@ vi.mock('fs/promises', () => ({ default: fs.promises }));
 vi.mock('fs-extra', () => ({ default: { ...fs, ...fs.promises } }));
 
 describe('getPackageEntryPoints', () => {
-  const packageRoot = '/__ROOT__/multi-entry';
+  const packageRoot = '/___';
 
   beforeEach(() => {
     vol.reset();
@@ -35,35 +35,35 @@ describe('getPackageEntryPoints', () => {
       [
         {
           "entryName": "dist",
-          "entryPath": "/__ROOT__/multi-entry/src/index.ts",
+          "entryPath": "/___/src/index.ts",
           "getOutputPath": [Function],
           "isDefaultEntry": true,
-          "outputDir": "/__ROOT__/multi-entry/dist",
-          "packageDir": "/__ROOT__/multi-entry/dist",
+          "outputDir": "/___/dist",
+          "packageDir": "/___/dist",
         },
         {
           "entryName": "components",
-          "entryPath": "/__ROOT__/multi-entry/src/entries/components.ts",
+          "entryPath": "/___/src/entries/components.ts",
           "getOutputPath": [Function],
           "isDefaultEntry": false,
-          "outputDir": "/__ROOT__/multi-entry/dist",
-          "packageDir": "/__ROOT__/multi-entry/components",
+          "outputDir": "/___/dist",
+          "packageDir": "/___/components",
         },
         {
           "entryName": "extras",
-          "entryPath": "/__ROOT__/multi-entry/src/entries/extras.ts",
+          "entryPath": "/___/src/entries/extras.ts",
           "getOutputPath": [Function],
           "isDefaultEntry": false,
-          "outputDir": "/__ROOT__/multi-entry/dist",
-          "packageDir": "/__ROOT__/multi-entry/extras",
+          "outputDir": "/___/dist",
+          "packageDir": "/___/extras",
         },
         {
           "entryName": "themes/apac",
-          "entryPath": "/__ROOT__/multi-entry/src/entries/themes/apac.ts",
+          "entryPath": "/___/src/entries/themes/apac.ts",
           "getOutputPath": [Function],
           "isDefaultEntry": false,
-          "outputDir": "/__ROOT__/multi-entry/dist",
-          "packageDir": "/__ROOT__/multi-entry/themes/apac",
+          "outputDir": "/___/dist",
+          "packageDir": "/___/themes/apac",
         },
       ]
     `);
@@ -130,27 +130,27 @@ describe('getPackageEntryPoints', () => {
 
     expect(vol.toJSON()).toMatchInlineSnapshot(`
       {
-        "/__ROOT__/multi-entry/components/index.d.ts": "export * from "../dist/components";",
-        "/__ROOT__/multi-entry/components/package.json": "{
+        "/___/components/index.d.ts": "export * from "../dist/components";",
+        "/___/components/package.json": "{
         "main": "../dist/components.cjs",
         "module": "../dist/components.mjs",
         "types": "./index.d.ts"
       }
       ",
-        "/__ROOT__/multi-entry/extras/index.d.ts": "export * from "../dist/extras";",
-        "/__ROOT__/multi-entry/extras/package.json": "{
+        "/___/extras/index.d.ts": "export * from "../dist/extras";",
+        "/___/extras/package.json": "{
         "main": "../dist/extras.cjs",
         "module": "../dist/extras.mjs",
         "types": "./index.d.ts"
       }
       ",
-        "/__ROOT__/multi-entry/src/entries/components.ts": "export const components = {}",
-        "/__ROOT__/multi-entry/src/entries/extras.ts": "export const extras = {}",
-        "/__ROOT__/multi-entry/src/entries/themes/apac.ts": "export default {}",
-        "/__ROOT__/multi-entry/src/index.ts": "export default {}",
-        "/__ROOT__/multi-entry/themes/apac/index.d.ts": "export * from "../../dist/themes/apac";
+        "/___/src/entries/components.ts": "export const components = {}",
+        "/___/src/entries/extras.ts": "export const extras = {}",
+        "/___/src/entries/themes/apac.ts": "export default {}",
+        "/___/src/index.ts": "export default {}",
+        "/___/themes/apac/index.d.ts": "export * from "../../dist/themes/apac";
       export { default } from "../../dist/themes/apac";",
-        "/__ROOT__/multi-entry/themes/apac/package.json": "{
+        "/___/themes/apac/package.json": "{
         "main": "../../dist/themes/apac.cjs",
         "module": "../../dist/themes/apac.mjs",
         "types": "./index.d.ts"
@@ -168,14 +168,14 @@ describe('getPackageEntryPoints', () => {
 
     expect(vol.toJSON()).toMatchInlineSnapshot(`
       {
-        "/__ROOT__/multi-entry/components": null,
-        "/__ROOT__/multi-entry/dist": null,
-        "/__ROOT__/multi-entry/extras": null,
-        "/__ROOT__/multi-entry/src/entries/components.ts": "export const components = {}",
-        "/__ROOT__/multi-entry/src/entries/extras.ts": "export const extras = {}",
-        "/__ROOT__/multi-entry/src/entries/themes/apac.ts": "export default {}",
-        "/__ROOT__/multi-entry/src/index.ts": "export default {}",
-        "/__ROOT__/multi-entry/themes/apac": null,
+        "/___/components": null,
+        "/___/dist": null,
+        "/___/extras": null,
+        "/___/src/entries/components.ts": "export const components = {}",
+        "/___/src/entries/extras.ts": "export const extras = {}",
+        "/___/src/entries/themes/apac.ts": "export default {}",
+        "/___/src/index.ts": "export default {}",
+        "/___/themes/apac": null,
       }
     `);
   });
