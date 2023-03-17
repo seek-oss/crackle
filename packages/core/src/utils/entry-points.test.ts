@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { fs, vol } from 'memfs';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
