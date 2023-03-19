@@ -135,7 +135,7 @@ export const createEntryPackageJsons = async (
         declarationLines.push(`export { default } from "${typesOutputPath}";`);
       }
 
-      const typesPath = './index.d.ts';
+      const typesPath = `./index.${extensionForFormat('dts')}`;
       await writeIfRequired({
         dir: entryPoint.packageDir,
         fileName: typesPath,
