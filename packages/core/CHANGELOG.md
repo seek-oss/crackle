@@ -16,7 +16,7 @@
 
   This means building Braid is now over twice as fast and Metropolis packages would see a huge boost as well.
 
-  #### `@crackle/cli@0.10.8`
+  #### `@crackle/core@0.19.1`
 
   ```
   ➜ hyperfine "nr build"
