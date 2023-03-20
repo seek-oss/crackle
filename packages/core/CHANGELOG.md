@@ -1,5 +1,13 @@
 # @crackle/core
 
+## 0.21.0
+
+### Minor Changes
+
+- [#82](https://github.com/seek-oss/crackle/pull/82) [`8f43a59`](https://github.com/seek-oss/crackle/commit/8f43a59734bb878728e2e0cbdb642239b0a760ef) Thanks [@mrm007](https://github.com/mrm007)! - Create an `index.d.ts` redirect for backwards-compatible entry points.
+
+  This prevents VS Code from auto-importing entry points from `dist/`. For example, wanting to use [Braid's CSS variables](https://seek-oss.github.io/braid-design-system/css/vars) (`vars`) VS Code would suggest `braid-design-system/dist/css` instead of `braid-design-system/css`.
+
 ## 0.20.0
 
 ### Minor Changes
@@ -8,7 +16,7 @@
 
   This means building Braid is now over twice as fast and Metropolis packages would see a huge boost as well.
 
-  #### `@crackle/cli@0.10.8`
+  #### `@crackle/core@0.19.1`
 
   ```
   ➜ hyperfine "nr build"

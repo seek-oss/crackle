@@ -228,7 +228,7 @@ importers:
 
   packages/cli:
     specifiers:
-      '@crackle/core': ^0.20.0
+      '@crackle/core': ^0.21.0
       '@types/yargs': ^17.0.13
       yargs: ^17.6.2
     dependencies:
