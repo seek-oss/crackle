@@ -271,9 +271,9 @@ type Config = Awaited<ReturnType<typeof resolveConfig>>;
 declare const logger: () => void;
 declare const calcAndLog: (a: number, b: number, fn: MathsFn) => void;
 
-declare const theme = "I am theme";
+declare const _default: "I am theme";
 
-export { Config, JobSummary, add, calcAndLog, logger, theme };
+export { Config, JobSummary, _default, add, calcAndLog, logger };
 `;
 
 exports[`package > fixture multi-entry-library > dist/components.cjs 1`] = `
@@ -463,17 +463,16 @@ export {
 
 exports[`package > fixture multi-entry-library > dist/themes/apac.cjs 1`] = `
 "use strict";
-Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
-const theme = "I am theme";
-exports.theme = theme;
+const apac = "I am theme";
+module.exports = apac;
 `;
 
-exports[`package > fixture multi-entry-library > dist/themes/apac.d.ts 1`] = `export { theme } from '../apac.chunk.js';`;
+exports[`package > fixture multi-entry-library > dist/themes/apac.d.ts 1`] = `export { _default as default } from '../apac.chunk.js';`;
 
 exports[`package > fixture multi-entry-library > dist/themes/apac.mjs 1`] = `
-const theme = "I am theme";
+const apac = "I am theme";
 export {
-  theme
+  apac as default
 };
 `;
 

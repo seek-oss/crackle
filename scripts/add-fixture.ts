@@ -92,19 +92,24 @@ const template = {
   console.log();
 
   const packageDir = path.join(fixturesDir, answers.name);
+  const packageJsonPath = path.join(packageDir, 'package.json');
 
   const packageJson = template.packageJson(answers);
   const index = template.index(answers);
 
   await fs.mkdirp(path.join(packageDir, 'src'));
-  await fs.writeJson(path.join(packageDir, 'package.json'), packageJson, {
-    spaces: 2,
-  });
+  await fs.writeJson(packageJsonPath, packageJson, { spaces: 2 });
   await fs.writeFile(path.join(packageDir, 'src/index.ts'), index);
 
-  console.log(packageJson);
-  console.log();
-
+  try {
+    console.log('Trying `bat`...');
+    await run(`bat ${packageJsonPath}`);
+  } catch (e: any) {
+    console.log('File:', packageJsonPath);
+    console.log(await fs.readFile(packageJsonPath, { encoding: 'utf8' }));
+  }
   await run('pnpm install', { cwd: packageDir });
   await run(`pnpm --filter='${packageJson.name}' fix`);
+
+  console.log('Done.');
 })();
