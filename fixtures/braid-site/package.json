@@ -10,7 +10,6 @@
   "files": [],
   "scripts": {
     "build": "crackle build",
-    "dev": "crackle dev",
     "serve": "crackle serve",
     "start": "crackle start"
   },

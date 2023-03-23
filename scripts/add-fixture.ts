@@ -28,12 +28,12 @@ const template = {
     scripts: {
       fix: 'crackle fix',
       ...(type.includes('site') && {
-        dev: 'crackle dev',
         start: 'crackle start',
         build: 'crackle build',
         serve: 'crackle serve',
       }),
       ...(type.includes('library') && {
+        dev: 'crackle dev',
         package: 'crackle package',
       }),
     },
