@@ -1,3 +1,5 @@
+import path from 'path';
+
 import { transformFileAsync as babelTransform } from '@babel/core';
 import type { RouteData } from '@crackle/router';
 import { build as esbuild } from 'esbuild';
@@ -7,25 +9,28 @@ import glob from 'fast-glob';
 import type { PartialConfig } from '../config';
 import { getConfig } from '../config';
 
+export const pageGlobSuffix = '/**/*.page.tsx';
+
 const routesEntryName = 'ROUTES_ENTRY';
 const routeEntryNs = 'ROUTES_ENTRY_NAMESPACE';
 
-const transformWithBabel = async (path: string) => {
-  const transformedContents = await babelTransform(path, {
+const transformWithBabel = async (file: string) => {
+  // TODO: merge with src/plugins/vite/strip-route-data.ts
+  const transformedContents = await babelTransform(file, {
     plugins: [
       [
-        '@crackle/babel-plugin-remove-exports',
+        require.resolve('@crackle/babel-plugin-remove-exports'),
         { retainExports: ['routeData'] },
       ],
-      '@babel/plugin-syntax-jsx',
-      ['@babel/plugin-syntax-typescript', { isTSX: true }],
+      require.resolve('@babel/plugin-syntax-jsx'),
+      [require.resolve('@babel/plugin-syntax-typescript'), { isTSX: true }],
     ],
     babelrc: false,
     configFile: false,
   });
 
   if (!transformedContents?.code) {
-    throw new Error(`No result from babel plugin transform of ${path}`);
+    throw new Error(`No result from babel plugin transform of ${file}`);
   }
 
   return {
@@ -38,7 +43,7 @@ export const getAllRoutes = async (inlineConfig?: PartialConfig) => {
   const { root, pageRoots } = getConfig(inlineConfig);
 
   const pageFiles = await glob(
-    pageRoots.map((pageRoot) => `${pageRoot}/**/*.page.tsx`),
+    pageRoots.map((pageRoot) => path.join(pageRoot, pageGlobSuffix)),
     { cwd: root },
   );
 
@@ -66,13 +71,14 @@ export const getAllRoutes = async (inlineConfig?: PartialConfig) => {
             namespace: routeEntryNs,
           }));
 
-          build.onLoad({ filter: new RegExp('.*.page.tsx$') }, ({ path }) =>
-            transformWithBabel(path),
+          // TODO: use pageGlobSuffix by compiling to RegExp
+
+          build.onLoad({ filter: new RegExp('.*.page.tsx$') }, (args) =>
+            transformWithBabel(args.path),
           );
 
-          build.onLoad(
-            { filter: new RegExp('.*src/pages/.*.tsx$') },
-            ({ path }) => transformWithBabel(path),
+          build.onLoad({ filter: new RegExp('.*src/pages/.*.tsx$') }, (args) =>
+            transformWithBabel(args.path),
           );
 
           build.onLoad({ filter, namespace: routeEntryNs }, () => ({
@@ -89,5 +95,5 @@ export const getAllRoutes = async (inlineConfig?: PartialConfig) => {
 
   const [{ text: routesSource }] = result.outputFiles;
 
-  return _eval(routesSource) as RouteData<any>;
+  return _eval(routesSource, `${routesEntryName}.js`) as RouteData<any>;
 };

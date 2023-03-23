@@ -1,5 +1,128 @@
 # @crackle/core
 
+## 0.21.0
+
+### Minor Changes
+
+- [#82](https://github.com/seek-oss/crackle/pull/82) [`8f43a59`](https://github.com/seek-oss/crackle/commit/8f43a59734bb878728e2e0cbdb642239b0a760ef) Thanks [@mrm007](https://github.com/mrm007)! - Create an `index.d.ts` redirect for backwards-compatible entry points.
+
+  This prevents VS Code from auto-importing entry points from `dist/`. For example, wanting to use [Braid's CSS variables](https://seek-oss.github.io/braid-design-system/css/vars) (`vars`) VS Code would suggest `braid-design-system/dist/css` instead of `braid-design-system/css`.
+
+## 0.20.0
+
+### Minor Changes
+
+- [#78](https://github.com/seek-oss/crackle/pull/78) [`c82606f`](https://github.com/seek-oss/crackle/commit/c82606f9d2e63ea82f533709a9c0140d791f7a4f) Thanks [@mrm007](https://github.com/mrm007)! - Build ESM and CJS bundles simultaneously and run DTS build once for all entries.
+
+  This means building Braid is now over twice as fast and Metropolis packages would see a huge boost as well.
+
+  #### `@crackle/core@0.19.1`
+
+  ```
+  ➜ hyperfine "nr build"
+  Benchmark 1: nr build
+    Time (mean ± σ):     28.016 s ±  0.630 s    [User: 39.951 s, System: 5.235 s]
+    Range (min … max):   26.568 s … 28.737 s    10 runs
+  ```
+
+  #### This release
+
+  ```
+  ➜ hyperfine "nr build"
+  Benchmark 1: nr build
+    Time (mean ± σ):     13.141 s ±  0.448 s    [User: 19.233 s, System: 2.623 s]
+    Range (min … max):   12.614 s … 14.199 s    10 runs
+  ```
+
+### Patch Changes
+
+- [#78](https://github.com/seek-oss/crackle/pull/78) [`c82606f`](https://github.com/seek-oss/crackle/commit/c82606f9d2e63ea82f533709a9c0140d791f7a4f) Thanks [@mrm007](https://github.com/mrm007)! - Upgrade Vite and Rollup to latest
+
+## 0.19.1
+
+### Patch Changes
+
+- [#75](https://github.com/seek-oss/crackle/pull/75) [`578a1ee`](https://github.com/seek-oss/crackle/commit/578a1ee16e3e8b5f3e120b1758418fa6d17494c1) Thanks [@mrm007](https://github.com/mrm007)! - Clean up references to treat
+
+## 0.19.0
+
+### Minor Changes
+
+- [#49](https://github.com/seek-oss/crackle/pull/49) [`7d64541`](https://github.com/seek-oss/crackle/commit/7d6454191f60059bed50fa0b898428e30cadf85e) Thanks [@mrm007](https://github.com/mrm007)! - Remove `externals` logic from dependency graph scanner
+
+## 0.18.2
+
+### Patch Changes
+
+- [#68](https://github.com/seek-oss/crackle/pull/68) [`b87adf8`](https://github.com/seek-oss/crackle/commit/b87adf823ea7876139be27d30e82eb6a1b2e93f7) Thanks [@mrm007](https://github.com/mrm007)! - Don't put output files for entry points in `dist/side-effects`
+
+## 0.18.1
+
+### Patch Changes
+
+- [#66](https://github.com/seek-oss/crackle/pull/66) [`5ba5e57`](https://github.com/seek-oss/crackle/commit/5ba5e57694763c8a52f43b47906dbecda578a040) Thanks [@mrm007](https://github.com/mrm007)! - When bundling, make sure the output is compatible with faux ESM exports e.g. code transpiled with the [TypeScript `esModuleInterop` flag](https://www.typescriptlang.org/tsconfig#esModuleInterop)
+
+- [#66](https://github.com/seek-oss/crackle/pull/66) [`5ba5e57`](https://github.com/seek-oss/crackle/commit/5ba5e57694763c8a52f43b47906dbecda578a040) Thanks [@mrm007](https://github.com/mrm007)! - Bump Vite to 4.1.1 and sync dependencies
+
+## 0.18.0
+
+### Minor Changes
+
+- [#63](https://github.com/seek-oss/crackle/pull/63) [`ff23b47`](https://github.com/seek-oss/crackle/commit/ff23b477b7a7e96f98948e4eac6af3cf2febb5e3) Thanks [@mrm007](https://github.com/mrm007)! - Add a config option to [reconcile peer dependencies][reconcile] from a package:
+
+  [reconcile]: https://github.com/seek-oss/crackle/blob/master/docs/esm-reconciliation.md#reconciling-peer-dependencies
+
+  ```ts
+  // crackle.config.ts
+  import type { CrackleConfig } from '@crackle/core';
+
+  export default {
+    reconcileDependencies: {
+      react: '<18',
+    },
+  } satisfies CrackleConfig;
+  ```
+
+### Patch Changes
+
+- [#63](https://github.com/seek-oss/crackle/pull/63) [`ff23b47`](https://github.com/seek-oss/crackle/commit/ff23b477b7a7e96f98948e4eac6af3cf2febb5e3) Thanks [@mrm007](https://github.com/mrm007)! - Fix import specifier patching with scoped packages
+
+## 0.17.0
+
+### Minor Changes
+
+- [#59](https://github.com/seek-oss/crackle/pull/59) [`ce03d87`](https://github.com/seek-oss/crackle/commit/ce03d875cdbb082dd3895868f378a2edd5b9b991) Thanks [@mrm007](https://github.com/mrm007)! - Update `"sideEffects"` flag if needed.
+
+  If an entry point has side-effects (as defined via the **package.json**'s `"sideEffects"` key) Crackle will update the `"sideEffects"` key so it also matches the output path in `dist`.
+
+## 0.16.0
+
+### Minor Changes
+
+- [#58](https://github.com/seek-oss/crackle/pull/58) [`b28f124`](https://github.com/seek-oss/crackle/commit/b28f124bff011b04c7223751b4481abbdeab8c31) Thanks [@mrm007](https://github.com/mrm007)! - Put all output files in `dist`.
+
+  This allows library authors to have better control over the [`sideEffects` flag](https://github.com/webpack/webpack/blob/main/examples/side-effects/README.md).
+
+- [#58](https://github.com/seek-oss/crackle/pull/58) [`b28f124`](https://github.com/seek-oss/crackle/commit/b28f124bff011b04c7223751b4481abbdeab8c31) Thanks [@mrm007](https://github.com/mrm007)! - Set the value for `"types"` in `package.json` on `crackle fix`
+
+### Patch Changes
+
+- [#58](https://github.com/seek-oss/crackle/pull/58) [`b28f124`](https://github.com/seek-oss/crackle/commit/b28f124bff011b04c7223751b4481abbdeab8c31) Thanks [@mrm007](https://github.com/mrm007)! - Polyfill `structuredClone` when running in Node.js <17
+
+## 0.15.0
+
+### Minor Changes
+
+- [#56](https://github.com/seek-oss/crackle/pull/56) [`db148fa`](https://github.com/seek-oss/crackle/commit/db148fab6810c2f55d8ee43f6e87a51da3f7870f) Thanks [@mrm007](https://github.com/mrm007)! - Upgrade to Vite 4
+
+### Patch Changes
+
+- [#55](https://github.com/seek-oss/crackle/pull/55) [`942264e`](https://github.com/seek-oss/crackle/commit/942264ebf21fe00be082e5e5b1ec179dace26f6f) Thanks [@mrm007](https://github.com/mrm007)! - Fix resolution for packages which don't expose their `package.json`
+
+- [#55](https://github.com/seek-oss/crackle/pull/55) [`942264e`](https://github.com/seek-oss/crackle/commit/942264ebf21fe00be082e5e5b1ec179dace26f6f) Thanks [@mrm007](https://github.com/mrm007)! - Update `.gitignore` on `crackle fix`
+
+- [#55](https://github.com/seek-oss/crackle/pull/55) [`942264e`](https://github.com/seek-oss/crackle/commit/942264ebf21fe00be082e5e5b1ec179dace26f6f) Thanks [@mrm007](https://github.com/mrm007)! - Better validation of `package.json`
+
 ## 0.14.0
 
 ### Minor Changes

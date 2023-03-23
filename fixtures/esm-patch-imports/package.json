@@ -1,0 +1,45 @@
+{
+  "name": "@crackle-fixtures/esm-patch-imports",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "author": "SEEK",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "fix": "crackle fix",
+    "package": "crackle package"
+  },
+  "dependencies": {
+    "@crackle-fixtures/dep-with-exports": "link:./dep-with-exports",
+    "autosuggest-highlight": "^3.3.4"
+  },
+  "devDependencies": {
+    "@crackle-fixtures/dep-with-exports-always-patch": "link:./dep-with-exports-always-patch",
+    "@crackle/cli": "workspace:*",
+    "@crackle/core": "workspace:*",
+    "@types/autosuggest-highlight": "^3.1.1",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "peerDependencies": {
+    "@crackle-fixtures/dep-with-exports-always-patch": "^1.0.0 || ^2.0.0",
+    "react": "^16.8.0 || ^17 || ^18",
+    "react-dom": "^16.8.0 || ^17 || ^18"
+  }
+}

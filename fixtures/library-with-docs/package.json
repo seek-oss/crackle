@@ -27,9 +27,8 @@
   },
   "dependencies": {
     "@crackle/router": "workspace:*",
-    "@vanilla-extract/css": "^1.9.1",
-    "autosuggest-highlight": "^3.3.4",
-    "braid-design-system": "0.0.0-crackel2-20221007054115",
+    "@vanilla-extract/css": "^1.9.2",
+    "braid-design-system": "^32.0.0",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
@@ -37,7 +36,6 @@
   "devDependencies": {
     "@crackle/cli": "workspace:*",
     "@crackle/core": "workspace:*",
-    "@types/autosuggest-highlight": "^3.2.0",
     "@types/lodash": "^4.14.186",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6"

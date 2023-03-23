@@ -1,6 +1,7 @@
 packages:
   - 'packages/*'
   - 'fixtures/*'
+  - fixtures/braid-design-system/packages/braid-design-system
   - bootstrap
   - test-utils
   - tests

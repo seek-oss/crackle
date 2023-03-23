@@ -54,7 +54,7 @@ const template = {
     })
   ).map((fixturePath: string) => path.basename(fixturePath));
   if (existingFixtures.length === 0) {
-    throw new Error(`No fixtures found in ${process.cwd()}`);
+    throw new Error(`No fixtures found in ${fixturesDir}`);
   }
 
   const answers = await prompt<Answers>([
@@ -92,19 +92,24 @@ const template = {
   console.log();
 
   const packageDir = path.join(fixturesDir, answers.name);
+  const packageJsonPath = path.join(packageDir, 'package.json');
 
   const packageJson = template.packageJson(answers);
   const index = template.index(answers);
 
   await fse.mkdirp(path.join(packageDir, 'src'));
-  await fse.writeJson(path.join(packageDir, 'package.json'), packageJson, {
-    spaces: 2,
-  });
+  await fse.writeJson(packageJsonPath, packageJson, { spaces: 2 });
   await fse.writeFile(path.join(packageDir, 'src/index.ts'), index);
 
-  console.log(packageJson);
-  console.log();
-
+  try {
+    console.log('Trying `bat`...');
+    await run(`bat ${packageJsonPath}`);
+  } catch (e: any) {
+    console.log('File:', packageJsonPath);
+    console.log(await fse.readFile(packageJsonPath, { encoding: 'utf8' }));
+  }
   await run('pnpm install', { cwd: packageDir });
   await run(`pnpm --filter='${packageJson.name}' fix`);
+
+  console.log('Done.');
 })();

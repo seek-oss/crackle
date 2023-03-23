@@ -1,1 +1,1 @@
-export const theme = 'I am theme';
+export default 'I am theme';

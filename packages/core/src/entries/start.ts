@@ -28,6 +28,7 @@ import { calculateTime } from '../utils/timer';
 import { commonViteConfig } from '../vite-config';
 
 import { logger } from './logger';
+import { pageGlobSuffix } from './route-data';
 
 export * from '../types';
 
@@ -37,14 +38,13 @@ export const start = async (
   inlineConfig?: PartialConfig,
 ): Promise<CrackleServer> => {
   const config = getConfig(inlineConfig);
-  const app = express();
-
   const depGraph = await extractDependencyGraph(config.root);
   const ssrExternals = getSsrExternalsForCompiledDependency(
     '@vanilla-extract/css',
     depGraph,
   );
 
+  const app = express();
   const connections = new Map<string, Socket>();
 
   const vite = await createViteServer({
@@ -67,7 +67,7 @@ export const start = async (
     optimizeDeps: {
       entries: [
         ...config.pageRoots.map((pageRoot) =>
-          path.join(pageRoot, '/**/*.page.tsx'),
+          path.join(pageRoot, pageGlobSuffix),
         ),
         config.appShell,
       ],
@@ -82,17 +82,17 @@ export const start = async (
     },
     ssr: {
       external: [
+        ...builtinModules,
+        // deps of ../../entries/render/dev.tsx
         '@crackle/router',
+        '@vanilla-extract/css/adapter',
         'serialize-javascript',
         'used-styles',
-        '@vanilla-extract/css/transformCss',
-        '@vanilla-extract/css/adapter',
-        ...builtinModules,
-        ...ssrExternals.external,
       ],
       noExternal: ssrExternals.noExternal,
     },
   });
+
   // use vite's connect instance as middleware
   app.use(vite.middlewares);
 
@@ -110,10 +110,13 @@ export const start = async (
         resolveFromCrackle('./entries/render/dev.tsx'),
       )) as { renderDevelopmentPage: RenderDevPageFn };
 
-      const { html, statusCode } = await renderDevelopmentPage({
+      // eslint-disable-next-line prefer-const
+      let { html, statusCode } = await renderDevelopmentPage({
         path: req.originalUrl,
         entry: clientEntry,
       });
+
+      html = await vite.transformIndexHtml(req.originalUrl, html);
 
       res.status(statusCode).set({ 'Content-Type': 'text/html' }).end(html);
       // defineRoutes(routes);

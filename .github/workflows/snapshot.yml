@@ -1,42 +1,29 @@
 name: Snapshot
 
-on: workflow_dispatch
+on:
+  push:
+    branches-ignore:
+      - changeset-release/master
+      - master
+    tags-ignore:
+      - '**'
+
+env:
+  CI: true
 
 jobs:
-  publish:
-    name: Publish snapshot version
+  release:
+    name: Publish
     runs-on: ubuntu-latest
-    env:
-      CI: true
+    environment: snapshot
     steps:
-      # The correct order is:
-      # 1. actions/checkout (so package.json can be read by actions/setup-node)
-      # 2. pnpm/action-setup (so the cache is available to actions/setup-node)
-      # 3. actions/setup-node
-
-      - name: Checkout Repo
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.SEEK_OSS_CI_GITHUB_TOKEN }}
-
-      - name: Set up pnpm
-        uses: pnpm/action-setup@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version-file: 'package.json'
-          cache: 'pnpm'
-
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build
-        run: pnpm build
+      - name: Checkout & Install
+        uses: seek-oss/crackle/.github/actions/init@master
 
       - name: Publish
         uses: seek-oss/changesets-snapshot@v0
+        with:
+          pre-publish: pnpm prepare-publish
         env:
-          NPM_TOKEN: ${{ secrets.SEEK_OSS_CI_NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.SEEK_OSS_CI_NPM_TOKEN }}

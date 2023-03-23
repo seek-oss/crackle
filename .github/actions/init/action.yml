@@ -1,0 +1,31 @@
+name: Checkout & Install
+description: ''
+
+inputs:
+  token:
+    description: GitHub token
+    default: ${{ github.token }}
+
+runs:
+  using: composite
+  steps:
+    # The correct order is:
+    # 1. actions/checkout (so package.json can be read by actions/setup-node)
+    # 2. pnpm/action-setup (so the cache is available to actions/setup-node)
+    # 3. actions/setup-node
+
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        token: ${{ inputs.token }}
+
+    - uses: pnpm/action-setup@v2
+
+    - uses: actions/setup-node@v3
+      with:
+        node-version-file: package.json
+        cache: pnpm
+
+    - name: Install Dependencies
+      run: pnpm install --frozen-lockfile
+      shell: bash

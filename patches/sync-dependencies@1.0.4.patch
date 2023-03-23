@@ -1,0 +1,13 @@
+diff --git a/sync-dependencies.js b/sync-dependencies.js
+index 4e8bcce0d140d30720fe52896b5987f04253d25c..e10a320e7d55b9cd7eee0e4358c109b90e85fd50 100755
+--- a/sync-dependencies.js
++++ b/sync-dependencies.js
+@@ -106,7 +106,7 @@ sourcePackageJsonPromise.then(sourcePackageJson => {
+ function syncDependencies(dependencies, targetJson) {
+     for (var dependency in dependencies) {
+         if (dependencies.hasOwnProperty(dependency)) {
+-            var version = targetJson.dependencies[dependency] || targetJson.devDependencies[dependency];
++            var version = targetJson.dependencies?.[dependency] || targetJson.devDependencies?.[dependency];
+             if (version && version !== dependencies[dependency]) {
+                 console.log('Updating ' + dependency + ' from ' + dependencies[dependency] + ' to ' + version + '.');
+                 dependencies[dependency] = version;

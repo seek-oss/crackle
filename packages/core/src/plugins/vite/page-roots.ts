@@ -3,8 +3,7 @@ import path from 'path';
 import type { Plugin } from 'vite';
 
 import type { EnhancedConfig } from '../../config';
-
-const pageGlobSuffix = '/**/*.page.tsx';
+import { pageGlobSuffix } from '../../entries/route-data';
 
 const browserPageModules = '__BROWSER_PAGE_MODULES';
 const nodePageModules = '__NODE_PAGE_MODULES';

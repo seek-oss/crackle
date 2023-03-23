@@ -1,5 +1,79 @@
 # @crackle/cli
 
+## 0.10.10
+
+### Patch Changes
+
+- Updated dependencies [[`8f43a59`](https://github.com/seek-oss/crackle/commit/8f43a59734bb878728e2e0cbdb642239b0a760ef)]:
+  - @crackle/core@0.21.0
+
+## 0.10.9
+
+### Patch Changes
+
+- Updated dependencies [[`c82606f`](https://github.com/seek-oss/crackle/commit/c82606f9d2e63ea82f533709a9c0140d791f7a4f), [`c82606f`](https://github.com/seek-oss/crackle/commit/c82606f9d2e63ea82f533709a9c0140d791f7a4f)]:
+  - @crackle/core@0.20.0
+
+## 0.10.8
+
+### Patch Changes
+
+- Updated dependencies [[`578a1ee`](https://github.com/seek-oss/crackle/commit/578a1ee16e3e8b5f3e120b1758418fa6d17494c1)]:
+  - @crackle/core@0.19.1
+
+## 0.10.7
+
+### Patch Changes
+
+- Updated dependencies [[`7d64541`](https://github.com/seek-oss/crackle/commit/7d6454191f60059bed50fa0b898428e30cadf85e)]:
+  - @crackle/core@0.19.0
+
+## 0.10.6
+
+### Patch Changes
+
+- Updated dependencies [[`b87adf8`](https://github.com/seek-oss/crackle/commit/b87adf823ea7876139be27d30e82eb6a1b2e93f7)]:
+  - @crackle/core@0.18.2
+
+## 0.10.5
+
+### Patch Changes
+
+- [#65](https://github.com/seek-oss/crackle/pull/65) [`3f0da5c`](https://github.com/seek-oss/crackle/commit/3f0da5cecee68850a11f92bf38e978abe037e03e) Thanks [@mrm007](https://github.com/mrm007)! - Add descriptions to CLI commands
+
+- Updated dependencies [[`5ba5e57`](https://github.com/seek-oss/crackle/commit/5ba5e57694763c8a52f43b47906dbecda578a040), [`5ba5e57`](https://github.com/seek-oss/crackle/commit/5ba5e57694763c8a52f43b47906dbecda578a040)]:
+  - @crackle/core@0.18.1
+
+## 0.10.4
+
+### Patch Changes
+
+- Updated dependencies [[`ff23b47`](https://github.com/seek-oss/crackle/commit/ff23b477b7a7e96f98948e4eac6af3cf2febb5e3), [`ff23b47`](https://github.com/seek-oss/crackle/commit/ff23b477b7a7e96f98948e4eac6af3cf2febb5e3)]:
+  - @crackle/core@0.18.0
+
+## 0.10.3
+
+### Patch Changes
+
+- Updated dependencies [[`ce03d87`](https://github.com/seek-oss/crackle/commit/ce03d875cdbb082dd3895868f378a2edd5b9b991)]:
+  - @crackle/core@0.17.0
+
+## 0.10.2
+
+### Patch Changes
+
+- Updated dependencies [[`b28f124`](https://github.com/seek-oss/crackle/commit/b28f124bff011b04c7223751b4481abbdeab8c31), [`b28f124`](https://github.com/seek-oss/crackle/commit/b28f124bff011b04c7223751b4481abbdeab8c31), [`b28f124`](https://github.com/seek-oss/crackle/commit/b28f124bff011b04c7223751b4481abbdeab8c31)]:
+  - @crackle/core@0.16.0
+
+## 0.10.1
+
+### Patch Changes
+
+- [#55](https://github.com/seek-oss/crackle/pull/55) [`942264e`](https://github.com/seek-oss/crackle/commit/942264ebf21fe00be082e5e5b1ec179dace26f6f) Thanks [@mrm007](https://github.com/mrm007)! - Update `.gitignore` on `crackle fix`
+
+- Updated dependencies [[`db148fa`](https://github.com/seek-oss/crackle/commit/db148fab6810c2f55d8ee43f6e87a51da3f7870f), [`942264e`](https://github.com/seek-oss/crackle/commit/942264ebf21fe00be082e5e5b1ec179dace26f6f), [`942264e`](https://github.com/seek-oss/crackle/commit/942264ebf21fe00be082e5e5b1ec179dace26f6f), [`942264e`](https://github.com/seek-oss/crackle/commit/942264ebf21fe00be082e5e5b1ec179dace26f6f)]:
+  - @crackle/core@0.15.0
+
 ## 0.10.0
 
 ### Minor Changes

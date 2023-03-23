@@ -1,3 +1,4 @@
 # match dist and dist-render
 dist*
+fixtures/braid-design-system
 node_modules/

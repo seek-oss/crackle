@@ -10,9 +10,8 @@ import { BrowserRouter, Route, Routes } from '@crackle/router';
 import browserPageModules from '__BROWSER_PAGE_MODULES';
 
 import React from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import { hydrate } from 'react-dom';
+import { useEffect, useState } from 'react';
+import { hydrateRoot } from 'react-dom/client';
 
 import { extractRouteMetadata } from './route-metadata';
 import type { PageData, RouteMetadata } from './types';
@@ -60,9 +59,9 @@ browserPageModules[targetPage]()
       .forEach((e) => e.remove());
 
     const routeMetadata = extractRouteMetadata(pageData.routeMap);
-    hydrate(
+    hydrateRoot(
+      document.getElementById('app')!,
       <Pages routeMetadata={routeMetadata} />,
-      document.getElementById('app'),
     );
   });
 

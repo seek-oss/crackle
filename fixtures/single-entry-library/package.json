@@ -26,8 +26,8 @@
   },
   "dependencies": {
     "@crackle-fixtures/multi-entry-library": "workspace:*",
-    "@vanilla-extract/css": "^1.9.1",
-    "braid-design-system": "0.0.0-crackel2-20221007054115",
+    "@vanilla-extract/css": "^1.9.2",
+    "braid-design-system": "^32.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

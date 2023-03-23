@@ -1,19 +1,20 @@
 import fs from 'fs/promises';
 import path from 'path';
 
-import { setAdapter } from '@vanilla-extract/css/adapter';
+import { mockAdapter, setAdapter } from '@vanilla-extract/css/adapter';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
+import react from '@vitejs/plugin-react';
 import builtinModules from 'builtin-modules';
 import chalk from 'chalk';
 import fse from 'fs-extra';
 import type { RollupOutput } from 'rollup';
-import type { InlineConfig as ViteConfig, Manifest } from 'vite';
+import type { UserConfig as ViteConfig, Manifest } from 'vite';
 import { build as viteBuild } from 'vite';
 
 import type { RenderAllPagesFn } from '../../entries/types';
 import type { PartialConfig } from '../config';
 import { getConfig } from '../config';
-import { clientEntry } from '../constants';
+import { clientEntry, siteBuild } from '../constants';
 import {
   addPageRoots,
   internalPackageResolution,
@@ -42,6 +43,7 @@ export const build = async (inlineConfig?: PartialConfig) => {
     ...commonViteConfig(config),
     plugins: [
       stripRouteData(),
+      react(),
       vanillaExtractPlugin({ identifiers: 'short' }),
       addPageRoots(config),
       // Crackle pretends it has knowledge of the monorepo at this stage
@@ -52,12 +54,7 @@ export const build = async (inlineConfig?: PartialConfig) => {
     ],
     logLevel: 'silent',
     ssr: {
-      external: [
-        'serialize-javascript',
-        'used-styles',
-        ...builtinModules,
-        ...ssrExternals.external,
-      ],
+      external: [...builtinModules],
       noExternal: ssrExternals.noExternal,
     },
   };
@@ -83,8 +80,8 @@ export const build = async (inlineConfig?: PartialConfig) => {
     return;
   }
 
-  const rendererDir = config.resolveFromRoot('dist-render');
-  const outDir = config.resolveFromRoot('dist');
+  const outDir = config.resolveFromRoot(siteBuild.outDir);
+  const rendererDir = config.resolveFromRoot(siteBuild.rendererDir);
 
   try {
     logger.info(`🛠  Building ${chalk.bold('renderer')}...`);
@@ -107,14 +104,7 @@ export const build = async (inlineConfig?: PartialConfig) => {
 
     logger.info(`✅ Successfully built ${chalk.bold('renderer')}!`);
 
-    setAdapter({
-      appendCss: () => {},
-      registerClassName: () => {},
-      onEndFileScope: () => {},
-      registerComposition: () => {},
-      markCompositionUsed: () => {},
-      getIdentOption: () => 'short',
-    });
+    setAdapter(mockAdapter);
 
     // TODO: use vite-node instead
     const { renderAllPages } = (await import(

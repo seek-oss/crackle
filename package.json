@@ -20,8 +20,9 @@
     "test:vitest:ci": "vitest --run",
     "test:playwright": "playwright test",
     "add-fixture": "tsx ./scripts/add-fixture.ts",
-    "sync-dependencies": "pnpm --recursive sync-dependencies",
-    "release": "pnpm bootstrap && changeset publish",
+    "sync-dependencies": "pnpm --recursive sync-dependencies && pnpm install",
+    "prepare-publish": "pnpm bootstrap && pnpm build",
+    "release": "pnpm prepare-publish && changeset publish",
     "version": "changeset version && pnpm install --lockfile-only"
   },
   "dependencies": {
@@ -36,23 +37,40 @@
     "@crackle/core": "workspace:*",
     "@playwright/test": "1.22.2",
     "@preconstruct/eslint-plugin-format-js-tag": "^0.2.0",
+    "@types/fs-extra": "^9.0.13",
+    "@vitejs/plugin-react": "^3.0.0",
     "enquirer": "^2.3.6",
     "eslint": "^8.25.0",
     "eslint-config-seek": "^10.1.3",
     "fast-glob": "^3.2.12",
     "fixturez": "^1.1.0",
+    "fs-extra": "^10.1.0",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.8.1",
+    "prettier": "^2.8.2",
     "snapshot-diff": "^0.10.0",
     "tsx": "^3.12.1",
     "typescript": "~4.9.4",
     "unbuild": "^1.1.2",
-    "vitest": "^0.26.1",
+    "vitest": "^0.28.5",
     "wireit": "^0.9.5"
   },
   "packageManager": "pnpm@7.29.1",
   "volta": {
-    "node": "18.12.1"
+    "node": "18.13.0"
+  },
+  "pnpm": {
+    "neverBuiltDependencies": [
+      "sku"
+    ],
+    "patchedDependencies": {
+      "sync-dependencies@1.0.4": "patches/sync-dependencies@1.0.4.patch"
+    },
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "jest",
+        "sku"
+      ]
+    }
   },
   "wireit": {
     "build": {
