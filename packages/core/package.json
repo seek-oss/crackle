@@ -3,6 +3,7 @@
   "version": "0.14.0",
   "license": "MIT",
   "author": "SEEK",
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
