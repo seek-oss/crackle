@@ -23,7 +23,7 @@ jobs:
 
       - name: Bootstrap
         run: pnpm bootstrap
-      - name: Build
+      - name: Self Build
         run: pnpm build
 
       - name: Save Build Cache
@@ -53,9 +53,7 @@ jobs:
         run: pnpm lint:prettier
 
       - name: TypeScript
-        run: |
-          pnpm fixtures --aggregate-output dev
-          pnpm lint:tsc
+        run: pnpm lint:tsc
 
   test:
     name: Test
@@ -76,5 +74,5 @@ jobs:
 
       - name: Test
         run: |
-          pnpm fixtures --aggregate-output dev
+          pnpm %fixtures package
           pnpm test

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "%packages": "pnpm --filter='@crackle/*'",
-    "%fixtures": "pnpm --filter='@crackle-fixtures/*'",
+    "%fixtures": "pnpm --filter='@crackle-fixtures/*' --aggregate-output",
     "bootstrap": "pnpm %packages exec crackle-bootstrap package --fix",
     "dev": "wireit",
     "build": "wireit",
@@ -14,12 +14,13 @@
     "lint": "wireit",
     "lint:eslint": "eslint --cache .",
     "lint:prettier": "prettier --cache --check .",
-    "lint:tsc": "tsc --noEmit",
+    "lint:tsc": "wireit",
     "test": "wireit",
     "test:vitest": "vitest",
     "test:vitest:ci": "vitest --run",
     "test:playwright": "playwright test",
-    "add-fixture": "tsx ./scripts/add-fixture.ts",
+    "fixtures:add": "tsx ./scripts/add-fixture.ts",
+    "fixtures:dev": "pnpm %fixtures dev",
     "sync-dependencies": "pnpm --recursive sync-dependencies && pnpm install",
     "prepare-publish": "pnpm bootstrap && pnpm build",
     "release": "pnpm prepare-publish && changeset publish",
@@ -90,6 +91,12 @@
         "lint:eslint",
         "lint:prettier",
         "lint:tsc"
+      ]
+    },
+    "lint:tsc": {
+      "command": "tsc --noEmit",
+      "dependencies": [
+        "fixtures:dev"
       ]
     },
     "test": {
