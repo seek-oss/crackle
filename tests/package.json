@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "@crackle/core": "workspace:*",
-    "@playwright/test": "1.22.2",
+    "@playwright/test": "^1.32.0",
     "sync-dependencies": "^1.0.4"
   }
 }

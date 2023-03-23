@@ -21,7 +21,7 @@ importers:
       '@crackle-dev/bootstrap': workspace:*
       '@crackle/cli': workspace:*
       '@crackle/core': workspace:*
-      '@playwright/test': 1.22.2
+      '@playwright/test': ^1.32.0
       '@preconstruct/eslint-plugin-format-js-tag': ^0.2.0
       '@types/fs-extra': ^9.0.13
       '@vitejs/plugin-react': ^3.0.0
@@ -49,7 +49,7 @@ importers:
       '@crackle-dev/bootstrap': link:bootstrap
       '@crackle/cli': link:packages/cli
       '@crackle/core': link:packages/core
-      '@playwright/test': 1.22.2
+      '@playwright/test': 1.32.0
       '@preconstruct/eslint-plugin-format-js-tag': 0.2.0_vxo2nhrqjwytgsjtp7x25exh3e
       '@types/fs-extra': 9.0.13
       '@vitejs/plugin-react': 3.0.0
@@ -388,11 +388,11 @@ importers:
   tests:
     specifiers:
       '@crackle/core': workspace:*
-      '@playwright/test': 1.22.2
+      '@playwright/test': ^1.32.0
       sync-dependencies: ^1.0.4
     dependencies:
       '@crackle/core': link:../packages/core
-      '@playwright/test': 1.22.2
+      '@playwright/test': 1.32.0
       sync-dependencies: 1.0.4_kz43vugpxzze664l527a72jrc4
 
 packages:
@@ -2625,13 +2625,15 @@ packages:
       tslib: 2.4.0
     dev: false
 
-  /@playwright/test/1.22.2:
-    resolution: {integrity: sha512-cCl96BEBGPtptFz7C2FOSN3PrTnJ3rPpENe+gYCMx4GNNDlN4tmo2D89y13feGKTMMAIVrXfSQ/UmaQKLy1XLA==}
+  /@playwright/test/1.32.0:
+    resolution: {integrity: sha512-zOdGloaF0jeec7hqoLqM5S3L2rR4WxMJs6lgiAeR70JlH7Ml54ZPoIIf3X7cvnKde3Q9jJ/gaxkFh8fYI9s1rg==}
     engines: {node: '>=14'}
     hasBin: true
     dependencies:
       '@types/node': 18.11.17
-      playwright-core: 1.22.2
+      playwright-core: 1.32.0
+    optionalDependencies:
+      fsevents: 2.3.2
     dev: false
 
   /@popperjs/core/2.11.6:
@@ -7165,8 +7167,8 @@ packages:
       pathe: 1.1.0
     dev: false
 
-  /playwright-core/1.22.2:
-    resolution: {integrity: sha512-w/hc/Ld0RM4pmsNeE6aL/fPNWw8BWit2tg+TfqJ3+p59c6s3B6C8mXvXrIPmfQEobkcFDc+4KirNzOQ+uBSP1Q==}
+  /playwright-core/1.32.0:
+    resolution: {integrity: sha512-Z9Ij17X5Z3bjpp6XKujGBp9Gv4eViESac9aDmwgQFUEJBW0K80T21m/Z+XJQlu4cNsvPygw33b6V1Va6Bda5zQ==}
     engines: {node: '>=14'}
     hasBin: true
     dev: false

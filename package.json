@@ -36,7 +36,7 @@
     "@crackle-dev/bootstrap": "workspace:*",
     "@crackle/cli": "workspace:*",
     "@crackle/core": "workspace:*",
-    "@playwright/test": "1.22.2",
+    "@playwright/test": "^1.32.0",
     "@preconstruct/eslint-plugin-format-js-tag": "^0.2.0",
     "@types/fs-extra": "^9.0.13",
     "@vitejs/plugin-react": "^3.0.0",
