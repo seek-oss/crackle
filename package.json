@@ -3,26 +3,19 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "bootstrap": "pnpm filter:crackle exec crackle-bootstrap package --fix",
-    "_bootstrap": "pnpm filter:crackle exec crackle-bootstrap package --fix",
-    "filter:crackle": "pnpm --recursive --filter='@crackle/*'",
-    "filter:fixtures": "pnpm --recursive --filter='./fixtures/*'",
-    "turbo:crackle": "turbo --filter='@crackle/*'",
-    "turbo:root": "turbo --filter=//",
-    "dev": "pnpm filter:crackle dev",
-    "_dev": "pnpm turbo:crackle dev",
-    "build": "pnpm filter:crackle build",
-    "_build": "pnpm turbo:crackle build",
-    "_format": "turbo format",
-    "format:eslint": "eslint --fix --cache .",
-    "format:prettier": "prettier --write --cache .",
+    "%packages": "pnpm --filter='@crackle/*'",
+    "%fixtures": "pnpm --filter='@crackle-fixtures/*'",
+    "bootstrap": "pnpm %packages exec crackle-bootstrap package --fix",
+    "dev": "wireit",
+    "build": "wireit",
+    "format": "wireit",
+    "format:eslint": "eslint --cache --fix .",
+    "format:prettier": "prettier --cache --write .",
     "lint": "wireit",
-    "_lint": "turbo lint",
     "lint:eslint": "eslint --cache .",
     "lint:prettier": "prettier --cache --check .",
     "lint:tsc": "tsc --noEmit",
     "test": "wireit",
-    "_test": "turbo test",
     "test:vitest": "vitest",
     "test:vitest:ci": "vitest --run",
     "test:playwright": "playwright test",
@@ -52,11 +45,10 @@
     "prettier": "^2.8.1",
     "snapshot-diff": "^0.10.0",
     "tsx": "^3.12.1",
-    "turbo": "^1.8.4",
     "typescript": "~4.9.4",
-    "unbuild": "^1.0.2",
+    "unbuild": "^1.1.2",
     "vitest": "^0.26.1",
-    "wireit": "^0.9.2"
+    "wireit": "^0.9.5"
   },
   "packageManager": "pnpm@7.29.1",
   "volta": {
@@ -64,10 +56,10 @@
   },
   "wireit": {
     "build": {
-      "command": "pnpm crackle --aggregate-output build"
+      "command": "pnpm --aggregate-output %packages build"
     },
     "dev": {
-      "command": "pnpm crackle --aggregate-output dev"
+      "command": "pnpm --aggregate-output %packages dev"
     },
     "format": {
       "dependencies": [

@@ -32,7 +32,7 @@
     "server"
   ],
   "scripts": {
-    "build": "crackle package --fix"
+    "build": "crackle package"
   },
   "dependencies": {
     "react": "^18.2.0",

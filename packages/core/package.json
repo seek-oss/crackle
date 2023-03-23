@@ -80,7 +80,7 @@
     "start"
   ],
   "scripts": {
-    "build": "crackle package --fix",
+    "build": "crackle package",
     "dev": "crackle dev",
     "sync-dependencies": "sync-dependencies --source vite && prettier --write package.json",
     "unbuild": "wireit",

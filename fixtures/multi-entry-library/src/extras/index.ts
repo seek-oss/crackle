@@ -1,9 +1,10 @@
 // @crackle/core is a devDependency so the types should be inlined
-import type { resolveConfig } from '@crackle/core/resolve-config';
-export type Config = Awaited<ReturnType<typeof resolveConfig>>;
+import type { logger as crackleLogger } from '@crackle/core/logger';
 
 import { logThePhrase } from '../common/commonLogger';
 import type { MathsFn } from '../common/maths';
+
+export type InlinedType = typeof crackleLogger;
 
 export const logger = () => logThePhrase('This is a logger');
 

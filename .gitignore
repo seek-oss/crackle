@@ -1,7 +1,6 @@
 node_modules
 .env
 .eslintcache
-.turbo
 .wireit
 # match dist and dist-render
 dist*

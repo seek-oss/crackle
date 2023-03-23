@@ -23,7 +23,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "crackle package --fix"
+    "build": "crackle package"
   },
   "dependencies": {
     "@crackle/core": "^0.14.0",

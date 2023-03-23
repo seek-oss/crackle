@@ -20,7 +20,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "crackle package --fix"
+    "build": "crackle package"
   },
   "dependencies": {
     "@babel/core": "^7.19.3",
