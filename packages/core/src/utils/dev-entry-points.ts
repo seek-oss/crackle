@@ -41,7 +41,6 @@ const getHookLoader = (id: string, format: Format) => {
 };
 
 const getExports = async (filePath: string) => {
-  // works with patch; remove patch when fix lands https://github.com/unjs/mlly/pull/135
   const exports = await resolveModuleExportNames(filePath, {
     extensions: RESOLVE_EXTENSIONS,
   });

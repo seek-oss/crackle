@@ -84,7 +84,7 @@
     "dev": "crackle dev",
     "sync-dependencies": "sync-dependencies --source vite && prettier --write package.json",
     "unbuild": "wireit",
-    "unbuild:entries": "tsx ./scripts/unbuild-entries.ts"
+    "unbuild:entries": "tsx ./scripts/unbuild-entries.cts"
   },
   "dependencies": {
     "@babel/core": "^7.20.2",
@@ -107,7 +107,7 @@
     "fast-glob": "^3.2.12",
     "fs-extra": "^11.1.0",
     "ink": "^3.2.0",
-    "mlly": "^1.1.0",
+    "mlly": "^1.2.0",
     "pretty-ms": "^7.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

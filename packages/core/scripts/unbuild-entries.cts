@@ -13,9 +13,9 @@ import { promiseMap } from '../src/utils/promise-map';
   const pkg = await fse.readJson(pkgPath);
 
   // update package.json exports
-  for (const entry of entries!) {
+  for (const entry of entries) {
     const entryName = path.basename(entry);
-    pkg.exports[entryName === 'index' ? '.' : `./${entryName}`] = {
+    pkg.exports[entry === 'src/index' ? '.' : `./${entryName}`] = {
       types: `./dist/${entryName}.d.ts`,
       import: `./dist/${entryName}.mjs`,
       require: `./dist/${entryName}.cjs`,
@@ -25,7 +25,7 @@ import { promiseMap } from '../src/utils/promise-map';
 
   // create package.json for each entry
   promiseMap(
-    entries!
+    entries
       .filter((entry) => entry !== 'src/index')
       .map((entry) => path.basename(entry)),
     async (entryName) => {
