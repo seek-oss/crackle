@@ -11,7 +11,8 @@ env:
   CI: true
   dist-cache-paths: |
     packages/*/dist
-    packages/*/*/dist
+    packages/*/*/index.d.ts
+    packages/*/*/package.json
 
 jobs:
   build:
