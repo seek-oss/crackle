@@ -10,10 +10,10 @@
     "build": "wireit",
     "format": "wireit",
     "format:eslint": "eslint --cache --fix .",
-    "format:prettier": "prettier --cache --write .",
+    "format:prettier": "wireit",
     "lint": "wireit",
     "lint:eslint": "eslint --cache .",
-    "lint:prettier": "prettier --cache --check .",
+    "lint:prettier": "wireit",
     "lint:tsc": "wireit",
     "test": "wireit",
     "test:vitest": "vitest",
@@ -21,7 +21,8 @@
     "test:playwright": "playwright test",
     "fixtures:add": "tsx ./scripts/add-fixture.ts",
     "fixtures:dev": "pnpm %fixtures dev",
-    "sync-dependencies": "pnpm --recursive sync-dependencies && pnpm install",
+    "sync:dependencies": "pnpm --recursive sync-dependencies && pnpm install",
+    "sync:ignore": "ignore-sync .",
     "prepare-publish": "pnpm bootstrap && pnpm build",
     "release": "pnpm prepare-publish && changeset publish",
     "version": "changeset version && pnpm install --lockfile-only"
@@ -46,6 +47,7 @@
     "fast-glob": "^3.2.12",
     "fixturez": "^1.1.0",
     "fs-extra": "^10.1.0",
+    "ignore-sync": "^6.0.2",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.8.2",
     "snapshot-diff": "^0.10.0",
@@ -86,11 +88,23 @@
         "format:prettier"
       ]
     },
+    "format:prettier": {
+      "command": "prettier --cache --write .",
+      "dependencies": [
+        "sync:ignore"
+      ]
+    },
     "lint": {
       "dependencies": [
         "lint:eslint",
         "lint:prettier",
         "lint:tsc"
+      ]
+    },
+    "lint:prettier": {
+      "command": "prettier --cache --check .",
+      "dependencies": [
+        "sync:ignore"
       ]
     },
     "lint:tsc": {

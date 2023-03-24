@@ -3,7 +3,7 @@
   "version": "0.0.3",
   "private": true,
   "scripts": {
-    "sync-dependencies": "sync-dependencies --source crackle --from ../package.json && prettier --write package.json"
+    "sync:dependencies": "sync-dependencies --source crackle --from ../package.json && prettier --write package.json"
   },
   "dependencies": {
     "@crackle/core": "workspace:*",

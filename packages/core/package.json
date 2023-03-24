@@ -82,7 +82,7 @@
   "scripts": {
     "build": "crackle package",
     "dev": "crackle dev",
-    "sync-dependencies": "sync-dependencies --source vite && prettier --write package.json",
+    "sync:dependencies": "sync-dependencies --source vite && prettier --write package.json",
     "unbuild": "wireit",
     "unbuild:entries": "tsx ./scripts/unbuild-entries.cts"
   },

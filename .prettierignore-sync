@@ -1,0 +1,10 @@
+[inline]
+CHANGELOG.md
+dist
+fixtures/braid-design-system
+node_modules
+pnpm-lock.yaml
+
+[relative]
+fixtures/*/.gitignore
+packages/*/.gitignore
