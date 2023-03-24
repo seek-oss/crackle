@@ -93,14 +93,13 @@ export function externals(
   const packagePath = path.join(packageRoot, 'package.json');
   // eslint-disable-next-line no-sync
   const rootPackageJson = fse.readJsonSync(packagePath) as PackageJson;
-  // preconstruct doesn't understand `satisfies`
-  const options: ExternalsOptions = {
+  const options = {
     packagePath,
     deps: true,
     devDeps: false,
     peerDeps: true,
     optDeps: true,
-  };
+  } satisfies ExternalsOptions;
   const plugin = rollupExternals(options);
 
   let packagesById: PackagesById;

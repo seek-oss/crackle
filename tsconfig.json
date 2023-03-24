@@ -15,17 +15,7 @@
     "target": "esnext",
     "paths": {
       "~utils/*": ["./test-utils/*"]
-    },
-    "types": ["./types/fixturez"]
+    }
   },
-  "include": [
-    "./fixtures",
-    "./packages",
-    "./scripts",
-    "./test-utils",
-    "./tests",
-    "./*.ts",
-    "./*.js"
-  ],
   "exclude": ["node_modules", "fixtures/braid-design-system"]
 }

@@ -1,11 +1,12 @@
 import fs from 'fs';
 import path from 'path';
 
-import { parse } from 'es-module-lexer';
 import glob from 'fast-glob';
+import { resolveModuleExportNames } from 'mlly';
 
 import type { EnhancedConfig } from '../config';
 import { distDir } from '../constants';
+import { logger } from '../entries/logger';
 import type { Format, PackageEntryPoint } from '../types';
 
 import {
@@ -23,12 +24,21 @@ export interface Package {
 
 export type Packages = Map<string, Package>;
 
+const RESOLVE_EXTENSIONS = ['.ts', '.tsx', '.mjs', '.cjs', '.js', '.jsx'];
+
+export const getExports = async (filePath: string) => {
+  const exports = await resolveModuleExportNames(filePath, {
+    extensions: RESOLVE_EXTENSIONS,
+  });
+  logger.debug(`filePath: ${filePath}`);
+  logger.debug(`exports: ${exports}`);
+  logger.debug('---');
+  return exports;
+};
+
 export const hasDefaultExport = async (filePath: string) => {
-  const fileContents = await fs.promises.readFile(filePath, 'utf-8');
-  // `parse` returns a promise if not initialised
-  // https://github.com/guybedford/es-module-lexer/blob/1.1.0/src/lexer.ts#L156-L159
-  const [, exports] = await parse(fileContents, filePath);
-  return exports.some((specifier) => specifier.n === 'default');
+  const exports = await getExports(filePath);
+  return exports.some((specifier) => specifier === 'default');
 };
 
 export const getPackages = async (

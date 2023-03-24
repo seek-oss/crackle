@@ -1,7 +1,6 @@
 import path from 'path';
 
 import dedent from 'dedent';
-import { resolveModuleExportNames } from 'mlly';
 import resolveFrom from 'resolve-from';
 
 import type { EnhancedConfig } from '../config';
@@ -10,13 +9,13 @@ import type { Format, PackageEntryPoint } from '../types';
 
 import {
   createEntryPackageJsons,
+  getExports,
   getPackageEntryPoints,
   getPackages,
+  hasDefaultExport,
 } from './entry-points';
 import { writeIfRequired } from './files';
 import { promiseMap } from './promise-map';
-
-const RESOLVE_EXTENSIONS = ['.ts', '.tsx', '.mjs', '.cjs', '.js', '.jsx'];
 
 const getHookLoader = (id: string, format: Format) => {
   const stringify = (value: any) => JSON.stringify(value, null, 2);
@@ -38,21 +37,6 @@ const getHookLoader = (id: string, format: Format) => {
   const load = `${rekwire}(${stringify(id)})`;
 
   return { setup, load };
-};
-
-const getExports = async (filePath: string) => {
-  const exports = await resolveModuleExportNames(filePath, {
-    extensions: RESOLVE_EXTENSIONS,
-  });
-  logger.debug(`filePath: ${filePath}`);
-  logger.debug(`exports: ${exports}`);
-  logger.debug('---');
-  return exports;
-};
-
-const hasDefaultExport = async (filePath: string) => {
-  const exports = await getExports(filePath);
-  return exports.some((specifier) => specifier === 'default');
 };
 
 type GetContents = (
