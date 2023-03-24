@@ -26,15 +26,22 @@ export const writeFile = async ({ dir, fileName, contents }: WriteFileOpts) => {
 };
 
 export const writeIfRequired = async ({
-  dir,
-  fileName,
+  dir: dirRaw,
+  fileName: fileNameRaw,
   contents,
 }: WriteFileOpts) => {
+  // Normalize paths in case `fileName` contains a directory
+  // Before:
+  //   { dir: '/path/to/dir', fileName: 'foo/bar.js' }
+  // After:
+  //   { dir: '/path/to/dir/foo', fileName: 'bar.js' }
+  const filePath = path.join(dirRaw, fileNameRaw);
+  const dir = path.dirname(filePath);
+  const fileName = path.basename(filePath);
+
   if (!(await exists(dir))) {
     await fse.mkdir(dir, { recursive: true });
   }
-
-  const filePath = path.join(dir, fileName);
   let write = false;
 
   try {
