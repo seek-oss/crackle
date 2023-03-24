@@ -1,6 +1,7 @@
 {
   "recommendations": [
     "bierner.comment-tagged-templates",
+    "google.wireit",
     "ms-playwright.playwright",
     "zixuanchen.vitest-explorer"
   ]
