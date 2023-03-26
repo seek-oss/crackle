@@ -6,8 +6,9 @@
     "%packages": "pnpm --filter='@crackle/*'",
     "%fixtures": "pnpm --filter='@crackle-fixtures/*' --aggregate-output",
     "bootstrap": "pnpm %packages exec crackle-bootstrap package --fix",
-    "dev": "wireit",
-    "build": "wireit",
+    "dev": "pnpm --aggregate-output %packages dev",
+    "build": "pnpm --aggregate-output %packages build",
+    "build:ci": "wireit",
     "format": "wireit",
     "format:eslint": "eslint --cache --fix .",
     "format:prettier": "wireit",
@@ -22,8 +23,8 @@
     "fixtures:add": "tsx ./scripts/add-fixture.ts",
     "fixtures:dev": "pnpm %fixtures dev",
     "sync:dependencies": "pnpm --recursive sync:dependencies && pnpm install",
-    "sync:ignore": "ignore-sync .",
-    "prepare-publish": "pnpm bootstrap && pnpm build",
+    "sync:prettierignore": "ignore-sync .prettierignore-sync",
+    "prepare-publish": "pnpm build:ci",
     "release": "pnpm prepare-publish && changeset publish",
     "version": "changeset version && pnpm install --lockfile-only"
   },
@@ -76,11 +77,11 @@
     }
   },
   "wireit": {
-    "build": {
-      "command": "pnpm --aggregate-output %packages build"
-    },
-    "dev": {
-      "command": "pnpm --aggregate-output %packages dev"
+    "build:ci": {
+      "command": "pnpm build",
+      "dependencies": [
+        "bootstrap"
+      ]
     },
     "format": {
       "dependencies": [
@@ -91,7 +92,7 @@
     "format:prettier": {
       "command": "prettier --cache --write .",
       "dependencies": [
-        "sync:ignore"
+        "sync:prettierignore"
       ]
     },
     "lint": {
@@ -104,7 +105,7 @@
     "lint:prettier": {
       "command": "prettier --cache --check .",
       "dependencies": [
-        "sync:ignore"
+        "sync:prettierignore"
       ]
     },
     "lint:tsc": {

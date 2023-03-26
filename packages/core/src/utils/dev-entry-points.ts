@@ -55,11 +55,13 @@ async function writeFile(
     entry.entryPath.replace(path.extname(entry.entryPath), ''),
   );
 
-  logger.debug(`entryPath: ${entry.entryPath}`);
-  logger.debug(`outputDir: ${entry.outputDir}`);
-  logger.debug(`outputPath: ${outputPath}`);
-  logger.debug(`relativePath: ${relativePath}`);
-  logger.debug('---');
+  logger.debug(dedent`
+    [writeFile ${format}]
+    entryPath: ${entry.entryPath}
+    outputDir: ${entry.outputDir}
+    outputPath: ${outputPath}
+    relativePath: ${relativePath}
+  `);
 
   const contents = await getContents(entry, { relativePath });
 

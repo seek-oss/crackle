@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
+import dedent from 'dedent';
 import glob from 'fast-glob';
 import { resolveModuleExportNames } from 'mlly';
 
@@ -30,9 +31,11 @@ export const getExports = async (filePath: string) => {
   const exports = await resolveModuleExportNames(filePath, {
     extensions: RESOLVE_EXTENSIONS,
   });
-  logger.debug(`filePath: ${filePath}`);
-  logger.debug(`exports: ${exports}`);
-  logger.debug('---');
+  logger.debug(dedent`
+    [getExports]
+    filePath: ${filePath}
+    exports: ${exports}
+  `);
   return exports;
 };
 

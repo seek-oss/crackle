@@ -22,10 +22,8 @@ jobs:
       - name: Checkout & Install
         uses: seek-oss/crackle/.github/actions/init@master
 
-      - name: Bootstrap
-        run: pnpm bootstrap
       - name: Self Build
-        run: pnpm build
+        run: pnpm build:ci
 
       - name: Save Build Cache
         uses: actions/cache/save@v3
