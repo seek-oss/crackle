@@ -16,12 +16,15 @@
     "lint:eslint": "eslint --cache .",
     "lint:prettier": "wireit",
     "lint:tsc": "wireit",
-    "test": "wireit",
-    "test:vitest": "vitest",
-    "test:vitest:ci": "vitest --run",
-    "test:playwright": "playwright test",
+    "test": "pnpm test:unit:ci && pnpm test:integration:ci && pnpm test:playwright",
+    "test:unit": "vitest",
+    "test:unit:ci": "pnpm test:unit --run",
+    "test:integration": "vitest --config vitest.config.integration.ts",
+    "test:integration:ci": "pnpm test:integration --run",
+    "test:playwright": "wireit",
     "fixtures:add": "tsx ./scripts/add-fixture.ts",
     "fixtures:dev": "pnpm %fixtures dev",
+    "fixtures:package": "pnpm %fixtures package",
     "sync:dependencies": "pnpm --recursive sync:dependencies && pnpm install",
     "sync:prettierignore": "ignore-sync .prettierignore-sync",
     "prepare-publish": "pnpm build:ci",
@@ -55,7 +58,7 @@
     "tsx": "^3.12.1",
     "typescript": "~4.9.4",
     "unbuild": "^1.1.2",
-    "vitest": "^0.28.5",
+    "vitest": "^0.29.7",
     "wireit": "^0.9.5"
   },
   "packageManager": "pnpm@7.29.1",
@@ -114,10 +117,10 @@
         "fixtures:dev"
       ]
     },
-    "test": {
+    "test:playwright": {
+      "command": "playwright test",
       "dependencies": [
-        "test:vitest:ci",
-        "test:playwright"
+        "fixtures:package"
       ]
     }
   }

@@ -3,7 +3,7 @@ import path from 'path';
 
 import dedent from 'dedent';
 import glob from 'fast-glob';
-import { resolveModuleExportNames } from 'mlly';
+import { findExportNames } from 'mlly';
 
 import type { EnhancedConfig } from '../config';
 import { distDir } from '../constants';
@@ -25,12 +25,9 @@ export interface Package {
 
 export type Packages = Map<string, Package>;
 
-const RESOLVE_EXTENSIONS = ['.ts', '.tsx', '.mjs', '.cjs', '.js', '.jsx'];
-
 export const getExports = async (filePath: string) => {
-  const exports = await resolveModuleExportNames(filePath, {
-    extensions: RESOLVE_EXTENSIONS,
-  });
+  const fileContents = await fs.promises.readFile(filePath, 'utf-8');
+  const exports = findExportNames(fileContents);
   logger.debug(dedent`
     [getExports]
     filePath: ${filePath}
