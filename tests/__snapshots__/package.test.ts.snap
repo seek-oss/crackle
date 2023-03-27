@@ -612,3 +612,371 @@ exports[`package > fixture with-flatten-children > dist/index.mjs 1`] = `
 import flattenChildren from "react-keyed-flatten-children";
 flattenChildren([]);
 `;
+
+exports[`package > fixture with-side-effects > dist/Box.chunk.cjs 1`] = `
+"use strict";
+const Box = () => null;
+exports.Box = Box;
+`;
+
+exports[`package > fixture with-side-effects > dist/Box.chunk.mjs 1`] = `
+const Box = () => null;
+export {
+  Box
+};
+`;
+
+exports[`package > fixture with-side-effects > dist/css.cjs 1`] = `
+"use strict";
+Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+const Box = require("./Box.chunk.cjs");
+exports.Box = Box.Box;
+`;
+
+exports[`package > fixture with-side-effects > dist/css.d.ts 1`] = `export { Box } from './index.js';`;
+
+exports[`package > fixture with-side-effects > dist/css.mjs 1`] = `
+import { Box } from "./Box.chunk.mjs";
+export {
+  Box
+};
+`;
+
+exports[`package > fixture with-side-effects > dist/css-more.cjs 1`] = `
+"use strict";
+Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+const styles_lib_breakpoints_cjs = require("./styles/lib/breakpoints.cjs");
+const Box = require("./Box.chunk.cjs");
+exports.breakpointNames = styles_lib_breakpoints_cjs.breakpointNames;
+exports.breakpoints = styles_lib_breakpoints_cjs.breakpoints;
+exports.Box = Box.Box;
+`;
+
+exports[`package > fixture with-side-effects > dist/css-more.d.ts 1`] = `export { Box, Breakpoint, breakpointNames, breakpoints } from './index.js';`;
+
+exports[`package > fixture with-side-effects > dist/css-more.mjs 1`] = `
+import { breakpointNames, breakpoints } from "./styles/lib/breakpoints.mjs";
+import { Box } from "./Box.chunk.mjs";
+export {
+  Box,
+  breakpointNames,
+  breakpoints
+};
+`;
+
+exports[`package > fixture with-side-effects > dist/index.cjs 1`] = `
+"use strict";
+const sideEffects_lib_reset_resetTracker_cjs = require("./side-effects/lib/reset/resetTracker.cjs");
+if (process.env.NODE_ENV === "development") {
+  sideEffects_lib_reset_resetTracker_cjs.ensureResetImported();
+}
+`;
+
+exports[`package > fixture with-side-effects > dist/index.d.ts 1`] = `
+declare const breakpointNames: readonly ["mobile", "tablet", "desktop", "wide"];
+declare const breakpoints: {
+    readonly mobile: 0;
+    readonly tablet: 740;
+    readonly desktop: 992;
+    readonly wide: 1200;
+};
+type Breakpoint = keyof typeof breakpoints;
+
+declare const Box: () => null;
+
+export { Box, Breakpoint, breakpointNames, breakpoints };
+`;
+
+exports[`package > fixture with-side-effects > dist/index.mjs 1`] = `
+import { ensureResetImported } from "./side-effects/lib/reset/resetTracker.mjs";
+if (process.env.NODE_ENV === "development") {
+  ensureResetImported();
+}
+`;
+
+exports[`package > fixture with-side-effects > dist/reset.cjs 1`] = `
+"use strict";
+Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+require("./side-effects/lib/reset/index.cjs");
+const styles_lib_breakpoints_cjs = require("./styles/lib/breakpoints.cjs");
+if (process.env.NO_SIDE_EFFECTS !== "clearly") {
+  throw new Error("side-effect");
+}
+exports.breakpointNames = styles_lib_breakpoints_cjs.breakpointNames;
+exports.breakpoints = styles_lib_breakpoints_cjs.breakpoints;
+`;
+
+exports[`package > fixture with-side-effects > dist/reset.d.ts 1`] = `export { Breakpoint, breakpointNames, breakpoints } from './index.js';`;
+
+exports[`package > fixture with-side-effects > dist/reset.mjs 1`] = `
+import "./side-effects/lib/reset/index.mjs";
+import { breakpointNames, breakpoints } from "./styles/lib/breakpoints.mjs";
+if (process.env.NO_SIDE_EFFECTS !== "clearly") {
+  throw new Error("side-effect");
+}
+export {
+  breakpointNames,
+  breakpoints
+};
+`;
+
+exports[`package > fixture with-side-effects > dist/side-effects/lib/atoms/atoms.cjs 1`] = `
+"use strict";
+require("../../../styles/lib/reset/reset.css.cjs");
+require("../../../styles/lib/atoms/sprinkles.css.cjs");
+`;
+
+exports[`package > fixture with-side-effects > dist/side-effects/lib/atoms/atoms.mjs 1`] = `
+import "../../../styles/lib/reset/reset.css.mjs";
+import "../../../styles/lib/atoms/sprinkles.css.mjs";
+`;
+
+exports[`package > fixture with-side-effects > dist/side-effects/lib/reset/index.cjs 1`] = `
+"use strict";
+const sideEffects_lib_reset_resetTracker_cjs = require("./resetTracker.cjs");
+require("../../../styles/lib/reset/reset.css.cjs");
+require("../../../styles/lib/atoms/sprinkles.css.cjs");
+if (process.env.NODE_ENV === "development") {
+  sideEffects_lib_reset_resetTracker_cjs.markResetImported();
+}
+`;
+
+exports[`package > fixture with-side-effects > dist/side-effects/lib/reset/index.mjs 1`] = `
+import { markResetImported } from "./resetTracker.mjs";
+import "../../../styles/lib/reset/reset.css.mjs";
+import "../../../styles/lib/atoms/sprinkles.css.mjs";
+if (process.env.NODE_ENV === "development") {
+  markResetImported();
+}
+`;
+
+exports[`package > fixture with-side-effects > dist/side-effects/lib/reset/resetTracker.cjs 1`] = `
+"use strict";
+let resetImported = false;
+const markResetImported = () => {
+  resetImported = true;
+};
+const ensureResetImported = () => {
+  if (!resetImported) {
+    throw new Error("Braid components imported before reset");
+  }
+};
+exports.ensureResetImported = ensureResetImported;
+exports.markResetImported = markResetImported;
+`;
+
+exports[`package > fixture with-side-effects > dist/side-effects/lib/reset/resetTracker.mjs 1`] = `
+let resetImported = false;
+const markResetImported = () => {
+  resetImported = true;
+};
+const ensureResetImported = () => {
+  if (!resetImported) {
+    throw new Error("Braid components imported before reset");
+  }
+};
+export {
+  ensureResetImported,
+  markResetImported
+};
+`;
+
+exports[`package > fixture with-side-effects > dist/styles/lib/atoms/atomicProperties.cjs 1`] = `
+"use strict";
+const space = {
+  medium: "5px",
+  none: 0
+};
+const responsiveProperties = {
+  display: {
+    none: "none",
+    block: "block",
+    inline: "inline",
+    inlineBlock: "inline-block",
+    flex: "flex"
+  },
+  position: ["relative", "absolute", "fixed"],
+  paddingTop: space,
+  paddingBottom: space,
+  paddingRight: space,
+  paddingLeft: space
+};
+exports.responsiveProperties = responsiveProperties;
+`;
+
+exports[`package > fixture with-side-effects > dist/styles/lib/atoms/atomicProperties.mjs 1`] = `
+const space = {
+  medium: "5px",
+  none: 0
+};
+const responsiveProperties = {
+  display: {
+    none: "none",
+    block: "block",
+    inline: "inline",
+    inlineBlock: "inline-block",
+    flex: "flex"
+  },
+  position: ["relative", "absolute", "fixed"],
+  paddingTop: space,
+  paddingBottom: space,
+  paddingRight: space,
+  paddingLeft: space
+};
+export {
+  responsiveProperties
+};
+`;
+
+exports[`package > fixture with-side-effects > dist/styles/lib/atoms/sprinkles.css.cjs 1`] = `
+"use strict";
+const fileScope = require("@vanilla-extract/css/fileScope");
+const css = require("@vanilla-extract/css");
+const sprinkles = require("@vanilla-extract/sprinkles");
+const styles_lib_breakpoints_cjs = require("../breakpoints.cjs");
+const styles_lib_atoms_atomicProperties_cjs = require("./atomicProperties.cjs");
+fileScope.setFileScope("src/lib/atoms/sprinkles.css.ts?used", "with-side-effects");
+css.style({}, "darkMode");
+const responsiveAtomicProperties = sprinkles.defineProperties({
+  defaultCondition: "mobile",
+  conditions: {
+    mobile: {},
+    tablet: {
+      "@media": \`screen and (min-width: \${styles_lib_breakpoints_cjs.breakpoints.tablet}px)\`
+    },
+    desktop: {
+      "@media": \`screen and (min-width: \${styles_lib_breakpoints_cjs.breakpoints.desktop}px)\`
+    },
+    wide: {
+      "@media": \`screen and (min-width: \${styles_lib_breakpoints_cjs.breakpoints.wide}px)\`
+    }
+  },
+  responsiveArray: styles_lib_breakpoints_cjs.breakpointNames,
+  properties: styles_lib_atoms_atomicProperties_cjs.responsiveProperties,
+  shorthands: {
+    padding: ["paddingBottom", "paddingTop", "paddingLeft", "paddingRight"],
+    paddingY: ["paddingTop", "paddingBottom"],
+    paddingX: ["paddingLeft", "paddingRight"]
+  }
+});
+sprinkles.createSprinkles(responsiveAtomicProperties);
+sprinkles.createNormalizeValueFn(responsiveAtomicProperties);
+sprinkles.createMapValueFn(responsiveAtomicProperties);
+fileScope.endFileScope();
+`;
+
+exports[`package > fixture with-side-effects > dist/styles/lib/atoms/sprinkles.css.mjs 1`] = `
+import { setFileScope, endFileScope } from "@vanilla-extract/css/fileScope";
+import { style } from "@vanilla-extract/css";
+import { defineProperties, createSprinkles, createNormalizeValueFn, createMapValueFn } from "@vanilla-extract/sprinkles";
+import { breakpoints, breakpointNames } from "../breakpoints.mjs";
+import { responsiveProperties } from "./atomicProperties.mjs";
+setFileScope("src/lib/atoms/sprinkles.css.ts?used", "with-side-effects");
+style({}, "darkMode");
+const responsiveAtomicProperties = defineProperties({
+  defaultCondition: "mobile",
+  conditions: {
+    mobile: {},
+    tablet: {
+      "@media": \`screen and (min-width: \${breakpoints.tablet}px)\`
+    },
+    desktop: {
+      "@media": \`screen and (min-width: \${breakpoints.desktop}px)\`
+    },
+    wide: {
+      "@media": \`screen and (min-width: \${breakpoints.wide}px)\`
+    }
+  },
+  responsiveArray: breakpointNames,
+  properties: responsiveProperties,
+  shorthands: {
+    padding: ["paddingBottom", "paddingTop", "paddingLeft", "paddingRight"],
+    paddingY: ["paddingTop", "paddingBottom"],
+    paddingX: ["paddingLeft", "paddingRight"]
+  }
+});
+createSprinkles(responsiveAtomicProperties);
+createNormalizeValueFn(responsiveAtomicProperties);
+createMapValueFn(responsiveAtomicProperties);
+endFileScope();
+`;
+
+exports[`package > fixture with-side-effects > dist/styles/lib/breakpoints.cjs 1`] = `
+"use strict";
+const breakpointNames = ["mobile", "tablet", "desktop", "wide"];
+const breakpoints = {
+  mobile: 0,
+  tablet: 740,
+  desktop: 992,
+  wide: 1200
+};
+exports.breakpointNames = breakpointNames;
+exports.breakpoints = breakpoints;
+`;
+
+exports[`package > fixture with-side-effects > dist/styles/lib/breakpoints.mjs 1`] = `
+const breakpointNames = ["mobile", "tablet", "desktop", "wide"];
+const breakpoints = {
+  mobile: 0,
+  tablet: 740,
+  desktop: 992,
+  wide: 1200
+};
+export {
+  breakpointNames,
+  breakpoints
+};
+`;
+
+exports[`package > fixture with-side-effects > dist/styles/lib/reset/reset.css.cjs 1`] = `
+"use strict";
+const fileScope = require("@vanilla-extract/css/fileScope");
+const css = require("@vanilla-extract/css");
+fileScope.setFileScope("src/lib/reset/reset.css.ts?used", "with-side-effects");
+const hideFocusRingsDataAttribute = "data-braid-hidefocusrings";
+css.style({
+  margin: 0,
+  padding: 0,
+  border: 0,
+  boxSizing: "border-box",
+  fontSize: "100%",
+  font: "inherit",
+  verticalAlign: "baseline",
+  WebkitTapHighlightColor: "transparent",
+  selectors: {
+    [\`[\${hideFocusRingsDataAttribute}] &\`]: {
+      outline: "none"
+    }
+  }
+}, "base");
+css.style({
+  display: "block"
+}, "block");
+fileScope.endFileScope();
+`;
+
+exports[`package > fixture with-side-effects > dist/styles/lib/reset/reset.css.mjs 1`] = `
+import { setFileScope, endFileScope } from "@vanilla-extract/css/fileScope";
+import { style } from "@vanilla-extract/css";
+setFileScope("src/lib/reset/reset.css.ts?used", "with-side-effects");
+const hideFocusRingsDataAttribute = "data-braid-hidefocusrings";
+style({
+  margin: 0,
+  padding: 0,
+  border: 0,
+  boxSizing: "border-box",
+  fontSize: "100%",
+  font: "inherit",
+  verticalAlign: "baseline",
+  WebkitTapHighlightColor: "transparent",
+  selectors: {
+    [\`[\${hideFocusRingsDataAttribute}] &\`]: {
+      outline: "none"
+    }
+  }
+}, "base");
+style({
+  display: "block"
+}, "block");
+endFileScope();
+`;
