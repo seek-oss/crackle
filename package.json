@@ -35,7 +35,7 @@
     "@babel/preset-typescript": "^7.18.6",
     "@changesets/changelog-github": "^0.4.7",
     "@changesets/cli": "^2.25.0",
-    "@crackle-dev/bootstrap": "workspace:*",
+    "@crackle-private/bootstrap": "workspace:*",
     "@crackle/cli": "workspace:*",
     "@crackle/core": "workspace:*",
     "@playwright/test": "^1.32.0",

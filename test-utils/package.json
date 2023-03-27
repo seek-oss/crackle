@@ -1,5 +1,5 @@
 {
-  "name": "@crackle-dev/test-utils",
+  "name": "@crackle-private/test-utils",
   "private": true,
   "dependencies": {
     "pretty-format": "^29.0.0",

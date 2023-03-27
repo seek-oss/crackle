@@ -1,5 +1,5 @@
 {
-  "name": "@crackle-dev/bootstrap",
+  "name": "@crackle-private/bootstrap",
   "private": true,
   "bin": {
     "crackle-bootstrap": "bin.js"
