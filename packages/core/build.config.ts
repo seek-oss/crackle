@@ -5,7 +5,6 @@ export default defineBuildConfig({
   entries: glob
     .sync(['src/index.ts', 'src/entries/**/*.ts'])
     .map((entry) => entry.replace('.ts', '')),
-  // clean: false,
   declaration: true,
   failOnWarn: false,
   rollup: {

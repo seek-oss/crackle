@@ -20,7 +20,7 @@ export default defineConfig({
   test: {
     exclude: [
       ...exclude,
-      // handle the circular references between configs
+      // handle the circular reference between configs
       ...(integrationInclude ?? []),
     ],
     setupFiles: './test-utils/setup.ts',
