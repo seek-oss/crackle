@@ -10,11 +10,7 @@ import { build as viteBuild } from 'vite';
 
 import type { EnhancedConfig } from '../config';
 import { sideEffectsDir, srcDir, stylesDir } from '../constants';
-import {
-  addVanillaDebugIds,
-  dynamicImport,
-  externals,
-} from '../plugins/rollup';
+import { addVanillaDebugIds, externals } from '../plugins/rollup';
 import type { PackageEntryPoint, PackageJson } from '../types';
 import { extensionForFormat } from '../utils/files';
 import { moduleHasSideEffects } from '../utils/side-effects';
@@ -74,12 +70,7 @@ export const createBundle = async (
 
   await viteBuild({
     ...commonViteConfig,
-    plugins: [
-      addVanillaDebugIds(config),
-      externals(config, 'esm'),
-      dynamicImport('cjs'),
-      react(),
-    ],
+    plugins: [addVanillaDebugIds(config), externals(config, 'esm'), react()],
     logLevel: 'warn',
     build: {
       outDir: config.root,
