@@ -1,5 +1,21 @@
 # @crackle/core
 
+## 0.22.0
+
+### Minor Changes
+
+- [#84](https://github.com/seek-oss/crackle/pull/84) [`3250fdf`](https://github.com/seek-oss/crackle/commit/3250fdffcf364f461789bdad90136824756f7538) Thanks [@mrm007](https://github.com/mrm007)! - Build Crackle with Crackle
+
+- [#84](https://github.com/seek-oss/crackle/pull/84) [`3250fdf`](https://github.com/seek-oss/crackle/commit/3250fdffcf364f461789bdad90136824756f7538) Thanks [@mrm007](https://github.com/mrm007)! - Enhance `crackle dev` with a "passive watcher".
+
+  This is a powerful feature that speeds up the feedback loop in development and testing. When running `crackle dev` in a package Crackle will create stub entries for CJS and ESM that loads code directly from the `src` folder, without needing to build the package first.
+
+### Patch Changes
+
+- Updated dependencies [[`3250fdf`](https://github.com/seek-oss/crackle/commit/3250fdffcf364f461789bdad90136824756f7538)]:
+  - @crackle/babel-plugin-remove-exports@0.2.0
+  - @crackle/router@0.3.0
+
 ## 0.21.0
 
 ### Minor Changes
