@@ -61,7 +61,7 @@
     "vitest": "^0.29.7",
     "wireit": "^0.9.5"
   },
-  "packageManager": "pnpm@7.29.1",
+  "packageManager": "pnpm@8.1.0",
   "volta": {
     "node": "18.13.0"
   },
