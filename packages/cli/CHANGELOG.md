@@ -1,5 +1,16 @@
 # @crackle/cli
 
+## 0.11.0
+
+### Minor Changes
+
+- [#84](https://github.com/seek-oss/crackle/pull/84) [`3250fdf`](https://github.com/seek-oss/crackle/commit/3250fdffcf364f461789bdad90136824756f7538) Thanks [@mrm007](https://github.com/mrm007)! - Build Crackle with Crackle
+
+### Patch Changes
+
+- Updated dependencies [[`3250fdf`](https://github.com/seek-oss/crackle/commit/3250fdffcf364f461789bdad90136824756f7538), [`3250fdf`](https://github.com/seek-oss/crackle/commit/3250fdffcf364f461789bdad90136824756f7538)]:
+  - @crackle/core@0.22.0
+
 ## 0.10.10
 
 ### Patch Changes
