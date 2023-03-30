@@ -8,28 +8,29 @@ import builtinModules from 'builtin-modules';
 import express from 'express';
 import { createServer as createViteServer } from 'vite';
 
-import type { RenderDevPageFn } from '../entries/types';
-
-import type { PartialConfig } from './config';
-import { getConfig } from './config';
-import { clientEntry } from './constants';
-import { logger } from './logger';
-import { fixViteVanillaExtractDepScanPlugin } from './plugins/esbuild';
+import type { RenderDevPageFn } from '../../entries/types';
+import type { PartialConfig } from '../config';
+import { getConfig } from '../config';
+import { clientEntry } from '../constants';
+import { fixViteVanillaExtractDepScanPlugin } from '../plugins/esbuild';
 import {
   addPageRoots,
   internalPackageResolution,
   stripRouteData,
-} from './plugins/vite';
-import { pageGlobSuffix } from './route-data';
-import type { CrackleServer } from './types';
+} from '../plugins/vite';
+import type { CrackleServer } from '../types';
 import {
   extractDependencyGraph,
   getSsrExternalsForCompiledDependency,
-} from './utils/dependency-graph';
-import { calculateTime } from './utils/timer';
-import { commonViteConfig } from './vite-config';
+} from '../utils/dependency-graph';
+import { resolveFromCrackle } from '../utils/resolve-from';
+import { calculateTime } from '../utils/timer';
+import { commonViteConfig } from '../vite-config';
 
-export * from './types';
+import { logger } from './logger';
+import { pageGlobSuffix } from './route-data';
+
+export * from '../types';
 
 type Socket = http.IncomingMessage['socket'];
 
@@ -106,7 +107,7 @@ export const start = async (
 
     try {
       const { renderDevelopmentPage } = (await vite.ssrLoadModule(
-        require.resolve('../../entries/render/dev.tsx'),
+        resolveFromCrackle('./entries/render/dev.tsx'),
       )) as { renderDevelopmentPage: RenderDevPageFn };
 
       // eslint-disable-next-line prefer-const

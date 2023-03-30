@@ -1,4 +1,0 @@
-{
-  "main": "dist/crackle-core-clean.cjs.js",
-  "module": "dist/crackle-core-clean.esm.js"
-}

@@ -1,7 +1,7 @@
 import assert from 'assert';
 import path from 'path';
 
-import { readJson } from 'fs-extra';
+import fse from 'fs-extra';
 
 import type { PackageJson } from '../types';
 
@@ -20,7 +20,7 @@ interface Dependency {
 type DepGraph = Map<string, Dependency>;
 
 const loadPackage = async (packageJsonPath: string) =>
-  (await readJson(packageJsonPath)) as PackageJson;
+  (await fse.readJson(packageJsonPath)) as PackageJson;
 
 const anaylyseDependency = async (
   dependent: string,

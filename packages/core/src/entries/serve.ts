@@ -3,11 +3,12 @@ import path from 'path';
 
 import handler from 'serve-handler';
 
-import type { PartialConfig } from './config';
-import { getConfig } from './config';
-import { siteBuild } from './constants';
+import type { PartialConfig } from '../config';
+import { getConfig } from '../config';
+import { siteBuild } from '../constants';
+import type { CrackleServer } from '../types';
+
 import { logger } from './logger';
-import type { CrackleServer } from './types';
 
 export const serve = (inlineConfig?: PartialConfig): CrackleServer => {
   const config = getConfig(inlineConfig);

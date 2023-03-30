@@ -1,11 +1,11 @@
-import type { PartialConfig } from './config';
-import { getConfig } from './config';
-import type { PackageDiffDetails } from './reporters/fix';
-import { renderApp } from './reporters/fix';
-import { getPackageEntryPoints, getPackages } from './utils/entry-points';
-import { updateGitignore } from './utils/gitignore';
-import { promiseMap } from './utils/promise-map';
-import { fixPackageJson } from './utils/setup-package-json';
+import type { PartialConfig } from '../config';
+import { getConfig } from '../config';
+import type { PackageDiffDetails } from '../reporters/fix';
+import { renderApp } from '../reporters/fix';
+import { getPackageEntryPoints, getPackages } from '../utils/entry-points';
+import { updateGitignore } from '../utils/gitignore';
+import { promiseMap } from '../utils/promise-map';
+import { fixPackageJson } from '../utils/setup-package-json';
 
 export const fix = async (inlineConfig?: PartialConfig) => {
   const config = getConfig(inlineConfig);

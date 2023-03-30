@@ -1,4 +1,6 @@
-export const clientEntry = require.resolve('../entries/client.tsx');
+import { resolveFromCrackle } from './utils/resolve-from';
+
+export const clientEntry = resolveFromCrackle('./entries/client.tsx');
 
 export const srcDir = 'src';
 // the result of `crackle package` (compiled JS files) goes here

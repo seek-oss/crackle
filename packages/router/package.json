@@ -1,37 +1,38 @@
 {
   "name": "@crackle/router",
   "version": "0.2.1",
-  "main": "dist/crackle-router.cjs.js",
-  "module": "dist/crackle-router.esm.js",
+  "license": "MIT",
+  "author": "SEEK",
+  "sideEffects": false,
   "exports": {
     ".": {
-      "module": "./dist/crackle-router.esm.js",
-      "default": "./dist/crackle-router.cjs.js"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     },
     "./routes": {
-      "module": "./routes/dist/crackle-router-routes.esm.js",
-      "default": "./routes/dist/crackle-router-routes.cjs.js"
+      "types": "./dist/routes.d.ts",
+      "import": "./dist/routes.mjs",
+      "require": "./dist/routes.cjs"
     },
     "./server": {
-      "module": "./server/dist/crackle-router-server.esm.js",
-      "default": "./server/dist/crackle-router-server.cjs.js"
+      "types": "./dist/server.d.ts",
+      "import": "./dist/server.mjs",
+      "require": "./dist/server.cjs"
     },
     "./package.json": "./package.json"
   },
-  "author": "SEEK",
-  "license": "MIT",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "files": [
-    "/dist",
-    "/routes",
-    "/server",
-    "valid-routes.d.ts"
+    "CHANGELOG.md",
+    "dist",
+    "routes",
+    "server"
   ],
-  "preconstruct": {
-    "entrypoints": [
-      "index.ts",
-      "routes.ts",
-      "server.ts"
-    ]
+  "scripts": {
+    "build": "crackle package"
   },
   "dependencies": {
     "react": "^18.2.0",

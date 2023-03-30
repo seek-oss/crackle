@@ -4,7 +4,7 @@ import path from 'path';
 
 import { prompt } from 'enquirer';
 import glob from 'fast-glob';
-import fs from 'fs-extra';
+import fse from 'fs-extra';
 
 type Answers = {
   name: string;
@@ -28,12 +28,12 @@ const template = {
     scripts: {
       fix: 'crackle fix',
       ...(type.includes('site') && {
-        dev: 'crackle dev',
         start: 'crackle start',
         build: 'crackle build',
         serve: 'crackle serve',
       }),
       ...(type.includes('library') && {
+        dev: 'crackle dev',
         package: 'crackle package',
       }),
     },
@@ -97,16 +97,16 @@ const template = {
   const packageJson = template.packageJson(answers);
   const index = template.index(answers);
 
-  await fs.mkdirp(path.join(packageDir, 'src'));
-  await fs.writeJson(packageJsonPath, packageJson, { spaces: 2 });
-  await fs.writeFile(path.join(packageDir, 'src/index.ts'), index);
+  await fse.mkdirp(path.join(packageDir, 'src'));
+  await fse.writeJson(packageJsonPath, packageJson, { spaces: 2 });
+  await fse.writeFile(path.join(packageDir, 'src/index.ts'), index);
 
   try {
     console.log('Trying `bat`...');
     await run(`bat ${packageJsonPath}`);
   } catch (e: any) {
     console.log('File:', packageJsonPath);
-    console.log(await fs.readFile(packageJsonPath, { encoding: 'utf8' }));
+    console.log(await fse.readFile(packageJsonPath, { encoding: 'utf8' }));
   }
   await run('pnpm install', { cwd: packageDir });
   await run(`pnpm --filter='${packageJson.name}' fix`);

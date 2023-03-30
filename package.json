@@ -3,66 +3,67 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "fix": "preconstruct fix",
-    "dev": "preconstruct dev",
-    "build": "preconstruct build",
-    "watch": "preconstruct watch",
-    "fixtures": "pnpm --recursive --filter='@crackle-fixtures/*'",
-    "format": "npm-run-all format:eslint format:prettier",
-    "format:eslint": "eslint --fix --cache .",
-    "format:prettier": "prettier --write --cache .",
-    "lint": "npm-run-all --parallel --aggregate-output --continue-on-error 'lint:*'",
+    "%packages": "pnpm --filter='@crackle/*'",
+    "%fixtures": "pnpm --filter='@crackle-fixtures/*' --aggregate-output",
+    "bootstrap": "pnpm %packages exec crackle-bootstrap package --fix",
+    "dev": "pnpm --aggregate-output %packages dev",
+    "build": "pnpm --aggregate-output %packages build",
+    "build:ci": "wireit",
+    "format": "wireit",
+    "format:eslint": "eslint --cache --fix .",
+    "format:prettier": "wireit",
+    "lint": "wireit",
     "lint:eslint": "eslint --cache .",
-    "lint:prettier": "prettier --cache --check .",
-    "lint:tsc": "tsc --noEmit",
-    "test": "pnpm test:vitest --run && pnpm test:playwright",
-    "test:vitest": "vitest",
-    "test:playwright": "playwright test",
-    "add-fixture": "tsx ./scripts/add-fixture.ts",
-    "sync-dependencies": "pnpm --recursive sync-dependencies && pnpm install",
-    "prepare-publish": "pnpm build",
+    "lint:prettier": "wireit",
+    "lint:tsc": "wireit",
+    "test": "pnpm test:unit:ci && pnpm test:integration:ci && pnpm test:playwright",
+    "test:unit": "vitest",
+    "test:unit:ci": "pnpm test:unit --run",
+    "test:integration": "vitest --config vitest.config.integration.ts",
+    "test:integration:ci": "pnpm test:integration --run",
+    "test:playwright": "wireit",
+    "fixtures:add": "tsx ./scripts/add-fixture.ts",
+    "fixtures:dev": "pnpm %fixtures dev",
+    "fixtures:package": "pnpm %fixtures package",
+    "sync:dependencies": "pnpm --recursive sync:dependencies && pnpm install",
+    "sync:prettierignore": "ignore-sync .prettierignore-sync",
+    "prepare-publish": "pnpm build:ci",
     "release": "pnpm prepare-publish && changeset publish",
     "version": "changeset version && pnpm install --lockfile-only"
   },
   "dependencies": {
-    "@babel/core": "^7.19.4",
-    "@babel/preset-env": "^7.19.4",
+    "@babel/core": "^7.20.7",
+    "@babel/preset-env": "^7.20.2",
     "@babel/preset-react": "^7.18.6",
     "@babel/preset-typescript": "^7.18.6",
     "@changesets/changelog-github": "^0.4.7",
     "@changesets/cli": "^2.25.0",
+    "@crackle-private/bootstrap": "workspace:*",
     "@crackle/cli": "workspace:*",
-    "@playwright/test": "1.22.2",
-    "@preconstruct/cli": "^2.2.2",
+    "@crackle/core": "workspace:*",
+    "@playwright/test": "^1.32.0",
     "@preconstruct/eslint-plugin-format-js-tag": "^0.2.0",
-    "@types/fs-extra": "^9.0.13",
+    "@types/fs-extra": "^11.0.1",
     "@vitejs/plugin-react": "^3.0.0",
     "enquirer": "^2.3.6",
     "eslint": "^8.25.0",
     "eslint-config-seek": "^10.1.3",
     "fast-glob": "^3.2.12",
     "fixturez": "^1.1.0",
-    "fs-extra": "^10.1.0",
+    "fs-extra": "^11.1.1",
+    "ignore-sync": "^6.0.2",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.8.2",
     "snapshot-diff": "^0.10.0",
     "tsx": "^3.12.1",
     "typescript": "~4.9.4",
-    "vitest": "^0.28.5"
+    "unbuild": "^1.1.2",
+    "vitest": "^0.29.7",
+    "wireit": "^0.9.5"
   },
-  "packageManager": "pnpm@7.28.0",
+  "packageManager": "pnpm@7.29.1",
   "volta": {
     "node": "18.13.0"
-  },
-  "preconstruct": {
-    "___experimentalFlags_WILL_CHANGE_IN_PATCH": {
-      "exports": true,
-      "keepDynamicImportAsDynamicImportInCommonJS": true
-    },
-    "exports": true,
-    "packages": [
-      "packages/*"
-    ]
   },
   "pnpm": {
     "neverBuiltDependencies": [
@@ -75,6 +76,51 @@
       "ignoreMissing": [
         "jest",
         "sku"
+      ]
+    }
+  },
+  "wireit": {
+    "build:ci": {
+      "command": "pnpm build",
+      "dependencies": [
+        "bootstrap"
+      ]
+    },
+    "format": {
+      "dependencies": [
+        "format:eslint",
+        "format:prettier"
+      ]
+    },
+    "format:prettier": {
+      "command": "prettier --cache --write .",
+      "dependencies": [
+        "sync:prettierignore"
+      ]
+    },
+    "lint": {
+      "dependencies": [
+        "lint:eslint",
+        "lint:prettier",
+        "lint:tsc"
+      ]
+    },
+    "lint:prettier": {
+      "command": "prettier --cache --check .",
+      "dependencies": [
+        "sync:prettierignore"
+      ]
+    },
+    "lint:tsc": {
+      "command": "tsc --noEmit",
+      "dependencies": [
+        "fixtures:dev"
+      ]
+    },
+    "test:playwright": {
+      "command": "playwright test",
+      "dependencies": [
+        "fixtures:package"
       ]
     }
   }

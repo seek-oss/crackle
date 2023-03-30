@@ -1,7 +1,7 @@
 import { Text, Box } from 'ink';
 import * as React from 'react';
 
-import { logger } from '../../logger';
+import { logger } from '../../entries/logger';
 import { partition } from '../../utils/partition';
 import { renderToString, Section, Stack } from '../shared';
 

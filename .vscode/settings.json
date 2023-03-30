@@ -1,4 +1,7 @@
 {
+  "files.associations": {
+    "*ignore-sync": "ini"
+  },
   "search.exclude": {
     "**/*.code-search": true,
     "**/node_modules": true,

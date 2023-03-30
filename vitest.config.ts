@@ -3,6 +3,13 @@ import { resolve } from 'path';
 import react from '@vitejs/plugin-react';
 import { configDefaults, defineConfig } from 'vitest/config';
 
+import { include as integrationInclude } from './vitest.config.integration';
+
+export const exclude = [
+  ...configDefaults.exclude,
+  'fixtures/braid-design-system/**',
+];
+
 export default defineConfig({
   plugins: [react()],
   resolve: {
@@ -11,7 +18,11 @@ export default defineConfig({
     },
   },
   test: {
-    exclude: [...configDefaults.exclude, 'fixtures/braid-design-system/**'],
+    exclude: [
+      ...exclude,
+      // handle the circular reference between configs
+      ...(integrationInclude ?? []),
+    ],
     setupFiles: './test-utils/setup.ts',
     //* these values are used in test-utils/pkg-serializer.ts
     snapshotFormat: {

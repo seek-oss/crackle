@@ -6,29 +6,30 @@ import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import react from '@vitejs/plugin-react';
 import builtinModules from 'builtin-modules';
 import chalk from 'chalk';
-import { readJson } from 'fs-extra';
+import fse from 'fs-extra';
 import type { RollupOutput } from 'rollup';
 import type { UserConfig as ViteConfig, Manifest } from 'vite';
 import { build as viteBuild } from 'vite';
 
-import type { RenderAllPagesFn } from '../entries/types';
-
-import type { PartialConfig } from './config';
-import { getConfig } from './config';
-import { clientEntry, siteBuild } from './constants';
-import { logger } from './logger';
+import type { RenderAllPagesFn } from '../../entries/types';
+import type { PartialConfig } from '../config';
+import { getConfig } from '../config';
+import { clientEntry, siteBuild } from '../constants';
 import {
   addPageRoots,
   internalPackageResolution,
   stripRouteData,
-} from './plugins/vite';
-import { renderBuildError } from './reporters/shared';
+} from '../plugins/vite';
+import { renderBuildError } from '../reporters/shared';
 import {
   extractDependencyGraph,
   getSsrExternalsForCompiledDependency,
-} from './utils/dependency-graph';
-import { promiseMap } from './utils/promise-map';
-import { commonViteConfig } from './vite-config';
+} from '../utils/dependency-graph';
+import { promiseMap } from '../utils/promise-map';
+import { resolveFromCrackle } from '../utils/resolve-from';
+import { commonViteConfig } from '../vite-config';
+
+import { logger } from './logger';
 
 export const build = async (inlineConfig?: PartialConfig) => {
   const config = getConfig(inlineConfig);
@@ -95,7 +96,7 @@ export const build = async (inlineConfig?: PartialConfig) => {
         minify: false,
         ssr: true,
         rollupOptions: {
-          input: require.resolve('../../entries/render/build.tsx'),
+          input: resolveFromCrackle('./entries/render/build.tsx'),
         },
         outDir: rendererDir,
       },
@@ -111,7 +112,9 @@ export const build = async (inlineConfig?: PartialConfig) => {
     )) as {
       renderAllPages: RenderAllPagesFn;
     };
-    const manifest = (await readJson(`${outDir}/manifest.json`)) as Manifest;
+    const manifest = (await fse.readJson(
+      `${outDir}/manifest.json`,
+    )) as Manifest;
     const pages = await renderAllPages(manifest, config.publicPath);
 
     await promiseMap(pages, async ({ route, html }) => {

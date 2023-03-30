@@ -11,7 +11,8 @@ env:
   CI: true
   dist-cache-paths: |
     packages/*/dist
-    packages/*/*/dist
+    packages/*/*/index.d.ts
+    packages/*/*/package.json
 
 jobs:
   build:
@@ -21,14 +22,15 @@ jobs:
       - name: Checkout & Install
         uses: seek-oss/crackle/.github/actions/init@master
 
-      - name: Build
-        run: pnpm build
+      - name: Self Build
+        run: pnpm build:ci
 
       - name: Save Build Cache
         uses: actions/cache/save@v3
         with:
           path: ${{ env.dist-cache-paths }}
-          key: build-${{ runner.os }}-${{ github.sha }}
+          key: build-${{ github.sha }}
+          enableCrossOsArchive: true
 
   lint:
     name: Lint
@@ -42,7 +44,8 @@ jobs:
         uses: actions/cache/restore@v3
         with:
           path: ${{ env.dist-cache-paths }}
-          key: build-${{ runner.os }}-${{ github.sha }}
+          key: build-${{ github.sha }}
+          enableCrossOsArchive: true
 
       - name: ESLint
         run: pnpm lint:eslint
@@ -51,9 +54,7 @@ jobs:
         run: pnpm lint:prettier
 
       - name: TypeScript
-        run: |
-          pnpm fixtures --aggregate-output dev
-          pnpm lint:tsc
+        run: pnpm lint:tsc
 
   test:
     name: Test
@@ -67,12 +68,11 @@ jobs:
         uses: actions/cache/restore@v3
         with:
           path: ${{ env.dist-cache-paths }}
-          key: build-${{ runner.os }}-${{ github.sha }}
+          key: build-${{ github.sha }}
+          enableCrossOsArchive: true
 
       - name: Install Browsers
         run: pnpm playwright install chromium
 
       - name: Test
-        run: |
-          pnpm fixtures --aggregate-output dev
-          pnpm test
+        run: pnpm test

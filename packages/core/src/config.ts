@@ -1,6 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 
+import { resolveFromCrackle } from './utils/resolve-from';
+
 export interface Config {
   /**
    * Automatically clean output directory when running `package`.
@@ -97,7 +99,7 @@ const determineAppShell = (
     return defaultAppShellPath;
   }
 
-  return require.resolve('../entries/default-app-shell.tsx');
+  return resolveFromCrackle('./entries/default-app-shell.tsx');
 };
 
 export const getConfig = (inlineConfig?: PartialConfig): EnhancedConfig => {

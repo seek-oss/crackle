@@ -1,0 +1,10 @@
+{
+  "name": "@crackle-private/bootstrap",
+  "private": true,
+  "bin": {
+    "crackle-bootstrap": "bin.js"
+  },
+  "dependencies": {
+    "@crackle/cli": "0.10.9"
+  }
+}

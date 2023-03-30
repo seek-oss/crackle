@@ -1,6 +1,7 @@
 import path from 'path';
 
 import memoize from 'fast-memoize';
+import fse from 'fs-extra';
 import type { FunctionPluginHooks, Plugin } from 'rollup';
 import {
   externals as rollupExternals,
@@ -9,7 +10,7 @@ import {
 import semverIntersects from 'semver/ranges/intersects';
 
 import type { EnhancedConfig } from '../../config';
-import { logger } from '../../logger';
+import { logger } from '../../entries/logger';
 import type { PackageJson } from '../../types';
 import type { Format } from '../../types';
 import { promiseMap } from '../../utils/promise-map';
@@ -17,7 +18,8 @@ import { resolveFrom } from '../../utils/resolve-from';
 
 class PackagesById extends Map<string, PackageJson> {}
 
-const loadPackage = (packagePath: string): PackageJson => require(packagePath);
+const loadPackage = async (packagePath: string): Promise<PackageJson> =>
+  fse.readJson(packagePath);
 
 const parseImportSpecifier = memoize((id: string) => {
   let scope: string | undefined;
@@ -48,15 +50,16 @@ const parseImportSpecifier = memoize((id: string) => {
 async function loadPackageFrom(from: string, id: string): Promise<PackageJson> {
   try {
     const pkgPath = await resolveFrom(from, `${id}/package.json`);
-    const pkg = loadPackage(pkgPath);
+    const pkg = await loadPackage(pkgPath);
     return pkg;
   } catch (e: any) {
     if (e.code === 'ERR_PACKAGE_PATH_NOT_EXPORTED') {
       // `./package.json` is not exported, but we're not bothered -- it means the package has
       // `exports` and that's all we care about
+      logger.debug(`Stubbing package.json for ${id}`);
       return { name: id, exports: {} };
     }
-    logger.warn(`Error resolving package.json for ${id}`);
+    logger.warn(`Could not read package.json for ${id}`);
     return { name: id };
   }
 }
@@ -65,7 +68,7 @@ async function findDependencies(options: ExternalsOptions) {
   const packagePath = options.packagePath! as string;
   const packageRoot = path.dirname(packagePath);
 
-  const packageJson = loadPackage(packagePath);
+  const packageJson = await loadPackage(packagePath);
   const externalDeps = Object.keys({
     ...(options.deps ? packageJson.dependencies : undefined),
     ...(options.devDeps ? packageJson.devDependencies : undefined),
@@ -88,15 +91,15 @@ export function externals(
 ): Plugin {
   const packageRoot = config.root;
   const packagePath = path.join(packageRoot, 'package.json');
-  const rootPackageJson = loadPackage(packagePath);
-  // preconstruct doesn't understand `satisfies`
-  const options: ExternalsOptions = {
+  // eslint-disable-next-line no-sync
+  const rootPackageJson = fse.readJsonSync(packagePath) as PackageJson;
+  const options = {
     packagePath,
     deps: true,
     devDeps: false,
     peerDeps: true,
     optDeps: true,
-  };
+  } satisfies ExternalsOptions;
   const plugin = rollupExternals(options);
 
   let packagesById: PackagesById;
