@@ -3,5 +3,6 @@ packages:
   - 'fixtures/*'
   - fixtures/braid-design-system/packages/braid-design-system
   - bootstrap
+  - scripts
   - test-utils
   - tests
