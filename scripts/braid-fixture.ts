@@ -2,18 +2,24 @@ import path from 'path';
 
 import dedent from 'dedent';
 import fse from 'fs-extra';
+import yargs from 'yargs';
 
 import { run as _run, done } from './utils';
+
+const argv = await yargs(process.argv.slice(2))
+  .option('branch', {
+    default: 'master',
+  })
+  .parse();
 
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 const repo = 'git@github.com:seek-oss/braid-design-system.git';
 const submodule = 'fixtures/braid-design-system';
-const branch = 'master';
+const branch = argv.branch;
 
 const fromRoot = (location: string) => path.join(__dirname, '..', location);
-const run: typeof _run = (command, options) =>
-  _run(command, { ...options, cwd: fromRoot('.') });
+const run: typeof _run = (command) => _run(command, { cwd: fromRoot('.') });
 const clean = async (location: string) =>
   (await fse.exists(fromRoot(location))) && run(`rm -fr ${location}`);
 
@@ -49,5 +55,18 @@ await fse.appendFile(
 
 // Actually do the checkout
 await run(`git submodule update --force --checkout ${submodule}`);
+
+// End of submodule code
+
+const runInBraid: typeof _run = (command) =>
+  _run(command, {
+    cwd: fromRoot(path.join(submodule, `packages/braid-design-system`)),
+  });
+
+await runInBraid(`pnpm install`);
+
+await runInBraid(`pnpm generate:icons`);
+await runInBraid(`pnpm generate:snippets`);
+await runInBraid(`pnpm build`);
 
 done();

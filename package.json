@@ -22,6 +22,7 @@
     "test:integration": "vitest --config vitest.config.integration.ts",
     "test:integration:ci": "pnpm test:integration --run",
     "test:playwright": "wireit",
+    "test:braid": "tsx ./scripts/braid-fixture.ts",
     "fixtures:add": "tsx ./scripts/add-fixture.ts",
     "fixtures:dev": "pnpm %fixtures dev",
     "fixtures:package": "pnpm %fixtures package",
