@@ -1,0 +1,11 @@
+{
+  "name": "@crackle-private/scripts",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint:tsc": "tsc --noEmit"
+  },
+  "dependencies": {
+    "dedent": "^0.7.0"
+  }
+}

@@ -17,5 +17,5 @@
       "~utils/*": ["./test-utils/*"]
     }
   },
-  "exclude": ["node_modules", "fixtures/braid-design-system"]
+  "exclude": ["node_modules", "fixtures/braid-design-system", "scripts"]
 }

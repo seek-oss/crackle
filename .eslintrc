@@ -2,7 +2,7 @@
   "extends": "seek",
   "plugins": ["@preconstruct/format-js-tag"],
   "parserOptions": {
-    "project": "./tsconfig.json"
+    "project": ["./tsconfig.json", "./scripts/tsconfig.json"]
   },
   "rules": {
     "@preconstruct/format-js-tag/format": "error",
