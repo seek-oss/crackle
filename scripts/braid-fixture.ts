@@ -10,7 +10,18 @@ const argv = await yargs(process.argv.slice(2))
   .option('branch', {
     default: 'master',
   })
+  .option('clone', {
+    boolean: true,
+    default: false,
+  })
+  .option('test', {
+    boolean: true,
+    default: false,
+  })
+  .help()
+  .showHelp()
   .parse();
+console.log();
 
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
@@ -25,33 +36,35 @@ const clean = async (location: string) =>
 
 //  Modified from https://stackoverflow.com/questions/45688121/how-to-do-submodule-sparse-checkout-with-git/45689692//45689692
 
-// Clean submodule dirs so we can start fresh
-await clean(`.git/modules/${submodule}`);
-await clean(submodule);
+if (argv.clone) {
+  // Clean submodule dirs so we can start fresh
+  await clean(`.git/modules/${submodule}`);
+  await clean(submodule);
 
-//  Checkout the to-be submodule
-await run(
-  `git clone --depth=1 --no-checkout -b ${branch} ${repo} ${submodule}`,
-);
+  //  Checkout the to-be submodule
+  await run(
+    `git clone --depth=1 --no-checkout -b ${branch} ${repo} ${submodule}`,
+  );
 
-//  Add as a submodule
-await run(`git submodule add -b ${branch} --force ${repo} ${submodule}`);
+  //  Add as a submodule
+  await run(`git submodule add -b ${branch} --force ${repo} ${submodule}`);
 
-//  Move the .git dir from $fixture/.git into parent repo's .git
-await run(`git submodule absorbgitdirs`);
+  //  Move the .git dir from $fixture/.git into parent repo's .git
+  await run(`git submodule absorbgitdirs`);
 
-//  Note there is no "submodule.sub.sparsecheckout" key
-await run(`git -C ${submodule} config core.sparseCheckout true`);
+  //  Note there is no "submodule.sub.sparsecheckout" key
+  await run(`git -C ${submodule} config core.sparseCheckout true`);
 
-// This pattern determines which files within $repo get checked out.
-// Note quoted wildcards to avoid their expansion by shell
-await fse.appendFile(
-  fromRoot(`.git/modules/${submodule}/info/sparse-checkout`),
-  dedent`
-    /packages/braid-design-system/*
-    /tsconfig.json
-  `,
-);
+  // This pattern determines which files within $repo get checked out.
+  // Note quoted wildcards to avoid their expansion by shell
+  await fse.appendFile(
+    fromRoot(`.git/modules/${submodule}/info/sparse-checkout`),
+    dedent`
+      /packages/braid-design-system/*
+      /tsconfig.json
+    `,
+  );
+}
 
 // Actually do the checkout
 await run(`git submodule update --force --checkout ${submodule}`);
@@ -65,8 +78,10 @@ const runInBraid: typeof _run = (command) =>
 
 await runInBraid(`pnpm install`);
 
-await runInBraid(`pnpm generate:icons`);
-await runInBraid(`pnpm generate:snippets`);
-await runInBraid(`pnpm build`);
+if (argv.test) {
+  await runInBraid(`pnpm generate:icons`);
+  await runInBraid(`pnpm generate:snippets`);
+  await runInBraid(`pnpm build`);
+}
 
 done();

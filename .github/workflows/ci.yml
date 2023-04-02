@@ -78,4 +78,4 @@ jobs:
         run: pnpm test
 
       - name: Test with Braid
-        run: pnpm test:braid --branch master
+        run: pnpm test:braid --clone --branch master
