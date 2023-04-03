@@ -142,7 +142,8 @@
     "memfs": "^3.4.11",
     "strip-ansi": "^7.0.1",
     "sync-dependencies": "^1.0.4",
-    "typescript": "*"
+    "typescript": "*",
+    "unbuild": "^1.1.2"
   },
   "peerDependencies": {
     "typescript": ">=4.9.4"

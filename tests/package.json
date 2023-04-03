@@ -8,6 +8,8 @@
   "dependencies": {
     "@crackle/core": "workspace:*",
     "@playwright/test": "^1.32.0",
+    "fast-glob": "^3.2.12",
+    "fixturez": "^1.1.0",
     "sync-dependencies": "^1.0.4"
   }
 }
