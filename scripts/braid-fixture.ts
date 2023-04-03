@@ -88,7 +88,7 @@ const runInBraid: typeof _run = (command) =>
     cwd: fromRoot(path.join(submodule, `packages/braid-design-system`)),
   });
 
-await runInBraid(`pnpm install`);
+await runInBraid(`pnpm install --no-frozen-lockfile`);
 
 if (argv.test) {
   await runInBraid(`pnpm generate:icons`);
