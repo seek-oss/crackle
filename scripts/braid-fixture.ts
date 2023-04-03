@@ -88,12 +88,10 @@ await run(`git submodule update --force --checkout ${submodule}`);
 
 // End of submodule code
 
-if (argv.test) {
-  const runInBraid: typeof _run = (command) =>
-    _run(command, {
-      cwd: fromRoot(`${submodule}/packages/braid-design-system`),
-    });
+const runInBraid: typeof _run = (command) =>
+  _run(command, { cwd: fromRoot(`${submodule}/packages/braid-design-system`) });
 
+if (argv.test) {
   await runInBraid(`pnpm install --no-frozen-lockfile`);
 
   await runInBraid(`pnpm generate:icons`);

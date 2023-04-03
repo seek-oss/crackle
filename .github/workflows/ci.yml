@@ -89,13 +89,13 @@ jobs:
       # We then cache/restore based on our lockfile *and* Braid's lockfile
       # Then we install dependencies in Braid and run the test
 
-      - name: Clone Braid
-        run: pnpm fixtures:braid --branch master --clone --absorb
-
       - name: Get pnpm store directory
         id: pnpm-cache
         run: |
           echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Clone Braid
+        run: pnpm fixtures:braid --branch master --clone --absorb
 
       - name: Cache Braid
         id: braid-cache
