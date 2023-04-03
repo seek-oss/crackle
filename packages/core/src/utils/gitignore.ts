@@ -12,7 +12,6 @@ export const updateGitignore = async (
   const entryNames = new Set(entryPoints.map((entry) => entry.entryName));
 
   entryNames.add(siteBuild.outDir);
-  entryNames.add(siteBuild.rendererDir);
 
   await ensureGitignore({
     filepath: path.join(packageRoot, '.gitignore'),
