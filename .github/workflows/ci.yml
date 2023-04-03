@@ -22,10 +22,10 @@ jobs:
       - name: Checkout & Install
         uses: seek-oss/crackle/.github/actions/init@master
 
-      - name: Self Build
+      - name: Self build
         run: pnpm build:ci
 
-      - name: Save Build Cache
+      - name: Save build cache
         uses: actions/cache/save@v3
         with:
           path: ${{ env.dist-cache-paths }}
@@ -40,7 +40,7 @@ jobs:
       - name: Checkout & Install
         uses: seek-oss/crackle/.github/actions/init@master
 
-      - name: Restore Build Cache
+      - name: Restore build cache
         uses: actions/cache/restore@v3
         with:
           path: ${{ env.dist-cache-paths }}
@@ -64,18 +64,61 @@ jobs:
       - name: Checkout & Install
         uses: seek-oss/crackle/.github/actions/init@master
 
-      - name: Restore Build Cache
+      - name: Restore build cache
         uses: actions/cache/restore@v3
         with:
           path: ${{ env.dist-cache-paths }}
           key: build-${{ github.sha }}
           enableCrossOsArchive: true
 
-      - name: Install Browsers
+      - name: Cache browsers
+        id: browsers-cache
+        uses: actions/cache@v3
+        with:
+          path: /home/runner/.cache/ms-playwright
+          key: browsers-${{ runner.os }}-${{ hashFiles('./pnpm-lock.yaml') }}
+
+      - name: Install browsers
+        if: steps.browsers-cache.outputs.cache-hit != 'true'
         run: pnpm playwright install chromium
 
       - name: Test
         run: pnpm test
 
-      - name: Test with Braid
-        run: pnpm test:braid --branch master --clone --absorb
+  test-braid:
+    name: Test with Braid
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: Checkout & Install
+        uses: seek-oss/crackle/.github/actions/init@master
+
+      - name: Restore build cache
+        uses: actions/cache/restore@v3
+        with:
+          path: ${{ env.dist-cache-paths }}
+          key: build-${{ github.sha }}
+          enableCrossOsArchive: true
+
+      # First, clone the Braid repo so we have its lockfile
+      # We then cache/restore based on our lockfile *and* Braid's lockfile
+      # Then we install dependencies in Braid and run the test
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Clone Braid repo
+        run: pnpm fixtures:braid --branch master --clone --absorb
+
+      - name: Cache Braid dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: braid-${{ runner.os }}-${{ hashFiles('./pnpm-lock.yaml', './fixtures/braid-design-system/pnpm-lock.yaml') }}
+
+      - name: Install & Test
+        run: |
+          pnpm set verify-store-integrity false
+          pnpm test:braid

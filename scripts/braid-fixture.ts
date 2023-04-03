@@ -9,20 +9,24 @@ import { run as _run, done } from './utils';
 const argv = await yargs(process.argv.slice(2))
   .option('branch', {
     default: 'master',
+    requiresArg: true,
   })
   .option('clone', {
     boolean: true,
     default: false,
+    implies: 'branch',
   })
   .option('absorb', {
     boolean: true,
     default: false,
+    implies: 'branch',
   })
   .option('test', {
     boolean: true,
     default: false,
   })
   .help()
+  .strict()
   .showHelp()
   .parse();
 console.log();
@@ -73,6 +77,7 @@ if (argv.absorb) {
     fromRoot(`.git/modules/${submodule}/info/sparse-checkout`),
     dedent`
       /packages/braid-design-system/*
+      /pnpm-lock.yaml
       /tsconfig.json
     `,
   );
@@ -86,9 +91,9 @@ await run(`git submodule update --force --checkout ${submodule}`);
 const runInBraid: typeof _run = (command) =>
   _run(command, { cwd: fromRoot(`${submodule}/packages/braid-design-system`) });
 
-await runInBraid(`pnpm install --no-frozen-lockfile`);
-
 if (argv.test) {
+  await runInBraid(`pnpm install --no-frozen-lockfile`);
+
   await runInBraid(`pnpm generate:icons`);
   await runInBraid(`pnpm generate:snippets`);
   await runInBraid(`pnpm build`);
