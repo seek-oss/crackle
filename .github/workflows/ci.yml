@@ -86,4 +86,6 @@ jobs:
         run: pnpm test
 
       - name: Test with Braid
-        run: pnpm test:braid --branch master --clone --absorb
+        run: |
+          pnpm set verify-store-integrity false
+          pnpm test:braid --branch master --clone --absorb
