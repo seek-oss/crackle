@@ -85,7 +85,26 @@ jobs:
       - name: Test
         run: pnpm test
 
-      - name: Test with Braid
+      # First, clone the Braid repo so we have its lockfile
+      # We then cache/restore based on our lockfile *and* Braid's lockfile
+      # Then we install dependencies in Braid and run the test
+
+      - name: Clone Braid
+        run: pnpm fixtures:braid --branch master --clone --absorb
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Cache Braid
+        id: braid-cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: braid-${{ runner.os }}-${{ hashFiles('./pnpm-lock.yaml', './fixtures/braid-design-system/pnpm-lock.yaml') }}
+
+      - name: Install & Test with Braid
         run: |
           pnpm set verify-store-integrity false
-          pnpm test:braid --branch master --clone --absorb
+          pnpm test:braid
