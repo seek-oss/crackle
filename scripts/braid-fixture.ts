@@ -14,6 +14,10 @@ const argv = await yargs(process.argv.slice(2))
     boolean: true,
     default: false,
   })
+  .option('absorb', {
+    boolean: true,
+    default: false,
+  })
   .option('test', {
     boolean: true,
     default: false,
@@ -45,7 +49,9 @@ if (argv.clone) {
   await run(
     `git clone --depth=1 --no-checkout -b ${branch} ${repo} ${submodule}`,
   );
+}
 
+if (argv.absorb) {
   //  Add as a submodule
   await run(`git submodule add -b ${branch} --force ${repo} ${submodule}`);
 

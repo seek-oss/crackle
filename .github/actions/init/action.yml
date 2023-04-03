@@ -5,6 +5,11 @@ inputs:
   token:
     description: GitHub token
     default: ${{ github.token }}
+  submodules:
+    description: |
+      Whether to checkout submodules: `true` to checkout submodules or `recursive` to recursively checkout submodules.
+      See https://github.com/actions/checkout#usage
+    default: ''
 
 runs:
   using: composite
@@ -18,6 +23,7 @@ runs:
       with:
         fetch-depth: 0
         token: ${{ inputs.token }}
+        submodules: ${{ inputs.submodules }}
 
     - uses: pnpm/action-setup@v2
 

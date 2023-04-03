@@ -62,7 +62,9 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout & Install
-        uses: seek-oss/crackle/.github/actions/init@master
+        uses: seek-oss/crackle/.github/actions/init@braid-integration-test
+        with:
+          submodules: true
 
       - name: Restore Build Cache
         uses: actions/cache/restore@v3
@@ -78,4 +80,4 @@ jobs:
         run: pnpm test
 
       - name: Test with Braid
-        run: pnpm test:braid --clone --branch master
+        run: pnpm test:braid --no-clone --absorb --branch master
