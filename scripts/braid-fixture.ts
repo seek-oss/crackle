@@ -45,6 +45,12 @@ if (argv.clone) {
   await clean(`.git/modules/${submodule}`);
   await clean(submodule);
 
+  if (process.env.CI) {
+    await run(
+      'git config --global url."https://github.com/".insteadOf "git@github.com:"',
+    );
+  }
+
   //  Checkout the to-be submodule
   await run(
     `git clone --depth=1 --no-checkout -b ${branch} ${repo} ${submodule}`,
