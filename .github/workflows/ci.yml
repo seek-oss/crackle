@@ -71,7 +71,15 @@ jobs:
           key: build-${{ github.sha }}
           enableCrossOsArchive: true
 
+      - name: Cache Browsers
+        id: browsers-cache
+        uses: actions/cache@v3
+        with:
+          path: /home/runner/.cache/ms-playwright
+          key: browsers-${{ runner.os }}-${{ hashFiles('./pnpm-lock.yaml') }}
+
       - name: Install Browsers
+        if: steps.browsers-cache.outputs.cache-hit != 'true'
         run: pnpm playwright install chromium
 
       - name: Test
