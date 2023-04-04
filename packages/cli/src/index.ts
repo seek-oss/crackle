@@ -26,6 +26,8 @@ yargs(process.argv.slice(2))
       },
     },
     handler: async (overrides) => {
+      const { start } = await import('@crackle/core/start');
+
       let server: CrackleServer | null = null;
 
       const config = await resolveConfig({
@@ -36,13 +38,12 @@ yargs(process.argv.slice(2))
             logger.info('Updated config found. Restarting server...');
             await server.close();
             server = null;
+            server = await start(newConfig);
           }
-          server = await start(newConfig);
         },
       });
       setConfigOverrides(config, overrides);
 
-      const { start } = await import('@crackle/core/start');
       server = await start(config);
     },
   })
