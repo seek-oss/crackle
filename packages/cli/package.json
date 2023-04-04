@@ -23,6 +23,7 @@
     "dist"
   ],
   "scripts": {
+    "dev": "crackle dev",
     "build": "crackle package"
   },
   "dependencies": {
