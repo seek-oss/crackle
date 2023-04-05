@@ -11,47 +11,39 @@ pnpm-lock.yaml
 
 # managed by crackle
 fixtures/braid-site/dist
-fixtures/braid-site/dist-render
 # end managed by crackle
 
 # managed by crackle
 fixtures/esm-patch-imports/dist
-fixtures/esm-patch-imports/dist-render
 # end managed by crackle
 
 # managed by crackle
 fixtures/library-with-docs/dist
-fixtures/library-with-docs/dist-render
 # end managed by crackle
 
 # managed by crackle
 fixtures/multi-entry-library/components
 fixtures/multi-entry-library/dist
-fixtures/multi-entry-library/dist-render
 fixtures/multi-entry-library/extras
 fixtures/multi-entry-library/themes/apac
 # end managed by crackle
 
 # managed by crackle
 fixtures/single-entry-library/dist
-fixtures/single-entry-library/dist-render
 # end managed by crackle
 
 # managed by crackle
 fixtures/with-dep-hidden-package-json/dist
-fixtures/with-dep-hidden-package-json/dist-render
 # end managed by crackle
 
 # managed by crackle
 fixtures/with-flatten-children/dist
-fixtures/with-flatten-children/dist-render
 # end managed by crackle
 
 # managed by crackle
 fixtures/with-side-effects/css
 fixtures/with-side-effects/css-more
 fixtures/with-side-effects/dist
-fixtures/with-side-effects/dist-render
 fixtures/with-side-effects/reset
 # end managed by crackle
 
