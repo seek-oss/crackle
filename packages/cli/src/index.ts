@@ -1,7 +1,7 @@
 import type { CrackleConfig, CrackleServer } from '@crackle/core';
 import { logger } from '@crackle/core/logger';
 import { resolveConfig } from '@crackle/core/resolve-config';
-import yargs from 'yargs';
+import yargs, { type CommandModule } from 'yargs';
 
 type CrackleConfigWithYargs = CrackleConfig & Pick<yargs.Arguments, '_' | '$0'>;
 
@@ -15,7 +15,7 @@ const setConfigOverrides = (
 
 yargs(process.argv.slice(2))
   .scriptName('crackle')
-  .command<Pick<CrackleConfig, 'port'>>({
+  .command({
     command: 'start',
     describe:
       'Start an HTTP server (with hot reloading) to preview the website',
@@ -26,6 +26,8 @@ yargs(process.argv.slice(2))
       },
     },
     handler: async (overrides) => {
+      const { start } = await import('@crackle/core/start');
+
       let server: CrackleServer | null = null;
 
       const config = await resolveConfig({
@@ -36,16 +38,15 @@ yargs(process.argv.slice(2))
             logger.info('Updated config found. Restarting server...');
             await server.close();
             server = null;
+            server = await start(newConfig);
           }
-          server = await start(newConfig);
         },
       });
       setConfigOverrides(config, overrides);
 
-      const { start } = await import('@crackle/core/start');
       server = await start(config);
     },
-  })
+  } satisfies CommandModule<unknown, Pick<CrackleConfig, 'port'>>)
   .command({
     command: 'build',
     describe: 'Build a static version the site (e.g. for deploying to S3)',
@@ -56,7 +57,7 @@ yargs(process.argv.slice(2))
       await build(config);
     },
   })
-  .command<Pick<CrackleConfig, 'port'>>({
+  .command({
     command: 'serve',
     describe: 'Serve static site build from ./dist',
     builder: {
@@ -85,8 +86,8 @@ yargs(process.argv.slice(2))
       const { serve } = await import('@crackle/core/serve');
       server = serve(config);
     },
-  })
-  .command<Pick<CrackleConfig, 'fix' | 'clean'>>({
+  } satisfies CommandModule<unknown, Pick<CrackleConfig, 'port'>>)
+  .command({
     command: 'package',
     describe: 'Compile package for publishing',
     builder: {
@@ -106,7 +107,7 @@ yargs(process.argv.slice(2))
       const { buildPackage } = await import('@crackle/core/package');
       await buildPackage(config);
     },
-  })
+  } satisfies CommandModule<unknown, Pick<CrackleConfig, 'fix' | 'clean'>>)
   .command({
     command: 'routes',
     describe: 'Show website routes',

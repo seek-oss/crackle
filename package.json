@@ -63,6 +63,9 @@
     "neverBuiltDependencies": [
       "sku"
     ],
+    "overrides": {
+      "vite": "^4.3.0-beta.2"
+    },
     "patchedDependencies": {
       "sync-dependencies@1.0.4": "patches/sync-dependencies@1.0.4.patch"
     },
