@@ -1,0 +1,13 @@
+{
+  "name": "@crackle-fixtures/graphql-schema",
+  "version": "1.0.0",
+  "private": true,
+  "main": "schema.json",
+  "files": [
+    "schema.json",
+    "schema.gql",
+    "possible-types.json",
+    "types.ts"
+  ],
+  "types": "types.ts"
+}

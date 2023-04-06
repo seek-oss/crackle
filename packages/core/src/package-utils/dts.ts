@@ -13,7 +13,8 @@ export const createDtsBundle = async (
   const bundle = await rollup({
     input: entries.map((entry) => entry.entryPath),
     plugins: [
-      externals(config),
+      // patching imports is not needed for dts, as TypeScript can handle it (for now)
+      externals(config, 'cjs'),
       dts({
         respectExternal: true,
         compilerOptions: config.dtsOptions as any,

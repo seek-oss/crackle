@@ -24,6 +24,7 @@ describe('package', () => {
     'single-entry-library',
     'with-dep-hidden-package-json',
     'with-flatten-children',
+    'with-graphql-schema-types',
     'with-side-effects',
   ])(
     'fixture %s',

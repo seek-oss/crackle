@@ -46,6 +46,10 @@ fixtures/with-flatten-children/dist
 # end managed by crackle
 
 # managed by crackle
+fixtures/with-graphql-schema-types/dist
+# end managed by crackle
+
+# managed by crackle
 fixtures/with-side-effects/css
 fixtures/with-side-effects/css-more
 fixtures/with-side-effects/dist
