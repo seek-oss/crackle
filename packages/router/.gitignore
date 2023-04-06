@@ -1,6 +1,5 @@
 # managed by crackle
 /dist
-/dist-render
 /routes
 /server
 # end managed by crackle

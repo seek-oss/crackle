@@ -54,12 +54,10 @@ fixtures/with-side-effects/reset
 
 # managed by crackle
 packages/babel-plugin-remove-exports/dist
-packages/babel-plugin-remove-exports/dist-render
 # end managed by crackle
 
 # managed by crackle
 packages/cli/dist
-packages/cli/dist-render
 # end managed by crackle
 
 # managed by crackle
@@ -67,7 +65,6 @@ packages/core/build
 packages/core/clean
 packages/core/dev
 packages/core/dist
-packages/core/dist-render
 packages/core/fix
 packages/core/logger
 packages/core/package
@@ -79,7 +76,6 @@ packages/core/start
 
 # managed by crackle
 packages/router/dist
-packages/router/dist-render
 packages/router/routes
 packages/router/server
 # end managed by crackle
