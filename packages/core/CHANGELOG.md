@@ -1,5 +1,24 @@
 # @crackle/core
 
+## 0.23.0
+
+### Minor Changes
+
+- [#91](https://github.com/seek-oss/crackle/pull/91) [`560489a`](https://github.com/seek-oss/crackle/commit/560489afdadda7f8b3985f0639ae55f83815875e) Thanks [@mrm007](https://github.com/mrm007)! - Upgrade to Vite 4.3
+
+### Patch Changes
+
+- [#88](https://github.com/seek-oss/crackle/pull/88) [`6e14926`](https://github.com/seek-oss/crackle/commit/6e149269730ec088452823583fb270d8a889db1c) Thanks [@mrm007](https://github.com/mrm007)! - Remove `dist-render` from `.gitignore`
+
+- [#92](https://github.com/seek-oss/crackle/pull/92) [`057dd54`](https://github.com/seek-oss/crackle/commit/057dd548b04992e8f645cdf034bab91d3562bb96) Thanks [@mrm007](https://github.com/mrm007)! - Fix `crackle dev` for entries which don't export anything, e.g. CLIs
+
+- [#93](https://github.com/seek-oss/crackle/pull/93) [`f6aaebb`](https://github.com/seek-oss/crackle/commit/f6aaebbf0ec01df130cfcf17dbcc1c7cf266bd5b) Thanks [@mrm007](https://github.com/mrm007)! - Update all `@babel/*` deps
+
+- [#94](https://github.com/seek-oss/crackle/pull/94) [`622477a`](https://github.com/seek-oss/crackle/commit/622477aa4b53b42d8810621921c291d02d03324a) Thanks [@mrm007](https://github.com/mrm007)! - Don't reconcile import specifiers for `.d.ts` files
+
+- Updated dependencies [[`f6aaebb`](https://github.com/seek-oss/crackle/commit/f6aaebbf0ec01df130cfcf17dbcc1c7cf266bd5b)]:
+  - @crackle/babel-plugin-remove-exports@0.2.1
+
 ## 0.22.0
 
 ### Minor Changes

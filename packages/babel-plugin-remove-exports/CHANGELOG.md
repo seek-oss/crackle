@@ -1,5 +1,11 @@
 # @crackle/babel-plugin-remove-exports
 
+## 0.2.1
+
+### Patch Changes
+
+- [#93](https://github.com/seek-oss/crackle/pull/93) [`f6aaebb`](https://github.com/seek-oss/crackle/commit/f6aaebbf0ec01df130cfcf17dbcc1c7cf266bd5b) Thanks [@mrm007](https://github.com/mrm007)! - Update all `@babel/*` deps
+
 ## 0.2.0
 
 ### Minor Changes
