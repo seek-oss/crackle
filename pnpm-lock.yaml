@@ -297,7 +297,7 @@ importers:
   packages/cli:
     dependencies:
       '@crackle/core':
-        specifier: ^0.22.0
+        specifier: ^0.23.0
         version: link:../core
       yargs:
         specifier: ^17.6.2
@@ -319,7 +319,7 @@ importers:
         specifier: ^7.21.4
         version: 7.21.4(@babel/core@7.21.4)
       '@crackle/babel-plugin-remove-exports':
-        specifier: ^0.2.0
+        specifier: ^0.2.1
         version: link:../babel-plugin-remove-exports
       '@crackle/router':
         specifier: ^0.3.0
