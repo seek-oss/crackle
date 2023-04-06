@@ -104,6 +104,8 @@ importers:
         specifier: ^18.0.6
         version: 18.0.11
 
+  fixtures/dev-entries: {}
+
   fixtures/esm-patch-imports:
     dependencies:
       '@crackle-fixtures/dep-with-exports':

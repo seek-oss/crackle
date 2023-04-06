@@ -1,6 +1,7 @@
 {
-  "name": "@crackle/cli",
-  "version": "0.11.0",
+  "name": "@crackle-fixtures/dev-entries",
+  "version": "1.0.0",
+  "private": true,
   "license": "MIT",
   "author": "SEEK",
   "exports": {
@@ -9,28 +10,25 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
+    "./cli": {
+      "types": "./dist/cli.d.ts",
+      "import": "./dist/cli.mjs",
+      "require": "./dist/cli.cjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "bin": {
-    "crackle": "bin.js"
-  },
   "files": [
-    "CHANGELOG.md",
-    "bin.js",
+    "cli",
     "dist"
   ],
   "scripts": {
     "dev": "crackle dev",
-    "build": "crackle package"
+    "fix": "crackle fix",
+    "package": "crackle package"
   },
-  "dependencies": {
-    "@crackle/core": "^0.22.0",
-    "yargs": "^17.6.2"
-  },
-  "devDependencies": {
-    "@types/yargs": "^17.0.24"
-  }
+  "dependencies": {},
+  "devDpendencies": {}
 }

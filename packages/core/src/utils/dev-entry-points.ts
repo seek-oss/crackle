@@ -17,8 +17,10 @@ import {
 import { writeIfRequired } from './files';
 import { promiseMap } from './promise-map';
 
-const getHookLoader = (id: string, format: Format) => {
-  const stringify = (value: any) => JSON.stringify(value, null, 2);
+const getHookLoader = (entry: PackageEntryPoint, format: Format) => {
+  const stringifyRelative = (p: string) =>
+    JSON.stringify(path.relative(entry.getOutputPath(format), p));
+
   // ! don't change this ! unbuild searches for the string and inserts shims
   const rekwire = 'req' + 'uire';
   const shims = dedent`
@@ -27,14 +29,14 @@ const getHookLoader = (id: string, format: Format) => {
     const ${rekwire} = createRequire(import.meta.url);
   `;
 
-  const hookPath = stringify(resolveFrom('.', 'tsm'));
+  const hookPath = resolveFrom('.', 'tsm');
 
   const setup = dedent`
     ${format === 'esm' ? shims : ''}
 
-    ${rekwire}(${hookPath});
+    ${rekwire}(${stringifyRelative(hookPath)});
   `;
-  const load = `${rekwire}(${stringify(id)})`;
+  const load = `${rekwire}(${stringifyRelative(entry.entryPath)})`;
 
   return { setup, load };
 };
@@ -75,28 +77,29 @@ async function writeFile(
 }
 
 const getCjsContents: GetContents = async (entry) => {
-  const { setup, load } = getHookLoader(entry.entryPath, 'cjs');
+  const { setup, load } = getHookLoader(entry, 'cjs');
   const contentLines = [setup, '', `module.exports = ${load};`];
 
   return contentLines.join('\n');
 };
 
 const getEsmContents: GetContents = async (entry) => {
+  const { setup, load } = getHookLoader(entry, 'esm');
   const exports = await getExports(entry.entryPath);
+
+  let contentLines: string[] = [setup, ''];
 
   if (exports.length === 0) {
     logger.info(
-      `Could not stub ESM exports for ${
+      `Could not find ESM exports for ${
         entry.isDefaultEntry ? 'index' : entry.entryName
       }`,
     );
-    return 'export {}';
+    return [...contentLines, 'export {}'].join('\n');
   }
 
-  const { setup, load } = getHookLoader(entry.entryPath, 'esm');
-  const contentLines = [
-    setup,
-    '',
+  contentLines = [
+    ...contentLines,
     `const _mod = ${load};`,
     '',
     ...exports.map((specifier) =>
@@ -119,6 +122,7 @@ const getDtsContents: GetContents = async (entry, { relativePath }) => {
 
 export const generateDevFiles = async (config: EnhancedConfig) => {
   const packages = await getPackages(config);
+
   for (const pkg of packages.values()) {
     const entryPaths = await getPackageEntryPoints(pkg.root);
 

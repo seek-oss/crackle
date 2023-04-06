@@ -14,6 +14,11 @@ fixtures/braid-site/dist
 # end managed by crackle
 
 # managed by crackle
+fixtures/dev-entries/cli
+fixtures/dev-entries/dist
+# end managed by crackle
+
+# managed by crackle
 fixtures/esm-patch-imports/dist
 # end managed by crackle
 
