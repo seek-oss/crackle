@@ -70,7 +70,12 @@ export const createBundle = async (
 
   await viteBuild({
     ...commonViteConfig,
-    plugins: [addVanillaDebugIds(config), externals(config, 'esm'), react()],
+    plugins: [
+      addVanillaDebugIds(config),
+      // because we don't know ahead of time what the output format will be, we always patch imports
+      externals(config, 'esm'),
+      react(),
+    ],
     logLevel: 'warn',
     build: {
       outDir: config.root,

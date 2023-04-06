@@ -85,10 +85,7 @@ async function findDependencies(options: ExternalsOptions) {
   return packagesById;
 }
 
-export function externals(
-  config: EnhancedConfig,
-  format: Format = 'esm',
-): Plugin {
+export function externals(config: EnhancedConfig, format?: Format): Plugin {
   const packageRoot = config.root;
   const packagePath = path.join(packageRoot, 'package.json');
   // eslint-disable-next-line no-sync

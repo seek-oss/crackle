@@ -251,6 +251,12 @@ importers:
         specifier: ^1.3.0
         version: 1.3.0(react@18.2.0)
 
+  fixtures/with-graphql-schema-types:
+    dependencies:
+      '@crackle-fixtures/graphql-schema':
+        specifier: link:./graphql-schema
+        version: link:graphql-schema
+
   fixtures/with-side-effects:
     dependencies:
       '@vanilla-extract/css':
