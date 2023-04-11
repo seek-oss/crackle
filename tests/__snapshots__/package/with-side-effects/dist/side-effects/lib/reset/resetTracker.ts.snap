@@ -1,0 +1,31 @@
+/* #region dist/side-effects/lib/reset/resetTracker.cjs */
+"use strict";
+let resetImported = false;
+const markResetImported = () => {
+  resetImported = true;
+};
+const ensureResetImported = () => {
+  if (!resetImported) {
+    throw new Error("Braid components imported before reset");
+  }
+};
+exports.ensureResetImported = ensureResetImported;
+exports.markResetImported = markResetImported;
+/* #endregion */
+
+
+/* #region dist/side-effects/lib/reset/resetTracker.mjs */
+let resetImported = false;
+const markResetImported = () => {
+  resetImported = true;
+};
+const ensureResetImported = () => {
+  if (!resetImported) {
+    throw new Error("Braid components imported before reset");
+  }
+};
+export {
+  ensureResetImported,
+  markResetImported
+};
+/* #endregion */

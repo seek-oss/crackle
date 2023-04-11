@@ -1,5 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`tests/package.test.ts > fixture multi-entry-library: dist/side-effects/components/index.cjs 1`] = `"use strict";`;
-
-exports[`tests/package.test.ts > fixture multi-entry-library: dist/side-effects/components/index.mjs 1`] = ``;

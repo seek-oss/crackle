@@ -1,0 +1,25 @@
+/* #region dist/index.cjs */
+"use strict";
+Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+const sideEffects_components_JobSummary_JobSummary_cjs = require("./side-effects/components/JobSummary/JobSummary.cjs");
+exports.JobSummary = sideEffects_components_JobSummary_JobSummary_cjs.JobSummary;
+/* #endregion */
+
+
+/* #region dist/index.d.ts */
+interface JobSummaryProps {
+    title: string;
+    isNew: boolean;
+}
+declare const JobSummary: ({ title, isNew }: JobSummaryProps) => JSX.Element;
+
+export { JobSummary };
+/* #endregion */
+
+
+/* #region dist/index.mjs */
+import { JobSummary } from "./side-effects/components/JobSummary/JobSummary.mjs";
+export {
+  JobSummary
+};
+/* #endregion */

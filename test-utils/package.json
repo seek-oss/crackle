@@ -2,8 +2,6 @@
   "name": "@crackle-private/test-utils",
   "private": true,
   "dependencies": {
-    "@types/jest-specific-snapshot": "^0.5.6",
-    "jest-specific-snapshot": "^8.0.0",
     "pretty-format": "^29.0.0",
     "snapshot-diff": "^0.10.0",
     "strip-ansi": "^7.0.1"

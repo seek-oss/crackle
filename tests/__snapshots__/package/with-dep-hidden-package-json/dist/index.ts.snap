@@ -1,0 +1,20 @@
+/* #region dist/index.cjs */
+"use strict";
+const hiddenPackageJson = require("@crackle-fixtures/hidden-package-json");
+const _interopDefaultCompat = (e) => e && typeof e === "object" && "default" in e ? e : { default: e };
+const hiddenPackageJson__default = /* @__PURE__ */ _interopDefaultCompat(hiddenPackageJson);
+module.exports = hiddenPackageJson__default.default;
+/* #endregion */
+
+
+/* #region dist/index.d.ts */
+export { default } from '@crackle-fixtures/hidden-package-json';
+/* #endregion */
+
+
+/* #region dist/index.mjs */
+import { default as default2 } from "@crackle-fixtures/hidden-package-json";
+export {
+  default2 as default
+};
+/* #endregion */

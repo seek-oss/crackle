@@ -1,0 +1,31 @@
+/* #region dist/index.cjs */
+"use strict";
+const sideEffects_lib_reset_resetTracker_cjs = require("./side-effects/lib/reset/resetTracker.cjs");
+if (process.env.NODE_ENV === "development") {
+  sideEffects_lib_reset_resetTracker_cjs.ensureResetImported();
+}
+/* #endregion */
+
+
+/* #region dist/index.d.ts */
+declare const breakpointNames: readonly ["mobile", "tablet", "desktop", "wide"];
+declare const breakpoints: {
+    readonly mobile: 0;
+    readonly tablet: 740;
+    readonly desktop: 992;
+    readonly wide: 1200;
+};
+type Breakpoint = keyof typeof breakpoints;
+
+declare const Box: () => null;
+
+export { Box, Breakpoint, breakpointNames, breakpoints };
+/* #endregion */
+
+
+/* #region dist/index.mjs */
+import { ensureResetImported } from "./side-effects/lib/reset/resetTracker.mjs";
+if (process.env.NODE_ENV === "development") {
+  ensureResetImported();
+}
+/* #endregion */

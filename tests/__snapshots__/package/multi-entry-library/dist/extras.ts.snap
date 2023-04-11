@@ -1,0 +1,21 @@
+/* #region dist/extras.cjs */
+"use strict";
+Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+const sideEffects_extras_index_cjs = require("./side-effects/extras/index.cjs");
+exports.calcAndLog = sideEffects_extras_index_cjs.calcAndLog;
+exports.logger = sideEffects_extras_index_cjs.logger;
+/* #endregion */
+
+
+/* #region dist/extras.d.ts */
+export { InlinedType, calcAndLog, logger } from './apac.chunk.js';
+/* #endregion */
+
+
+/* #region dist/extras.mjs */
+import { calcAndLog, logger } from "./side-effects/extras/index.mjs";
+export {
+  calcAndLog,
+  logger
+};
+/* #endregion */
