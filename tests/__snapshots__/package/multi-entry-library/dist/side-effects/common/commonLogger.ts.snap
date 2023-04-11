@@ -1,21 +1,33 @@
 /* #region dist/side-effects/common/commonLogger.cjs */
 "use strict";
-const module$1 = require("module");
-const require$1 = module$1.createRequire(typeof document === "undefined" ? require("url").pathToFileURL(__filename).href : document.currentScript && document.currentScript.src || new URL("side-effects/common/commonLogger.cjs", document.baseURI).href);
-require$1("../../../node_modules/.pnpm/tsm@2.3.0/node_modules/tsm/require.js");
-const _mod = require$1("../src/entries/logger.ts");
-const logger = _mod.logger;
+const isDebug = process.env.DEBUG != null;
+const logger = {
+  debug: (msg) => isDebug && console.info(msg),
+  info: (msg) => console.info(msg),
+  warn: (msg) => console.warn(msg),
+  error: (msg) => console.error(msg),
+  errorWithExitCode: (msg) => {
+    console.error(msg);
+    process.exitCode = 1;
+  }
+};
 const logThePhrase = (input) => logger.info(`Logged: ${input}`);
 exports.logThePhrase = logThePhrase;
 /* #endregion */
 
 
 /* #region dist/side-effects/common/commonLogger.mjs */
-import { createRequire } from "module";
-const require2 = createRequire(import.meta.url);
-require2("../../../node_modules/.pnpm/tsm@2.3.0/node_modules/tsm/require.js");
-const _mod = require2("../src/entries/logger.ts");
-const logger = _mod.logger;
+const isDebug = process.env.DEBUG != null;
+const logger = {
+  debug: (msg) => isDebug && console.info(msg),
+  info: (msg) => console.info(msg),
+  warn: (msg) => console.warn(msg),
+  error: (msg) => console.error(msg),
+  errorWithExitCode: (msg) => {
+    console.error(msg);
+    process.exitCode = 1;
+  }
+};
 const logThePhrase = (input) => logger.info(`Logged: ${input}`);
 export {
   logThePhrase

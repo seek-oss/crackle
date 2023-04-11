@@ -7,21 +7,7 @@ declare const JobSummary: ({ title, isNew }: JobSummaryProps) => JSX.Element;
 
 declare const add: (a: number, b: number) => number;
 
-declare const logger$1: {
-    debug: (msg: string) => false | void;
-    info: (msg: string) => void;
-    warn: (msg: string) => void;
-    error: (msg: string) => void;
-    errorWithExitCode: (msg: string) => void;
-};
-
-type MathsFn = (a: number, b: number) => number;
-
-type InlinedType = typeof logger$1;
-declare const logger: () => void;
-declare const calcAndLog: (a: number, b: number, fn: MathsFn) => void;
-
 declare const _default: "I am theme";
 
-export { InlinedType, JobSummary, _default, add, calcAndLog, logger };
+export { JobSummary, _default, add };
 /* #endregion */
