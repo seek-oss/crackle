@@ -15,7 +15,10 @@ const promiseMap = async <T, K>(
   fn: (item: T) => Promise<K>,
 ): Promise<K[]> => Promise.all(items.map(fn));
 
-export async function snapshotBundles(suiteName: string, fixtureName: string) {
+export default async function snapshotOutput(
+  suiteName: string,
+  fixtureName: string,
+) {
   const fixtureDir = f.find(fixtureName);
 
   const distFiles = await glob('dist/**', {
