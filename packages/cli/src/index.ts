@@ -88,6 +88,16 @@ yargs(process.argv.slice(2))
     },
   } satisfies CommandModule<unknown, Pick<CrackleConfig, 'port'>>)
   .command({
+    command: 'routes',
+    describe: 'Show website routes',
+    handler: async () => {
+      const config = await resolveConfig();
+      const { getAllRoutes } = await import('@crackle/core/route-data');
+      const pages = await getAllRoutes(config);
+      console.table(pages); // eslint-disable-line no-console
+    },
+  })
+  .command({
     command: 'package',
     describe: 'Compile package for publishing',
     builder: {
@@ -108,16 +118,6 @@ yargs(process.argv.slice(2))
       await buildPackage(config);
     },
   } satisfies CommandModule<unknown, Pick<CrackleConfig, 'fix' | 'clean'>>)
-  .command({
-    command: 'routes',
-    describe: 'Show website routes',
-    handler: async () => {
-      const config = await resolveConfig();
-      const { getAllRoutes } = await import('@crackle/core/route-data');
-      const pages = await getAllRoutes(config);
-      console.table(pages); // eslint-disable-line no-console
-    },
-  })
   .command({
     command: 'dev',
     describe: 'Generate entry points for local development',
