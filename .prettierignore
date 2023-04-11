@@ -19,7 +19,7 @@ fixtures/dev-entries/dist
 # end managed by crackle
 
 # managed by crackle
-fixtures/esm-patch-imports/dist
+fixtures/esm-compat/dist
 # end managed by crackle
 
 # managed by crackle
@@ -39,10 +39,6 @@ fixtures/single-entry-library/dist
 
 # managed by crackle
 fixtures/with-dep-hidden-package-json/dist
-# end managed by crackle
-
-# managed by crackle
-fixtures/with-flatten-children/dist
 # end managed by crackle
 
 # managed by crackle
