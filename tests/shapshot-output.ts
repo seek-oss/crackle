@@ -23,17 +23,13 @@ export default async function snapshotOutput(
     cwd: fixtureDir,
     onlyFiles: true,
   });
-
   const groups = _.groupBy(distFiles, (fileName) =>
     fileName.replace(/(.cjs|.mjs|.d.ts)$/, ''),
   );
 
   await promiseMap(Object.entries(groups), async ([groupName, files]) => {
-    const bundle = await promiseMap(files, async (fileName) => {
-      const contents = await fs.readFile(
-        path.join(fixtureDir, fileName),
-        'utf-8',
-      );
+    const bundle = await promiseMap(files.sort(), async (fileName) => {
+      const contents = await fs.readFile(`${fixtureDir}/${fileName}`, 'utf-8');
       return `/* #region ${fileName} */\n${contents}/* #endregion */\n`;
     });
 
