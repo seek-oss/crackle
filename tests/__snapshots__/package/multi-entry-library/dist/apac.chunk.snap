@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tests/package.test.ts > fixture multi-entry-library: dist/apac.chunk.d.ts 1`] = `
+interface JobSummaryProps {
+    title: string;
+    isNew: boolean;
+}
+declare const JobSummary: ({ title, isNew }: JobSummaryProps) => JSX.Element;
+
+declare const add: (a: number, b: number) => number;
+
+declare const _default: "I am theme";
+
+export { JobSummary, _default, add };
+`;

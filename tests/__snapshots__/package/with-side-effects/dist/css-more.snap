@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tests/package.test.ts > fixture with-side-effects: dist/css-more.cjs 1`] = `
+"use strict";
+Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+const styles_lib_breakpoints_cjs = require("./styles/lib/breakpoints.cjs");
+const Box = require("./Box.chunk.cjs");
+exports.breakpointNames = styles_lib_breakpoints_cjs.breakpointNames;
+exports.breakpoints = styles_lib_breakpoints_cjs.breakpoints;
+exports.Box = Box.Box;
+`;
+
+exports[`tests/package.test.ts > fixture with-side-effects: dist/css-more.d.ts 1`] = `export { Box, Breakpoint, breakpointNames, breakpoints } from './index.js';`;
+
+exports[`tests/package.test.ts > fixture with-side-effects: dist/css-more.mjs 1`] = `
+import { breakpointNames, breakpoints } from "./styles/lib/breakpoints.mjs";
+import { Box } from "./Box.chunk.mjs";
+export {
+  Box,
+  breakpointNames,
+  breakpoints
+};
+`;

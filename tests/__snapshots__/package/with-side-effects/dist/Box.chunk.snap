@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tests/package.test.ts > fixture with-side-effects: dist/Box.chunk.cjs 1`] = `
+"use strict";
+const Box = () => null;
+exports.Box = Box;
+`;
+
+exports[`tests/package.test.ts > fixture with-side-effects: dist/Box.chunk.mjs 1`] = `
+const Box = () => null;
+export {
+  Box
+};
+`;

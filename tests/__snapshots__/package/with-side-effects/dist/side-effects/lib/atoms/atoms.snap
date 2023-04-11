@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tests/package.test.ts > fixture with-side-effects: dist/side-effects/lib/atoms/atoms.cjs 1`] = `
+"use strict";
+require("../../../styles/lib/atoms/sprinkles.css.cjs");
+require("../../../styles/lib/reset/reset.css.cjs");
+`;
+
+exports[`tests/package.test.ts > fixture with-side-effects: dist/side-effects/lib/atoms/atoms.mjs 1`] = `
+import "../../../styles/lib/atoms/sprinkles.css.mjs";
+import "../../../styles/lib/reset/reset.css.mjs";
+`;

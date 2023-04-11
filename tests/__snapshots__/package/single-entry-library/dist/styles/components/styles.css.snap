@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tests/package.test.ts > fixture single-entry-library: dist/styles/components/styles.css.cjs 1`] = `
+"use strict";
+const fileScope = require("@vanilla-extract/css/fileScope");
+const css = require("@vanilla-extract/css");
+const styles_components_addFn_cjs = require("./add-fn.cjs");
+fileScope.setFileScope("src/components/styles.css.ts?used", "single-entry-library");
+const redBorder = css.style({
+  border: "5px solid papayawhip",
+  margin: styles_components_addFn_cjs.add(10, 5)
+}, "redBorder");
+fileScope.endFileScope();
+exports.redBorder = redBorder;
+`;
+
+exports[`tests/package.test.ts > fixture single-entry-library: dist/styles/components/styles.css.mjs 1`] = `
+import { setFileScope, endFileScope } from "@vanilla-extract/css/fileScope";
+import { style } from "@vanilla-extract/css";
+import { add } from "./add-fn.mjs";
+setFileScope("src/components/styles.css.ts?used", "single-entry-library");
+const redBorder = style({
+  border: "5px solid papayawhip",
+  margin: add(10, 5)
+}, "redBorder");
+endFileScope();
+export {
+  redBorder
+};
+`;

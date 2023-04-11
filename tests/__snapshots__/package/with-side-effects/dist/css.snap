@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tests/package.test.ts > fixture with-side-effects: dist/css.cjs 1`] = `
+"use strict";
+Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+const Box = require("./Box.chunk.cjs");
+exports.Box = Box.Box;
+`;
+
+exports[`tests/package.test.ts > fixture with-side-effects: dist/css.d.ts 1`] = `export { Box } from './index.js';`;
+
+exports[`tests/package.test.ts > fixture with-side-effects: dist/css.mjs 1`] = `
+import { Box } from "./Box.chunk.mjs";
+export {
+  Box
+};
+`;

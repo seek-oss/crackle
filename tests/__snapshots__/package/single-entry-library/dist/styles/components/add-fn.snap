@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tests/package.test.ts > fixture single-entry-library: dist/styles/components/add-fn.cjs 1`] = `
+"use strict";
+const add = (a, b) => a - b;
+exports.add = add;
+`;
+
+exports[`tests/package.test.ts > fixture single-entry-library: dist/styles/components/add-fn.mjs 1`] = `
+const add = (a, b) => a - b;
+export {
+  add
+};
+`;

@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tests/package.test.ts > fixture multi-entry-library: dist/side-effects/common/commonLogger.cjs 1`] = `
+"use strict";
+const isDebug = process.env.DEBUG != null;
+const logger = {
+  debug: (msg) => isDebug && console.info(msg),
+  info: (msg) => console.info(msg),
+  warn: (msg) => console.warn(msg),
+  error: (msg) => console.error(msg),
+  errorWithExitCode: (msg) => {
+    console.error(msg);
+    process.exitCode = 1;
+  }
+};
+const logThePhrase = (input) => logger.info(\`Logged: \${input}\`);
+exports.logThePhrase = logThePhrase;
+`;
+
+exports[`tests/package.test.ts > fixture multi-entry-library: dist/side-effects/common/commonLogger.mjs 1`] = `
+const isDebug = process.env.DEBUG != null;
+const logger = {
+  debug: (msg) => isDebug && console.info(msg),
+  info: (msg) => console.info(msg),
+  warn: (msg) => console.warn(msg),
+  error: (msg) => console.error(msg),
+  errorWithExitCode: (msg) => {
+    console.error(msg);
+    process.exitCode = 1;
+  }
+};
+const logThePhrase = (input) => logger.info(\`Logged: \${input}\`);
+export {
+  logThePhrase
+};
+`;

@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tests/package.test.ts > fixture esm-compat: dist/index.cjs 1`] = `
+"use strict";
+Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+const index_js = require("autosuggest-highlight/parse/index.js");
+const reactKeyedFlattenChildren = require("react-keyed-flatten-children");
+const subpath = require("@crackle-fixtures/dep-with-exports/subpath");
+const index_js$1 = require("@crackle-fixtures/dep-with-exports-always-patch/index.js");
+const jsxRuntime_js = require("react/jsx-runtime.js");
+const ReactDOM = require("react-dom/server.node.js");
+const _interopDefaultCompat = (e) => e && typeof e === "object" && "default" in e ? e : { default: e };
+const index_js__default = /* @__PURE__ */ _interopDefaultCompat(index_js);
+const reactKeyedFlattenChildren__default = /* @__PURE__ */ _interopDefaultCompat(reactKeyedFlattenChildren);
+const subpath__default = /* @__PURE__ */ _interopDefaultCompat(subpath);
+const index_js__default$1 = /* @__PURE__ */ _interopDefaultCompat(index_js$1);
+const ReactDOM__default = /* @__PURE__ */ _interopDefaultCompat(ReactDOM);
+const index = {};
+const App = () => /* @__PURE__ */ jsxRuntime_js.jsx("div", { children: "App" });
+const render = () => ReactDOM__default.default.renderToStaticMarkup(/* @__PURE__ */ jsxRuntime_js.jsx(App, {}));
+Object.defineProperty(exports, "cjsDirIndex", {
+  enumerable: true,
+  get: () => index_js__default.default
+});
+Object.defineProperty(exports, "cjsFauxEsm", {
+  enumerable: true,
+  get: () => reactKeyedFlattenChildren__default.default
+});
+Object.defineProperty(exports, "scopedSubpath", {
+  enumerable: true,
+  get: () => subpath__default.default
+});
+Object.defineProperty(exports, "scopedPatchedSubpath", {
+  enumerable: true,
+  get: () => index_js__default$1.default
+});
+exports.App = App;
+exports.render = render;
+exports.translations = index;
+`;
+
+exports[`tests/package.test.ts > fixture esm-compat: dist/index.d.ts 1`] = `
+export { default as cjsDirIndex } from 'autosuggest-highlight/parse';
+export { default as cjsFauxEsm } from 'react-keyed-flatten-children';
+export { default as scopedSubpath } from '@crackle-fixtures/dep-with-exports/subpath';
+export { default as scopedPatchedSubpath } from '@crackle-fixtures/dep-with-exports-always-patch/subpath';
+import React from 'react';
+
+declare const _default: {};
+
+declare const App: React.FC;
+declare const render: () => string;
+
+export { App, render, _default as translations };
+`;
+
+exports[`tests/package.test.ts > fixture esm-compat: dist/index.mjs 1`] = `
+import { default as default2 } from "autosuggest-highlight/parse/index.js";
+import { default as default3 } from "react-keyed-flatten-children";
+import { default as default4 } from "@crackle-fixtures/dep-with-exports/subpath";
+import { default as default5 } from "@crackle-fixtures/dep-with-exports-always-patch/index.js";
+import { jsx } from "react/jsx-runtime.js";
+import ReactDOM from "react-dom/server.node.js";
+const index = {};
+const App = () => /* @__PURE__ */ jsx("div", { children: "App" });
+const render = () => ReactDOM.renderToStaticMarkup(/* @__PURE__ */ jsx(App, {}));
+export {
+  App,
+  default2 as cjsDirIndex,
+  default3 as cjsFauxEsm,
+  render,
+  default5 as scopedPatchedSubpath,
+  default4 as scopedSubpath,
+  index as translations
+};
+`;

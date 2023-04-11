@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tests/package.test.ts > fixture with-graphql-schema-types: dist/index.cjs 1`] = `
+"use strict";
+Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+const maybe = null;
+exports.maybe = maybe;
+`;
+
+exports[`tests/package.test.ts > fixture with-graphql-schema-types: dist/index.d.ts 1`] = `
+import { Maybe } from '@crackle-fixtures/graphql-schema/types';
+
+declare const maybe: Maybe<string>;
+
+export { maybe };
+`;
+
+exports[`tests/package.test.ts > fixture with-graphql-schema-types: dist/index.mjs 1`] = `
+const maybe = null;
+export {
+  maybe
+};
+`;

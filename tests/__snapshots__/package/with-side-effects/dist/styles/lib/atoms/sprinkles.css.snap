@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tests/package.test.ts > fixture with-side-effects: dist/styles/lib/atoms/sprinkles.css.cjs 1`] = `
+"use strict";
+const fileScope = require("@vanilla-extract/css/fileScope");
+const css = require("@vanilla-extract/css");
+const sprinkles = require("@vanilla-extract/sprinkles");
+const styles_lib_breakpoints_cjs = require("../breakpoints.cjs");
+const styles_lib_atoms_atomicProperties_cjs = require("./atomicProperties.cjs");
+fileScope.setFileScope("src/lib/atoms/sprinkles.css.ts?used", "with-side-effects");
+css.style({}, "darkMode");
+const responsiveAtomicProperties = sprinkles.defineProperties({
+  defaultCondition: "mobile",
+  conditions: {
+    mobile: {},
+    tablet: {
+      "@media": \`screen and (min-width: \${styles_lib_breakpoints_cjs.breakpoints.tablet}px)\`
+    },
+    desktop: {
+      "@media": \`screen and (min-width: \${styles_lib_breakpoints_cjs.breakpoints.desktop}px)\`
+    },
+    wide: {
+      "@media": \`screen and (min-width: \${styles_lib_breakpoints_cjs.breakpoints.wide}px)\`
+    }
+  },
+  responsiveArray: styles_lib_breakpoints_cjs.breakpointNames,
+  properties: styles_lib_atoms_atomicProperties_cjs.responsiveProperties,
+  shorthands: {
+    padding: ["paddingBottom", "paddingTop", "paddingLeft", "paddingRight"],
+    paddingY: ["paddingTop", "paddingBottom"],
+    paddingX: ["paddingLeft", "paddingRight"]
+  }
+});
+sprinkles.createSprinkles(responsiveAtomicProperties);
+sprinkles.createNormalizeValueFn(responsiveAtomicProperties);
+sprinkles.createMapValueFn(responsiveAtomicProperties);
+fileScope.endFileScope();
+`;
+
+exports[`tests/package.test.ts > fixture with-side-effects: dist/styles/lib/atoms/sprinkles.css.mjs 1`] = `
+import { setFileScope, endFileScope } from "@vanilla-extract/css/fileScope";
+import { style } from "@vanilla-extract/css";
+import { defineProperties, createSprinkles, createNormalizeValueFn, createMapValueFn } from "@vanilla-extract/sprinkles";
+import { breakpoints, breakpointNames } from "../breakpoints.mjs";
+import { responsiveProperties } from "./atomicProperties.mjs";
+setFileScope("src/lib/atoms/sprinkles.css.ts?used", "with-side-effects");
+style({}, "darkMode");
+const responsiveAtomicProperties = defineProperties({
+  defaultCondition: "mobile",
+  conditions: {
+    mobile: {},
+    tablet: {
+      "@media": \`screen and (min-width: \${breakpoints.tablet}px)\`
+    },
+    desktop: {
+      "@media": \`screen and (min-width: \${breakpoints.desktop}px)\`
+    },
+    wide: {
+      "@media": \`screen and (min-width: \${breakpoints.wide}px)\`
+    }
+  },
+  responsiveArray: breakpointNames,
+  properties: responsiveProperties,
+  shorthands: {
+    padding: ["paddingBottom", "paddingTop", "paddingLeft", "paddingRight"],
+    paddingY: ["paddingTop", "paddingBottom"],
+    paddingX: ["paddingLeft", "paddingRight"]
+  }
+});
+createSprinkles(responsiveAtomicProperties);
+createNormalizeValueFn(responsiveAtomicProperties);
+createMapValueFn(responsiveAtomicProperties);
+endFileScope();
+`;

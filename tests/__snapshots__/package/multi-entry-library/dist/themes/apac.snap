@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tests/package.test.ts > fixture multi-entry-library: dist/themes/apac.cjs 1`] = `
+"use strict";
+const apac = "I am theme";
+module.exports = apac;
+`;
+
+exports[`tests/package.test.ts > fixture multi-entry-library: dist/themes/apac.d.ts 1`] = `export { _default as default } from '../apac.chunk.js';`;
+
+exports[`tests/package.test.ts > fixture multi-entry-library: dist/themes/apac.mjs 1`] = `
+const apac = "I am theme";
+export {
+  apac as default
+};
+`;

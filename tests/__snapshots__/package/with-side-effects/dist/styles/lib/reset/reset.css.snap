@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tests/package.test.ts > fixture with-side-effects: dist/styles/lib/reset/reset.css.cjs 1`] = `
+"use strict";
+const fileScope = require("@vanilla-extract/css/fileScope");
+const css = require("@vanilla-extract/css");
+fileScope.setFileScope("src/lib/reset/reset.css.ts?used", "with-side-effects");
+const hideFocusRingsDataAttribute = "data-braid-hidefocusrings";
+css.style({
+  margin: 0,
+  padding: 0,
+  border: 0,
+  boxSizing: "border-box",
+  fontSize: "100%",
+  font: "inherit",
+  verticalAlign: "baseline",
+  WebkitTapHighlightColor: "transparent",
+  selectors: {
+    [\`[\${hideFocusRingsDataAttribute}] &\`]: {
+      outline: "none"
+    }
+  }
+}, "base");
+css.style({
+  display: "block"
+}, "block");
+fileScope.endFileScope();
+`;
+
+exports[`tests/package.test.ts > fixture with-side-effects: dist/styles/lib/reset/reset.css.mjs 1`] = `
+import { setFileScope, endFileScope } from "@vanilla-extract/css/fileScope";
+import { style } from "@vanilla-extract/css";
+setFileScope("src/lib/reset/reset.css.ts?used", "with-side-effects");
+const hideFocusRingsDataAttribute = "data-braid-hidefocusrings";
+style({
+  margin: 0,
+  padding: 0,
+  border: 0,
+  boxSizing: "border-box",
+  fontSize: "100%",
+  font: "inherit",
+  verticalAlign: "baseline",
+  WebkitTapHighlightColor: "transparent",
+  selectors: {
+    [\`[\${hideFocusRingsDataAttribute}] &\`]: {
+      outline: "none"
+    }
+  }
+}, "base");
+style({
+  display: "block"
+}, "block");
+endFileScope();
+`;

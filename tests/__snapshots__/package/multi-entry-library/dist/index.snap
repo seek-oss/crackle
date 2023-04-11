@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tests/package.test.ts > fixture multi-entry-library: dist/index.cjs 1`] = `
+"use strict";
+Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+const sideEffects_components_JobSummary_cjs = require("./side-effects/components/JobSummary.cjs");
+const add = (a, b) => a + b;
+exports.JobSummary = sideEffects_components_JobSummary_cjs.JobSummary;
+exports.add = add;
+`;
+
+exports[`tests/package.test.ts > fixture multi-entry-library: dist/index.d.ts 1`] = `export { JobSummary, add } from './apac.chunk.js';`;
+
+exports[`tests/package.test.ts > fixture multi-entry-library: dist/index.mjs 1`] = `
+import { JobSummary } from "./side-effects/components/JobSummary.mjs";
+const add = (a, b) => a + b;
+export {
+  JobSummary,
+  add
+};
+`;
