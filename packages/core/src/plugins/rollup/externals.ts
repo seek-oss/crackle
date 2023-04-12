@@ -18,6 +18,13 @@ import { resolveFrom } from '../../utils/resolve-from';
 
 class PackagesById extends Map<string, PackageJson> {}
 
+const ABSOLUTE_OR_RELATIVE = new RegExp('^(/|./|../)');
+
+const logDebugOnce = memoize((message: string) => {
+  logger.debug(message);
+  return message;
+});
+
 const loadPackage = async (packagePath: string): Promise<PackageJson> =>
   fse.readJson(packagePath);
 
@@ -144,6 +151,8 @@ export function externals(config: EnhancedConfig, format?: Format): Plugin {
           (typeof resolved === 'boolean' && !resolved) ||
           (typeof resolved === 'object' && resolved?.external)
         ) {
+          logDebugOnce(`External dependency ${id}`);
+
           const { packageId, isSubpath } = parseImportSpecifier(id);
           const packageJson = packagesById.get(packageId);
           const patched = {
@@ -157,6 +166,9 @@ export function externals(config: EnhancedConfig, format?: Format): Plugin {
           };
 
           return patched;
+        }
+        if (!id.match(ABSOLUTE_OR_RELATIVE)) {
+          logDebugOnce(`Internalized dependency ${id}`);
         }
 
         return resolved;
