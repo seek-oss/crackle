@@ -1,6 +1,6 @@
 {
   "name": "@crackle/core",
-  "version": "0.23.0",
+  "version": "0.23.1",
   "license": "MIT",
   "author": "SEEK",
   "sideEffects": false,
@@ -71,6 +71,7 @@
     "clean",
     "dev",
     "dist",
+    "entries",
     "fix",
     "logger",
     "package",
