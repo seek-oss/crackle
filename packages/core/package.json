@@ -71,6 +71,7 @@
     "clean",
     "dev",
     "dist",
+    "entries",
     "fix",
     "logger",
     "package",
