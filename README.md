@@ -89,8 +89,8 @@ Crackle will generate these entry points:
 
 ```
 my-project (main entry point; mapped to src/index.ts)
-my-project/components (mapped to src/components.ts)
-my-project/themes/apac (mapped to src/themes/apac.ts)
+my-project/components (mapped to src/entries/components.ts)
+my-project/themes/apac (mapped to src/entries/themes/apac.ts)
 ```
 
 #### Externals
