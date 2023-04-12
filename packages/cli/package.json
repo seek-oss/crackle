@@ -1,6 +1,6 @@
 {
   "name": "@crackle/cli",
-  "version": "0.11.1",
+  "version": "0.11.2",
   "license": "MIT",
   "author": "SEEK",
   "exports": {
@@ -27,7 +27,7 @@
     "build": "crackle package"
   },
   "dependencies": {
-    "@crackle/core": "^0.23.0",
+    "@crackle/core": "^0.23.1",
     "yargs": "^17.6.2"
   },
   "devDependencies": {

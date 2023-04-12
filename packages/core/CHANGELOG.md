@@ -1,5 +1,13 @@
 # @crackle/core
 
+## 0.23.1
+
+### Patch Changes
+
+- [#96](https://github.com/seek-oss/crackle/pull/96) [`d094c8b`](https://github.com/seek-oss/crackle/commit/d094c8bca57eed399f1b724f4f58e15a7c549de3) Thanks [@mrm007](https://github.com/mrm007)! - Don't fail on Vocab translation imports
+
+- [#97](https://github.com/seek-oss/crackle/pull/97) [`f933e67`](https://github.com/seek-oss/crackle/commit/f933e6738cdd0a5bc0bb1847cabba6978d145443) Thanks [@mrm007](https://github.com/mrm007)! - Add back `entries` to NPM package
+
 ## 0.23.0
 
 ### Minor Changes

@@ -291,7 +291,7 @@ importers:
   packages/cli:
     dependencies:
       '@crackle/core':
-        specifier: ^0.23.0
+        specifier: ^0.23.1
         version: link:../core
       yargs:
         specifier: ^17.6.2
