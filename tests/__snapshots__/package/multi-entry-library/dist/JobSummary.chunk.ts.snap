@@ -1,4 +1,4 @@
-/* #region dist/side-effects/components/JobSummary.cjs */
+/* #region dist/JobSummary.chunk.cjs */
 "use strict";
 const jsxRuntime = require("react/jsx-runtime");
 const braidDesignSystem = require("braid-design-system");
@@ -35,7 +35,7 @@ exports.JobSummary = JobSummary;
 /* #endregion */
 
 
-/* #region dist/side-effects/components/JobSummary.mjs */
+/* #region dist/JobSummary.chunk.mjs */
 import { jsx, jsxs } from "react/jsx-runtime";
 import { Card, Stack, Columns, Column, Badge, Heading, Inline, Text, Rating, IconBookmark, IconLocation, IconTag, IconMoney } from "braid-design-system";
 const JobSummary = ({ title, isNew }) => /* @__PURE__ */ jsx(Card, { children: /* @__PURE__ */ jsxs(Stack, { space: "gutter", children: [

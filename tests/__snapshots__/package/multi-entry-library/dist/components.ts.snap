@@ -1,8 +1,8 @@
 /* #region dist/components.cjs */
 "use strict";
 Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
-const sideEffects_components_JobSummary_cjs = require("./side-effects/components/JobSummary.cjs");
-exports.JobSummary = sideEffects_components_JobSummary_cjs.JobSummary;
+const JobSummary = require("./JobSummary.chunk.cjs");
+exports.JobSummary = JobSummary.JobSummary;
 /* #endregion */
 
 
@@ -12,7 +12,7 @@ export { JobSummary } from './apac.chunk.js';
 
 
 /* #region dist/components.mjs */
-import { JobSummary } from "./side-effects/components/JobSummary.mjs";
+import { JobSummary } from "./JobSummary.chunk.mjs";
 export {
   JobSummary
 };

@@ -1,4 +1,4 @@
-/* #region dist/styles/lib/atoms/atomicProperties.cjs */
+/* #region dist/side-effects/lib/atoms/atomicProperties.cjs */
 "use strict";
 const space = {
   medium: "5px",
@@ -22,7 +22,7 @@ exports.responsiveProperties = responsiveProperties;
 /* #endregion */
 
 
-/* #region dist/styles/lib/atoms/atomicProperties.mjs */
+/* #region dist/side-effects/lib/atoms/atomicProperties.mjs */
 const space = {
   medium: "5px",
   none: 0

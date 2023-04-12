@@ -1,9 +1,24 @@
 /* #region dist/extras.cjs */
 "use strict";
 Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
-const sideEffects_extras_index_cjs = require("./side-effects/extras/index.cjs");
-exports.calcAndLog = sideEffects_extras_index_cjs.calcAndLog;
-exports.logger = sideEffects_extras_index_cjs.logger;
+const isDebug = process.env.DEBUG != null;
+const logger$1 = {
+  debug: (msg) => isDebug && console.info(msg),
+  info: (msg) => console.info(msg),
+  warn: (msg) => console.warn(msg),
+  error: (msg) => console.error(msg),
+  errorWithExitCode: (msg) => {
+    console.error(msg);
+    process.exitCode = 1;
+  }
+};
+const logThePhrase = (input) => logger$1.info(`Logged: ${input}`);
+const logger = () => logThePhrase("This is a logger");
+const calcAndLog = (a, b, fn) => {
+  logThePhrase(fn(a, b).toString());
+};
+exports.calcAndLog = calcAndLog;
+exports.logger = logger;
 /* #endregion */
 
 
@@ -34,7 +49,22 @@ export { InlinedType, calcAndLog, logger };
 
 
 /* #region dist/extras.mjs */
-import { calcAndLog, logger } from "./side-effects/extras/index.mjs";
+const isDebug = process.env.DEBUG != null;
+const logger$1 = {
+  debug: (msg) => isDebug && console.info(msg),
+  info: (msg) => console.info(msg),
+  warn: (msg) => console.warn(msg),
+  error: (msg) => console.error(msg),
+  errorWithExitCode: (msg) => {
+    console.error(msg);
+    process.exitCode = 1;
+  }
+};
+const logThePhrase = (input) => logger$1.info(`Logged: ${input}`);
+const logger = () => logThePhrase("This is a logger");
+const calcAndLog = (a, b, fn) => {
+  logThePhrase(fn(a, b).toString());
+};
 export {
   calcAndLog,
   logger

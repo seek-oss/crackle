@@ -2,13 +2,14 @@
 "use strict";
 const fileScope = require("@vanilla-extract/css/fileScope");
 const css = require("@vanilla-extract/css");
-const styles_components_addFn_cjs = require("./add-fn.cjs");
+const add = (a, b) => a - b;
 fileScope.setFileScope("src/components/styles.css.ts?used", "single-entry-library");
 const redBorder = css.style({
   border: "5px solid papayawhip",
-  margin: styles_components_addFn_cjs.add(10, 5)
+  margin: add(10, 5)
 }, "redBorder");
 fileScope.endFileScope();
+exports.add = add;
 exports.redBorder = redBorder;
 /* #endregion */
 
@@ -16,7 +17,7 @@ exports.redBorder = redBorder;
 /* #region dist/styles/components/styles.css.mjs */
 import { setFileScope, endFileScope } from "@vanilla-extract/css/fileScope";
 import { style } from "@vanilla-extract/css";
-import { add } from "./add-fn.mjs";
+const add = (a, b) => a - b;
 setFileScope("src/components/styles.css.ts?used", "single-entry-library");
 const redBorder = style({
   border: "5px solid papayawhip",
@@ -24,6 +25,7 @@ const redBorder = style({
 }, "redBorder");
 endFileScope();
 export {
+  add,
   redBorder
 };
 /* #endregion */
