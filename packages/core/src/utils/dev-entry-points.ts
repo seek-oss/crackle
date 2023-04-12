@@ -72,7 +72,7 @@ async function writeFile(
   await writeIfRequired({
     dir: entry.outputDir,
     fileName: outputPath,
-    contents,
+    contents: `${contents}\n`,
   });
 }
 

@@ -1,0 +1,19 @@
+/* #region dist/css.cjs */
+"use strict";
+Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+const Box = require("./Box.chunk.cjs");
+exports.Box = Box.Box;
+/* #endregion */
+
+
+/* #region dist/css.d.ts */
+export { Box } from './index.js';
+/* #endregion */
+
+
+/* #region dist/css.mjs */
+import { Box } from "./Box.chunk.mjs";
+export {
+  Box
+};
+/* #endregion */

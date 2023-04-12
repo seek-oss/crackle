@@ -1,1 +1,1 @@
-export default 'no-package-json';
+export default 'hidden-package-json';

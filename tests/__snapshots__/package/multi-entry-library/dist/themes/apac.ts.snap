@@ -1,0 +1,18 @@
+/* #region dist/themes/apac.cjs */
+"use strict";
+const apac = "I am theme";
+module.exports = apac;
+/* #endregion */
+
+
+/* #region dist/themes/apac.d.ts */
+export { _default as default } from '../apac.chunk.js';
+/* #endregion */
+
+
+/* #region dist/themes/apac.mjs */
+const apac = "I am theme";
+export {
+  apac as default
+};
+/* #endregion */

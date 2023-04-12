@@ -1,0 +1,34 @@
+/* #region dist/index.cjs */
+"use strict";
+Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+const sideEffects_components_JobSummary_cjs = require("./side-effects/components/JobSummary.cjs");
+const components = require("@crackle-fixtures/multi-entry-library/components");
+exports.JobSummary = sideEffects_components_JobSummary_cjs.JobSummary;
+Object.defineProperty(exports, "MultiJobSummary", {
+  enumerable: true,
+  get: () => components.JobSummary
+});
+/* #endregion */
+
+
+/* #region dist/index.d.ts */
+export { JobSummary as MultiJobSummary } from '@crackle-fixtures/multi-entry-library/components';
+
+interface JobSummaryProps {
+    title: string;
+    isNew: boolean;
+}
+declare const JobSummary: ({ title, isNew }: JobSummaryProps) => JSX.Element;
+
+export { JobSummary };
+/* #endregion */
+
+
+/* #region dist/index.mjs */
+import { JobSummary } from "./side-effects/components/JobSummary.mjs";
+import { JobSummary as JobSummary2 } from "@crackle-fixtures/multi-entry-library/components";
+export {
+  JobSummary,
+  JobSummary2 as MultiJobSummary
+};
+/* #endregion */

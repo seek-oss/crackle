@@ -1,0 +1,29 @@
+/* #region dist/reset.cjs */
+"use strict";
+Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+require("./side-effects/lib/reset/index.cjs");
+const styles_lib_breakpoints_cjs = require("./styles/lib/breakpoints.cjs");
+if (process.env.NO_SIDE_EFFECTS !== "clearly") {
+  throw new Error("side-effect");
+}
+exports.breakpointNames = styles_lib_breakpoints_cjs.breakpointNames;
+exports.breakpoints = styles_lib_breakpoints_cjs.breakpoints;
+/* #endregion */
+
+
+/* #region dist/reset.d.ts */
+export { Breakpoint, breakpointNames, breakpoints } from './index.js';
+/* #endregion */
+
+
+/* #region dist/reset.mjs */
+import "./side-effects/lib/reset/index.mjs";
+import { breakpointNames, breakpoints } from "./styles/lib/breakpoints.mjs";
+if (process.env.NO_SIDE_EFFECTS !== "clearly") {
+  throw new Error("side-effect");
+}
+export {
+  breakpointNames,
+  breakpoints
+};
+/* #endregion */

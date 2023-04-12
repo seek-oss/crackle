@@ -1,0 +1,25 @@
+/* #region dist/index.cjs */
+require("../node_modules/.pnpm/tsm@2.3.0/node_modules/tsm/require.js");
+
+module.exports = require("../fixtures/dev-entries/src/index.ts");
+/* #endregion */
+
+
+/* #region dist/index.d.ts */
+export * from "../src/index";
+export { default } from "../src/index";
+/* #endregion */
+
+
+/* #region dist/index.mjs */
+import { createRequire } from "module";
+
+const require = createRequire(import.meta.url);
+
+require("../node_modules/.pnpm/tsm@2.3.0/node_modules/tsm/require.js");
+
+const _mod = require("../fixtures/dev-entries/src/index.ts");
+
+export const something = _mod.something;
+export default _mod.default;
+/* #endregion */

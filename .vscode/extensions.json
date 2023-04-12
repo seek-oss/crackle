@@ -2,6 +2,7 @@
   "recommendations": [
     "bierner.comment-tagged-templates",
     "google.wireit",
+    "maptz.regionfolder",
     "ms-playwright.playwright",
     "zixuanchen.vitest-explorer"
   ]
