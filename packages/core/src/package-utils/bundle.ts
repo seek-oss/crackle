@@ -46,8 +46,8 @@ export const createBundle = async (
         if (srcPath.startsWith('../')) return;
 
         assert(
-          !srcPath.startsWith('.'),
-          `relative path ${srcPath} should not start with '.'`,
+          !srcPath.startsWith('./'),
+          `relative path ${srcPath} should not start with './'`,
         );
 
         if (

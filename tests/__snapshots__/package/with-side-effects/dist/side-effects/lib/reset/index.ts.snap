@@ -1,0 +1,19 @@
+/* #region dist/side-effects/lib/reset/index.cjs */
+"use strict";
+const sideEffects_lib_reset_resetTracker_cjs = require("./resetTracker.cjs");
+require("../../../styles/lib/atoms/sprinkles.css.cjs");
+require("../../../styles/lib/reset/reset.css.cjs");
+if (process.env.NODE_ENV === "development") {
+  sideEffects_lib_reset_resetTracker_cjs.markResetImported();
+}
+/* #endregion */
+
+
+/* #region dist/side-effects/lib/reset/index.mjs */
+import { markResetImported } from "./resetTracker.mjs";
+import "../../../styles/lib/atoms/sprinkles.css.mjs";
+import "../../../styles/lib/reset/reset.css.mjs";
+if (process.env.NODE_ENV === "development") {
+  markResetImported();
+}
+/* #endregion */

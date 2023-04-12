@@ -1,0 +1,11 @@
+/* #region dist/side-effects/lib/atoms/atoms.cjs */
+"use strict";
+require("../../../styles/lib/atoms/sprinkles.css.cjs");
+require("../../../styles/lib/reset/reset.css.cjs");
+/* #endregion */
+
+
+/* #region dist/side-effects/lib/atoms/atoms.mjs */
+import "../../../styles/lib/atoms/sprinkles.css.mjs";
+import "../../../styles/lib/reset/reset.css.mjs";
+/* #endregion */

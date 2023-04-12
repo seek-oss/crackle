@@ -1,0 +1,35 @@
+/* #region dist/side-effects/common/commonLogger.cjs */
+"use strict";
+const isDebug = process.env.DEBUG != null;
+const logger = {
+  debug: (msg) => isDebug && console.info(msg),
+  info: (msg) => console.info(msg),
+  warn: (msg) => console.warn(msg),
+  error: (msg) => console.error(msg),
+  errorWithExitCode: (msg) => {
+    console.error(msg);
+    process.exitCode = 1;
+  }
+};
+const logThePhrase = (input) => logger.info(`Logged: ${input}`);
+exports.logThePhrase = logThePhrase;
+/* #endregion */
+
+
+/* #region dist/side-effects/common/commonLogger.mjs */
+const isDebug = process.env.DEBUG != null;
+const logger = {
+  debug: (msg) => isDebug && console.info(msg),
+  info: (msg) => console.info(msg),
+  warn: (msg) => console.warn(msg),
+  error: (msg) => console.error(msg),
+  errorWithExitCode: (msg) => {
+    console.error(msg);
+    process.exitCode = 1;
+  }
+};
+const logThePhrase = (input) => logger.info(`Logged: ${input}`);
+export {
+  logThePhrase
+};
+/* #endregion */

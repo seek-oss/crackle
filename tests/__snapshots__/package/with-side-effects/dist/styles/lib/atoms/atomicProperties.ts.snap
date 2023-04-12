@@ -1,0 +1,47 @@
+/* #region dist/styles/lib/atoms/atomicProperties.cjs */
+"use strict";
+const space = {
+  medium: "5px",
+  none: 0
+};
+const responsiveProperties = {
+  display: {
+    none: "none",
+    block: "block",
+    inline: "inline",
+    inlineBlock: "inline-block",
+    flex: "flex"
+  },
+  position: ["relative", "absolute", "fixed"],
+  paddingTop: space,
+  paddingBottom: space,
+  paddingRight: space,
+  paddingLeft: space
+};
+exports.responsiveProperties = responsiveProperties;
+/* #endregion */
+
+
+/* #region dist/styles/lib/atoms/atomicProperties.mjs */
+const space = {
+  medium: "5px",
+  none: 0
+};
+const responsiveProperties = {
+  display: {
+    none: "none",
+    block: "block",
+    inline: "inline",
+    inlineBlock: "inline-block",
+    flex: "flex"
+  },
+  position: ["relative", "absolute", "fixed"],
+  paddingTop: space,
+  paddingBottom: space,
+  paddingRight: space,
+  paddingLeft: space
+};
+export {
+  responsiveProperties
+};
+/* #endregion */
