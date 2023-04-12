@@ -1,4 +1,3 @@
-import assert from 'assert';
 import fs from 'fs';
 import path from 'path';
 
@@ -10,6 +9,7 @@ import { build as viteBuild } from 'vite';
 
 import type { EnhancedConfig } from '../config';
 import { sideEffectsDir, srcDir, stylesDir } from '../constants';
+import { logger } from '../entries/logger';
 import { addVanillaDebugIds, externals } from '../plugins/rollup';
 import type { PackageEntryPoint, PackageJson } from '../types';
 import { extensionForFormat } from '../utils/files';
@@ -43,26 +43,22 @@ export const createBundle = async (
         );
 
         // internal package resolved by plugins/vite/internal-package-resolution.ts
-        if (srcPath.startsWith('../')) return;
+        if (srcPath.startsWith('../')) {
+          logger.debug(`Internal package ${srcPath}`);
+          return;
+        }
 
-        assert(
-          !srcPath.startsWith('./'),
-          `relative path ${srcPath} should not start with './'`,
-        );
-
-        if (
-          isVanillaFile(id) ||
-          getModuleInfo(id)?.importers.some(isVanillaFile)
-        ) {
-          return `${stylesDir}/${srcPath}`;
+        if (isVanillaFile(id)) {
+          return path.normalize(`${stylesDir}/${srcPath}`);
         }
 
         if (
-          typeof packageJson.sideEffects !== 'boolean' &&
+          typeof packageJson.sideEffects !== 'undefined' &&
           moduleHasSideEffects(srcPath, packageJson.sideEffects) &&
           !getModuleInfo(id)?.isEntry
         ) {
-          return `${sideEffectsDir}/${srcPath}`;
+          logger.debug(`Has side-effects ${srcPath}`);
+          return path.normalize(`${sideEffectsDir}/${srcPath}`);
         }
       },
     } satisfies OutputOptions;
