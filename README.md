@@ -117,7 +117,7 @@ Stub entry points import the source files directly instead of the compiled files
 ## Side-effects
 
 Crackle updates the [`sideEffects` flag][se flag] if needed.
-If an entry point has side-effects (as defined via `package.json`'s `"sideEffects"` key), Crackle will update the `"sideEffects"` key so it also matches the output path in `dist`.
+If an entry point has side-effects (as defined via `package.json`'s `"sideEffects"` key), Crackle will update the `"sideEffects"` key to match the output path in `dist`.
 
 [se flag]: https://webpack.js.org/guides/tree-shaking/#mark-the-file-as-side-effect-free
 
@@ -125,7 +125,7 @@ Based on what's in `src` and the value of the flag, when running `crackle packag
 
 - `.css.ts` files (and files importing them) will be placed in `dist/styles/<same-path-as-in-src>`
 - files with side-effects (matching the globs defined in `"sideEffects"`) will be placed in `dist/side-effects/<same-path-as-in-src>`
-- if an entry has side-effects the `"sideEffects"` key will be updated so it also matches the output path in `dist`.
+- if an entry has side-effects, the `"sideEffects"` key will be updated to match the output path in `dist`
 
 ## ESM reconciliation
 
