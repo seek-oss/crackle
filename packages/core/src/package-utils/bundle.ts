@@ -5,7 +5,7 @@ import { cssFileFilter as vanillaCssFileFilter } from '@vanilla-extract/integrat
 import react from '@vitejs/plugin-react';
 import fse from 'fs-extra';
 import type { OutputOptions } from 'rollup';
-import { build as viteBuild } from 'vite';
+import { normalizePath, build as viteBuild } from 'vite';
 
 import type { EnhancedConfig } from '../config';
 import { sideEffectsDir, srcDir, stylesDir } from '../constants';
@@ -48,8 +48,11 @@ export const createBundle = async (
           return;
         }
 
-        if (isVanillaFile(id)) {
-          return path.normalize(`${stylesDir}/${srcPath}`);
+        if (
+          isVanillaFile(id) ||
+          getModuleInfo(id)?.importers.some(isVanillaFile)
+        ) {
+          return normalizePath(`${stylesDir}/${srcPath}`);
         }
 
         if (
@@ -58,7 +61,7 @@ export const createBundle = async (
           !getModuleInfo(id)?.isEntry
         ) {
           logger.debug(`Has side-effects ${srcPath}`);
-          return path.normalize(`${sideEffectsDir}/${srcPath}`);
+          return normalizePath(`${sideEffectsDir}/${srcPath}`);
         }
       },
     } satisfies OutputOptions;
