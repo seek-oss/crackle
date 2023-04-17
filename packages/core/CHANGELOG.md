@@ -1,5 +1,11 @@
 # @crackle/core
 
+## 0.23.2
+
+### Patch Changes
+
+- [#100](https://github.com/seek-oss/crackle/pull/100) [`840d387`](https://github.com/seek-oss/crackle/commit/840d387a769e27e02d7de3708f6b9a62602549ff) Thanks [@mrm007](https://github.com/mrm007)! - Fix side-effects evaluation for packages without a `"sideEffects"` flag
+
 ## 0.23.1
 
 ### Patch Changes
