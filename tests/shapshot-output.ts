@@ -1,5 +1,4 @@
 import fs from 'fs/promises';
-import path from 'path';
 
 import glob from 'fast-glob';
 import fixturez from 'fixturez';
@@ -34,9 +33,6 @@ export default async function snapshotOutput(
     });
 
     const snapshotDir = `__snapshots__/${suiteName}/${fixtureName}`;
-    await fs.mkdir(`${__dirname}/${snapshotDir}/${path.dirname(groupName)}`, {
-      recursive: true,
-    });
     await expect(bundle.join('\n\n')).toMatchFileSnapshot(
       `${snapshotDir}/${groupName}.ts.snap`,
     );
