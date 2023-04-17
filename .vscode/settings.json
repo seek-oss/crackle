@@ -2,6 +2,15 @@
   "files.associations": {
     "*ignore-sync": "ini"
   },
+  "maptz.regionfolder": {
+    "[jest-snapshot]": {
+      "foldStart": "/* #region [NAME] */",
+      "foldStartRegex": "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$",
+      "foldEnd": "/* #endregion */",
+      "foldEndRegex": "/\\*[\\s]*#endregion",
+      "isFoldedByDefault": false
+    }
+  },
   "search.exclude": {
     "**/*.code-search": true,
     "**/node_modules": true,
