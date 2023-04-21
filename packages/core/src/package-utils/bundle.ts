@@ -12,6 +12,10 @@ import { sideEffectsDir, srcDir, stylesDir } from '../constants';
 import { logger } from '../entries/logger';
 import { externals } from '../plugins/rollup/externals';
 import { addVanillaDebugIds } from '../plugins/rollup/vanilla-extract-debug-ids';
+import {
+  isVocabFile,
+  vocabTranslations,
+} from '../plugins/rollup/vocab-translations';
 import type { PackageEntryPoint, PackageJson } from '../types';
 import { extensionForFormat } from '../utils/files';
 import { moduleHasSideEffects } from '../utils/side-effects';
@@ -28,6 +32,9 @@ export const createBundle = async (
 
   const formats = ['cjs', 'esm'] as const;
 
+  const getSrcPath = (id: string) =>
+    path.relative(`${config.root}/${srcDir}`, id);
+
   const createOutputOptionsForFormat = (format: (typeof formats)[number]) => {
     const extension = extensionForFormat(format);
     const replaceExtension = (srcPath: string) =>
@@ -39,9 +46,7 @@ export const createBundle = async (
       interop: 'compat',
       format,
       manualChunks(id, { getModuleInfo }) {
-        const srcPath = replaceExtension(
-          path.relative(`${config.root}/${srcDir}`, id),
-        );
+        const srcPath = replaceExtension(getSrcPath(id));
 
         // internal package resolved by plugins/vite/internal-package-resolution.ts
         if (srcPath.startsWith('../')) {
@@ -55,7 +60,9 @@ export const createBundle = async (
         ) {
           return normalizePath(`${stylesDir}/${srcPath}`);
         }
-
+        if (isVocabFile(id)) {
+          return normalizePath(srcPath);
+        }
         if (
           typeof packageJson.sideEffects !== 'undefined' &&
           moduleHasSideEffects(srcPath, packageJson.sideEffects) &&
@@ -74,6 +81,7 @@ export const createBundle = async (
       addVanillaDebugIds(config),
       // because we don't know ahead of time what the output format will be, we always patch imports
       externals(config, 'esm'),
+      vocabTranslations(config, { toDistPath: getSrcPath }),
       react(),
     ],
     logLevel: 'warn',
