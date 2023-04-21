@@ -3,6 +3,7 @@ import path from 'path';
 import enquirer from 'enquirer';
 import glob from 'fast-glob';
 import fse from 'fs-extra';
+import type { PackageJson } from 'type-fest';
 
 import { done, run } from './utils';
 
@@ -12,27 +13,28 @@ type Answers = {
 };
 
 const template = {
-  packageJson: ({ name, type }: Answers) => ({
-    name: `@crackle-fixtures/${name}`,
-    private: true,
-    version: '1.0.0',
-    scripts: {
-      fix: 'crackle fix',
-      ...(type.includes('site') && {
-        start: 'crackle start',
-        build: 'crackle build',
-        serve: 'crackle serve',
-      }),
-      ...(type.includes('library') && {
-        dev: 'crackle dev',
-        package: 'crackle package',
-      }),
-    },
-    author: 'SEEK',
-    license: 'MIT',
-    dependencies: {},
-    devDpendencies: {},
-  }),
+  packageJson: ({ name, type }: Answers) =>
+    ({
+      name: `@crackle-fixtures/${name}`,
+      private: true,
+      version: '1.0.0',
+      scripts: {
+        fix: 'crackle fix',
+        ...(type.includes('site') && {
+          start: 'crackle start',
+          build: 'crackle build',
+          serve: 'crackle serve',
+        }),
+        ...(type.includes('library') && {
+          dev: 'crackle dev',
+          package: 'crackle package',
+        }),
+      },
+      author: 'SEEK',
+      license: 'MIT',
+      dependencies: {},
+      devDependencies: {},
+    } satisfies PackageJson),
   index: (_answers: Answers) => `export default {}`,
 };
 
