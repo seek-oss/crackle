@@ -63,13 +63,15 @@ function App({ children }: { children: ReactNode }) {
   );
 }
 
-const node = document.createElement('div');
+export default () => {
+  const node = document.createElement('div');
 
-document.body.appendChild(node);
+  document.body.appendChild(node);
 
-render(
-  <App>
-    <Content />
-  </App>,
-  node,
-);
+  render(
+    <App>
+      <Content />
+    </App>,
+    node,
+  );
+};

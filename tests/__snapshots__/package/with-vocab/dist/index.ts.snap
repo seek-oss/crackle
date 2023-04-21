@@ -78,12 +78,12 @@ function useTranslations(translations) {
 }
 function Content() {
   const common = useTranslations(_vocab_index_cjs.translations);
-  const client = useTranslations(client_vocab_index_cjs.translations);
+  const client2 = useTranslations(client_vocab_index_cjs.translations);
   const message = `${common.t("hello")} ${common.t("world")}`;
-  const specialCharacterResult = client.t(
+  const specialCharacterResult = client2.t(
     "specialCharacters - '‘’“”\"!@#$%^&*()_+\\/`~\\\\"
   );
-  const vocabPublishNode = client.t("vocabPublishDate", {
+  const vocabPublishNode = client2.t("vocabPublishDate", {
     publishDate: 1605847714e3,
     strong: (children) => /* @__PURE__ */ jsxRuntime.jsx("strong", { children })
   });
@@ -131,18 +131,22 @@ function App({ children }) {
     ) : null
   ] });
 }
-const node = document.createElement("div");
-document.body.appendChild(node);
-reactDom.render(
-  /* @__PURE__ */ jsxRuntime.jsx(App, { children: /* @__PURE__ */ jsxRuntime.jsx(Content, {}) }),
-  node
-);
+const client = () => {
+  const node = document.createElement("div");
+  document.body.appendChild(node);
+  reactDom.render(
+    /* @__PURE__ */ jsxRuntime.jsx(App, { children: /* @__PURE__ */ jsxRuntime.jsx(Content, {}) }),
+    node
+  );
+};
+module.exports = client;
 /* #endregion */
 
 
 /* #region dist/index.d.ts */
+declare const _default: () => void;
 
-export { }
+export { _default as default };
 /* #endregion */
 
 
@@ -223,12 +227,12 @@ function useTranslations(translations2) {
 }
 function Content() {
   const common = useTranslations(translations);
-  const client = useTranslations(translations$1);
+  const client2 = useTranslations(translations$1);
   const message = `${common.t("hello")} ${common.t("world")}`;
-  const specialCharacterResult = client.t(
+  const specialCharacterResult = client2.t(
     "specialCharacters - '‘’“”\"!@#$%^&*()_+\\/`~\\\\"
   );
-  const vocabPublishNode = client.t("vocabPublishDate", {
+  const vocabPublishNode = client2.t("vocabPublishDate", {
     publishDate: 1605847714e3,
     strong: (children) => /* @__PURE__ */ jsx("strong", { children })
   });
@@ -276,10 +280,15 @@ function App({ children }) {
     ) : null
   ] });
 }
-const node = document.createElement("div");
-document.body.appendChild(node);
-render(
-  /* @__PURE__ */ jsx(App, { children: /* @__PURE__ */ jsx(Content, {}) }),
-  node
-);
+const client = () => {
+  const node = document.createElement("div");
+  document.body.appendChild(node);
+  render(
+    /* @__PURE__ */ jsx(App, { children: /* @__PURE__ */ jsx(Content, {}) }),
+    node
+  );
+};
+export {
+  client as default
+};
 /* #endregion */
