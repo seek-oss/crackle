@@ -13,7 +13,7 @@
     "format:eslint": "eslint --cache --fix .",
     "format:prettier": "wireit",
     "lint": "wireit",
-    "lint:eslint": "eslint --cache .",
+    "lint:eslint": "wireit",
     "lint:prettier": "wireit",
     "lint:tsc": "wireit",
     "test": "pnpm test:unit:ci && pnpm test:integration:ci && pnpm test:playwright",
@@ -29,6 +29,8 @@
     "fixtures:package": "pnpm %fixtures package",
     "sync:dependencies": "pnpm --recursive sync:dependencies && pnpm install",
     "sync:prettierignore": "ignore-sync .prettierignore-sync",
+    "sync:eslintignore": "ignore-sync .eslintignore-sync",
+    "changeset": "changeset",
     "prepare-publish": "pnpm build:ci",
     "release": "pnpm prepare-publish && changeset publish",
     "version": "changeset version && pnpm install --lockfile-only"
@@ -96,6 +98,12 @@
         "lint:eslint",
         "lint:prettier",
         "lint:tsc"
+      ]
+    },
+    "lint:eslint": {
+      "command": "eslint --cache .",
+      "dependencies": [
+        "sync:eslintignore"
       ]
     },
     "lint:prettier": {
