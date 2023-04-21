@@ -13,7 +13,6 @@ const reactKeyedFlattenChildren__default = /* @__PURE__ */ _interopDefaultCompat
 const subpath__default = /* @__PURE__ */ _interopDefaultCompat(subpath);
 const index_js__default$1 = /* @__PURE__ */ _interopDefaultCompat(index_js$1);
 const ReactDOM__default = /* @__PURE__ */ _interopDefaultCompat(ReactDOM);
-const index = {};
 const App = () => /* @__PURE__ */ jsxRuntime_js.jsx("div", { children: "App" });
 const render = () => ReactDOM__default.default.renderToStaticMarkup(/* @__PURE__ */ jsxRuntime_js.jsx(App, {}));
 Object.defineProperty(exports, "cjsDirIndex", {
@@ -34,7 +33,6 @@ Object.defineProperty(exports, "scopedPatchedSubpath", {
 });
 exports.App = App;
 exports.render = render;
-exports.translations = index;
 /* #endregion */
 
 
@@ -45,12 +43,10 @@ export { default as scopedSubpath } from '@crackle-fixtures/dep-with-exports/sub
 export { default as scopedPatchedSubpath } from '@crackle-fixtures/dep-with-exports-always-patch/subpath';
 import React from 'react';
 
-declare const _default: {};
-
 declare const App: React.FC;
 declare const render: () => string;
 
-export { App, render, _default as translations };
+export { App, render };
 /* #endregion */
 
 
@@ -61,7 +57,6 @@ import { default as default4 } from "@crackle-fixtures/dep-with-exports/subpath"
 import { default as default5 } from "@crackle-fixtures/dep-with-exports-always-patch/index.js";
 import { jsx } from "react/jsx-runtime.js";
 import ReactDOM from "react-dom/server.node.js";
-const index = {};
 const App = () => /* @__PURE__ */ jsx("div", { children: "App" });
 const render = () => ReactDOM.renderToStaticMarkup(/* @__PURE__ */ jsx(App, {}));
 export {
@@ -70,7 +65,6 @@ export {
   default3 as cjsFauxEsm,
   render,
   default5 as scopedPatchedSubpath,
-  default4 as scopedSubpath,
-  index as translations
+  default4 as scopedSubpath
 };
 /* #endregion */

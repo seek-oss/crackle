@@ -19,6 +19,7 @@ test.each([
   'with-dep-hidden-package-json',
   'with-graphql-schema-types',
   'with-side-effects',
+  'with-vocab',
 ])(
   'fixture %s',
   async (fixtureName) => {
