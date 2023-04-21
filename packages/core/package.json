@@ -129,6 +129,7 @@
   },
   "devDependencies": {
     "@types/babel__core": "^7.20.0",
+    "@types/dedent": "^0.7.0",
     "@types/express": "^4.17.14",
     "@types/fs-extra": "^11.0.1",
     "@types/glob-to-regexp": "^0.4.1",
