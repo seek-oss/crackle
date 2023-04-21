@@ -12,12 +12,10 @@ import type { RenderDevPageFn } from '../../entries/types';
 import type { PartialConfig } from '../config';
 import { getConfig } from '../config';
 import { clientEntry } from '../constants';
-import { fixViteVanillaExtractDepScanPlugin } from '../plugins/esbuild';
-import {
-  addPageRoots,
-  internalPackageResolution,
-  stripRouteData,
-} from '../plugins/vite';
+import { fixViteVanillaExtractDepScanPlugin } from '../plugins/esbuild/fix-vite-vanilla-extract-dep-scan';
+import { internalPackageResolution } from '../plugins/vite/internal-package-resolution';
+import { addPageRoots } from '../plugins/vite/page-roots';
+import { stripRouteData } from '../plugins/vite/strip-route-data';
 import type { CrackleServer } from '../types';
 import {
   extractDependencyGraph,
