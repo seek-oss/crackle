@@ -53,6 +53,12 @@ fixtures/with-side-effects/reset
 # end managed by crackle
 
 # managed by crackle
+fixtures/with-vocab/dist
+# end managed by crackle
+
+fixtures/with-vocab/**/*.vocab/index.ts
+
+# managed by crackle
 packages/babel-plugin-remove-exports/dist
 # end managed by crackle
 
