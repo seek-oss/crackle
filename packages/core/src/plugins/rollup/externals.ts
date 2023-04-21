@@ -6,7 +6,7 @@ import {
   externals as rollupExternals,
   type ExternalsOptions,
 } from 'rollup-plugin-node-externals';
-import semverIntersects from 'semver/ranges/intersects';
+import semverIntersects from 'semver/ranges/intersects.js';
 
 import type { EnhancedConfig } from '../../config';
 import { logger } from '../../entries/logger';
