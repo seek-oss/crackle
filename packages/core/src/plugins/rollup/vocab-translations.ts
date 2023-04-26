@@ -38,8 +38,11 @@ export const vocabTranslations = (
 
   resolveId: {
     order: 'pre',
-    async handler(id, importer) {
-      const resolved = (await this.resolve(id, importer, { skipSelf: true }))!;
+    async handler(id, importer, options) {
+      const resolved = (await this.resolve(id, importer, {
+        skipSelf: true,
+        ...options,
+      }))!;
       if (isVocabFile(resolved.id)) {
         const vocabDir = path.dirname(resolved.id);
         await handleVocabTranslations.call(this, vocabDir, toDistPath);
