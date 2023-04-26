@@ -50,25 +50,25 @@ export const createBundle = async (
 
         // internal package resolved by plugins/vite/internal-package-resolution.ts
         if (srcPath.startsWith('../')) {
-          logger.debug(`Internal package ${srcPath}`);
+          logger.debug(`Internal package ${id}`);
           return;
         }
 
-        if (
-          isVanillaFile(id) ||
-          getModuleInfo(id)?.importers.some(isVanillaFile)
-        ) {
+        const moduleInfo = getModuleInfo(id)!;
+
+        if (isVanillaFile(id) || moduleInfo.importers.some(isVanillaFile)) {
           return normalizePath(`${stylesDir}/${srcPath}`);
         }
-        if (isVocabFile(id)) {
+        if (isVocabFile(moduleInfo.id)) {
+          logger.debug(`Vocab file ${id}`);
           return normalizePath(srcPath);
         }
         if (
           typeof packageJson.sideEffects !== 'undefined' &&
           moduleHasSideEffects(srcPath, packageJson.sideEffects) &&
-          !getModuleInfo(id)?.isEntry
+          !moduleInfo.isEntry
         ) {
-          logger.debug(`Has side-effects ${srcPath}`);
+          logger.debug(`Has side-effects ${id}`);
           return normalizePath(`${sideEffectsDir}/${srcPath}`);
         }
       },
