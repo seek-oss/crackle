@@ -2,7 +2,7 @@ import { rollup } from 'rollup';
 import dts from 'rollup-plugin-dts';
 
 import type { EnhancedConfig } from '../config';
-import { externals } from '../plugins/rollup';
+import { externals } from '../plugins/rollup/externals';
 import type { PackageEntryPoint } from '../types';
 import { commonOutputOptions } from '../vite-config';
 

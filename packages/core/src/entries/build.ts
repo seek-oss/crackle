@@ -15,11 +15,9 @@ import type { RenderAllPagesFn } from '../../entries/types';
 import type { PartialConfig } from '../config';
 import { getConfig } from '../config';
 import { clientEntry, siteBuild } from '../constants';
-import {
-  addPageRoots,
-  internalPackageResolution,
-  stripRouteData,
-} from '../plugins/vite';
+import { internalPackageResolution } from '../plugins/vite/internal-package-resolution';
+import { addPageRoots } from '../plugins/vite/page-roots';
+import { stripRouteData } from '../plugins/vite/strip-route-data';
 import { renderBuildError } from '../reporters/shared';
 import {
   extractDependencyGraph,

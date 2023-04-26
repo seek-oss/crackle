@@ -1,18 +1,18 @@
 import path from 'path';
 
-import memoize from 'fast-memoize';
 import fse from 'fs-extra';
 import type { FunctionPluginHooks, Plugin } from 'rollup';
 import {
   externals as rollupExternals,
   type ExternalsOptions,
 } from 'rollup-plugin-node-externals';
-import semverIntersects from 'semver/ranges/intersects';
+import semverIntersects from 'semver/ranges/intersects.js';
 
 import type { EnhancedConfig } from '../../config';
 import { logger } from '../../entries/logger';
 import type { PackageJson } from '../../types';
 import type { Format } from '../../types';
+import { memoize } from '../../utils/memoize';
 import { promiseMap } from '../../utils/promise-map';
 import { resolveFrom } from '../../utils/resolve-from';
 

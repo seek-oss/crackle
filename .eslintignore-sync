@@ -1,0 +1,7 @@
+[inline]
+fixtures/braid-design-system
+node_modules
+
+[relative]
+fixtures/*/.gitignore
+packages/*/.gitignore

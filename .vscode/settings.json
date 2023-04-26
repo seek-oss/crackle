@@ -18,5 +18,5 @@
   },
   "typescript.tsdk": "node_modules/typescript/lib",
   "vitest.enable": true,
-  "vitest.commandLine": "pnpm test:vitest"
+  "vitest.commandLine": "pnpm test:unit"
 }
