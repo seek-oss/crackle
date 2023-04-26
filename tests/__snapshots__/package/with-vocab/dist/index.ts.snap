@@ -78,6 +78,11 @@ function useTranslations(translations) {
 }
 function Content() {
   const common = useTranslations(_vocab_index_cjs.translations);
+  const message = `${common.t("hello")} ${common.t("world")}`;
+  return /* @__PURE__ */ jsxRuntime.jsx(jsxRuntime.Fragment, { children: /* @__PURE__ */ jsxRuntime.jsx("div", { id: "message", children: message }) });
+}
+function AllContent() {
+  const common = useTranslations(_vocab_index_cjs.translations);
   const client2 = useTranslations(client_vocab_index_cjs.translations);
   const message = `${common.t("hello")} ${common.t("world")}`;
   const specialCharacterResult = client2.t(
@@ -135,7 +140,10 @@ const client = () => {
   const node = document.createElement("div");
   document.body.appendChild(node);
   reactDom.render(
-    /* @__PURE__ */ jsxRuntime.jsx(App, { children: /* @__PURE__ */ jsxRuntime.jsx(Content, {}) }),
+    /* @__PURE__ */ jsxRuntime.jsxs(App, { children: [
+      /* @__PURE__ */ jsxRuntime.jsx(AllContent, {}),
+      /* @__PURE__ */ jsxRuntime.jsx(Content, {})
+    ] }),
     node
   );
 };
@@ -151,7 +159,7 @@ export { _default as default };
 
 
 /* #region dist/index.mjs */
-import { jsx, jsxs, Fragment } from "react/jsx-runtime";
+import { jsx, Fragment, jsxs } from "react/jsx-runtime";
 import React, { useMemo, useReducer, useCallback, isValidElement, cloneElement, useContext, useState } from "react";
 import { render } from "react-dom";
 import { translations } from "./.vocab/index.mjs";
@@ -227,6 +235,11 @@ function useTranslations(translations2) {
 }
 function Content() {
   const common = useTranslations(translations);
+  const message = `${common.t("hello")} ${common.t("world")}`;
+  return /* @__PURE__ */ jsx(Fragment, { children: /* @__PURE__ */ jsx("div", { id: "message", children: message }) });
+}
+function AllContent() {
+  const common = useTranslations(translations);
   const client2 = useTranslations(translations$1);
   const message = `${common.t("hello")} ${common.t("world")}`;
   const specialCharacterResult = client2.t(
@@ -284,7 +297,10 @@ const client = () => {
   const node = document.createElement("div");
   document.body.appendChild(node);
   render(
-    /* @__PURE__ */ jsx(App, { children: /* @__PURE__ */ jsx(Content, {}) }),
+    /* @__PURE__ */ jsxs(App, { children: [
+      /* @__PURE__ */ jsx(AllContent, {}),
+      /* @__PURE__ */ jsx(Content, {})
+    ] }),
     node
   );
 };

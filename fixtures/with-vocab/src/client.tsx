@@ -4,8 +4,9 @@ import { render } from 'react-dom';
 
 import commonTranslations from './.vocab';
 import clientTranslations from './client.vocab';
+import { Content } from './components/Content';
 
-function Content() {
+function AllContent() {
   const common = useTranslations(commonTranslations);
   const client = useTranslations(clientTranslations);
   const message = `${common.t('hello')} ${common.t('world')}`;
@@ -70,6 +71,7 @@ export default () => {
 
   render(
     <App>
+      <AllContent />
       <Content />
     </App>,
     node,
