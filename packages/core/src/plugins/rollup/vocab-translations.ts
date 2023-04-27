@@ -10,6 +10,9 @@ import { promiseMap } from '../../utils/promise-map';
 
 export const isVocabFile = (id: string) => compiledVocabFileFilter.test(id);
 
+// Because this is called for every generated Vocab translation file, we don't want to emit assets
+// multiple times. The function is memoized so that it only emits assets once per `vocab` directory,
+// because the translation file can be imported from multiple places.
 const handleVocabTranslations = memoize(async function (
   this: PluginContext,
   vocabDir: string,
