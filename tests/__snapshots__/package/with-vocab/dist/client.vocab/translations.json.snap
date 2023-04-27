@@ -1,0 +1,10 @@
+/* #region dist/client.vocab/translations.json */
+{
+  "specialCharacters - '‘’“”\"!@#$%^&*()_+\\/`~\\\\": {
+    "message": "‘’“”'\"!@#$%^&*()_+\\/`~\\\\"
+  },
+  "vocabPublishDate": {
+    "message": "<strong>Vocab</strong> was published on {publishDate, date, small}"
+  }
+}
+/* #endregion */

@@ -19,8 +19,8 @@
     "test": "pnpm test:unit:ci && pnpm test:integration:ci && pnpm test:playwright",
     "test:unit": "vitest",
     "test:unit:ci": "pnpm test:unit --run",
-    "test:integration": "vitest --config vitest.config.integration.ts",
-    "test:integration:ci": "pnpm test:integration --run",
+    "test:integration": "wireit",
+    "test:integration:ci": "pnpm test:integration -- --run",
     "test:playwright": "wireit",
     "test:braid": "pnpm fixtures:braid --test",
     "fixtures:add": "tsx ./scripts/add-fixture.ts",
@@ -117,6 +117,12 @@
       "dependencies": [
         "fixtures:dev",
         "./scripts:lint:tsc"
+      ]
+    },
+    "test:integration": {
+      "command": "vitest --config vitest.config.integration.ts",
+      "dependencies": [
+        "fixtures:dev"
       ]
     },
     "test:playwright": {

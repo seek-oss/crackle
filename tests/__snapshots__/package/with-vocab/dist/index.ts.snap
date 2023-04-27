@@ -1,0 +1,310 @@
+/* #region dist/index.cjs */
+"use strict";
+const jsxRuntime = require("react/jsx-runtime");
+const React = require("react");
+const reactDom = require("react-dom");
+const _vocab_index_cjs = require("./.vocab/index.cjs");
+const client_vocab_index_cjs = require("./client.vocab/index.cjs");
+const _interopDefaultCompat = (e) => e && typeof e === "object" && "default" in e ? e : { default: e };
+const React__default = /* @__PURE__ */ _interopDefaultCompat(React);
+const TranslationsContext = /* @__PURE__ */ React__default.default.createContext(void 0);
+const VocabProvider = ({
+  children,
+  language,
+  locale
+}) => {
+  const value = React.useMemo(() => ({
+    language,
+    locale
+  }), [language, locale]);
+  return /* @__PURE__ */ React__default.default.createElement(TranslationsContext.Provider, {
+    value
+  }, children);
+};
+const useLanguage = () => {
+  const context = React.useContext(TranslationsContext);
+  if (!context) {
+    throw new Error("Attempted to access translation without Vocab context set. Did you forget to render VocabProvider?");
+  }
+  if (!context.language) {
+    throw new Error("Attempted to access translation without language set. Did you forget to pass language to VocabProvider?");
+  }
+  return context;
+};
+const SERVER_RENDERING = typeof window === "undefined";
+function useTranslations(translations) {
+  const {
+    language,
+    locale
+  } = useLanguage();
+  const [, forceRender] = React.useReducer((s) => s + 1, 0);
+  const translationsObject = translations.getLoadedMessages(language, locale || language);
+  let ready = true;
+  if (!translationsObject) {
+    if (SERVER_RENDERING) {
+      throw new Error(`Translations not synchronously available on server render. Applying translations dynamically server-side is not supported.`);
+    }
+    translations.load(language).then(() => {
+      forceRender();
+    });
+    ready = false;
+  }
+  const t = React.useCallback((key, params) => {
+    if (!translationsObject) {
+      return " ";
+    }
+    const message = translationsObject === null || translationsObject === void 0 ? void 0 : translationsObject[key];
+    if (!message) {
+      console.error(`Unable to find translation for key "${key}". Possible keys are ${Object.keys(translationsObject).map((v) => `"${v}"`).join(", ")}`);
+      return "";
+    }
+    const result = message.format(params);
+    if (Array.isArray(result)) {
+      for (let i = 0; i < result.length; i++) {
+        const item = result[i];
+        if (typeof item === "object" && item && !item.key && /* @__PURE__ */ React.isValidElement(item)) {
+          result[i] = /* @__PURE__ */ React.cloneElement(item, {
+            key: `_vocab-${i}`
+          });
+        }
+      }
+    }
+    return result;
+  }, [translationsObject]);
+  return {
+    ready,
+    t
+  };
+}
+function Content() {
+  const common = useTranslations(_vocab_index_cjs.translations);
+  const message = `${common.t("hello")} ${common.t("world")}`;
+  return /* @__PURE__ */ jsxRuntime.jsx(jsxRuntime.Fragment, { children: /* @__PURE__ */ jsxRuntime.jsx("div", { id: "message", children: message }) });
+}
+function AllContent() {
+  const common = useTranslations(_vocab_index_cjs.translations);
+  const client2 = useTranslations(client_vocab_index_cjs.translations);
+  const message = `${common.t("hello")} ${common.t("world")}`;
+  const specialCharacterResult = client2.t(
+    "specialCharacters - '‘’“”\"!@#$%^&*()_+\\/`~\\\\"
+  );
+  const vocabPublishNode = client2.t("vocabPublishDate", {
+    publishDate: 1605847714e3,
+    strong: (children) => /* @__PURE__ */ jsxRuntime.jsx("strong", { children })
+  });
+  return /* @__PURE__ */ jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [
+    /* @__PURE__ */ jsxRuntime.jsx("div", { id: "message", children: message }),
+    /* @__PURE__ */ jsxRuntime.jsx("div", { id: "publish-date", children: vocabPublishNode }),
+    /* @__PURE__ */ jsxRuntime.jsxs("div", { id: "special-characters", children: [
+      "Special Characters: ",
+      specialCharacterResult
+    ] })
+  ] });
+}
+function App({ children }) {
+  const [lang, setLang] = React.useState("en");
+  const [locale, setLocale] = React.useState("en-AU");
+  const theLocale = lang === "en" ? locale : void 0;
+  return /* @__PURE__ */ jsxRuntime.jsxs(VocabProvider, { language: lang, locale: theLocale, children: [
+    children,
+    /* @__PURE__ */ jsxRuntime.jsx("label", { htmlFor: "languages", children: "Language:" }),
+    /* @__PURE__ */ jsxRuntime.jsxs(
+      "select",
+      {
+        name: "languages",
+        id: "language-select",
+        onChange: (event) => {
+          setLang(event.currentTarget.value);
+        },
+        children: [
+          /* @__PURE__ */ jsxRuntime.jsx("option", { value: "en", children: "en" }),
+          /* @__PURE__ */ jsxRuntime.jsx("option", { value: "fr", children: "fr" }),
+          /* @__PURE__ */ jsxRuntime.jsx("option", { value: "pseudo", children: "pseudo" })
+        ]
+      }
+    ),
+    lang === "en" ? /* @__PURE__ */ jsxRuntime.jsxs(
+      "button",
+      {
+        id: "toggle-locale",
+        onClick: () => setLocale((curr) => curr === "en-AU" ? "en-US" : "en-AU"),
+        children: [
+          "Toggle locale: ",
+          locale
+        ]
+      }
+    ) : null
+  ] });
+}
+const client = () => {
+  const node = document.createElement("div");
+  document.body.appendChild(node);
+  reactDom.render(
+    /* @__PURE__ */ jsxRuntime.jsxs(App, { children: [
+      /* @__PURE__ */ jsxRuntime.jsx(AllContent, {}),
+      /* @__PURE__ */ jsxRuntime.jsx(Content, {})
+    ] }),
+    node
+  );
+};
+module.exports = client;
+/* #endregion */
+
+
+/* #region dist/index.d.ts */
+declare const _default: () => void;
+
+export { _default as default };
+/* #endregion */
+
+
+/* #region dist/index.mjs */
+import { jsx, Fragment, jsxs } from "react/jsx-runtime";
+import React, { useMemo, useReducer, useCallback, isValidElement, cloneElement, useContext, useState } from "react";
+import { render } from "react-dom";
+import { translations } from "./.vocab/index.mjs";
+import { translations as translations$1 } from "./client.vocab/index.mjs";
+const TranslationsContext = /* @__PURE__ */ React.createContext(void 0);
+const VocabProvider = ({
+  children,
+  language,
+  locale
+}) => {
+  const value = useMemo(() => ({
+    language,
+    locale
+  }), [language, locale]);
+  return /* @__PURE__ */ React.createElement(TranslationsContext.Provider, {
+    value
+  }, children);
+};
+const useLanguage = () => {
+  const context = useContext(TranslationsContext);
+  if (!context) {
+    throw new Error("Attempted to access translation without Vocab context set. Did you forget to render VocabProvider?");
+  }
+  if (!context.language) {
+    throw new Error("Attempted to access translation without language set. Did you forget to pass language to VocabProvider?");
+  }
+  return context;
+};
+const SERVER_RENDERING = typeof window === "undefined";
+function useTranslations(translations2) {
+  const {
+    language,
+    locale
+  } = useLanguage();
+  const [, forceRender] = useReducer((s) => s + 1, 0);
+  const translationsObject = translations2.getLoadedMessages(language, locale || language);
+  let ready = true;
+  if (!translationsObject) {
+    if (SERVER_RENDERING) {
+      throw new Error(`Translations not synchronously available on server render. Applying translations dynamically server-side is not supported.`);
+    }
+    translations2.load(language).then(() => {
+      forceRender();
+    });
+    ready = false;
+  }
+  const t = useCallback((key, params) => {
+    if (!translationsObject) {
+      return " ";
+    }
+    const message = translationsObject === null || translationsObject === void 0 ? void 0 : translationsObject[key];
+    if (!message) {
+      console.error(`Unable to find translation for key "${key}". Possible keys are ${Object.keys(translationsObject).map((v) => `"${v}"`).join(", ")}`);
+      return "";
+    }
+    const result = message.format(params);
+    if (Array.isArray(result)) {
+      for (let i = 0; i < result.length; i++) {
+        const item = result[i];
+        if (typeof item === "object" && item && !item.key && /* @__PURE__ */ isValidElement(item)) {
+          result[i] = /* @__PURE__ */ cloneElement(item, {
+            key: `_vocab-${i}`
+          });
+        }
+      }
+    }
+    return result;
+  }, [translationsObject]);
+  return {
+    ready,
+    t
+  };
+}
+function Content() {
+  const common = useTranslations(translations);
+  const message = `${common.t("hello")} ${common.t("world")}`;
+  return /* @__PURE__ */ jsx(Fragment, { children: /* @__PURE__ */ jsx("div", { id: "message", children: message }) });
+}
+function AllContent() {
+  const common = useTranslations(translations);
+  const client2 = useTranslations(translations$1);
+  const message = `${common.t("hello")} ${common.t("world")}`;
+  const specialCharacterResult = client2.t(
+    "specialCharacters - '‘’“”\"!@#$%^&*()_+\\/`~\\\\"
+  );
+  const vocabPublishNode = client2.t("vocabPublishDate", {
+    publishDate: 1605847714e3,
+    strong: (children) => /* @__PURE__ */ jsx("strong", { children })
+  });
+  return /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsx("div", { id: "message", children: message }),
+    /* @__PURE__ */ jsx("div", { id: "publish-date", children: vocabPublishNode }),
+    /* @__PURE__ */ jsxs("div", { id: "special-characters", children: [
+      "Special Characters: ",
+      specialCharacterResult
+    ] })
+  ] });
+}
+function App({ children }) {
+  const [lang, setLang] = useState("en");
+  const [locale, setLocale] = useState("en-AU");
+  const theLocale = lang === "en" ? locale : void 0;
+  return /* @__PURE__ */ jsxs(VocabProvider, { language: lang, locale: theLocale, children: [
+    children,
+    /* @__PURE__ */ jsx("label", { htmlFor: "languages", children: "Language:" }),
+    /* @__PURE__ */ jsxs(
+      "select",
+      {
+        name: "languages",
+        id: "language-select",
+        onChange: (event) => {
+          setLang(event.currentTarget.value);
+        },
+        children: [
+          /* @__PURE__ */ jsx("option", { value: "en", children: "en" }),
+          /* @__PURE__ */ jsx("option", { value: "fr", children: "fr" }),
+          /* @__PURE__ */ jsx("option", { value: "pseudo", children: "pseudo" })
+        ]
+      }
+    ),
+    lang === "en" ? /* @__PURE__ */ jsxs(
+      "button",
+      {
+        id: "toggle-locale",
+        onClick: () => setLocale((curr) => curr === "en-AU" ? "en-US" : "en-AU"),
+        children: [
+          "Toggle locale: ",
+          locale
+        ]
+      }
+    ) : null
+  ] });
+}
+const client = () => {
+  const node = document.createElement("div");
+  document.body.appendChild(node);
+  render(
+    /* @__PURE__ */ jsxs(App, { children: [
+      /* @__PURE__ */ jsx(AllContent, {}),
+      /* @__PURE__ */ jsx(Content, {})
+    ] }),
+    node
+  );
+};
+export {
+  client as default
+};
+/* #endregion */

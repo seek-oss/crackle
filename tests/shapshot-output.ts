@@ -23,7 +23,7 @@ export default async function snapshotOutput(
     onlyFiles: true,
   });
   const groups = _.groupBy(distFiles, (fileName) =>
-    fileName.replace(/(.cjs|.mjs|.d.ts)$/, ''),
+    fileName.replace(/(.cjs|.mjs|.d.ts)$/, '.ts'),
   );
 
   await promiseMap(Object.entries(groups), async ([groupName, files]) => {
@@ -34,7 +34,7 @@ export default async function snapshotOutput(
 
     const snapshotDir = `__snapshots__/${suiteName}/${fixtureName}`;
     await expect(bundle.join('\n\n')).toMatchFileSnapshot(
-      `${snapshotDir}/${groupName}.ts.snap`,
+      `${snapshotDir}/${groupName}.snap`,
     );
   });
 }

@@ -1,0 +1,33 @@
+/* #region dist/client.vocab/index.cjs */
+"use strict";
+const runtime = require("@vocab/core/runtime");
+const translations = runtime.createTranslationFile({
+  en: runtime.createLanguage({
+    "specialCharacters - '‘’“”\"!@#$%^&*()_+\\/`~\\\\": "‘’“”'\"!@#$%^&*()_+\\/`~\\\\",
+    vocabPublishDate: "<strong>Vocab</strong> was published on {publishDate, date, small}"
+  }),
+  fr: runtime.createLanguage({
+    "specialCharacters - '‘’“”\"!@#$%^&*()_+\\/`~\\\\": "‘’“”'\"!@#$%^&*()_+\\/`~\\\\",
+    vocabPublishDate: "Vocab a été publié le {publishDate, date, medium}"
+  })
+});
+exports.translations = translations;
+/* #endregion */
+
+
+/* #region dist/client.vocab/index.mjs */
+import { createTranslationFile, createLanguage } from "@vocab/core/runtime";
+const translations = createTranslationFile({
+  en: createLanguage({
+    "specialCharacters - '‘’“”\"!@#$%^&*()_+\\/`~\\\\": "‘’“”'\"!@#$%^&*()_+\\/`~\\\\",
+    vocabPublishDate: "<strong>Vocab</strong> was published on {publishDate, date, small}"
+  }),
+  fr: createLanguage({
+    "specialCharacters - '‘’“”\"!@#$%^&*()_+\\/`~\\\\": "‘’“”'\"!@#$%^&*()_+\\/`~\\\\",
+    vocabPublishDate: "Vocab a été publié le {publishDate, date, medium}"
+  })
+});
+export {
+  translations
+};
+/* #endregion */
