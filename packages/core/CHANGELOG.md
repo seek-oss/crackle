@@ -1,5 +1,15 @@
 # @crackle/core
 
+## 0.24.0
+
+### Minor Changes
+
+- [#104](https://github.com/seek-oss/crackle/pull/104) [`c4f5623`](https://github.com/seek-oss/crackle/commit/c4f56238151245aec5042356830f67b7d849d6b4) Thanks [@mrm007](https://github.com/mrm007)! - Handle Vocab translation files
+
+  Crackle now produces an output that is compatible with the Vocab Webpack plugin.
+  When packaging, Crackle will ensure that the `translation.json` files are present in the output directory, next to the generated translation files.
+  This allows the Vocab plugin to still work with compiled (CJS/ESM) translation files.
+
 ## 0.23.2
 
 ### Patch Changes
