@@ -1,5 +1,11 @@
 # @crackle/core
 
+## 0.24.1
+
+### Patch Changes
+
+- [#106](https://github.com/seek-oss/crackle/pull/106) [`5baad79`](https://github.com/seek-oss/crackle/commit/5baad791fa243912141eae481adf980a08e3ac37) Thanks [@mrm007](https://github.com/mrm007)! - Update dependencies
+
 ## 0.24.0
 
 ### Minor Changes
