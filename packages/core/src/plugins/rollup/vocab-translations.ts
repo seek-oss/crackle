@@ -10,46 +10,63 @@ import { promiseMap } from '../../utils/promise-map';
 
 export const isVocabFile = (id: string) => compiledVocabFileFilter.test(id);
 
-// Because this is called for every generated Vocab translation file, we don't want to emit assets
-// multiple times. The function is memoized so that it only emits assets once per `vocab` directory,
-// because the translation file can be imported from multiple places.
-const handleVocabTranslations = memoize(async function (
+const handleVocabTranslations = async function (
   this: PluginContext,
   vocabDir: string,
   toDistPath: (id: string) => string,
 ) {
   const distDir = toDistPath(vocabDir);
-  await promiseMap(await fs.readdir(vocabDir), async (name) => {
-    if (name.endsWith('translations.json')) {
-      const json = await fs.readFile(path.join(vocabDir, name), 'utf-8');
+
+  const allFiles = await fs.readdir(vocabDir);
+  const jsonFiles = await promiseMap(
+    allFiles.filter((name) => name.endsWith('translations.json')),
+    async (name) => {
+      const destFileName = path.join(distDir, name);
+      const contents = await fs.readFile(path.join(vocabDir, name), 'utf-8');
+
       this.emitFile({
         type: 'asset',
-        fileName: path.join(distDir, name),
-        source: json,
+        fileName: destFileName,
+        source: contents,
       });
-    }
-  });
-  // return value is important for memoize
-  return null;
-});
+
+      return destFileName;
+    },
+  );
+
+  // return value is important for memoization
+  return jsonFiles;
+};
 
 export const vocabTranslations = (
   _config: EnhancedConfig,
   { toDistPath }: { toDistPath: (id: string) => string },
-): Plugin => ({
-  name: 'crackle:vocab-translations',
+): Plugin => {
+  let handleVocabTranslationsMemo: typeof handleVocabTranslations;
 
-  resolveId: {
-    order: 'pre',
-    async handler(id, importer, options) {
-      const resolved = (await this.resolve(id, importer, {
-        skipSelf: true,
-        ...options,
-      }))!;
-      if (isVocabFile(resolved.id)) {
-        const vocabDir = path.dirname(resolved.id);
-        await handleVocabTranslations.call(this, vocabDir, toDistPath);
-      }
+  return {
+    name: 'crackle:vocab-translations',
+
+    buildStart() {
+      // Because this is called for every generated Vocab translation file, we don't want to emit assets
+      // multiple times. The function is memoized so that it only emits assets once per `vocab` directory,
+      // because the translation file can be imported from multiple places.
+      handleVocabTranslationsMemo = memoize(handleVocabTranslations);
     },
-  },
-});
+
+    resolveId: {
+      order: 'pre',
+      async handler(id, importer, options) {
+        const resolved = await this.resolve(id, importer, {
+          skipSelf: true,
+          ...options,
+        });
+
+        if (resolved && isVocabFile(resolved.id)) {
+          const vocabDir = path.dirname(resolved.id);
+          await handleVocabTranslationsMemo.call(this, vocabDir, toDistPath);
+        }
+      },
+    },
+  };
+};
