@@ -1,7 +1,7 @@
 /* #region dist/cli.cjs */
-require("../node_modules/.pnpm/tsm@2.3.0/node_modules/tsm/require.js");
+require("../../../node_modules/.pnpm/tsm@2.3.0/node_modules/tsm/require.js");
 
-module.exports = require("../fixtures/dev-entries/src/entries/cli.ts");
+module.exports = require("../src/entries/cli.ts");
 /* #endregion */
 
 
@@ -15,7 +15,7 @@ import { createRequire } from "module";
 
 const require = createRequire(import.meta.url);
 
-require("../node_modules/.pnpm/tsm@2.3.0/node_modules/tsm/require.js");
+require("../../../node_modules/.pnpm/tsm@2.3.0/node_modules/tsm/require.js");
 
 export {};
 /* #endregion */

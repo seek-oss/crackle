@@ -1,5 +1,5 @@
 /* #region dist/cli.cjs */
-module.exports = require("../fixtures/dev-entries-webpack/src/entries/cli.ts");
+module.exports = require("../src/entries/cli.ts");
 /* #endregion */
 
 

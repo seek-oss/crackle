@@ -23,7 +23,7 @@ const configContext = new AsyncLocalStorage<EnhancedConfig>();
 
 const getHookLoader = async (entry: PackageEntryPoint, format: Format) => {
   const stringifyRelative = (p: string) =>
-    JSON.stringify(path.relative(entry.getOutputPath(format), p));
+    JSON.stringify(path.relative(entry.outputDir, p));
 
   const config = configContext.getStore();
   assert(config, 'config not set in context');
