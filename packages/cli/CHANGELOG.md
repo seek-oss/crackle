@@ -1,5 +1,16 @@
 # @crackle/cli
 
+## 0.12.0
+
+### Minor Changes
+
+- [#108](https://github.com/seek-oss/crackle/pull/108) [`e49b68b`](https://github.com/seek-oss/crackle/commit/e49b68b580e2d496efad6cd7f8840a7166f10063) Thanks [@mrm007](https://github.com/mrm007)! - Added a `--webpack` option to `crackle dev` which generates Webpack-compatible shims.
+
+### Patch Changes
+
+- Updated dependencies [[`e49b68b`](https://github.com/seek-oss/crackle/commit/e49b68b580e2d496efad6cd7f8840a7166f10063), [`24420cd`](https://github.com/seek-oss/crackle/commit/24420cdb278b8d9c8738fbe34f05e0d145fe4273), [`e49b68b`](https://github.com/seek-oss/crackle/commit/e49b68b580e2d496efad6cd7f8840a7166f10063)]:
+  - @crackle/core@0.25.0
+
 ## 0.11.5
 
 ### Patch Changes
