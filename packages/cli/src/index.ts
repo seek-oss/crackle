@@ -121,12 +121,20 @@ yargs(process.argv.slice(2))
   .command({
     command: 'dev',
     describe: 'Generate entry points for local development',
-    handler: async () => {
+    builder: {
+      webpack: {
+        description: 'Generate Webpack-compatible shims',
+        type: 'boolean',
+      },
+    },
+    handler: async (overrides) => {
       const config = await resolveConfig();
       const { dev } = await import('@crackle/core/dev');
+
+      setConfigOverrides(config, overrides);
       await dev(config);
     },
-  })
+  } satisfies CommandModule<unknown, Pick<CrackleConfig, 'webpack'>>)
   .command({
     command: 'fix',
     describe: 'Fixes invalid project configuration',
