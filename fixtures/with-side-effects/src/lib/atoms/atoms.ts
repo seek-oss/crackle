@@ -1,5 +1,4 @@
-import type { RequiredResponsiveValue } from './sprinkles.css';
-import { sprinkles } from './sprinkles.css';
+import { type RequiredResponsiveValue, sprinkles } from './sprinkles.css';
 import * as resetStyles from '../reset/reset.css';
 
 type Sprinkles = Parameters<typeof sprinkles>[0];

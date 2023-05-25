@@ -1,7 +1,5 @@
-import type { PartialConfig } from '../config';
-import { getConfig } from '../config';
-import type { PackageDiffDetails } from '../reporters/fix';
-import { renderApp } from '../reporters/fix';
+import { type PartialConfig, getConfig } from '../config';
+import { type PackageDiffDetails, renderApp } from '../reporters/fix';
 import { getPackageEntryPoints, getPackages } from '../utils/entry-points';
 import { updateGitignore } from '../utils/gitignore';
 import { promiseMap } from '../utils/promise-map';

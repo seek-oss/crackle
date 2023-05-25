@@ -1,7 +1,6 @@
 import chalk from 'chalk';
 
-import type { PartialConfig } from '../config';
-import { getConfig } from '../config';
+import { type PartialConfig, getConfig } from '../config';
 import {
   cleanPackageEntryPoints,
   getPackageEntryPoints,

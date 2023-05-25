@@ -5,8 +5,7 @@ import { logger } from '../../entries/logger';
 import { partition } from '../../utils/partition';
 import { renderToString, Section, Stack } from '../shared';
 
-import type { PackageDiffDetails } from './components/PackageDiff';
-import { PackageDiff } from './components/PackageDiff';
+import { type PackageDiffDetails, PackageDiff } from './components/PackageDiff';
 
 export type { PackageDiffDetails };
 

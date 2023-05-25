@@ -1,5 +1,4 @@
-import type { UserConfig } from 'vitest/config';
-import { defineConfig } from 'vitest/config';
+import { type UserConfig, defineConfig } from 'vitest/config';
 
 import vitestConfig, { exclude as defaultExclude } from './vitest.config';
 

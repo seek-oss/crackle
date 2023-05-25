@@ -3,8 +3,7 @@ import path from 'path';
 
 import handler from 'serve-handler';
 
-import type { PartialConfig } from '../config';
-import { getConfig } from '../config';
+import { type PartialConfig, getConfig } from '../config';
 import { siteBuild } from '../constants';
 import type { CrackleServer } from '../types';
 

@@ -1,7 +1,6 @@
 import path from 'path';
 
-import type { Plugin } from 'vite';
-import { normalizePath } from 'vite';
+import { type Plugin, normalizePath } from 'vite';
 
 import type { EnhancedConfig } from '../../config';
 import {

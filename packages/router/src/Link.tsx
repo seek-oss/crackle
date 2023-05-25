@@ -1,6 +1,5 @@
 import type React from 'react';
-import type { LinkProps } from 'react-router-dom';
-import { Link as ReactRouterLink } from 'react-router-dom';
+import { type LinkProps, Link as ReactRouterLink } from 'react-router-dom';
 
 import type { ValidRoute } from './valid-routes';
 
