@@ -6,8 +6,7 @@ import { build as esbuild } from 'esbuild';
 import _eval from 'eval';
 import glob from 'fast-glob';
 
-import type { PartialConfig } from '../config';
-import { getConfig } from '../config';
+import { type PartialConfig, getConfig } from '../config';
 
 export const pageGlobSuffix = '/**/*.page.tsx';
 

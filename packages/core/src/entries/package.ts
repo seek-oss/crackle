@@ -3,8 +3,7 @@ import path from 'path';
 
 import chalk from 'chalk';
 
-import type { EnhancedConfig, PartialConfig } from '../config';
-import { getConfig } from '../config';
+import { type EnhancedConfig, type PartialConfig, getConfig } from '../config';
 import { createBundle } from '../package-utils/bundle';
 import { createDtsBundle } from '../package-utils/dts';
 import { renderPackageJsonValidationError } from '../reporters/package';

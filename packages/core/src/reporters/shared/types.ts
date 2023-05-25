@@ -3,4 +3,4 @@ import type { SetRequired } from 'type-fest';
 
 export type BuildError = Error | RollupError;
 
-export { RollupError, SetRequired };
+export type { RollupError, SetRequired };

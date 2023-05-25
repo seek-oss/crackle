@@ -8,12 +8,14 @@ import builtinModules from 'builtin-modules';
 import chalk from 'chalk';
 import fse from 'fs-extra';
 import type { RollupOutput } from 'rollup';
-import type { UserConfig as ViteConfig, Manifest } from 'vite';
-import { build as viteBuild } from 'vite';
+import {
+  type UserConfig as ViteConfig,
+  type Manifest,
+  build as viteBuild,
+} from 'vite';
 
 import type { RenderAllPagesFn } from '../../entries/types';
-import type { PartialConfig } from '../config';
-import { getConfig } from '../config';
+import { type PartialConfig, getConfig } from '../config';
 import { clientEntry, siteBuild } from '../constants';
 import { internalPackageResolution } from '../plugins/vite/internal-package-resolution';
 import { addPageRoots } from '../plugins/vite/page-roots';

@@ -10,8 +10,7 @@ import semverIntersects from 'semver/ranges/intersects.js';
 
 import type { EnhancedConfig } from '../../config';
 import { logger } from '../../entries/logger';
-import type { PackageJson } from '../../types';
-import type { Format } from '../../types';
+import type { PackageJson, Format } from '../../types';
 import { memoize } from '../../utils/memoize';
 import { promiseMap } from '../../utils/promise-map';
 import { resolveFrom } from '../../utils/resolve-from';
