@@ -36,34 +36,31 @@
     "version": "changeset version && pnpm install --lockfile-only"
   },
   "dependencies": {
-    "@changesets/changelog-github": "^0.4.7",
-    "@changesets/cli": "^2.25.0",
+    "@changesets/changelog-github": "^0.4.8",
+    "@changesets/cli": "^2.26.1",
     "@crackle-private/bootstrap": "workspace:*",
     "@crackle/cli": "workspace:*",
     "@crackle/core": "workspace:*",
     "@playwright/test": "^1.32.0",
-    "@preconstruct/eslint-plugin-format-js-tag": "^0.2.0",
-    "@vitejs/plugin-react": "^3.0.0",
-    "eslint": "^8.25.0",
-    "eslint-config-seek": "^10.2.0",
-    "ignore-sync": "^6.0.2",
-    "prettier": "^2.8.2",
+    "@preconstruct/eslint-plugin-format-js-tag": "^0.3.0",
+    "@vitejs/plugin-react": "^4.0.0",
+    "eslint": "^8.41.0",
+    "eslint-config-seek": "^11.1.2",
+    "ignore-sync": "^7.0.1",
+    "prettier": "^2.8.8",
     "tsx": "^3.12.1",
-    "typescript": "~5.0.3",
-    "vitest": "^0.30.1",
+    "typescript": "~5.0.4",
+    "vitest": "^0.31.1",
     "wireit": "^0.9.5"
   },
-  "packageManager": "pnpm@8.1.0",
+  "packageManager": "pnpm@8.5.1",
   "volta": {
-    "node": "18.13.0"
+    "node": "18.16.0"
   },
   "pnpm": {
     "neverBuiltDependencies": [
       "sku"
     ],
-    "overrides": {
-      "vite": "^4.3.0-beta.2"
-    },
     "patchedDependencies": {
       "sync-dependencies@1.0.4": "patches/sync-dependencies@1.0.4.patch"
     },
