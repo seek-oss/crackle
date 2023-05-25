@@ -17,5 +17,5 @@ const require = createRequire(import.meta.url);
 
 require("../node_modules/.pnpm/tsm@2.3.0/node_modules/tsm/require.js");
 
-export {}
+export {};
 /* #endregion */

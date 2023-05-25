@@ -31,21 +31,21 @@ const getHookLoader = async (entry: PackageEntryPoint, format: Format) => {
   // ! don't change this ! unbuild searches for the string and inserts its own shims
   const rekwire = 'req' + 'uire';
 
-  let setup: string | undefined;
+  let setup = '';
   if (!config.webpack) {
     const shims = dedent`
-    import { createRequire } from "module";
+      import { createRequire } from "module";
 
-    const ${rekwire} = createRequire(import.meta.url);
-  `;
+      const ${rekwire} = createRequire(import.meta.url);
+    `;
 
     const hookPath = await resolveFrom('.', 'tsm');
 
     setup = dedent`
-    ${format === 'esm' ? shims : ''}
+      ${format === 'esm' ? shims : ''}
 
-    ${rekwire}(${stringifyRelative(hookPath)});
-  `;
+      ${rekwire}(${stringifyRelative(hookPath)});
+    `;
   }
   const load = `${rekwire}(${stringifyRelative(entry.entryPath)})`;
 
@@ -90,19 +90,17 @@ async function writeFile(
 
 const getCjsContents: GetContents = async (entry) => {
   const { setup, load } = await getHookLoader(entry, 'cjs');
-  const contentLines = [
-    ...(setup ? [setup, ''] : []),
-    `module.exports = ${load};`,
-  ];
 
-  return contentLines.join('\n');
+  return dedent`
+    ${setup}
+
+    module.exports = ${load};
+  `;
 };
 
 const getEsmContents: GetContents = async (entry) => {
   const { setup, load } = await getHookLoader(entry, 'esm');
   const exports = await getExports(entry.entryPath);
-
-  let contentLines: string[] = setup ? [setup, ''] : [];
 
   if (exports.length === 0) {
     logger.info(
@@ -110,21 +108,26 @@ const getEsmContents: GetContents = async (entry) => {
         entry.isDefaultEntry ? 'index' : entry.entryName
       }`,
     );
-    return [...contentLines, 'export {}'].join('\n');
+    return dedent`
+      ${setup}
+
+      export {};
+    `;
   }
 
-  contentLines = [
-    ...contentLines,
-    `const _mod = ${load};`,
-    '',
-    ...exports.map((specifier) =>
-      specifier === 'default'
-        ? `export default _mod.${specifier};`
-        : `export const ${specifier} = _mod.${specifier};`,
-    ),
-  ];
+  return dedent`
+    ${setup}
 
-  return contentLines.join('\n');
+    const _mod = ${load};
+
+    ${exports
+      .map((specifier) =>
+        specifier === 'default'
+          ? `export default _mod.${specifier};`
+          : `export const ${specifier} = _mod.${specifier};`,
+      )
+      .join('\n')}
+  `;
 };
 
 const getDtsContents: GetContents = async (entry, { relativePath }) => {

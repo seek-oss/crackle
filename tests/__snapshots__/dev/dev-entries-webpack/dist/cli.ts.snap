@@ -9,5 +9,5 @@ export * from "../src/entries/cli";
 
 
 /* #region dist/cli.mjs */
-export {}
+export {};
 /* #endregion */
