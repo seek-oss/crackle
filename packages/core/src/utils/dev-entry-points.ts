@@ -1,8 +1,8 @@
+import assert from 'assert';
 import { AsyncLocalStorage } from 'async_hooks';
 import path from 'path';
 
 import dedent from 'dedent';
-import resolveFrom from 'resolve-from';
 
 import type { EnhancedConfig } from '../config';
 import { logger } from '../entries/logger';
@@ -17,26 +17,29 @@ import {
 } from './entry-points';
 import { writeIfRequired } from './files';
 import { promiseMap } from './promise-map';
+import { resolveFrom } from './resolve-from';
 
 const configContext = new AsyncLocalStorage<EnhancedConfig>();
 
-const getHookLoader = (entry: PackageEntryPoint, format: Format) => {
+const getHookLoader = async (entry: PackageEntryPoint, format: Format) => {
   const stringifyRelative = (p: string) =>
     JSON.stringify(path.relative(entry.getOutputPath(format), p));
 
   const config = configContext.getStore();
+  assert(config, 'config not set in context');
+
   // ! don't change this ! unbuild searches for the string and inserts its own shims
   const rekwire = 'req' + 'uire';
 
   let setup: string | undefined;
-  if (!config?.webpack) {
+  if (!config.webpack) {
     const shims = dedent`
     import { createRequire } from "module";
 
     const ${rekwire} = createRequire(import.meta.url);
   `;
 
-    const hookPath = resolveFrom('.', 'tsm');
+    const hookPath = await resolveFrom('.', 'tsm');
 
     setup = dedent`
     ${format === 'esm' ? shims : ''}
@@ -86,7 +89,7 @@ async function writeFile(
 }
 
 const getCjsContents: GetContents = async (entry) => {
-  const { setup, load } = getHookLoader(entry, 'cjs');
+  const { setup, load } = await getHookLoader(entry, 'cjs');
   const contentLines = [
     ...(setup ? [setup, ''] : []),
     `module.exports = ${load};`,
@@ -96,7 +99,7 @@ const getCjsContents: GetContents = async (entry) => {
 };
 
 const getEsmContents: GetContents = async (entry) => {
-  const { setup, load } = getHookLoader(entry, 'esm');
+  const { setup, load } = await getHookLoader(entry, 'esm');
   const exports = await getExports(entry.entryPath);
 
   let contentLines: string[] = setup ? [setup, ''] : [];
