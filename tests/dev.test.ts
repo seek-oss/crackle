@@ -11,13 +11,17 @@ beforeAll(() => {
   process.env.NODE_ENV = 'production';
 });
 
-test.each(['dev-entries'])(
-  'fixture %s',
-  async (fixtureName) => {
+test.each`
+  name                     | options
+  ${'dev-entries'}         | ${undefined}
+  ${'dev-entries-webpack'} | ${{ webpack: true }}
+`(
+  'fixture $name',
+  async ({ name: fixtureName, options }) => {
     const fixtureDir = f.find(fixtureName);
 
     const config = await resolveConfig({ cwd: fixtureDir });
-    await dev(config);
+    await dev({ ...config, ...options });
 
     await snapshotOutput('dev', fixtureName);
   },

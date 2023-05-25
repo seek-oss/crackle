@@ -1,0 +1,13 @@
+/* #region dist/cli.cjs */
+module.exports = require("../fixtures/dev-entries-webpack/src/entries/cli.ts");
+/* #endregion */
+
+
+/* #region dist/cli.d.ts */
+export * from "../src/entries/cli";
+/* #endregion */
+
+
+/* #region dist/cli.mjs */
+export {}
+/* #endregion */

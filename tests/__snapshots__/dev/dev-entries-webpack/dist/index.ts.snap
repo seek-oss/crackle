@@ -1,0 +1,17 @@
+/* #region dist/index.cjs */
+module.exports = require("../fixtures/dev-entries-webpack/src/index.ts");
+/* #endregion */
+
+
+/* #region dist/index.d.ts */
+export * from "../src/index";
+export { default } from "../src/index";
+/* #endregion */
+
+
+/* #region dist/index.mjs */
+const _mod = require("../fixtures/dev-entries-webpack/src/index.ts");
+
+export const something = _mod.something;
+export default _mod.default;
+/* #endregion */

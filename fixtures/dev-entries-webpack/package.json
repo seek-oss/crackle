@@ -1,0 +1,34 @@
+{
+  "name": "@crackle-fixtures/dev-entries-webpack",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "author": "SEEK",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./cli": {
+      "types": "./dist/cli.d.ts",
+      "import": "./dist/cli.mjs",
+      "require": "./dist/cli.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "cli",
+    "dist"
+  ],
+  "scripts": {
+    "dev": "crackle dev --webpack",
+    "fix": "crackle fix",
+    "package": "crackle package"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

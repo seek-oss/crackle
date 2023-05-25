@@ -19,6 +19,11 @@ fixtures/dev-entries/dist
 # end managed by crackle
 
 # managed by crackle
+fixtures/dev-entries-webpack/cli
+fixtures/dev-entries-webpack/dist
+# end managed by crackle
+
+# managed by crackle
 fixtures/esm-compat/dist
 # end managed by crackle
 
