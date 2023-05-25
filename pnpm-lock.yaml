@@ -106,6 +106,8 @@ importers:
 
   fixtures/dev-entries: {}
 
+  fixtures/dev-entries-webpack: {}
+
   fixtures/esm-compat:
     dependencies:
       '@crackle-fixtures/dep-with-exports':
