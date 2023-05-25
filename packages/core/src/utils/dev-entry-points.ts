@@ -1,3 +1,4 @@
+import { AsyncLocalStorage } from 'async_hooks';
 import path from 'path';
 
 import dedent from 'dedent';
@@ -17,34 +18,44 @@ import {
 import { writeIfRequired } from './files';
 import { promiseMap } from './promise-map';
 
+const configContext = new AsyncLocalStorage<EnhancedConfig>();
+
 const getHookLoader = (entry: PackageEntryPoint, format: Format) => {
   const stringifyRelative = (p: string) =>
     JSON.stringify(path.relative(entry.getOutputPath(format), p));
 
-  // ! don't change this ! unbuild searches for the string and inserts shims
+  const config = configContext.getStore();
+  // ! don't change this ! unbuild searches for the string and inserts its own shims
   const rekwire = 'req' + 'uire';
-  const shims = dedent`
+
+  let setup: string | undefined;
+  if (!config?.webpack) {
+    const shims = dedent`
     import { createRequire } from "module";
 
     const ${rekwire} = createRequire(import.meta.url);
   `;
 
-  const hookPath = resolveFrom('.', 'tsm');
+    const hookPath = resolveFrom('.', 'tsm');
 
-  const setup = dedent`
+    setup = dedent`
     ${format === 'esm' ? shims : ''}
 
     ${rekwire}(${stringifyRelative(hookPath)});
   `;
+  }
   const load = `${rekwire}(${stringifyRelative(entry.entryPath)})`;
 
-  return { setup, load };
+  return {
+    setup,
+    load,
+  };
 };
 
 type GetContents = (
   entry: PackageEntryPoint,
   { relativePath }: { relativePath: string },
-) => Promise<string | null>;
+) => Promise<string>;
 
 async function writeFile(
   entry: PackageEntryPoint,
@@ -67,8 +78,6 @@ async function writeFile(
 
   const contents = await getContents(entry, { relativePath });
 
-  if (!contents) return;
-
   await writeIfRequired({
     dir: entry.outputDir,
     fileName: outputPath,
@@ -78,7 +87,10 @@ async function writeFile(
 
 const getCjsContents: GetContents = async (entry) => {
   const { setup, load } = getHookLoader(entry, 'cjs');
-  const contentLines = [setup, '', `module.exports = ${load};`];
+  const contentLines = [
+    ...(setup ? [setup, ''] : []),
+    `module.exports = ${load};`,
+  ];
 
   return contentLines.join('\n');
 };
@@ -87,7 +99,7 @@ const getEsmContents: GetContents = async (entry) => {
   const { setup, load } = getHookLoader(entry, 'esm');
   const exports = await getExports(entry.entryPath);
 
-  let contentLines: string[] = [setup, ''];
+  let contentLines: string[] = setup ? [setup, ''] : [];
 
   if (exports.length === 0) {
     logger.info(
@@ -122,6 +134,8 @@ const getDtsContents: GetContents = async (entry, { relativePath }) => {
 
 export const generateDevFiles = async (config: EnhancedConfig) => {
   const packages = await getPackages(config);
+
+  configContext.enterWith(config);
 
   for (const pkg of packages.values()) {
     const entryPaths = await getPackageEntryPoints(pkg.root);

@@ -17,6 +17,12 @@ export interface Config {
    */
   fix: boolean;
   /**
+   * Generate Webpack-compatible shims.
+   *
+   * @default false
+   */
+  webpack: boolean;
+  /**
    * Port for the server used in `start` and `serve`
    *
    * @default 5000
@@ -72,6 +78,7 @@ export type PartialConfig = Partial<Config>;
 export const defaultConfig: Config = {
   clean: true,
   fix: false,
+  webpack: false,
   port: 5000,
   publicPath: '/',
   root: process.cwd(),
