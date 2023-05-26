@@ -39,7 +39,7 @@ _A build tool for apps and packages, static and server-rendered sites. Built on 
 ## Getting started
 
 ```sh
-pnpm install --dev @crackle/cli
+pnpm add --save-dev @crackle/cli
 ```
 
 Crackle will look for a `crackle.config.ts` file in the project directory, but if one doesn't exist, it will use the default configuration.
