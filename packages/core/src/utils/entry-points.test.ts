@@ -1,7 +1,7 @@
 import { fs, vol } from 'memfs';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
-import { context } from '../config';
+import { type EnhancedConfig, context } from '../config';
 
 import {
   cleanPackageEntryPoints,
@@ -30,7 +30,7 @@ describe('getPackageEntryPoints', () => {
 
     context.enterWith({
       root: packageRoot,
-    } as any);
+    } as EnhancedConfig);
   });
 
   test('all entry points', async () => {
