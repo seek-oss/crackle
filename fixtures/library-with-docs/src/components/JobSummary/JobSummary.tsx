@@ -15,7 +15,6 @@ import {
   Text,
 } from 'braid-design-system';
 import values from 'lodash/values';
-import React from 'react';
 
 import { redBorder } from './styles.css';
 

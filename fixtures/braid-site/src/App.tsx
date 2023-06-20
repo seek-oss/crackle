@@ -10,7 +10,6 @@ import {
   Stack,
 } from 'braid-design-system';
 import apac from 'braid-design-system/themes/apac';
-import React from 'react';
 
 const App: AppShell = ({ children }) => (
   <BraidProvider theme={apac}>

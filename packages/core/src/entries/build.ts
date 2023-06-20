@@ -3,7 +3,7 @@ import path from 'path';
 
 import { mockAdapter, setAdapter } from '@vanilla-extract/css/adapter';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
-import react from '@vitejs/plugin-react';
+import react from '@vitejs/plugin-react-swc';
 import builtinModules from 'builtin-modules';
 import chalk from 'chalk';
 import fse from 'fs-extra';

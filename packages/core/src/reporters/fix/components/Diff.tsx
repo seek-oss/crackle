@@ -1,6 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Text } from 'ink';
-import * as React from 'react';
 
 import type { Difference } from '../../../utils/setup-package-json';
 import { List } from '../../shared/List';

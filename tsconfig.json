@@ -2,7 +2,6 @@
   "compilerOptions": {
     "module": "commonjs",
     "moduleResolution": "node",
-    "declaration": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
@@ -10,10 +9,10 @@
     "isolatedModules": true,
     "noUnusedLocals": true,
     "strict": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "noEmit": true,
-    "lib": ["es2015", "dom"],
-    "target": "esnext",
+    "lib": ["ES2020", "dom"],
+    "target": "ES2020",
     "paths": {
       "~utils/*": ["./test-utils/*"]
     }
