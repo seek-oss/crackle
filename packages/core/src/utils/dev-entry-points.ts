@@ -1,10 +1,8 @@
-import assert from 'assert';
-import { AsyncLocalStorage } from 'async_hooks';
 import path from 'path';
 
 import dedent from 'dedent';
 
-import type { EnhancedConfig } from '../config';
+import { getConfigFromContext } from '../config';
 import { logger } from '../entries/logger';
 import type { Format, PackageEntryPoint } from '../types';
 
@@ -19,14 +17,11 @@ import { writeIfRequired } from './files';
 import { promiseMap } from './promise-map';
 import { resolveFrom } from './resolve-from';
 
-const configContext = new AsyncLocalStorage<EnhancedConfig>();
-
 const getHookLoader = async (entry: PackageEntryPoint, format: Format) => {
   const stringifyRelative = (p: string) =>
     JSON.stringify(path.relative(entry.outputDir, p));
 
-  const config = configContext.getStore();
-  assert(config, 'config not set in context');
+  const config = getConfigFromContext();
 
   // ! don't change this ! unbuild searches for the string and inserts its own shims
   const rekwire = 'req' + 'uire';
@@ -73,10 +68,10 @@ async function writeFile(
 
   logger.debug(dedent`
     [writeFile ${format}]
-    entryPath: ${entry.entryPath}
-    outputDir: ${entry.outputDir}
-    outputPath: ${outputPath}
-    relativePath: ${relativePath}
+      entryPath: ${entry.entryPath}
+      outputDir: ${entry.outputDir}
+      outputPath: ${outputPath}
+      relativePath: ${relativePath}
   `);
 
   const contents = await getContents(entry, { relativePath });
@@ -138,10 +133,9 @@ const getDtsContents: GetContents = async (entry, { relativePath }) => {
   return contentLines.join('\n');
 };
 
-export const generateDevFiles = async (config: EnhancedConfig) => {
+export const generateDevFiles = async () => {
+  const config = getConfigFromContext();
   const packages = await getPackages(config);
-
-  configContext.enterWith(config);
 
   for (const pkg of packages.values()) {
     const entryPaths = await getPackageEntryPoints(pkg.root);

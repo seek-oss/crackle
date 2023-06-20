@@ -20,6 +20,11 @@ export const createDtsBundle = async (
         compilerOptions: config.dtsOptions as any,
       }),
     ],
+    onLog(level, log, defaultHandler) {
+      if (log.code === 'OPTIMIZE_CHUNK_STATUS') return false;
+      if (log.code === 'EMPTY_BUNDLE') return false;
+      defaultHandler(level, log);
+    },
   });
 
   await bundle.write({

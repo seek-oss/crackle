@@ -1,6 +1,8 @@
 import { fs, vol } from 'memfs';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
+import { context } from '../config';
+
 import {
   cleanPackageEntryPoints,
   createEntryPackageJsons,
@@ -25,6 +27,10 @@ describe('getPackageEntryPoints', () => {
       },
       packageRoot,
     );
+
+    context.enterWith({
+      root: packageRoot,
+    } as any);
   });
 
   test('all entry points', async () => {
