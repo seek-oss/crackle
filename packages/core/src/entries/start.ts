@@ -3,7 +3,7 @@ import path from 'path';
 import { performance } from 'perf_hooks';
 
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
-import react from '@vitejs/plugin-react';
+import react from '@vitejs/plugin-react-swc';
 import builtinModules from 'builtin-modules';
 import express from 'express';
 import { createServer as createViteServer } from 'vite';

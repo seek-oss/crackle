@@ -7,7 +7,6 @@ import { StaticRouter } from '@crackle/router/server';
 // eslint-disable-next-line import/order
 import nodePageModules from '__NODE_PAGE_MODULES';
 
-import React from 'react';
 import serializeJavascript from 'serialize-javascript';
 
 import { LoadingIcon } from '../loading-icon';

@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import type { Difference } from '../../../utils/setup-package-json';
 import { Section } from '../../shared';
 

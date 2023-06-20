@@ -1,5 +1,4 @@
 import { useTranslations } from '@vocab/react';
-import React from 'react';
 
 import commonTranslations from '../.vocab';
 

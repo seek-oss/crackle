@@ -97,7 +97,7 @@
     "@vanilla-extract/css": "^1.9.2",
     "@vanilla-extract/integration": "^6.0.1",
     "@vanilla-extract/vite-plugin": "^3.7.0",
-    "@vitejs/plugin-react": "^3.1.0",
+    "@vitejs/plugin-react-swc": "^3.3.2",
     "@vocab/webpack": "^1.2.1",
     "builtin-modules": "^3.3.0",
     "chalk": "^4.1.2",
@@ -148,7 +148,7 @@
     "unbuild": "^1.1.2"
   },
   "peerDependencies": {
-    "typescript": ">=4.9.4"
+    "typescript": ">=5.0.4"
   },
   "wireit": {
     "unbuild": {

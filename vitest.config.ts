@@ -1,6 +1,5 @@
 import { resolve } from 'path';
 
-import react from '@vitejs/plugin-react';
 import { configDefaults, defineConfig } from 'vitest/config';
 
 import { include as integrationInclude } from './vitest.config.integration';
@@ -11,7 +10,9 @@ export const exclude = [
 ];
 
 export default defineConfig({
-  plugins: [react()],
+  esbuild: {
+    jsx: 'automatic',
+  },
   resolve: {
     alias: {
       '~utils': resolve(__dirname, './test-utils'),

@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 
 import { cssFileFilter as vanillaCssFileFilter } from '@vanilla-extract/integration';
-import react from '@vitejs/plugin-react';
 import fse from 'fs-extra';
 import type { OutputOptions } from 'rollup';
 import { normalizePath, build as viteBuild } from 'vite';
@@ -77,12 +76,14 @@ export const createBundle = async (
 
   await viteBuild({
     ...commonViteConfig,
+    esbuild: {
+      jsx: 'automatic',
+    },
     plugins: [
       addVanillaDebugIds(config),
       // because we don't know ahead of time what the output format will be, we always patch imports
       externals(config, 'esm'),
       vocabTranslations(config, { toDistPath: getSrcPath }),
-      react(),
     ],
     logLevel: 'warn',
     build: {

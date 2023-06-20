@@ -37,7 +37,8 @@
           }
         ]
       }
-    ]
+    ],
+    "react/react-in-jsx-scope": "off"
   },
   "settings": {
     "jest": {

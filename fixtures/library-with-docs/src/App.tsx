@@ -11,7 +11,6 @@ import {
   Stack,
 } from 'braid-design-system';
 import apac from 'braid-design-system/themes/apac';
-import React from 'react';
 
 const CustomLink = makeLinkComponent(({ href, ...restProps }, ref) =>
   href[0] === '/' ? (
