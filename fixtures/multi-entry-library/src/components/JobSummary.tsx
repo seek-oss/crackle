@@ -13,7 +13,6 @@ import {
   Stack,
   Text,
 } from 'braid-design-system';
-import React from 'react';
 
 interface JobSummaryProps {
   title: string;

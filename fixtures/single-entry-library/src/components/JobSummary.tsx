@@ -14,7 +14,6 @@ import {
   Stack,
   Text,
 } from 'braid-design-system';
-import React from 'react';
 
 import { add } from './add-fn';
 

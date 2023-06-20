@@ -1,6 +1,5 @@
 import { Text } from 'ink';
 import { render } from 'ink-testing-library';
-import * as React from 'react';
 import { describe, expect, test } from 'vitest';
 import inkSerializer from '~utils/ink-serializer';
 

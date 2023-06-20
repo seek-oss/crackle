@@ -1,7 +1,6 @@
 import { createRouteData } from '@crackle/router';
 import { JobSummary } from '@crackle-fixtures/library-with-docs';
 import { Card, Stack, Text, TextLink } from 'braid-design-system';
-import React from 'react';
 
 export const routeData = createRouteData({
   route: '/',

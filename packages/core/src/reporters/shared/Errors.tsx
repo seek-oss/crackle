@@ -1,6 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Box, Text } from 'ink';
-import React from 'react';
 
 import type { Difference } from '../../utils/setup-package-json';
 

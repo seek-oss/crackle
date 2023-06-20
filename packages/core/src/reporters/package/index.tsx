@@ -1,5 +1,3 @@
-import React from 'react';
-
 import type { Difference } from '../../utils/setup-package-json';
 import { ValidationError } from '../shared';
 import { renderToString } from '../shared/ink-to-string';

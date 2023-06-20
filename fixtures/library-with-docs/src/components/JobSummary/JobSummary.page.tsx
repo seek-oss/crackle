@@ -1,6 +1,5 @@
 import { createRouteData } from '@crackle/router';
 import { Card, Stack, Text } from 'braid-design-system';
-import React from 'react';
 
 import { JobSummary } from './JobSummary';
 
