@@ -1,9 +1,9 @@
 /* #region dist/index.cjs */
 "use strict";
 Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
-const JobSummary = require("./JobSummary.chunk.cjs");
+const components = require("./components.cjs");
 const add = (a, b) => a + b;
-exports.JobSummary = JobSummary.JobSummary;
+exports.JobSummary = components.JobSummary;
 exports.add = add;
 /* #endregion */
 
@@ -14,7 +14,7 @@ export { JobSummary, add } from './apac.chunk.js';
 
 
 /* #region dist/index.mjs */
-import { JobSummary } from "./JobSummary.chunk.mjs";
+import { JobSummary } from "./components.mjs";
 const add = (a, b) => a + b;
 export {
   JobSummary,

@@ -2,10 +2,10 @@
 "use strict";
 Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
 const styles_lib_breakpoints_cjs = require("./styles/lib/breakpoints.cjs");
-const Box = require("./Box.chunk.cjs");
+const Box = () => null;
 exports.breakpointNames = styles_lib_breakpoints_cjs.breakpointNames;
 exports.breakpoints = styles_lib_breakpoints_cjs.breakpoints;
-exports.Box = Box.Box;
+exports.Box = Box;
 /* #endregion */
 
 
@@ -16,7 +16,7 @@ export { Box, Breakpoint, breakpointNames, breakpoints } from './index.js';
 
 /* #region dist/css-more.mjs */
 import { breakpointNames, breakpoints } from "./styles/lib/breakpoints.mjs";
-import { Box } from "./Box.chunk.mjs";
+const Box = () => null;
 export {
   Box,
   breakpointNames,
