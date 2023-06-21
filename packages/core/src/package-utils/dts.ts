@@ -2,6 +2,7 @@ import { rollup } from 'rollup';
 import dts from 'rollup-plugin-dts';
 
 import type { EnhancedConfig } from '../config';
+import { logger } from '../entries/logger';
 import { externals } from '../plugins/rollup/externals';
 import type { PackageEntryPoint } from '../types';
 import { commonOutputOptions } from '../vite-config';
@@ -21,8 +22,19 @@ export const createDtsBundle = async (
       }),
     ],
     onLog(level, log, defaultHandler) {
-      if (log.code === 'OPTIMIZE_CHUNK_STATUS') return false;
-      if (log.code === 'EMPTY_BUNDLE') return false;
+      switch (log.code) {
+        case 'OPTIMIZE_CHUNK_STATUS':
+        case 'EMPTY_BUNDLE':
+          return false;
+        case 'UNUSED_EXTERNAL_IMPORT':
+          if (
+            log.message.startsWith(
+              '"RefAttributes" is imported from external module "react" but never used in',
+            )
+          )
+            return false;
+      }
+      logger.debug(`onLog ${log.code}: ${log.message}`);
       defaultHandler(level, log);
     },
     preserveEntrySignatures: 'strict',
