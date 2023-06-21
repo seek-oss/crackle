@@ -10,7 +10,18 @@ exports.Box = Box;
 
 
 /* #region dist/css-more.d.ts */
-export { Box, Breakpoint, breakpointNames, breakpoints } from './index.js';
+declare const breakpointNames: readonly ["mobile", "tablet", "desktop", "wide"];
+declare const breakpoints: {
+    readonly mobile: 0;
+    readonly tablet: 740;
+    readonly desktop: 992;
+    readonly wide: 1200;
+};
+type Breakpoint = keyof typeof breakpoints;
+
+declare const Box: () => null;
+
+export { Box, Breakpoint, breakpointNames, breakpoints };
 /* #endregion */
 
 

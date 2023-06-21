@@ -7,7 +7,7 @@ exports.Box = cssMore.Box;
 
 
 /* #region dist/css.d.ts */
-export { Box } from './index.js';
+export { Box } from './css-more.js';
 /* #endregion */
 
 

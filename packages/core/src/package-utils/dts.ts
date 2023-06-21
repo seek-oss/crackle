@@ -25,6 +25,7 @@ export const createDtsBundle = async (
       if (log.code === 'EMPTY_BUNDLE') return false;
       defaultHandler(level, log);
     },
+    preserveEntrySignatures: 'strict',
   });
 
   await bundle.write({
