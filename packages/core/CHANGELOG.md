@@ -1,5 +1,21 @@
 # @crackle/core
 
+## 0.26.0
+
+### Minor Changes
+
+- [#113](https://github.com/seek-oss/crackle/pull/113) [`d34eb26`](https://github.com/seek-oss/crackle/commit/d34eb2693d3ca6669568aafa32f7d5d098309d31) Thanks [@mrm007](https://github.com/mrm007)! - Replace `@vitejs/plugin-react` with the [appropriate esbuild options](https://esbuild.github.io/api/#jsx) for `crackle package`
+
+  Replace `@vitejs/plugin-react` with `@vitejs/plugin-react-swc` for `crackle build` and `crackle start`
+
+- [#113](https://github.com/seek-oss/crackle/pull/113) [`d34eb26`](https://github.com/seek-oss/crackle/commit/d34eb2693d3ca6669568aafa32f7d5d098309d31) Thanks [@mrm007](https://github.com/mrm007)! - Require minimum TypeScript version 5.0.4
+
+### Patch Changes
+
+- [#116](https://github.com/seek-oss/crackle/pull/116) [`74e8653`](https://github.com/seek-oss/crackle/commit/74e86539b8dd6303f9af4c94a6f32db312786fe4) Thanks [@mrm007](https://github.com/mrm007)! - Update Rollup deps
+
+- [#117](https://github.com/seek-oss/crackle/pull/117) [`9956efa`](https://github.com/seek-oss/crackle/commit/9956efaa51ed1ab1bc7dc7a054818fde81f2be41) Thanks [@mrm007](https://github.com/mrm007)! - Ensure DTS entries have the same exports as their source files
+
 ## 0.25.0
 
 ### Minor Changes
