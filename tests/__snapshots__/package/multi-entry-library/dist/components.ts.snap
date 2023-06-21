@@ -1,8 +1,38 @@
 /* #region dist/components.cjs */
 "use strict";
 Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
-const JobSummary = require("./JobSummary.chunk.cjs");
-exports.JobSummary = JobSummary.JobSummary;
+const jsxRuntime = require("react/jsx-runtime");
+const braidDesignSystem = require("braid-design-system");
+const JobSummary = ({ title, isNew }) => /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Card, { children: /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Stack, { space: "gutter", children: [
+  /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Columns, { space: "gutter", children: [
+    /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Column, { children: /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Stack, { space: "small", children: [
+      isNew && /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Badge, { tone: "positive", children: "New" }),
+      /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Heading, { level: "3", children: title }),
+      /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Inline, { space: "small", children: [
+        /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Text, { tone: "secondary", children: "Braid Design Pty Ltd" }),
+        /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Rating, { rating: 4.5 })
+      ] })
+    ] }) }),
+    /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Column, { width: "content", children: /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.IconBookmark, {}) })
+  ] }),
+  /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Stack, { space: "small", children: [
+    /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Text, { size: "small", tone: "secondary", children: [
+      /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.IconLocation, {}),
+      " Melbourne"
+    ] }),
+    /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Text, { size: "small", tone: "secondary", children: [
+      /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.IconTag, {}),
+      " Information Technology"
+    ] }),
+    /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Text, { size: "small", tone: "secondary", children: [
+      /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.IconMoney, {}),
+      " 150k+"
+    ] })
+  ] }),
+  /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Text, { children: "Long description of card details providing more information." }),
+  /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Text, { size: "xsmall", tone: "secondary", children: "2d ago" })
+] }) });
+exports.JobSummary = JobSummary;
 /* #endregion */
 
 
@@ -12,7 +42,37 @@ export { JobSummary } from './apac.chunk.js';
 
 
 /* #region dist/components.mjs */
-import { JobSummary } from "./JobSummary.chunk.mjs";
+import { jsx, jsxs } from "react/jsx-runtime";
+import { Card, Stack, Columns, Column, Badge, Heading, Inline, Text, Rating, IconBookmark, IconLocation, IconTag, IconMoney } from "braid-design-system";
+const JobSummary = ({ title, isNew }) => /* @__PURE__ */ jsx(Card, { children: /* @__PURE__ */ jsxs(Stack, { space: "gutter", children: [
+  /* @__PURE__ */ jsxs(Columns, { space: "gutter", children: [
+    /* @__PURE__ */ jsx(Column, { children: /* @__PURE__ */ jsxs(Stack, { space: "small", children: [
+      isNew && /* @__PURE__ */ jsx(Badge, { tone: "positive", children: "New" }),
+      /* @__PURE__ */ jsx(Heading, { level: "3", children: title }),
+      /* @__PURE__ */ jsxs(Inline, { space: "small", children: [
+        /* @__PURE__ */ jsx(Text, { tone: "secondary", children: "Braid Design Pty Ltd" }),
+        /* @__PURE__ */ jsx(Rating, { rating: 4.5 })
+      ] })
+    ] }) }),
+    /* @__PURE__ */ jsx(Column, { width: "content", children: /* @__PURE__ */ jsx(IconBookmark, {}) })
+  ] }),
+  /* @__PURE__ */ jsxs(Stack, { space: "small", children: [
+    /* @__PURE__ */ jsxs(Text, { size: "small", tone: "secondary", children: [
+      /* @__PURE__ */ jsx(IconLocation, {}),
+      " Melbourne"
+    ] }),
+    /* @__PURE__ */ jsxs(Text, { size: "small", tone: "secondary", children: [
+      /* @__PURE__ */ jsx(IconTag, {}),
+      " Information Technology"
+    ] }),
+    /* @__PURE__ */ jsxs(Text, { size: "small", tone: "secondary", children: [
+      /* @__PURE__ */ jsx(IconMoney, {}),
+      " 150k+"
+    ] })
+  ] }),
+  /* @__PURE__ */ jsx(Text, { children: "Long description of card details providing more information." }),
+  /* @__PURE__ */ jsx(Text, { size: "xsmall", tone: "secondary", children: "2d ago" })
+] }) });
 export {
   JobSummary
 };

@@ -150,7 +150,7 @@ export function externals(config: EnhancedConfig, format?: Format): Plugin {
           (typeof resolved === 'boolean' && !resolved) ||
           (typeof resolved === 'object' && resolved?.external)
         ) {
-          logDebugOnce(`External dependency ${id}`);
+          logDebugOnce(`External dependency: ${id}`);
 
           const { packageId, isSubpath } = parseImportSpecifier(id);
           const packageJson = packagesById.get(packageId);

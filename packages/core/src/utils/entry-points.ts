@@ -5,7 +5,7 @@ import dedent from 'dedent';
 import glob from 'fast-glob';
 import { findExportNames } from 'mlly';
 
-import type { EnhancedConfig } from '../config';
+import { getConfigFromContext, type EnhancedConfig } from '../config';
 import { distDir } from '../constants';
 import { logger } from '../entries/logger';
 import type { Format, PackageEntryPoint } from '../types';
@@ -26,12 +26,14 @@ export interface Package {
 export type Packages = Map<string, Package>;
 
 export const getExports = async (filePath: string) => {
+  const config = getConfigFromContext();
+
   const fileContents = await fs.promises.readFile(filePath, 'utf-8');
   const exports = findExportNames(fileContents);
   logger.debug(dedent`
     [getExports]
-    filePath: ${filePath}
-    exports: ${exports}
+      filePath: ${path.relative(config.root, filePath)}
+      exports: ${exports}
   `);
   return exports;
 };

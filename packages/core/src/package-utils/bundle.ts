@@ -31,6 +31,7 @@ export const createBundle = async (
 
   const formats = ['cjs', 'esm'] as const;
 
+  const getRelativePath = (id: string) => path.relative(config.root, id);
   const getSrcPath = (id: string) =>
     path.relative(`${config.root}/${srcDir}`, id);
 
@@ -49,7 +50,7 @@ export const createBundle = async (
 
         // internal package resolved by plugins/vite/internal-package-resolution.ts
         if (srcPath.startsWith('../')) {
-          logger.debug(`Internal package ${id}`);
+          logger.debug(`Internal package: ${id}`);
           return;
         }
 
@@ -59,7 +60,7 @@ export const createBundle = async (
           return normalizePath(`${stylesDir}/${srcPath}`);
         }
         if (isVocabFile(moduleInfo.id)) {
-          logger.debug(`Vocab file ${id}`);
+          logger.debug(`Vocab file: ${getRelativePath(id)}`);
           return normalizePath(srcPath);
         }
         if (
@@ -67,7 +68,7 @@ export const createBundle = async (
           moduleHasSideEffects(srcPath, packageJson.sideEffects) &&
           !moduleInfo.isEntry
         ) {
-          logger.debug(`Has side-effects ${id}`);
+          logger.debug(`Has side-effects: ${getRelativePath(id)}`);
           return normalizePath(`${sideEffectsDir}/${srcPath}`);
         }
       },
@@ -100,6 +101,10 @@ export const createBundle = async (
           moduleSideEffects: 'no-external',
         },
         output: formats.map((format) => createOutputOptionsForFormat(format)),
+        onLog(level, log, defaultHandler) {
+          if (log.code === 'EMPTY_BUNDLE') return false;
+          defaultHandler(level, log);
+        },
       },
     },
   });

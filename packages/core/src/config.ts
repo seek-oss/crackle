@@ -1,3 +1,5 @@
+import assert from 'assert';
+import { AsyncLocalStorage } from 'async_hooks';
 import fs from 'fs';
 import path from 'path';
 
@@ -127,9 +129,21 @@ export const getConfig = (inlineConfig?: PartialConfig): EnhancedConfig => {
     resolveFromRoot,
   ) as EnhancedConfig['appShell'];
 
-  return {
+  const enhancedConfig = {
     ...config,
     appShell,
     resolveFromRoot,
   };
+
+  context.enterWith(enhancedConfig);
+
+  return enhancedConfig;
+};
+
+export const context = new AsyncLocalStorage<EnhancedConfig>();
+
+export const getConfigFromContext = () => {
+  const config = context.getStore();
+  assert(config, 'config not set in context');
+  return config;
 };
