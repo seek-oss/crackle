@@ -5,6 +5,7 @@ import type { EnhancedConfig } from '../config';
 import { logger } from '../entries/logger';
 import { externals } from '../plugins/rollup/externals';
 import type { PackageEntryPoint } from '../types';
+import { extensionForFormat } from '../utils/files';
 import { commonOutputOptions } from '../vite-config';
 
 export const createDtsBundle = async (
@@ -45,6 +46,12 @@ export const createDtsBundle = async (
     exports: 'named',
     format: 'esm',
     experimentalMinChunkSize: Infinity,
+    ...(config.dtsMode === 'declaration'
+      ? {
+          preserveModules: true,
+          entryFileNames: `[name].${extensionForFormat('dts')}`,
+        }
+      : {}),
   });
 
   await bundle.close();
