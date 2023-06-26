@@ -43,7 +43,7 @@
     "@crackle/core": "workspace:*",
     "@playwright/test": "^1.32.0",
     "@preconstruct/eslint-plugin-format-js-tag": "^0.3.0",
-    "eslint": "^8.41.0",
+    "eslint": "^8.43.0",
     "eslint-config-seek": "^11.1.2",
     "ignore-sync": "^7.0.1",
     "prettier": "^2.8.8",
