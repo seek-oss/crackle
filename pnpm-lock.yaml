@@ -180,9 +180,6 @@ importers:
 
   fixtures/multi-entry-library:
     dependencies:
-      '@crackle/router':
-        specifier: workspace:*
-        version: link:../../packages/router
       braid-design-system:
         specifier: ^32.0.0
         version: 32.1.1(@types/react@18.0.28)(react-dom@18.2.0)(react@18.2.0)
@@ -193,12 +190,9 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
     devDependencies:
-      '@crackle/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@crackle/core':
-        specifier: workspace:*
-        version: link:../../packages/core
+      '@crackle-fixtures/dev-dep':
+        specifier: link:./dev-dep
+        version: link:dev-dep
       '@types/react':
         specifier: ^18.0.21
         version: 18.0.28
@@ -224,12 +218,6 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
     devDependencies:
-      '@crackle/cli':
-        specifier: workspace:*
-        version: link:../../packages/cli
-      '@crackle/core':
-        specifier: workspace:*
-        version: link:../../packages/core
       '@types/react':
         specifier: ^18.0.21
         version: 18.0.28

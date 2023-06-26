@@ -20,9 +20,7 @@
   ],
   "scripts": {
     "dev": "crackle dev",
-    "package": "crackle package",
-    "serve": "crackle serve",
-    "start": "crackle start"
+    "package": "crackle package"
   },
   "dependencies": {
     "@crackle-fixtures/multi-entry-library": "workspace:*",
@@ -32,8 +30,6 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@crackle/cli": "workspace:*",
-    "@crackle/core": "workspace:*",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6"
   }

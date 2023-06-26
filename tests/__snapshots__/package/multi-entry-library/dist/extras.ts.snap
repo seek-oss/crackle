@@ -1,70 +1,29 @@
 /* #region dist/extras.cjs */
 "use strict";
 Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
-const isDebug = process.env.DEBUG != null;
-const logger$1 = {
-  debug: (msg) => isDebug && console.info(msg),
-  info: (msg) => console.info(msg),
-  warn: (msg) => console.warn(msg),
-  error: (msg) => console.error(msg),
-  errorWithExitCode: (msg) => {
-    console.error(msg);
-    process.exitCode = 1;
-  }
-};
-const logThePhrase = (input) => logger$1.info(`Logged: ${input}`);
-const logger = () => logThePhrase("This is a logger");
-const calcAndLog = (a, b, fn) => {
-  logThePhrase(fn(a, b).toString());
-};
+const devDep = "dev-dep-export";
+const logger = (...args) => (
+  // eslint-disable-next-line no-console
+  console.log("This logs", devDep, ":", ...args)
+);
+const calcAndLog = (a, b, fn) => logger(fn(a, b).toString());
 exports.calcAndLog = calcAndLog;
 exports.logger = logger;
 /* #endregion */
 
 
 /* #region dist/extras.d.ts */
-declare global {
-	// eslint-disable-next-line @typescript-eslint/consistent-type-definitions -- It has to be an `interface` so that it can be merged.
-	interface SymbolConstructor {
-		readonly observable: symbol;
-	}
-}
-
-declare const logger$1: {
-    debug: (msg: string) => false | void;
-    info: (msg: string) => void;
-    warn: (msg: string) => void;
-    error: (msg: string) => void;
-    errorWithExitCode: (msg: string) => void;
-};
-
-type MathsFn = (a: number, b: number) => number;
-
-type InlinedType = typeof logger$1;
-declare const logger: () => void;
-declare const calcAndLog: (a: number, b: number, fn: MathsFn) => void;
-
-export { InlinedType, calcAndLog, logger };
+export { DevDepType, calcAndLog, logger } from './apac.chunk.js';
 /* #endregion */
 
 
 /* #region dist/extras.mjs */
-const isDebug = process.env.DEBUG != null;
-const logger$1 = {
-  debug: (msg) => isDebug && console.info(msg),
-  info: (msg) => console.info(msg),
-  warn: (msg) => console.warn(msg),
-  error: (msg) => console.error(msg),
-  errorWithExitCode: (msg) => {
-    console.error(msg);
-    process.exitCode = 1;
-  }
-};
-const logThePhrase = (input) => logger$1.info(`Logged: ${input}`);
-const logger = () => logThePhrase("This is a logger");
-const calcAndLog = (a, b, fn) => {
-  logThePhrase(fn(a, b).toString());
-};
+const devDep = "dev-dep-export";
+const logger = (...args) => (
+  // eslint-disable-next-line no-console
+  console.log("This logs", devDep, ":", ...args)
+);
+const calcAndLog = (a, b, fn) => logger(fn(a, b).toString());
 export {
   calcAndLog,
   logger
