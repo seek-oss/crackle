@@ -10,7 +10,9 @@ const evaluateConfig = (
   configFilePath: string,
   configSource: string,
 ): PartialConfig => {
-  const exports = _eval(configSource, 'fake.js') as { default: PartialConfig };
+  const exports = _eval(configSource, 'fake.js', {}, true) as {
+    default: PartialConfig;
+  };
 
   return {
     root: path.dirname(configFilePath),
@@ -41,10 +43,10 @@ export const resolveConfig = async ({
 
   const context = await esbuild.context({
     entryPoints: [configFilePath],
-    bundle: true,
+    bundle: false,
     write: false,
     outdir: 'out',
-    target: ['node14'],
+    target: ['node16'],
     format: 'cjs',
     plugins: onUpdate
       ? [
