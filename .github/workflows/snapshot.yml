@@ -7,6 +7,8 @@ on:
       - master
     tags-ignore:
       - '**'
+  # we don't want the pending indicator, but we might want to trigger it manually on the Version Packages PR
+  workflow_dispatch:
 
 env:
   CI: true
