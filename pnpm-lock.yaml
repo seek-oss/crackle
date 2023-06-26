@@ -102,6 +102,8 @@ importers:
 
   fixtures/dev-entries-webpack: {}
 
+  fixtures/dts-compat: {}
+
   fixtures/esm-compat:
     dependencies:
       '@crackle-fixtures/dep-with-exports':

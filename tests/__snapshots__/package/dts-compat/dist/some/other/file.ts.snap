@@ -1,0 +1,6 @@
+/* #region dist/some/other/file.d.ts */
+type Maybe = 'something' | 'other';
+declare const maybe: Maybe;
+
+export { Maybe, maybe };
+/* #endregion */

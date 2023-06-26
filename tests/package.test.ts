@@ -12,6 +12,7 @@ beforeAll(() => {
 });
 
 test.each([
+  'dts-compat',
   'esm-compat',
   'library-with-docs',
   'multi-entry-library',
