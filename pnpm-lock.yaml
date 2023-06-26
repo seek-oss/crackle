@@ -37,8 +37,8 @@ importers:
         specifier: ^8.43.0
         version: 8.43.0
       eslint-config-seek:
-        specifier: ^11.1.2
-        version: 11.1.2(eslint@8.43.0)(typescript@5.1.3)
+        specifier: ^11.2.1
+        version: 11.2.1(eslint@8.43.0)(typescript@5.1.3)
       ignore-sync:
         specifier: ^7.0.1
         version: 7.0.1
@@ -4479,8 +4479,8 @@ packages:
       eslint: 8.43.0
     dev: false
 
-  /eslint-config-seek@11.1.2(eslint@8.43.0)(typescript@5.1.3):
-    resolution: {integrity: sha512-L7EtzOdQAKWM9/eepWPjLV4CEHHwGBt6XjkkzXbLnxmc6f9MtiFVVA7YCpq6KuhSl3/cHKAVVLBrZmJvyYCHwA==}
+  /eslint-config-seek@11.2.1(eslint@8.43.0)(typescript@5.1.3):
+    resolution: {integrity: sha512-1idFxTWCaiVVWUgsU0y++LHL0iI/Sp6khkoYiHlyjyJV2ZBr7PQyT7t5W1EPQmj8hub+IBOKWFGEIJjcP+vitA==}
     peerDependencies:
       eslint: '>=6'
       typescript: '>=4.5'
@@ -4496,9 +4496,9 @@ packages:
       eslint-import-resolver-typescript: 3.5.3(eslint-plugin-import@2.27.5)(eslint@8.43.0)
       eslint-plugin-import: 2.27.5(@typescript-eslint/parser@5.57.0)(eslint-import-resolver-typescript@3.5.3)(eslint@8.43.0)
       eslint-plugin-jest: 27.2.1(@typescript-eslint/eslint-plugin@5.57.0)(eslint@8.43.0)(typescript@5.1.3)
-      eslint-plugin-local-rules: 1.3.2
       eslint-plugin-react: 7.32.2(eslint@8.43.0)
       eslint-plugin-react-hooks: 4.6.0(eslint@8.43.0)
+      eslint-plugin-rulesdir: 0.2.2
       find-root: 1.1.0
       typescript: 5.1.3
     transitivePeerDependencies:
@@ -4621,10 +4621,6 @@ packages:
       - typescript
     dev: false
 
-  /eslint-plugin-local-rules@1.3.2:
-    resolution: {integrity: sha512-X4ziX+cjlCYnZa+GB1ly3mmj44v2PeIld3tQVAxelY6AMrhHSjz6zsgsT6nt0+X5b7eZnvL/O7Q3pSSK2kF/+Q==}
-    dev: false
-
   /eslint-plugin-react-hooks@4.6.0(eslint@8.43.0):
     resolution: {integrity: sha512-oFc7Itz9Qxh2x4gNHStv3BqJq54ExXmfC+a1NjAta66IAN87Wu0R/QArgIS9qKzX3dXKPI9H5crl9QchNMY9+g==}
     engines: {node: '>=10'}
@@ -4656,6 +4652,11 @@ packages:
       resolve: 2.0.0-next.4
       semver: 6.3.0
       string.prototype.matchall: 4.0.8
+    dev: false
+
+  /eslint-plugin-rulesdir@0.2.2:
+    resolution: {integrity: sha512-qhBtmrWgehAIQeMDJ+Q+PnOz1DWUZMPeVrI0wE9NZtnpIMFUfh3aPKFYt2saeMSemZRrvUtjWfYwepsC8X+mjQ==}
+    engines: {node: '>=4.0.0'}
     dev: false
 
   /eslint-scope@5.1.1:
