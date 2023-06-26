@@ -58,11 +58,11 @@ export interface Config {
    * Controls how Crackle generates `.d.ts` files.
    *
    * - 'bundle' rolls up all `.d.ts` files into a single file
-   * - 'declaration' generates `.d.ts` files for each file in the source directory, for maximum compatibility with TypeScript
+   * - 'preserve' generates `.d.ts` files for each file in the source directory, for maximum compatibility with TypeScript
    *
    * @default 'bundle'
    */
-  dtsMode: 'bundle' | 'declaration';
+  dtsMode: 'bundle' | 'preserve';
   /**
    * Override TypeScript `compilerOptions` for when generating `.d.ts` files.
    *

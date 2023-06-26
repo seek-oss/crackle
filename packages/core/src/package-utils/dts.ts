@@ -46,7 +46,7 @@ export const createDtsBundle = async (
     exports: 'named',
     format: 'esm',
     experimentalMinChunkSize: Infinity,
-    ...(config.dtsMode === 'declaration'
+    ...(config.dtsMode === 'preserve'
       ? {
           preserveModules: true,
           entryFileNames: `[name].${extensionForFormat('dts')}`,

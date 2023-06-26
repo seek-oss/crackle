@@ -1,5 +1,5 @@
 import { defineConfig } from '@crackle/cli/config';
 
 export default defineConfig({
-  dtsMode: 'declaration',
+  dtsMode: 'preserve',
 });
