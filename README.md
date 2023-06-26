@@ -48,7 +48,18 @@ Here's how to specify a custom configuration file:
 
 ```ts
 // crackle.config.ts
-import type { CrackleConfig } from '@crackle/core';
+import { defineConfig } from '@crackle/cli/config';
+
+export default defineConfig({
+  // ...
+});
+```
+
+or
+
+```ts
+// crackle.config.ts
+import type { CrackleConfig } from '@crackle/cli/config';
 
 export default {
   // ...

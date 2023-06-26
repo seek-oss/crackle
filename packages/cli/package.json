@@ -9,6 +9,11 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
+    "./config": {
+      "types": "./dist/config.d.ts",
+      "import": "./dist/config.mjs",
+      "require": "./dist/config.cjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "./dist/index.cjs",
@@ -20,11 +25,12 @@
   "files": [
     "CHANGELOG.md",
     "bin.js",
+    "config",
     "dist"
   ],
   "scripts": {
-    "dev": "crackle dev",
-    "build": "crackle package"
+    "build": "crackle package",
+    "dev": "crackle dev"
   },
   "dependencies": {
     "@crackle/core": "^0.26.0",
