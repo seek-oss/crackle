@@ -55,9 +55,18 @@ export interface Config {
    */
   appShell: `${string}.tsx`;
   /**
+   * Controls how Crackle generates `.d.ts` files.
+   *
+   * - 'bundle' rolls up all `.d.ts` files into a single file
+   * - 'preserve' generates `.d.ts` files for each file in the source directory, for maximum compatibility with TypeScript
+   *
+   * @default 'bundle'
+   */
+  dtsMode: 'bundle' | 'preserve';
+  /**
    * Override TypeScript `compilerOptions` for when generating `.d.ts` files.
    *
-   * @default '{ incremental: false, noEmitOnError: false }'
+   * @default { incremental: false, noEmitOnError: false }
    */
   dtsOptions: Record<string, unknown>;
   /**
@@ -66,7 +75,7 @@ export interface Config {
    * Specify the package and corresponding version range for which ESM compatibility is required.
    *
    * @see https://github.com/seek-oss/crackle/blob/master/docs/esm-reconciliation.md#reconciling-peer-dependencies
-   * @default '{}'
+   * @default {}
    */
   reconcileDependencies: Record<string, string>;
 }
@@ -86,6 +95,7 @@ export const defaultConfig: Config = {
   root: process.cwd(),
   pageRoots: ['src'],
   appShell: 'src/App.tsx',
+  dtsMode: 'bundle',
   dtsOptions: {
     incremental: false,
     noEmitOnError: false,

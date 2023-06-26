@@ -1,0 +1,28 @@
+{
+  "name": "@crackle-fixtures/dts-compat",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "author": "SEEK",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "crackle dev",
+    "fix": "crackle fix",
+    "package": "crackle package"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
