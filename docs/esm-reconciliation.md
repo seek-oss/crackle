@@ -89,7 +89,7 @@ Crackle can be instructed to handle this via the `reconcileDependencies` option,
 
 ```ts
 // crackle.config.ts
-import type { CrackleConfig } from '@crackle/core';
+import type { CrackleConfig } from '@crackle/cli';
 
 export default {
   reconcileDependencies: {

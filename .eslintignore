@@ -65,6 +65,7 @@ packages/babel-plugin-remove-exports/dist
 # end managed by crackle
 
 # managed by crackle
+packages/cli/config
 packages/cli/dist
 # end managed by crackle
 

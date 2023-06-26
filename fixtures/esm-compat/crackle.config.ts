@@ -1,4 +1,4 @@
-import type { CrackleConfig } from '@crackle/core';
+import type { CrackleConfig } from '@crackle/cli/config';
 
 export default {
   reconcileDependencies: {
