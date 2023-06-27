@@ -1,5 +1,17 @@
 # @crackle/core
 
+## 0.27.0
+
+### Minor Changes
+
+- [#119](https://github.com/seek-oss/crackle/pull/119) [`ed8cdc9`](https://github.com/seek-oss/crackle/commit/ed8cdc9c4d0cf2d6e3240cfbb8312d0de3747416) Thanks [@mrm007](https://github.com/mrm007)! - Add a `dtsMode` config option for outputting `.d.ts` files (`bundle` or `declaration`)
+
+### Patch Changes
+
+- [#118](https://github.com/seek-oss/crackle/pull/118) [`071c03f`](https://github.com/seek-oss/crackle/commit/071c03f5da93f4d5658d7d80bdc862582698657e) Thanks [@mrm007](https://github.com/mrm007)! - Export a `defineConfig` function to simplify typing the config object
+
+- [#120](https://github.com/seek-oss/crackle/pull/120) [`c131b93`](https://github.com/seek-oss/crackle/commit/c131b93eaaf68f378ae79a59befb00af8af8b6e4) Thanks [@mrm007](https://github.com/mrm007)! - Don't crash on unresolvable imports
+
 ## 0.26.0
 
 ### Minor Changes
