@@ -1,5 +1,23 @@
 # @crackle/cli
 
+## 0.12.2
+
+### Patch Changes
+
+- [#118](https://github.com/seek-oss/crackle/pull/118) [`071c03f`](https://github.com/seek-oss/crackle/commit/071c03f5da93f4d5658d7d80bdc862582698657e) Thanks [@mrm007](https://github.com/mrm007)! - Re-export `CrackleConfig` and `defineConfig` so that they can be used in `crackle.config.ts` without adding `@crackle/core` as a dependency
+
+  ```ts
+  // crackle.config.ts
+  import { defineConfig } from '@crackle/cli/config';
+
+  export default defineConfig({
+    // ...
+  });
+  ```
+
+- Updated dependencies [[`071c03f`](https://github.com/seek-oss/crackle/commit/071c03f5da93f4d5658d7d80bdc862582698657e), [`ed8cdc9`](https://github.com/seek-oss/crackle/commit/ed8cdc9c4d0cf2d6e3240cfbb8312d0de3747416), [`c131b93`](https://github.com/seek-oss/crackle/commit/c131b93eaaf68f378ae79a59befb00af8af8b6e4)]:
+  - @crackle/core@0.27.0
+
 ## 0.12.1
 
 ### Patch Changes
