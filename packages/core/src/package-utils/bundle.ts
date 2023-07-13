@@ -54,9 +54,16 @@ export const createBundle = async (
           return;
         }
 
-        const moduleInfo = getModuleInfo(id)!;
+        const moduleInfo = getModuleInfo(id);
 
+        if (!moduleInfo) return;
+
+        if (moduleInfo.isExternal) {
+          logger.debug(`External module: ${id}`);
+          return;
+        }
         if (isVanillaFile(id) || moduleInfo.importers.some(isVanillaFile)) {
+          logger.debug(`Vanilla file: ${getRelativePath(id)}`);
           return normalizePath(`${stylesDir}/${srcPath}`);
         }
         if (isVocabFile(moduleInfo.id)) {
