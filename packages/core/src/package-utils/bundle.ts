@@ -50,13 +50,20 @@ export const createBundle = async (
 
         // internal package resolved by plugins/vite/internal-package-resolution.ts
         if (srcPath.startsWith('../')) {
-          logger.debug(`Internal package: ${id}`);
+          logger.debug(`Internal module: ${id}`);
           return;
         }
 
-        const moduleInfo = getModuleInfo(id)!;
+        const moduleInfo = getModuleInfo(id);
 
+        if (!moduleInfo) return;
+
+        if (moduleInfo.isExternal) {
+          logger.debug(`External module: ${id}`);
+          return;
+        }
         if (isVanillaFile(id) || moduleInfo.importers.some(isVanillaFile)) {
+          logger.debug(`Vanilla file: ${getRelativePath(id)}`);
           return normalizePath(`${stylesDir}/${srcPath}`);
         }
         if (isVocabFile(moduleInfo.id)) {
