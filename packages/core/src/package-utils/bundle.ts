@@ -50,7 +50,7 @@ export const createBundle = async (
 
         // internal package resolved by plugins/vite/internal-package-resolution.ts
         if (srcPath.startsWith('../')) {
-          logger.debug(`Internal module: ${id}`);
+          logger.debug(`Internal package: ${id}`);
           return;
         }
 
