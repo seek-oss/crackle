@@ -1,5 +1,11 @@
 # @crackle/core
 
+## 0.27.1
+
+### Patch Changes
+
+- [#125](https://github.com/seek-oss/crackle/pull/125) [`7903ab9`](https://github.com/seek-oss/crackle/commit/7903ab901a53494b162f2c5e9d7b176e36298351) Thanks [@mrm007](https://github.com/mrm007)! - Ensure we are not attempting to include external modules in manual chunks
+
 ## 0.27.0
 
 ### Minor Changes
