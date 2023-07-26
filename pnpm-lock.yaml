@@ -252,6 +252,22 @@ importers:
         specifier: ^1.5.1
         version: 1.5.2(@vanilla-extract/css@1.12.0)
 
+  fixtures/with-styles:
+    dependencies:
+      '@crackle-fixtures/package-with-styles':
+        specifier: link:./package-with-styles
+        version: link:package-with-styles
+      '@vanilla-extract/css':
+        specifier: ^1.12.0
+        version: 1.12.0
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+    devDependencies:
+      '@types/react':
+        specifier: ^18.0.21
+        version: 18.0.28
+
   fixtures/with-vocab:
     dependencies:
       '@vocab/core':

@@ -1,0 +1,27 @@
+/* #region dist/index.cjs */
+"use strict";
+Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+const jsxRuntime = require("react/jsx-runtime");
+const styles_Component_css_cjs = require("./styles/Component.css.cjs");
+const thirdparty = "";
+const Component = () => /* @__PURE__ */ jsxRuntime.jsx("div", { className: styles_Component_css_cjs.redBorder, children: /* @__PURE__ */ jsxRuntime.jsx("span", { className: "external" }) });
+exports.Component = Component;
+/* #endregion */
+
+
+/* #region dist/index.d.ts */
+declare const _default: () => JSX.Element;
+
+export { _default as Component };
+/* #endregion */
+
+
+/* #region dist/index.mjs */
+import { jsx } from "react/jsx-runtime";
+import { redBorder } from "./styles/Component.css.mjs";
+const thirdparty = "";
+const Component = () => /* @__PURE__ */ jsx("div", { className: redBorder, children: /* @__PURE__ */ jsx("span", { className: "external" }) });
+export {
+  Component
+};
+/* #endregion */

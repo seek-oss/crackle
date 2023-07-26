@@ -62,6 +62,10 @@ fixtures/with-side-effects/reset
 # end managed by crackle
 
 # managed by crackle
+fixtures/with-styles/dist
+# end managed by crackle
+
+# managed by crackle
 fixtures/with-vocab/dist
 # end managed by crackle
 

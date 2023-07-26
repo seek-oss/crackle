@@ -82,7 +82,7 @@ export const createBundle = async (
     } satisfies OutputOptions;
   };
 
-  await viteBuild({
+  return await viteBuild({
     ...commonViteConfig,
     esbuild: {
       jsx: 'automatic',

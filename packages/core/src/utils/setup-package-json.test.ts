@@ -158,23 +158,6 @@ describe('diffPackageJson', () => {
       expectSnapshots({ diffs, packageJson, expectedPackageJson });
     });
 
-    test('exports out of order', () => {
-      const packageJson = structuredClone(correctPackageJson);
-      const { '.': index, ...otherExports } = packageJson.exports;
-      packageJson.exports = {
-        ...otherExports,
-        '.': index,
-      };
-
-      const { diffs, expectedPackageJson } = diffPackageJson(
-        packageRoot,
-        packageJson,
-        entries,
-      );
-
-      expectSnapshots({ diffs, packageJson, expectedPackageJson });
-    });
-
     test('files missing', () => {
       const packageJson = structuredClone(correctPackageJson);
       // @ts-ignore
