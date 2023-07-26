@@ -2,7 +2,7 @@
 // eslint-disable-next-line import/order
 import { inlineCriticalCss } from './css-extractor';
 
-import * as React from 'react';
+import type * as React from 'react';
 import { renderToString } from 'react-dom/server';
 
 import type { RenderDevPageFn } from '../types';
