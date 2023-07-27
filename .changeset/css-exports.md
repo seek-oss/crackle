@@ -19,6 +19,8 @@ export const MyComponent = (props) => {
 };
 ```
 
+The side-effect import will be preserved in the output bundles.
+
 External CSS can also be imported with a CSS `@import` rule:
 
 ```css
