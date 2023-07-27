@@ -105,7 +105,8 @@ export const createBundle = async (
       minify: false,
       rollupOptions: {
         treeshake: {
-          moduleSideEffects: 'no-external',
+          // keep only CSS side-effect imports
+          moduleSideEffects: (id, external) => !external || id.endsWith('.css'),
         },
         output: formats.map((format) => createOutputOptionsForFormat(format)),
         onLog(level, log, defaultHandler) {
