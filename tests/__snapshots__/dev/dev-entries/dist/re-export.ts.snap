@@ -1,0 +1,25 @@
+/* #region dist/re-export.cjs */
+require("../../../node_modules/.pnpm/tsm@2.3.0/node_modules/tsm/require.js");
+
+module.exports = require("../src/entries/re-export.ts");
+/* #endregion */
+
+
+/* #region dist/re-export.d.ts */
+export * from "../src/entries/re-export";
+export { default } from "../src/entries/re-export";
+/* #endregion */
+
+
+/* #region dist/re-export.mjs */
+import { createRequire } from "module";
+
+const require = createRequire(import.meta.url);
+
+require("../../../node_modules/.pnpm/tsm@2.3.0/node_modules/tsm/require.js");
+
+const _mod = require("../src/entries/re-export.ts");
+
+export const something = _mod.something;
+export default _mod.default;
+/* #endregion */

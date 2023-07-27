@@ -1,4 +1,5 @@
 # managed by crackle
 /cli
 /dist
+/re-export
 # end managed by crackle
