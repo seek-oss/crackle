@@ -91,7 +91,11 @@ async function findDependencies(options: ExternalsOptions) {
   return packagesById;
 }
 
-export function externals(config: EnhancedConfig, format?: Format): Plugin {
+export function externals(
+  config: EnhancedConfig,
+  format?: Format,
+  forceExternal?: RegExp,
+): Plugin {
   const packageRoot = config.root;
   const packagePath = path.join(packageRoot, 'package.json');
   // eslint-disable-next-line no-sync
@@ -138,12 +142,12 @@ export function externals(config: EnhancedConfig, format?: Format): Plugin {
 
     resolveId: {
       order: 'pre',
-      async handler(id, ...rest) {
-        // `resolveId` is async in Rollup 3
+      async handler(id, importer, hookOptions) {
         const resolved = await (plugin as FunctionPluginHooks).resolveId.call(
           this,
           id,
-          ...rest,
+          importer,
+          hookOptions,
         );
 
         if (
@@ -166,6 +170,20 @@ export function externals(config: EnhancedConfig, format?: Format): Plugin {
 
           return patched;
         }
+
+        if (forceExternal) {
+          const resolvedByRollup = await this.resolve(id, importer, {
+            skipSelf: true,
+            ...hookOptions,
+          });
+          if (resolvedByRollup && forceExternal.test(resolvedByRollup.id)) {
+            return {
+              id: resolvedByRollup.id,
+              external: true,
+            };
+          }
+        }
+
         if (!id.match(ABSOLUTE_OR_RELATIVE)) {
           logDebugOnce(`Internalized dependency ${id}`);
         }

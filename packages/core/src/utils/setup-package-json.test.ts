@@ -1,14 +1,18 @@
 import path from 'path';
 
+import { fs, vol } from 'memfs';
 import { sortPackageJson } from 'sort-package-json';
-import { describe, expect, test } from 'vitest';
+import { beforeEach, describe, expect, test, vi } from 'vitest';
 import packageJsonSerializer from '~utils/pkg-serializer';
 import { createSerializer } from '~utils/snapshot-diff-serializer';
 
 import type { PackageEntryPoint, PackageJson } from '../types';
 
 import { extensionForFormat } from './files';
-import { diffPackageJson } from './setup-package-json';
+import {
+  diffPackageJson,
+  updatePackageJsonExports,
+} from './setup-package-json';
 
 expect.addSnapshotSerializer(createSerializer({ contextLines: 1 })); // override default config
 expect.addSnapshotSerializer(packageJsonSerializer);
@@ -148,23 +152,6 @@ describe('diffPackageJson', () => {
 
     test('exports missing', () => {
       const { exports, ...packageJson } = structuredClone(correctPackageJson);
-
-      const { diffs, expectedPackageJson } = diffPackageJson(
-        packageRoot,
-        packageJson,
-        entries,
-      );
-
-      expectSnapshots({ diffs, packageJson, expectedPackageJson });
-    });
-
-    test('exports out of order', () => {
-      const packageJson = structuredClone(correctPackageJson);
-      const { '.': index, ...otherExports } = packageJson.exports;
-      packageJson.exports = {
-        ...otherExports,
-        '.': index,
-      };
 
       const { diffs, expectedPackageJson } = diffPackageJson(
         packageRoot,
@@ -350,5 +337,87 @@ describe('diffPackageJson', () => {
 
       expectSnapshots({ diffs, expectedPackageJson });
     });
+  });
+});
+
+// we use a mix of `fs`, `fs/promises` and `fs-extra` across the codebase, so the mocks must cover all of them
+vi.mock('fs', () => ({ default: fs }));
+vi.mock('fs/promises', () => ({ default: fs.promises }));
+vi.mock('fs-extra', async () => {
+  const fse = await vi.importActual<any>('fs-extra');
+  return {
+    default: {
+      ...fs,
+      ...fs.promises,
+      // readJson is not available in `memfs`, but it can use a provided `fs` mock
+      readJson: fse.readJson,
+    },
+  };
+});
+
+describe('updatePackageJsonExports', () => {
+  const packageRoot = '/___';
+
+  beforeEach(() => {
+    vol.reset();
+    vol.fromJSON(
+      {
+        'package.json': JSON.stringify(
+          {
+            exports: {
+              '.': './dist/index.js',
+              './entry': {
+                import: './dist/entry.mjs',
+                require: './dist/entry.cjs',
+              },
+              './package.json': './package.json',
+            },
+          },
+          null,
+          2,
+        ),
+      },
+      packageRoot,
+    );
+  });
+
+  test('no exports provided', async () => {
+    await updatePackageJsonExports(packageRoot, []);
+
+    expect(vol.toJSON()).toMatchInlineSnapshot(`
+      {
+        "/___/package.json": "{
+        "exports": {
+          ".": "./dist/index.js",
+          "./entry": {
+            "import": "./dist/entry.mjs",
+            "require": "./dist/entry.cjs"
+          },
+          "./package.json": "./package.json"
+        }
+      }",
+      }
+    `);
+  });
+
+  test('with exports', async () => {
+    await updatePackageJsonExports(packageRoot, ['dist/some/thing.css']);
+
+    expect(vol.toJSON()).toMatchInlineSnapshot(`
+      {
+        "/___/package.json": "{
+        "exports": {
+          ".": "./dist/index.js",
+          "./entry": {
+            "import": "./dist/entry.mjs",
+            "require": "./dist/entry.cjs"
+          },
+          "./dist/some/thing.css": "./dist/some/thing.css",
+          "./package.json": "./package.json"
+        }
+      }
+      ",
+      }
+    `);
   });
 });

@@ -28,6 +28,7 @@ type ExportObject = {
   import: ExportString;
   require: ExportString;
 };
+type Exports = Record<string, ExportString | ExportObject>;
 
 const structuredClone = global.structuredClone ?? structuredClonePolyfill;
 
@@ -44,19 +45,31 @@ const arrayDiff = <T>(array: T[], comparison: T[] | undefined) => {
   return missingItems;
 };
 
+const exportsDiff = (expected: Exports, actual: Exports) => {
+  // Compare only keys which are the same in both objects.
+  // This allows exports to be injected by `updatePackageJsonExports`
+  const actualEntries = Object.entries(actual).filter(
+    ([key]) => key in expected,
+  );
+  return !isDeepStrictEqual(Object.entries(expected), actualEntries);
+};
+
+const makeRelative = (value: string): ExportString =>
+  value.startsWith('./') ? (value as ExportString) : `./${value}`;
+
 const getExportsForPackage = (entries: Entry[], options: { from: string }) => {
   const [$default, other] = partition(entries, (entry) => entry.isDefaultEntry);
   const sortedEntries = [...$default, ...sort(other, 'entryName')];
 
-  const exports: Record<string, ExportString | ExportObject> = {};
+  const exports: Exports = {};
   for (const entry of sortedEntries) {
-    exports[entry.isDefaultEntry ? '.' : `./${entry.entryName}`] = {
-      types: `./${entry.getOutputPath('dts', options)}`,
-      import: `./${entry.getOutputPath('esm', options)}`,
-      require: `./${entry.getOutputPath('cjs', options)}`,
+    exports[entry.isDefaultEntry ? '.' : makeRelative(entry.entryName)] = {
+      types: makeRelative(entry.getOutputPath('dts', options)),
+      import: makeRelative(entry.getOutputPath('esm', options)),
+      require: makeRelative(entry.getOutputPath('cjs', options)),
     };
   }
-  exports['./package.json'] = './package.json';
+  exports[makeRelative('package.json')] = makeRelative('package.json');
 
   return exports;
 };
@@ -128,21 +141,21 @@ export const diffPackageJson = (
 
   // create expected package.json
 
-  let expectedPackageJson: PackageJson = structuredClone(packageJson);
+  let expected = structuredClone(packageJson);
 
   const options = { from: packageRoot };
-  expectedPackageJson.exports = getExportsForPackage(entries, options);
+  expected.exports = getExportsForPackage(entries, options);
 
   const files = new Set(packageJson.files);
   for (const entry of entries) {
     if (entry.isDefaultEntry) {
-      expectedPackageJson.main = `./${entry.getOutputPath('cjs', options)}`;
-      expectedPackageJson.module = `./${entry.getOutputPath('esm', options)}`;
-      expectedPackageJson.types = `./${entry.getOutputPath('dts', options)}`;
+      expected.main = makeRelative(entry.getOutputPath('cjs', options));
+      expected.module = makeRelative(entry.getOutputPath('esm', options));
+      expected.types = makeRelative(entry.getOutputPath('dts', options));
     }
     files.add(entry.entryName);
   }
-  expectedPackageJson.files = sort(files);
+  expected.files = sort(files);
 
   const { sideEffects, missingSideEffects } = getSideEffectsForPackage(
     entries,
@@ -150,42 +163,40 @@ export const diffPackageJson = (
     options,
   );
   if (missingSideEffects.length) {
-    expectedPackageJson.sideEffects = sideEffects;
+    expected.sideEffects = sideEffects;
   }
 
-  expectedPackageJson = sortPackageJson(expectedPackageJson);
+  expected = sortPackageJson(expected);
 
   // do checks against expected package.json
 
   (['main', 'module', 'types'] as const).forEach((key) => {
-    if (expectedPackageJson[key] !== packageJson[key]) {
-      diffs.push({ key, from: packageJson[key], to: expectedPackageJson[key] });
+    if (expected[key] !== packageJson[key]) {
+      diffs.push({ key, from: packageJson[key], to: expected[key] });
     }
   });
 
   if (
-    !isDeepStrictEqual(
-      Object.entries(expectedPackageJson.exports!),
-      Object.entries(packageJson.exports ?? {}),
+    exportsDiff(
+      expected.exports as Exports,
+      (packageJson.exports ?? {}) as Exports,
     )
   ) {
     diffs.push({ key: 'exports' });
   }
 
-  if (!isDeepStrictEqual(expectedPackageJson.files, packageJson.files)) {
+  if (!isDeepStrictEqual(expected.files, packageJson.files)) {
     diffs.push({
       key: 'files',
-      additions: arrayDiff(expectedPackageJson.files!, packageJson.files),
+      additions: arrayDiff(expected.files!, packageJson.files),
     });
   }
 
-  if (
-    !isDeepStrictEqual(expectedPackageJson.sideEffects, packageJson.sideEffects)
-  ) {
+  if (!isDeepStrictEqual(expected.sideEffects, packageJson.sideEffects)) {
     diffs.push({ key: 'sideEffects', additions: missingSideEffects });
   }
 
-  const expectedPackageJsonKeys = Object.keys(expectedPackageJson);
+  const expectedPackageJsonKeys = Object.keys(expected);
   const packageJsonKeys = Object.keys(packageJson);
   if (
     expectedPackageJsonKeys.length === packageJsonKeys.length &&
@@ -196,7 +207,7 @@ export const diffPackageJson = (
 
   return {
     diffs,
-    expectedPackageJson,
+    expectedPackageJson: expected,
   };
 };
 
@@ -224,3 +235,31 @@ const setupPackageJson =
 
 export const validatePackageJson = setupPackageJson(false);
 export const fixPackageJson = setupPackageJson(true);
+
+export const updatePackageJsonExports = async (
+  packageRoot: string,
+  exports: string[],
+) => {
+  if (exports.length === 0) return;
+
+  const packagePath = path.join(packageRoot, 'package.json');
+  const packageJson: PackageJson = await fse.readJson(packagePath, { fs });
+
+  const packageExports = packageJson.exports as Exports;
+
+  const lastKey = Object.keys(packageExports).pop()!;
+  const lastExport = packageExports[lastKey];
+
+  delete packageExports[lastKey];
+  for (const entry of exports) {
+    packageExports[makeRelative(entry)] = makeRelative(entry);
+  }
+  packageExports[lastKey] = lastExport;
+
+  packageJson.exports = packageExports;
+
+  await writePackageJson({
+    dir: packageRoot,
+    contents: packageJson,
+  });
+};

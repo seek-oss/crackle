@@ -1,0 +1,6 @@
+/* #region dist/style.css */
+.external {
+  display: none;
+  font-size: 9px;
+}
+/* #endregion */

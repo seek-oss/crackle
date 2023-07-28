@@ -2,8 +2,10 @@ import fs from 'fs/promises';
 import path from 'path';
 
 import chalk from 'chalk';
+import type { RollupOutput } from 'rollup';
 
 import { type EnhancedConfig, type PartialConfig, getConfig } from '../config';
+import { distDir } from '../constants';
 import { createBundle } from '../package-utils/bundle';
 import { createDtsBundle } from '../package-utils/dts';
 import { renderPackageJsonValidationError } from '../reporters/package';
@@ -15,7 +17,10 @@ import {
   getPackageEntryPoints,
 } from '../utils/entry-points';
 import { updateGitignore } from '../utils/gitignore';
-import { validatePackageJson } from '../utils/setup-package-json';
+import {
+  updatePackageJsonExports,
+  validatePackageJson,
+} from '../utils/setup-package-json';
 
 import { fix } from './fix';
 import { logger } from './logger';
@@ -62,11 +67,12 @@ const build = async (config: EnhancedConfig, packageName: string) => {
     label: string,
   ) => {
     logger.info(`⚙️  Creating ${chalk.bold(label)} bundle...`);
-    await bundle(config, entries);
+    const result = await bundle(config, entries);
     logger.info(`⚙️  Finished creating ${chalk.bold(label)} bundle`);
+    return result;
   };
 
-  await Promise.all([
+  const [bundles] = await Promise.all([
     withLogging(createBundle, 'esm/cjs'),
     withLogging(createDtsBundle, 'dts'),
   ]);
@@ -74,6 +80,14 @@ const build = async (config: EnhancedConfig, packageName: string) => {
   await createEntryPackageJsons(entries);
 
   await updateGitignore(config.root, entries);
+
+  const cssExports = (bundles as RollupOutput[])
+    .flatMap((bundle) => bundle.output)
+    .map((output) => output.fileName)
+    .filter((fileName) => fileName.endsWith('.css'))
+    .map((fileName) => path.join(distDir, fileName));
+
+  await updatePackageJsonExports(config.root, cssExports);
 
   logger.info(`✅ Successfully built ${chalk.bold.green(packageName)}!`);
 };

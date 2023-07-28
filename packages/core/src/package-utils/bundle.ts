@@ -3,7 +3,7 @@ import path from 'path';
 
 import { cssFileFilter as vanillaCssFileFilter } from '@vanilla-extract/integration';
 import fse from 'fs-extra';
-import type { OutputOptions } from 'rollup';
+import type { OutputOptions, RollupOutput } from 'rollup';
 import { normalizePath, build as viteBuild } from 'vite';
 
 import type { EnhancedConfig } from '../config';
@@ -82,7 +82,7 @@ export const createBundle = async (
     } satisfies OutputOptions;
   };
 
-  await viteBuild({
+  const result = (await viteBuild({
     ...commonViteConfig,
     esbuild: {
       jsx: 'automatic',
@@ -105,7 +105,8 @@ export const createBundle = async (
       minify: false,
       rollupOptions: {
         treeshake: {
-          moduleSideEffects: 'no-external',
+          // keep only CSS side-effect imports
+          moduleSideEffects: (id, external) => !external || id.endsWith('.css'),
         },
         output: formats.map((format) => createOutputOptionsForFormat(format)),
         onLog(level, log, defaultHandler) {
@@ -114,5 +115,7 @@ export const createBundle = async (
         },
       },
     },
-  });
+  })) as RollupOutput[]; // because we know that we're building esm and cjs
+
+  return result;
 };

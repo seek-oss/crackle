@@ -98,37 +98,6 @@ Snapshot Diff:
     "main": "./dist/index.cjs",
 `;
 
-exports[`diffPackageJson > incorrect package.json > exports out of order > diffs 1`] = `
-[
-  {
-    "key": "exports",
-  },
-]
-`;
-
-exports[`diffPackageJson > incorrect package.json > exports out of order > package.json 1`] = `
-Snapshot Diff:
-- Diff A
-+ Diff B
-
-@@ --- --- @@
-    "exports": {
-+     ".": {
-+       "types": "./dist/index.d.ts",
-+       "import": "./dist/index.mjs",
-+       "require": "./dist/index.cjs",
-+     },
-      "./css": {
-@@ --- --- @@
-      "./package.json": "./package.json",
--     ".": {
--       "types": "./dist/index.d.ts",
--       "import": "./dist/index.mjs",
--       "require": "./dist/index.cjs",
--     },
-    },
-`;
-
 exports[`diffPackageJson > incorrect package.json > files missing > diffs 1`] = `
 [
   {
