@@ -16,6 +16,7 @@ fixtures/braid-site/dist
 # managed by crackle
 fixtures/dev-entries/cli
 fixtures/dev-entries/dist
+fixtures/dev-entries/re-export
 # end managed by crackle
 
 # managed by crackle

@@ -15,6 +15,11 @@
       "import": "./dist/cli.mjs",
       "require": "./dist/cli.cjs"
     },
+    "./re-export": {
+      "types": "./dist/re-export.d.ts",
+      "import": "./dist/re-export.mjs",
+      "require": "./dist/re-export.cjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "./dist/index.cjs",
@@ -22,7 +27,8 @@
   "types": "./dist/index.d.ts",
   "files": [
     "cli",
-    "dist"
+    "dist",
+    "re-export"
   ],
   "scripts": {
     "dev": "crackle dev",

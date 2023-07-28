@@ -9,32 +9,47 @@ import {
   getPackageEntryPoints,
 } from './entry-points';
 
+const root = '/___';
+const volume = {
+  [`${root}/src/index.ts`]: 'export default {}',
+  [`${root}/src/entries/components.ts`]: 'export const components = {}',
+  [`${root}/src/entries/extras.ts`]: 'export const extras = {}',
+  [`${root}/src/entries/themes/apac.ts`]: 'export default {}',
+};
+
 vi.mock('fs', () => ({ default: fs }));
-vi.mock('fs/promises', () => ({ default: fs.promises }));
 vi.mock('fs-extra', () => ({ default: { ...fs, ...fs.promises } }));
+vi.mock('mlly', () => ({
+  resolveModuleExportNames: (filePath: string) => {
+    // This is not ideal, but refactoring to use the real file system (and make it work with snapshots) would be a lot of work.
+    // Besides, we have an integration test covering this scenario.
+    switch (filePath) {
+      case `${root}/src/index.ts`:
+        return Promise.resolve(['default']);
+      case `${root}/src/entries/components.ts`:
+        return Promise.resolve(['components']);
+      case `${root}/src/entries/extras.ts`:
+        return Promise.resolve(['extras']);
+      case `${root}/src/entries/themes/apac.ts`:
+        return Promise.resolve(['default']);
+      default:
+        throw new Error(`Not mocked: ${filePath}`);
+    }
+  },
+}));
 
 describe('getPackageEntryPoints', () => {
-  const packageRoot = '/___';
-
   beforeEach(() => {
     vol.reset();
-    vol.fromJSON(
-      {
-        'src/index.ts': 'export default {}',
-        'src/entries/components.ts': 'export const components = {}',
-        'src/entries/extras.ts': 'export const extras = {}',
-        'src/entries/themes/apac.ts': 'export default {}',
-      },
-      packageRoot,
-    );
+    vol.fromJSON(volume);
 
     context.enterWith({
-      root: packageRoot,
+      root,
     } as EnhancedConfig);
   });
 
   test('all entry points', async () => {
-    const entryPoints = await getPackageEntryPoints(packageRoot);
+    const entryPoints = await getPackageEntryPoints(root);
 
     expect(entryPoints).toMatchInlineSnapshot(`
       [
@@ -75,7 +90,7 @@ describe('getPackageEntryPoints', () => {
   });
 
   test('getOutputPath for index', async () => {
-    const entryPoints = await getPackageEntryPoints(packageRoot);
+    const entryPoints = await getPackageEntryPoints(root);
     const entry = entryPoints.find(({ isDefaultEntry }) => isDefaultEntry)!;
 
     expect(entry.getOutputPath('esm')).toMatchInlineSnapshot('"index.mjs"');
@@ -84,22 +99,22 @@ describe('getPackageEntryPoints', () => {
   });
 
   test('getOutputPath (from root) for index', async () => {
-    const entryPoints = await getPackageEntryPoints(packageRoot);
+    const entryPoints = await getPackageEntryPoints(root);
     const entry = entryPoints.find(({ isDefaultEntry }) => isDefaultEntry)!;
 
-    expect(
-      entry.getOutputPath('esm', { from: packageRoot }),
-    ).toMatchInlineSnapshot('"dist/index.mjs"');
-    expect(
-      entry.getOutputPath('cjs', { from: packageRoot }),
-    ).toMatchInlineSnapshot('"dist/index.cjs"');
-    expect(
-      entry.getOutputPath('dts', { from: packageRoot }),
-    ).toMatchInlineSnapshot('"dist/index.d.ts"');
+    expect(entry.getOutputPath('esm', { from: root })).toMatchInlineSnapshot(
+      '"dist/index.mjs"',
+    );
+    expect(entry.getOutputPath('cjs', { from: root })).toMatchInlineSnapshot(
+      '"dist/index.cjs"',
+    );
+    expect(entry.getOutputPath('dts', { from: root })).toMatchInlineSnapshot(
+      '"dist/index.d.ts"',
+    );
   });
 
   test('getOutputPath for entry', async () => {
-    const entryPoints = await getPackageEntryPoints(packageRoot);
+    const entryPoints = await getPackageEntryPoints(root);
     const entry = entryPoints.find(({ isDefaultEntry }) => !isDefaultEntry)!;
 
     expect(entry.getOutputPath('esm')).toMatchInlineSnapshot(
@@ -114,22 +129,22 @@ describe('getPackageEntryPoints', () => {
   });
 
   test('getOutputPath (from root) for entry', async () => {
-    const entryPoints = await getPackageEntryPoints(packageRoot);
+    const entryPoints = await getPackageEntryPoints(root);
     const entry = entryPoints.find(({ isDefaultEntry }) => !isDefaultEntry)!;
 
-    expect(
-      entry.getOutputPath('esm', { from: packageRoot }),
-    ).toMatchInlineSnapshot('"dist/components.mjs"');
-    expect(
-      entry.getOutputPath('cjs', { from: packageRoot }),
-    ).toMatchInlineSnapshot('"dist/components.cjs"');
-    expect(
-      entry.getOutputPath('dts', { from: packageRoot }),
-    ).toMatchInlineSnapshot('"dist/components.d.ts"');
+    expect(entry.getOutputPath('esm', { from: root })).toMatchInlineSnapshot(
+      '"dist/components.mjs"',
+    );
+    expect(entry.getOutputPath('cjs', { from: root })).toMatchInlineSnapshot(
+      '"dist/components.cjs"',
+    );
+    expect(entry.getOutputPath('dts', { from: root })).toMatchInlineSnapshot(
+      '"dist/components.d.ts"',
+    );
   });
 
   test('createEntryPackageJsons', async () => {
-    const entryPoints = await getPackageEntryPoints(packageRoot);
+    const entryPoints = await getPackageEntryPoints(root);
 
     await createEntryPackageJsons(entryPoints);
 
@@ -169,7 +184,7 @@ describe('getPackageEntryPoints', () => {
   });
 
   test('cleanPackageEntryPoints', async () => {
-    const entryPoints = await getPackageEntryPoints(packageRoot);
+    const entryPoints = await getPackageEntryPoints(root);
     await createEntryPackageJsons(entryPoints);
 
     await cleanPackageEntryPoints(entryPoints);

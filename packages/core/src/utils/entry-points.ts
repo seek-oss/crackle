@@ -1,9 +1,10 @@
 import fs from 'fs';
 import path from 'path';
+import { pathToFileURL } from 'url';
 
 import dedent from 'dedent';
 import glob from 'fast-glob';
-import { findExportNames } from 'mlly';
+import { resolveModuleExportNames } from 'mlly';
 
 import { getConfigFromContext, type EnhancedConfig } from '../config';
 import { distDir } from '../constants';
@@ -28,8 +29,11 @@ export type Packages = Map<string, Package>;
 export const getExports = async (filePath: string) => {
   const config = getConfigFromContext();
 
-  const fileContents = await fs.promises.readFile(filePath, 'utf-8');
-  const exports = findExportNames(fileContents);
+  const exports = await resolveModuleExportNames(filePath, {
+    url: pathToFileURL(filePath),
+    extensions: ['.js', '.ts', '.tsx'],
+  });
+
   logger.debug(dedent`
     [getExports]
       filePath: ${path.relative(config.root, filePath)}

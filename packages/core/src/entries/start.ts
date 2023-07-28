@@ -28,8 +28,6 @@ import { commonViteConfig } from '../vite-config';
 import { logger } from './logger';
 import { pageGlobSuffix } from './route-data';
 
-export * from '../types';
-
 type Socket = http.IncomingMessage['socket'];
 
 export const start = async (
