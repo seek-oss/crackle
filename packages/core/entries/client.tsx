@@ -9,7 +9,8 @@ import { BrowserRouter, Route, Routes } from '@crackle/router';
 // eslint-disable-next-line import/order
 import browserPageModules from '__BROWSER_PAGE_MODULES';
 
-import React, { useEffect, useState } from 'react';
+import type React from 'react';
+import { useEffect, useState } from 'react';
 import { hydrateRoot } from 'react-dom/client';
 
 import { extractRouteMetadata } from './route-metadata';

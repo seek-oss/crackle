@@ -1,6 +1,6 @@
 import type chalk from 'chalk';
 import { Text } from 'ink';
-import * as React from 'react';
+import type * as React from 'react';
 
 import { Stack } from './Stack';
 

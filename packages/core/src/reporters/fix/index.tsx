@@ -1,5 +1,5 @@
 import { Text, Box } from 'ink';
-import * as React from 'react';
+import type * as React from 'react';
 
 import { logger } from '../../entries/logger';
 import { partition } from '../../utils/partition';
