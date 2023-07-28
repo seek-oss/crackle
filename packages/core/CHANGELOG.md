@@ -1,5 +1,55 @@
 # @crackle/core
 
+## 0.28.0
+
+### Minor Changes
+
+- [#128](https://github.com/seek-oss/crackle/pull/128) [`433a30f`](https://github.com/seek-oss/crackle/commit/433a30f5ac81a107083b8d1c24ab9999f6f33ea4) Thanks [@mrm007](https://github.com/mrm007)! - Crackle now supports importing external CSS.
+
+  This is useful when consuming packages which come with their own CSS, such as [Pure React Carousel](https://github.com/express-labs/pure-react-carousel).
+
+  External CSS can be imported with a side-effect `import`, same as how you would import a JavaScript or TypeScript module:
+
+  ```tsx
+  // src/components/MyComponent.tsx
+  import 'package-with-styles/dist/styles.css';
+
+  import { Component } from 'package-with-styles';
+
+  export const MyComponent = (props) => {
+    <Component {...props} />;
+  };
+  ```
+
+  The side-effect import will be preserved in the output bundles.
+
+  External CSS can also be imported with a CSS `@import` rule:
+
+  ```css
+  /* src/components/MyComponent/third-party.css */
+  @import 'package-with-styles/dist/styles.css';
+  ```
+
+  ```tsx
+  // src/components/MyComponent.tsx
+  import './third-party.css';
+
+  export const MyComponent = () => {
+    // ...
+  };
+  ```
+
+  When importing with a CSS `@import` rule, Crackle will bundle all external CSS into one file and output it to the `dist` directory.
+  Package exports will also be updated so consumers can import the bundled CSS.
+
+- [#127](https://github.com/seek-oss/crackle/pull/127) [`f52495d`](https://github.com/seek-oss/crackle/commit/f52495dfaf603ba8f4dd87fc516b5ddb5ad07bd6) Thanks [@mrm007](https://github.com/mrm007)! - Update dependencies
+
+### Patch Changes
+
+- [#129](https://github.com/seek-oss/crackle/pull/129) [`2b57d2f`](https://github.com/seek-oss/crackle/commit/2b57d2f1cb84a2452c8a33c46dcb42b58becb095) Thanks [@mrm007](https://github.com/mrm007)! - Correctly resolve module exports when running `crackle dev`
+
+  This fixes an issue where `crackle dev` would not resolve an entry's exports when the entry re-exported from another module using `export * from ...` syntax.
+
 ## 0.27.1
 
 ### Patch Changes
