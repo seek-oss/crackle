@@ -44,7 +44,7 @@ export const createDtsBundle = async (
     preserveEntrySignatures: 'strict',
   });
 
-  await bundle.write({
+  const result = await bundle.write({
     ...commonOutputOptions(config, entries, 'dts'),
     exports: 'named',
     format: 'esm',
@@ -58,4 +58,6 @@ export const createDtsBundle = async (
   });
 
   await bundle.close();
+
+  return result;
 };

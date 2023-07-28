@@ -237,6 +237,8 @@ export const updatePackageJsonExports = async (
   packageRoot: string,
   exports: string[],
 ) => {
+  if (exports.length === 0) return;
+
   const packagePath = path.join(packageRoot, 'package.json');
   const packageJson: PackageJson = await fse.readJson(packagePath, { fs });
 
