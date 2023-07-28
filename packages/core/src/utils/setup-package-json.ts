@@ -28,6 +28,7 @@ type ExportObject = {
   import: ExportString;
   require: ExportString;
 };
+type Exports = Record<string, ExportString | ExportObject>;
 
 const structuredClone = global.structuredClone ?? structuredClonePolyfill;
 
@@ -44,16 +45,13 @@ const arrayDiff = <T>(array: T[], comparison: T[] | undefined) => {
   return missingItems;
 };
 
-const exportsDiff = (
-  expected: NonNullable<PackageJson['exports']>,
-  actual: NonNullable<PackageJson['exports']>,
-) => {
-  const keysDiff = arrayDiff(Object.keys(expected), Object.keys(actual));
-  const valuesDiff = arrayDiff(
-    Object.values(expected).map((value) => JSON.stringify(value)),
-    Object.values(actual).map((value) => JSON.stringify(value)),
+const exportsDiff = (expected: Exports, actual: Exports) => {
+  // Compare only keys which are the same in both objects.
+  // This allows exports to be injected by `updatePackageJsonExports`
+  const actualEntries = Object.entries(actual).filter(
+    ([key]) => key in expected,
   );
-  return keysDiff.length > 0 || valuesDiff.length > 0;
+  return !isDeepStrictEqual(Object.entries(expected), actualEntries);
 };
 
 const makeRelative = (value: string): ExportString =>
@@ -63,7 +61,7 @@ const getExportsForPackage = (entries: Entry[], options: { from: string }) => {
   const [$default, other] = partition(entries, (entry) => entry.isDefaultEntry);
   const sortedEntries = [...$default, ...sort(other, 'entryName')];
 
-  const exports: Record<string, ExportString | ExportObject> = {};
+  const exports: Exports = {};
   for (const entry of sortedEntries) {
     exports[entry.isDefaultEntry ? '.' : makeRelative(entry.entryName)] = {
       types: makeRelative(entry.getOutputPath('dts', options)),
@@ -178,7 +176,12 @@ export const diffPackageJson = (
     }
   });
 
-  if (exportsDiff(expected.exports!, packageJson.exports ?? {})) {
+  if (
+    exportsDiff(
+      expected.exports as Exports,
+      (packageJson.exports ?? {}) as Exports,
+    )
+  ) {
     diffs.push({ key: 'exports' });
   }
 
@@ -237,10 +240,12 @@ export const updatePackageJsonExports = async (
   packageRoot: string,
   exports: string[],
 ) => {
+  if (exports.length === 0) return;
+
   const packagePath = path.join(packageRoot, 'package.json');
   const packageJson: PackageJson = await fse.readJson(packagePath, { fs });
 
-  const packageExports = packageJson.exports! as Record<string, any>;
+  const packageExports = packageJson.exports as Exports;
 
   const lastKey = Object.keys(packageExports).pop()!;
   const lastExport = packageExports[lastKey];

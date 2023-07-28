@@ -82,8 +82,7 @@ const build = async (config: EnhancedConfig, packageName: string) => {
   await updateGitignore(config.root, entries);
 
   const cssExports = (bundles as RollupOutput[])
-    .map((bundle) => bundle.output)
-    .flat()
+    .flatMap((bundle) => bundle.output)
     .map((output) => output.fileName)
     .filter((fileName) => fileName.endsWith('.css'))
     .map((fileName) => path.join(distDir, fileName));
