@@ -1,4 +1,5 @@
 import path from 'path';
+import { fileURLToPath } from 'url';
 
 import dedent from 'dedent';
 import fse from 'fs-extra';
@@ -31,7 +32,7 @@ const argv = await yargs(process.argv.slice(2))
   .parse();
 console.log();
 
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const repo = 'git@github.com:seek-oss/braid-design-system.git';
 const submodule = 'fixtures/braid-design-system';

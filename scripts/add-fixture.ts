@@ -1,4 +1,5 @@
 import path from 'path';
+import { fileURLToPath } from 'url';
 
 import enquirer from 'enquirer';
 import glob from 'fast-glob';
@@ -38,7 +39,7 @@ const template = {
   index: (_answers: Answers) => `export default {}`,
 };
 
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const fixturesDir = path.join(__dirname, '../fixtures');
 

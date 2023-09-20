@@ -527,6 +527,9 @@ importers:
       '@types/fs-extra':
         specifier: ^11.0.1
         version: 11.0.1
+      '@types/node':
+        specifier: ^18.17.1
+        version: 18.17.1
       '@types/yargs':
         specifier: ^17.0.24
         version: 17.0.24
