@@ -34,7 +34,7 @@ const getHookLoader = async (entry: PackageEntryPoint, format: Format) => {
       const ${rekwire} = createRequire(import.meta.url);
     `;
 
-    const hookPath = await resolveFrom('.', 'tsm');
+    const hookPath = await resolveFrom('.', 'tsx/cjs');
 
     setup = dedent`
       ${format === 'esm' ? shims : ''}
