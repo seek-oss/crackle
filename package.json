@@ -41,17 +41,16 @@
     "@crackle-private/bootstrap": "workspace:*",
     "@crackle/cli": "workspace:*",
     "@crackle/core": "workspace:*",
-    "@playwright/test": "^1.32.0",
+    "@playwright/test": "^1.40.0",
     "@preconstruct/eslint-plugin-format-js-tag": "^0.4.0",
-    "eslint": "^8.45.0",
+    "eslint": "^8.54.0",
     "eslint-config-seek": "^11.3.1",
     "ignore-sync": "^7.0.1",
     "prettier": "^2.8.8",
-    "tsx": "^3.12.7",
-    "typescript": "~5.1.6",
+    "tsx": "^4.3.0",
+    "typescript": "~5.2.2",
     "vitest": "^0.33.0",
-    "webpack": "^5.79.0",
-    "wireit": "^0.10.0"
+    "wireit": "^0.14.1"
   },
   "packageManager": "pnpm@8.5.1",
   "volta": {
@@ -71,7 +70,7 @@
       ]
     },
     "overrides": {
-      "tsm>esbuild": "^0.18.10"
+      "ink>@types/react": "^18"
     }
   },
   "wireit": {
