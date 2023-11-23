@@ -59,13 +59,15 @@ export const build = async (inlineConfig?: PartialConfig) => {
     },
   };
 
+  const manifestPath = 'manifest.json';
+
   try {
     logger.info(`🛠  Building ${chalk.bold('client')}...`);
     await viteBuild({
       ...commonBuildConfig,
       base: config.publicPath,
       build: {
-        manifest: true,
+        manifest: manifestPath,
         rollupOptions: {
           input: clientEntry,
         },
@@ -113,7 +115,7 @@ export const build = async (inlineConfig?: PartialConfig) => {
       renderAllPages: RenderAllPagesFn;
     };
     const manifest = (await fse.readJson(
-      `${outDir}/manifest.json`,
+      `${outDir}/${manifestPath}`,
     )) as Manifest;
     const pages = await renderAllPages(manifest, config.publicPath);
 
