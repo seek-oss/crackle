@@ -3,7 +3,7 @@ import path from 'path';
 
 import { cssFileFilter as vanillaCssFileFilter } from '@vanilla-extract/integration';
 import fse from 'fs-extra';
-import type { OutputOptions, RollupOutput } from 'rollup';
+import type { Rollup } from 'vite';
 import { normalizePath, build as viteBuild } from 'vite';
 
 import type { EnhancedConfig } from '../config';
@@ -79,7 +79,7 @@ export const createBundle = async (
           return normalizePath(`${sideEffectsDir}/${srcPath}`);
         }
       },
-    } satisfies OutputOptions;
+    } satisfies Rollup.OutputOptions;
   };
 
   const result = (await viteBuild({
@@ -115,7 +115,7 @@ export const createBundle = async (
         },
       },
     },
-  })) as RollupOutput[]; // because we know that we're building esm and cjs
+  })) as Rollup.RollupOutput[]; // because we know that we're building esm and cjs
 
   return result;
 };

@@ -29,8 +29,6 @@ export const addPageRoots = (config: EnhancedConfig): Plugin => ({
       return;
     }
 
-    const globMethod = id === prefix(browserPageModules) ? 'glob' : 'globEager';
-
     // Vite v3 supports multiple patterns
     // https://vitejs.dev/guide/features.html#glob-import
     const combinedPageRoots = config.pageRoots
@@ -45,10 +43,8 @@ export const addPageRoots = (config: EnhancedConfig): Plugin => ({
 
     const glob = path.join('/', output, pageGlobSuffix);
 
-    // In Vite v3
-    // - globEager is deprecated
-    // - Keys of import.meta.glob are now relative to the current module.
-    // https://vitejs.dev/guide/migration.html#general-changes
-    return `export default import.meta.${globMethod}('${glob}');`;
+    return `export default import.meta.glob('${glob}', { ${
+      id === prefix(browserPageModules) ? '' : 'eager: true'
+    } });`;
   },
 });
