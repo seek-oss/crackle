@@ -45,6 +45,9 @@ export const createBundle = async (
       inlineDynamicImports: false,
       interop: 'compat',
       format,
+      hoistTransitiveImports: false,
+      // prevent chunks -- we'll manage them ourselves
+      experimentalMinChunkSize: 0,
       manualChunks(id, { getModuleInfo }) {
         const srcPath = replaceExtension(getSrcPath(id));
 
@@ -62,7 +65,7 @@ export const createBundle = async (
           logger.debug(`External module: ${id}`);
           return;
         }
-        if (isVanillaFile(id) || moduleInfo.importers.some(isVanillaFile)) {
+        if (isVanillaFile(id)) {
           logger.debug(`Vanilla file: ${getRelativePath(id)}`);
           return normalizePath(`${stylesDir}/${srcPath}`);
         }
@@ -77,6 +80,15 @@ export const createBundle = async (
         ) {
           logger.debug(`Has side-effects: ${getRelativePath(id)}`);
           return normalizePath(`${sideEffectsDir}/${srcPath}`);
+        }
+        if (
+          // Prevent concatenation of files imported by Vanilla Extract styles, to improve performance of the Vanilla Extract compiler
+          moduleInfo.importers.some(isVanillaFile) ||
+          // Prevent concatenation of files which import Vanilla Extract styles, to ensure only the CSS for one file is extracted at build time. Concatenating these files would cause the CSS for all of them to be extracted at build time.
+          moduleInfo.importedIds.some(isVanillaFile)
+        ) {
+          logger.debug(`Vanilla deps: ${getRelativePath(id)}`);
+          return normalizePath(`${stylesDir}/${srcPath}`);
         }
       },
     } satisfies Rollup.OutputOptions;
@@ -104,13 +116,19 @@ export const createBundle = async (
       },
       minify: false,
       rollupOptions: {
+        preserveEntrySignatures: 'strict',
         treeshake: {
           // keep only CSS side-effect imports
           moduleSideEffects: (id, external) => !external || id.endsWith('.css'),
         },
         output: formats.map((format) => createOutputOptionsForFormat(format)),
         onLog(level, log, defaultHandler) {
-          if (log.code === 'EMPTY_BUNDLE') return false;
+          if (
+            log.code === 'EMPTY_BUNDLE' ||
+            log.code === 'OPTIMIZE_CHUNK_STATUS'
+          ) {
+            return false;
+          }
           defaultHandler(level, log);
         },
       },
