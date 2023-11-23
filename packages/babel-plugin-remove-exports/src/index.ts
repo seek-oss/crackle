@@ -74,7 +74,8 @@ export default function (): PluginObj<Context> {
               !statementBindsKeptIdentifier &&
               !(
                 statementExportsKeptIdentifier ||
-                (opts.retainDefault && t.isExportDefaultDeclaration(statement))
+                (opts.retainDefault &&
+                  t.isExportDefaultDeclaration(statement.node))
               )
             ) {
               statement.remove();
