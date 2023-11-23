@@ -1,4 +1,9 @@
 import { transformAsync as babelTransform } from '@babel/core';
+// @ts-expect-error no types
+import babelPluginSyntaxJsx from '@babel/plugin-syntax-jsx';
+// @ts-expect-error no types
+import babelPluginSyntaxTypescript from '@babel/plugin-syntax-typescript';
+import babelPluginRemoveExports from '@crackle/babel-plugin-remove-exports';
 import type { Plugin } from 'vite';
 
 export const stripRouteData = (): Plugin => ({
@@ -13,11 +18,11 @@ export const stripRouteData = (): Plugin => ({
     const transformedContents = await babelTransform(code, {
       plugins: [
         [
-          require.resolve('@crackle/babel-plugin-remove-exports'),
+          babelPluginRemoveExports,
           { retainDefault: true, retainIdentifiers: ['React'] },
         ],
-        require.resolve('@babel/plugin-syntax-jsx'),
-        [require.resolve('@babel/plugin-syntax-typescript'), { isTSX: true }],
+        babelPluginSyntaxJsx,
+        [babelPluginSyntaxTypescript, { isTSX: true }],
       ],
       babelrc: false,
       configFile: false,

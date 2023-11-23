@@ -1,6 +1,11 @@
 import path from 'path';
 
 import { transformFileAsync as babelTransform } from '@babel/core';
+// @ts-expect-error no types
+import babelPluginSyntaxJsx from '@babel/plugin-syntax-jsx';
+// @ts-expect-error no types
+import babelPluginSyntaxTypescript from '@babel/plugin-syntax-typescript';
+import babelPluginRemoveExports from '@crackle/babel-plugin-remove-exports';
 import type { RouteData } from '@crackle/router';
 import { build as esbuild } from 'esbuild';
 import _eval from 'eval';
@@ -17,12 +22,9 @@ const transformWithBabel = async (file: string) => {
   // TODO: merge with src/plugins/vite/strip-route-data.ts
   const transformedContents = await babelTransform(file, {
     plugins: [
-      [
-        require.resolve('@crackle/babel-plugin-remove-exports'),
-        { retainExports: ['routeData'] },
-      ],
-      require.resolve('@babel/plugin-syntax-jsx'),
-      [require.resolve('@babel/plugin-syntax-typescript'), { isTSX: true }],
+      [babelPluginRemoveExports, { retainExports: ['routeData'] }],
+      babelPluginSyntaxJsx,
+      [babelPluginSyntaxTypescript, { isTSX: true }],
     ],
     babelrc: false,
     configFile: false,
