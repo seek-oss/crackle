@@ -1,0 +1,23 @@
+/* #region dist/side-effects/lib/components/BraidProvider.cjs */
+"use strict";
+const jsxRuntime = require("react/jsx-runtime");
+const sideEffects_lib_reset_resetTracker_cjs = require("../reset/resetTracker.cjs");
+if (process.env.NODE_ENV === "development") {
+  sideEffects_lib_reset_resetTracker_cjs.ensureResetImported();
+}
+const BraidProvider = ({ children }) => /* @__PURE__ */ jsxRuntime.jsx(jsxRuntime.Fragment, { children });
+exports.BraidProvider = BraidProvider;
+/* #endregion */
+
+
+/* #region dist/side-effects/lib/components/BraidProvider.mjs */
+import { jsx, Fragment } from "react/jsx-runtime";
+import { ensureResetImported } from "../reset/resetTracker.mjs";
+if (process.env.NODE_ENV === "development") {
+  ensureResetImported();
+}
+const BraidProvider = ({ children }) => /* @__PURE__ */ jsx(Fragment, { children });
+export {
+  BraidProvider
+};
+/* #endregion */

@@ -1,0 +1,19 @@
+/* #region dist/styles/Component.cjs */
+"use strict";
+const jsxRuntime = require("react/jsx-runtime");
+require("@crackle-fixtures/package-with-styles/styles.css");
+const styles_Component_css_cjs = require("./Component.css.cjs");
+const Component = () => /* @__PURE__ */ jsxRuntime.jsx("div", { className: styles_Component_css_cjs.redBorder, children: /* @__PURE__ */ jsxRuntime.jsx("span", { className: "external" }) });
+exports.Component = Component;
+/* #endregion */
+
+
+/* #region dist/styles/Component.mjs */
+import { jsx } from "react/jsx-runtime";
+import "@crackle-fixtures/package-with-styles/styles.css";
+import { redBorder } from "./Component.css.mjs";
+const Component = () => /* @__PURE__ */ jsx("div", { className: redBorder, children: /* @__PURE__ */ jsx("span", { className: "external" }) });
+export {
+  Component
+};
+/* #endregion */

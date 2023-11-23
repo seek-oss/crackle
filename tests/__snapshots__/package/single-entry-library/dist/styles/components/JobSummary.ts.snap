@@ -1,0 +1,77 @@
+/* #region dist/styles/components/JobSummary.cjs */
+"use strict";
+const jsxRuntime = require("react/jsx-runtime");
+const braidDesignSystem = require("braid-design-system");
+const styles_components_addFn_cjs = require("./add-fn.cjs");
+const styles_components_styles_css_cjs = require("./styles.css.cjs");
+const JobSummary = ({ title, isNew }) => /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Card, { children: /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Box, { className: styles_components_styles_css_cjs.redBorder, id: "CUSTOM_STYLED_BOX_COMPONENT", children: /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Stack, { space: "gutter", children: [
+  /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Columns, { space: "gutter", children: [
+    /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Column, { children: /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Stack, { space: "small", children: [
+      isNew && /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Badge, { tone: "positive", children: "New" }),
+      /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Heading, { level: "3", children: title }),
+      /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Inline, { space: "small", children: [
+        /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Text, { tone: "secondary", children: "Braid Design Pty Ltd" }),
+        /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Rating, { rating: styles_components_addFn_cjs.add(2, 1) })
+      ] })
+    ] }) }),
+    /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Column, { width: "content", children: /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.IconBookmark, {}) })
+  ] }),
+  /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Stack, { space: "small", children: [
+    /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Text, { size: "small", tone: "secondary", children: [
+      /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.IconLocation, {}),
+      " Melbourne"
+    ] }),
+    /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Text, { size: "small", tone: "secondary", children: [
+      /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.IconTag, {}),
+      " Information Technology"
+    ] }),
+    /* @__PURE__ */ jsxRuntime.jsxs(braidDesignSystem.Text, { size: "small", tone: "secondary", children: [
+      /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.IconMoney, {}),
+      " 150k+"
+    ] })
+  ] }),
+  /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Text, { children: "Long description of card details providing more information." }),
+  /* @__PURE__ */ jsxRuntime.jsx(braidDesignSystem.Text, { size: "xsmall", tone: "secondary", children: "2d ago" })
+] }) }) });
+exports.JobSummary = JobSummary;
+/* #endregion */
+
+
+/* #region dist/styles/components/JobSummary.mjs */
+import { jsx, jsxs } from "react/jsx-runtime";
+import { Card, Box, Stack, Columns, Column, Badge, Heading, Inline, Text, Rating, IconBookmark, IconLocation, IconTag, IconMoney } from "braid-design-system";
+import { add } from "./add-fn.mjs";
+import { redBorder } from "./styles.css.mjs";
+const JobSummary = ({ title, isNew }) => /* @__PURE__ */ jsx(Card, { children: /* @__PURE__ */ jsx(Box, { className: redBorder, id: "CUSTOM_STYLED_BOX_COMPONENT", children: /* @__PURE__ */ jsxs(Stack, { space: "gutter", children: [
+  /* @__PURE__ */ jsxs(Columns, { space: "gutter", children: [
+    /* @__PURE__ */ jsx(Column, { children: /* @__PURE__ */ jsxs(Stack, { space: "small", children: [
+      isNew && /* @__PURE__ */ jsx(Badge, { tone: "positive", children: "New" }),
+      /* @__PURE__ */ jsx(Heading, { level: "3", children: title }),
+      /* @__PURE__ */ jsxs(Inline, { space: "small", children: [
+        /* @__PURE__ */ jsx(Text, { tone: "secondary", children: "Braid Design Pty Ltd" }),
+        /* @__PURE__ */ jsx(Rating, { rating: add(2, 1) })
+      ] })
+    ] }) }),
+    /* @__PURE__ */ jsx(Column, { width: "content", children: /* @__PURE__ */ jsx(IconBookmark, {}) })
+  ] }),
+  /* @__PURE__ */ jsxs(Stack, { space: "small", children: [
+    /* @__PURE__ */ jsxs(Text, { size: "small", tone: "secondary", children: [
+      /* @__PURE__ */ jsx(IconLocation, {}),
+      " Melbourne"
+    ] }),
+    /* @__PURE__ */ jsxs(Text, { size: "small", tone: "secondary", children: [
+      /* @__PURE__ */ jsx(IconTag, {}),
+      " Information Technology"
+    ] }),
+    /* @__PURE__ */ jsxs(Text, { size: "small", tone: "secondary", children: [
+      /* @__PURE__ */ jsx(IconMoney, {}),
+      " 150k+"
+    ] })
+  ] }),
+  /* @__PURE__ */ jsx(Text, { children: "Long description of card details providing more information." }),
+  /* @__PURE__ */ jsx(Text, { size: "xsmall", tone: "secondary", children: "2d ago" })
+] }) }) });
+export {
+  JobSummary
+};
+/* #endregion */

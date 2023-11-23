@@ -1,29 +1,25 @@
 /* #region dist/reset.cjs */
 "use strict";
-Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
-require("./side-effects/lib/reset/index.cjs");
-const styles_lib_breakpoints_cjs = require("./styles/lib/breakpoints.cjs");
-if (process.env.NO_SIDE_EFFECTS !== "clearly") {
-  throw new Error("side-effect");
+require("./styles/lib/reset/reset.css.cjs");
+require("./styles/lib/atoms/sprinkles.css.cjs");
+const sideEffects_lib_reset_resetTracker_cjs = require("./side-effects/lib/reset/resetTracker.cjs");
+if (process.env.NODE_ENV === "development") {
+  sideEffects_lib_reset_resetTracker_cjs.markResetImported();
 }
-exports.breakpointNames = styles_lib_breakpoints_cjs.breakpointNames;
-exports.breakpoints = styles_lib_breakpoints_cjs.breakpoints;
 /* #endregion */
 
 
 /* #region dist/reset.d.ts */
-export { Breakpoint, breakpointNames, breakpoints } from './css-more.js';
+
+export {  }
 /* #endregion */
 
 
 /* #region dist/reset.mjs */
-import "./side-effects/lib/reset/index.mjs";
-import { breakpointNames, breakpoints } from "./styles/lib/breakpoints.mjs";
-if (process.env.NO_SIDE_EFFECTS !== "clearly") {
-  throw new Error("side-effect");
+import "./styles/lib/reset/reset.css.mjs";
+import "./styles/lib/atoms/sprinkles.css.mjs";
+import { markResetImported } from "./side-effects/lib/reset/resetTracker.mjs";
+if (process.env.NODE_ENV === "development") {
+  markResetImported();
 }
-export {
-  breakpointNames,
-  breakpoints
-};
 /* #endregion */
