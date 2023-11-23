@@ -10,7 +10,7 @@ exports.atoms = styles_lib_atoms_atoms_cjs.atoms;
 
 
 /* #region dist/css-more.d.ts */
-export { Atoms, Breakpoint, ResponsiveSpace, Space, atoms, breakpointNames, breakpoints } from './reset.chunk.js';
+export { Breakpoint, atoms, breakpointNames, breakpoints } from './reset.chunk.js';
 /* #endregion */
 
 

@@ -1,7 +1,6 @@
 /* #region dist/reset.chunk.d.ts */
 import { ReactNode } from 'react';
 import * as _vanilla_extract_sprinkles from '@vanilla-extract/sprinkles';
-import { RequiredConditionalValue } from '@vanilla-extract/sprinkles';
 
 declare const Box: () => null;
 
@@ -18,282 +17,70 @@ declare const breakpoints: {
 };
 type Breakpoint = keyof typeof breakpoints;
 
-declare const responsiveAtomicProperties: {
-    conditions: {
-        defaultCondition: "mobile";
-        conditionNames: ("mobile" | "tablet" | "desktop" | "wide")[];
-        responsiveArray: ("mobile" | "tablet" | "desktop" | "wide")[] & {
-            length: 4;
-        };
-    };
-    styles: {
-        readonly display: {
-            responsiveArray: ("mobile" | "tablet" | "desktop" | "wide")[] & {
-                length: 4;
-            };
-            values: {
-                flex: {
-                    defaultClass: string;
-                    conditions: {
-                        mobile: string;
-                        tablet: string;
-                        desktop: string;
-                        wide: string;
-                    };
-                };
-                none: {
-                    defaultClass: string;
-                    conditions: {
-                        mobile: string;
-                        tablet: string;
-                        desktop: string;
-                        wide: string;
-                    };
-                };
-                block: {
-                    defaultClass: string;
-                    conditions: {
-                        mobile: string;
-                        tablet: string;
-                        desktop: string;
-                        wide: string;
-                    };
-                };
-                inline: {
-                    defaultClass: string;
-                    conditions: {
-                        mobile: string;
-                        tablet: string;
-                        desktop: string;
-                        wide: string;
-                    };
-                };
-                inlineBlock: {
-                    defaultClass: string;
-                    conditions: {
-                        mobile: string;
-                        tablet: string;
-                        desktop: string;
-                        wide: string;
-                    };
-                };
-            };
-        };
-        readonly position: {
-            responsiveArray: ("mobile" | "tablet" | "desktop" | "wide")[] & {
-                length: 4;
-            };
-            values: {
-                fixed: {
-                    defaultClass: string;
-                    conditions: {
-                        mobile: string;
-                        tablet: string;
-                        desktop: string;
-                        wide: string;
-                    };
-                };
-                absolute: {
-                    defaultClass: string;
-                    conditions: {
-                        mobile: string;
-                        tablet: string;
-                        desktop: string;
-                        wide: string;
-                    };
-                };
-                relative: {
-                    defaultClass: string;
-                    conditions: {
-                        mobile: string;
-                        tablet: string;
-                        desktop: string;
-                        wide: string;
-                    };
-                };
-            };
-        };
-        readonly paddingTop: {
-            responsiveArray: ("mobile" | "tablet" | "desktop" | "wide")[] & {
-                length: 4;
-            };
-            values: {
-                medium: {
-                    defaultClass: string;
-                    conditions: {
-                        mobile: string;
-                        tablet: string;
-                        desktop: string;
-                        wide: string;
-                    };
-                };
-                none: {
-                    defaultClass: string;
-                    conditions: {
-                        mobile: string;
-                        tablet: string;
-                        desktop: string;
-                        wide: string;
-                    };
-                };
-            };
-        };
-        readonly paddingBottom: {
-            responsiveArray: ("mobile" | "tablet" | "desktop" | "wide")[] & {
-                length: 4;
-            };
-            values: {
-                medium: {
-                    defaultClass: string;
-                    conditions: {
-                        mobile: string;
-                        tablet: string;
-                        desktop: string;
-                        wide: string;
-                    };
-                };
-                none: {
-                    defaultClass: string;
-                    conditions: {
-                        mobile: string;
-                        tablet: string;
-                        desktop: string;
-                        wide: string;
-                    };
-                };
-            };
-        };
-        readonly paddingRight: {
-            responsiveArray: ("mobile" | "tablet" | "desktop" | "wide")[] & {
-                length: 4;
-            };
-            values: {
-                medium: {
-                    defaultClass: string;
-                    conditions: {
-                        mobile: string;
-                        tablet: string;
-                        desktop: string;
-                        wide: string;
-                    };
-                };
-                none: {
-                    defaultClass: string;
-                    conditions: {
-                        mobile: string;
-                        tablet: string;
-                        desktop: string;
-                        wide: string;
-                    };
-                };
-            };
-        };
-        readonly paddingLeft: {
-            responsiveArray: ("mobile" | "tablet" | "desktop" | "wide")[] & {
-                length: 4;
-            };
-            values: {
-                medium: {
-                    defaultClass: string;
-                    conditions: {
-                        mobile: string;
-                        tablet: string;
-                        desktop: string;
-                        wide: string;
-                    };
-                };
-                none: {
-                    defaultClass: string;
-                    conditions: {
-                        mobile: string;
-                        tablet: string;
-                        desktop: string;
-                        wide: string;
-                    };
-                };
-            };
-        };
-    };
-} & {
-    styles: {
-        padding: {
-            mappings: ("paddingBottom" | "paddingLeft" | "paddingRight" | "paddingTop")[];
-        };
-        paddingY: {
-            mappings: ("paddingBottom" | "paddingTop")[];
-        };
-        paddingX: {
-            mappings: ("paddingLeft" | "paddingRight")[];
-        };
-    };
-};
 declare const sprinkles: ((props: {
-    readonly display?: ("flex" | "none" | "block" | "inline" | "inlineBlock" | {
-        mobile?: "flex" | "none" | "block" | "inline" | "inlineBlock" | undefined;
-        tablet?: "flex" | "none" | "block" | "inline" | "inlineBlock" | undefined;
-        desktop?: "flex" | "none" | "block" | "inline" | "inlineBlock" | undefined;
-        wide?: "flex" | "none" | "block" | "inline" | "inlineBlock" | undefined;
-    } | undefined) | _vanilla_extract_sprinkles.ResponsiveArray<4 | 1 | 3 | 2, "flex" | "none" | "block" | "inline" | "inlineBlock" | null>;
-    readonly position?: ("fixed" | "absolute" | "relative" | {
-        mobile?: "fixed" | "absolute" | "relative" | undefined;
-        tablet?: "fixed" | "absolute" | "relative" | undefined;
-        desktop?: "fixed" | "absolute" | "relative" | undefined;
-        wide?: "fixed" | "absolute" | "relative" | undefined;
-    } | undefined) | _vanilla_extract_sprinkles.ResponsiveArray<4 | 1 | 3 | 2, "fixed" | "absolute" | "relative" | null>;
-    readonly paddingTop?: ("medium" | "none" | {
-        mobile?: "medium" | "none" | undefined;
-        tablet?: "medium" | "none" | undefined;
-        desktop?: "medium" | "none" | undefined;
-        wide?: "medium" | "none" | undefined;
-    } | undefined) | _vanilla_extract_sprinkles.ResponsiveArray<4 | 1 | 3 | 2, "medium" | "none" | null>;
-    readonly paddingBottom?: ("medium" | "none" | {
-        mobile?: "medium" | "none" | undefined;
-        tablet?: "medium" | "none" | undefined;
-        desktop?: "medium" | "none" | undefined;
-        wide?: "medium" | "none" | undefined;
-    } | undefined) | _vanilla_extract_sprinkles.ResponsiveArray<4 | 1 | 3 | 2, "medium" | "none" | null>;
-    readonly paddingRight?: ("medium" | "none" | {
-        mobile?: "medium" | "none" | undefined;
-        tablet?: "medium" | "none" | undefined;
-        desktop?: "medium" | "none" | undefined;
-        wide?: "medium" | "none" | undefined;
-    } | undefined) | _vanilla_extract_sprinkles.ResponsiveArray<4 | 1 | 3 | 2, "medium" | "none" | null>;
-    readonly paddingLeft?: ("medium" | "none" | {
-        mobile?: "medium" | "none" | undefined;
-        tablet?: "medium" | "none" | undefined;
-        desktop?: "medium" | "none" | undefined;
-        wide?: "medium" | "none" | undefined;
-    } | undefined) | _vanilla_extract_sprinkles.ResponsiveArray<4 | 1 | 3 | 2, "medium" | "none" | null>;
-    padding?: ("medium" | "none" | {
-        mobile?: "medium" | "none" | undefined;
-        tablet?: "medium" | "none" | undefined;
-        desktop?: "medium" | "none" | undefined;
-        wide?: "medium" | "none" | undefined;
-    } | undefined) | _vanilla_extract_sprinkles.ResponsiveArray<4 | 1 | 3 | 2, "medium" | "none" | null>;
-    paddingY?: ("medium" | "none" | {
-        mobile?: "medium" | "none" | undefined;
-        tablet?: "medium" | "none" | undefined;
-        desktop?: "medium" | "none" | undefined;
-        wide?: "medium" | "none" | undefined;
-    } | undefined) | _vanilla_extract_sprinkles.ResponsiveArray<4 | 1 | 3 | 2, "medium" | "none" | null>;
-    paddingX?: ("medium" | "none" | {
-        mobile?: "medium" | "none" | undefined;
-        tablet?: "medium" | "none" | undefined;
-        desktop?: "medium" | "none" | undefined;
-        wide?: "medium" | "none" | undefined;
-    } | undefined) | _vanilla_extract_sprinkles.ResponsiveArray<4 | 1 | 3 | 2, "medium" | "none" | null>;
+    readonly display?: ("none" | "block" | "inline" | "flex" | "inlineBlock" | {
+        mobile?: "none" | "block" | "inline" | "flex" | "inlineBlock" | undefined;
+        tablet?: "none" | "block" | "inline" | "flex" | "inlineBlock" | undefined;
+        desktop?: "none" | "block" | "inline" | "flex" | "inlineBlock" | undefined;
+        wide?: "none" | "block" | "inline" | "flex" | "inlineBlock" | undefined;
+    } | undefined) | _vanilla_extract_sprinkles.ResponsiveArray<4 | 3 | 2 | 1, "none" | "block" | "inline" | "flex" | "inlineBlock" | null>;
+    readonly position?: ("relative" | "absolute" | "fixed" | {
+        mobile?: "relative" | "absolute" | "fixed" | undefined;
+        tablet?: "relative" | "absolute" | "fixed" | undefined;
+        desktop?: "relative" | "absolute" | "fixed" | undefined;
+        wide?: "relative" | "absolute" | "fixed" | undefined;
+    } | undefined) | _vanilla_extract_sprinkles.ResponsiveArray<4 | 3 | 2 | 1, "relative" | "absolute" | "fixed" | null>;
+    readonly paddingTop?: ("none" | "medium" | {
+        mobile?: "none" | "medium" | undefined;
+        tablet?: "none" | "medium" | undefined;
+        desktop?: "none" | "medium" | undefined;
+        wide?: "none" | "medium" | undefined;
+    } | undefined) | _vanilla_extract_sprinkles.ResponsiveArray<4 | 3 | 2 | 1, "none" | "medium" | null>;
+    readonly paddingBottom?: ("none" | "medium" | {
+        mobile?: "none" | "medium" | undefined;
+        tablet?: "none" | "medium" | undefined;
+        desktop?: "none" | "medium" | undefined;
+        wide?: "none" | "medium" | undefined;
+    } | undefined) | _vanilla_extract_sprinkles.ResponsiveArray<4 | 3 | 2 | 1, "none" | "medium" | null>;
+    readonly paddingRight?: ("none" | "medium" | {
+        mobile?: "none" | "medium" | undefined;
+        tablet?: "none" | "medium" | undefined;
+        desktop?: "none" | "medium" | undefined;
+        wide?: "none" | "medium" | undefined;
+    } | undefined) | _vanilla_extract_sprinkles.ResponsiveArray<4 | 3 | 2 | 1, "none" | "medium" | null>;
+    readonly paddingLeft?: ("none" | "medium" | {
+        mobile?: "none" | "medium" | undefined;
+        tablet?: "none" | "medium" | undefined;
+        desktop?: "none" | "medium" | undefined;
+        wide?: "none" | "medium" | undefined;
+    } | undefined) | _vanilla_extract_sprinkles.ResponsiveArray<4 | 3 | 2 | 1, "none" | "medium" | null>;
+    padding?: ("none" | "medium" | {
+        mobile?: "none" | "medium" | undefined;
+        tablet?: "none" | "medium" | undefined;
+        desktop?: "none" | "medium" | undefined;
+        wide?: "none" | "medium" | undefined;
+    } | undefined) | _vanilla_extract_sprinkles.ResponsiveArray<4 | 3 | 2 | 1, "none" | "medium" | null>;
+    paddingY?: ("none" | "medium" | {
+        mobile?: "none" | "medium" | undefined;
+        tablet?: "none" | "medium" | undefined;
+        desktop?: "none" | "medium" | undefined;
+        wide?: "none" | "medium" | undefined;
+    } | undefined) | _vanilla_extract_sprinkles.ResponsiveArray<4 | 3 | 2 | 1, "none" | "medium" | null>;
+    paddingX?: ("none" | "medium" | {
+        mobile?: "none" | "medium" | undefined;
+        tablet?: "none" | "medium" | undefined;
+        desktop?: "none" | "medium" | undefined;
+        wide?: "none" | "medium" | undefined;
+    } | undefined) | _vanilla_extract_sprinkles.ResponsiveArray<4 | 3 | 2 | 1, "none" | "medium" | null>;
 }) => string) & {
     properties: Set<"display" | "paddingBottom" | "paddingLeft" | "paddingRight" | "paddingTop" | "position" | "padding" | "paddingY" | "paddingX">;
 };
-type RequiredResponsiveValue<Value extends string | number> = RequiredConditionalValue<typeof responsiveAtomicProperties, Value>;
 
 type Sprinkles = Parameters<typeof sprinkles>[0];
-type Space = 'medium' | 'none';
-type ResponsiveSpace = RequiredResponsiveValue<Space>;
 interface Atoms extends Sprinkles {
     reset?: keyof JSX.IntrinsicElements;
 }
 declare const atoms: ({ reset, ...rest }: Atoms) => string;
 
-export { type Atoms, Box, BraidProvider, type Breakpoint, type ResponsiveSpace, type Space, atoms, breakpointNames, breakpoints };
+export { Box, BraidProvider, type Breakpoint, atoms, breakpointNames, breakpoints };
 /* #endregion */

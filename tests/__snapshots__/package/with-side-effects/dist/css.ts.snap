@@ -7,7 +7,7 @@ exports.atoms = styles_lib_atoms_atoms_cjs.atoms;
 
 
 /* #region dist/css.d.ts */
-export { Atoms, ResponsiveSpace, Space, atoms } from './reset.chunk.js';
+export { atoms } from './reset.chunk.js';
 /* #endregion */
 
 

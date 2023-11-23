@@ -1,1 +1,1 @@
-export * from '../lib/atoms/atoms';
+export { atoms } from '../lib/atoms/atoms';
