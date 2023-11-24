@@ -2,7 +2,7 @@ import fs from 'fs/promises';
 import path from 'path';
 
 import chalk from 'chalk';
-import type { RollupOutput } from 'rollup';
+import type { Rollup } from 'vite';
 
 import { type EnhancedConfig, type PartialConfig, getConfig } from '../config';
 import { distDir } from '../constants';
@@ -81,7 +81,7 @@ const build = async (config: EnhancedConfig, packageName: string) => {
 
   await updateGitignore(config.root, entries);
 
-  const cssExports = (bundles as RollupOutput[])
+  const cssExports = (bundles as Rollup.RollupOutput[])
     .flatMap((bundle) => bundle.output)
     .map((output) => output.fileName)
     .filter((fileName) => fileName.endsWith('.css'))

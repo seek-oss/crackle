@@ -2,9 +2,9 @@
 "use strict";
 const fileScope = require("@vanilla-extract/css/fileScope");
 const css = require("@vanilla-extract/css");
-fileScope.setFileScope("src/lib/reset/reset.css.ts?used", "with-side-effects");
+fileScope.setFileScope("src/lib/reset/reset.css.ts", "with-side-effects");
 const hideFocusRingsDataAttribute = "data-braid-hidefocusrings";
-css.style({
+const base = css.style({
   margin: 0,
   padding: 0,
   border: 0,
@@ -19,19 +19,24 @@ css.style({
     }
   }
 }, "base");
-css.style({
+const block = css.style({
   display: "block"
 }, "block");
+const element = {
+  section: block
+};
 fileScope.endFileScope();
+exports.base = base;
+exports.element = element;
 /* #endregion */
 
 
 /* #region dist/styles/lib/reset/reset.css.mjs */
 import { setFileScope, endFileScope } from "@vanilla-extract/css/fileScope";
 import { style } from "@vanilla-extract/css";
-setFileScope("src/lib/reset/reset.css.ts?used", "with-side-effects");
+setFileScope("src/lib/reset/reset.css.ts", "with-side-effects");
 const hideFocusRingsDataAttribute = "data-braid-hidefocusrings";
-style({
+const base = style({
   margin: 0,
   padding: 0,
   border: 0,
@@ -46,8 +51,15 @@ style({
     }
   }
 }, "base");
-style({
+const block = style({
   display: "block"
 }, "block");
+const element = {
+  section: block
+};
 endFileScope();
+export {
+  base,
+  element
+};
 /* #endregion */

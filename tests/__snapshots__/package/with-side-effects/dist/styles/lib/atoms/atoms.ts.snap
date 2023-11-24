@@ -1,0 +1,31 @@
+/* #region dist/styles/lib/atoms/atoms.cjs */
+"use strict";
+const styles_lib_atoms_sprinkles_css_cjs = require("./sprinkles.css.cjs");
+const styles_lib_reset_reset_css_cjs = require("../reset/reset.css.cjs");
+const atoms = ({ reset, ...rest }) => {
+  if (!reset) {
+    return styles_lib_atoms_sprinkles_css_cjs.sprinkles(rest);
+  }
+  const elementReset = styles_lib_reset_reset_css_cjs.element[reset];
+  const sprinklesClasses = styles_lib_atoms_sprinkles_css_cjs.sprinkles(rest);
+  return `${styles_lib_reset_reset_css_cjs.base}${elementReset ? ` ${elementReset}` : ""}${sprinklesClasses ? ` ${sprinklesClasses}` : ""}`;
+};
+exports.atoms = atoms;
+/* #endregion */
+
+
+/* #region dist/styles/lib/atoms/atoms.mjs */
+import { sprinkles } from "./sprinkles.css.mjs";
+import { base, element } from "../reset/reset.css.mjs";
+const atoms = ({ reset, ...rest }) => {
+  if (!reset) {
+    return sprinkles(rest);
+  }
+  const elementReset = element[reset];
+  const sprinklesClasses = sprinkles(rest);
+  return `${base}${elementReset ? ` ${elementReset}` : ""}${sprinklesClasses ? ` ${sprinklesClasses}` : ""}`;
+};
+export {
+  atoms
+};
+/* #endregion */

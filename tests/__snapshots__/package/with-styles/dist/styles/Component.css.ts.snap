@@ -2,7 +2,7 @@
 "use strict";
 const fileScope = require("@vanilla-extract/css/fileScope");
 const css = require("@vanilla-extract/css");
-fileScope.setFileScope("src/Component.css.ts?used", "with-styles");
+fileScope.setFileScope("src/Component.css.ts", "with-styles");
 const redBorder = css.style({
   border: "5px solid red"
 }, "redBorder");
@@ -14,7 +14,7 @@ exports.redBorder = redBorder;
 /* #region dist/styles/Component.css.mjs */
 import { setFileScope, endFileScope } from "@vanilla-extract/css/fileScope";
 import { style } from "@vanilla-extract/css";
-setFileScope("src/Component.css.ts?used", "with-styles");
+setFileScope("src/Component.css.ts", "with-styles");
 const redBorder = style({
   border: "5px solid red"
 }, "redBorder");

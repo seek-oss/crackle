@@ -1,12 +1,8 @@
 /* #region dist/index.cjs */
 "use strict";
 Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
-const jsxRuntime = require("react/jsx-runtime");
-require("@crackle-fixtures/package-with-styles/styles.css");
-const styles_Component_css_cjs = require("./styles/Component.css.cjs");
-const thirdparty = "";
-const Component = () => /* @__PURE__ */ jsxRuntime.jsx("div", { className: styles_Component_css_cjs.redBorder, children: /* @__PURE__ */ jsxRuntime.jsx("span", { className: "external" }) });
-exports.Component = Component;
+const styles_Component_cjs = require("./styles/Component.cjs");
+exports.Component = styles_Component_cjs.Component;
 /* #endregion */
 
 
@@ -18,11 +14,7 @@ export { _default as Component };
 
 
 /* #region dist/index.mjs */
-import { jsx } from "react/jsx-runtime";
-import "@crackle-fixtures/package-with-styles/styles.css";
-import { redBorder } from "./styles/Component.css.mjs";
-const thirdparty = "";
-const Component = () => /* @__PURE__ */ jsx("div", { className: redBorder, children: /* @__PURE__ */ jsx("span", { className: "external" }) });
+import { Component } from "./styles/Component.mjs";
 export {
   Component
 };

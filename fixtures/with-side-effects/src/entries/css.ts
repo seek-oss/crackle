@@ -1,1 +1,1 @@
-export * from '../lib/components';
+export { atoms } from '../lib/atoms/atoms';

@@ -2,7 +2,7 @@
 "use strict";
 const fileScope = require("@vanilla-extract/css/fileScope");
 const css = require("@vanilla-extract/css");
-fileScope.setFileScope("src/components/JobSummary/styles.css.ts?used", "library-with-docs");
+fileScope.setFileScope("src/components/JobSummary/styles.css.ts", "library-with-docs");
 const redBorder = css.style({
   border: "5px solid red"
 }, "redBorder");
@@ -14,7 +14,7 @@ exports.redBorder = redBorder;
 /* #region dist/styles/components/JobSummary/styles.css.mjs */
 import { setFileScope, endFileScope } from "@vanilla-extract/css/fileScope";
 import { style } from "@vanilla-extract/css";
-setFileScope("src/components/JobSummary/styles.css.ts?used", "library-with-docs");
+setFileScope("src/components/JobSummary/styles.css.ts", "library-with-docs");
 const redBorder = style({
   border: "5px solid red"
 }, "redBorder");

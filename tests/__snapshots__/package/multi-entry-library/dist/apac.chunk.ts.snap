@@ -16,5 +16,5 @@ declare const calcAndLog: (a: number, b: number, fn: MathsFn) => void;
 
 declare const _default: "I am theme";
 
-export { DevDepType, JobSummary, _default, add, calcAndLog, logger };
+export { type DevDepType, JobSummary, _default, add, calcAndLog, logger };
 /* #endregion */
