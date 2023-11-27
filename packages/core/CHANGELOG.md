@@ -1,5 +1,17 @@
 # @crackle/core
 
+## 0.29.0
+
+### Minor Changes
+
+- [#136](https://github.com/seek-oss/crackle/pull/136) [`92e9b08`](https://github.com/seek-oss/crackle/commit/92e9b085268663802015f68a65b202295ae0f6a4) Thanks [@mrm007](https://github.com/mrm007)! - Don't hoist transitive imports in the output bundle
+
+- [#136](https://github.com/seek-oss/crackle/pull/136) [`92e9b08`](https://github.com/seek-oss/crackle/commit/92e9b085268663802015f68a65b202295ae0f6a4) Thanks [@mrm007](https://github.com/mrm007)! - Prevent modules that import (or are imported by) Vanilla Extract styles from being merged in the output bundle
+
+- [#136](https://github.com/seek-oss/crackle/pull/136) [`92e9b08`](https://github.com/seek-oss/crackle/commit/92e9b085268663802015f68a65b202295ae0f6a4) Thanks [@mrm007](https://github.com/mrm007)! - Upgrade to Vite 5 and update dependencies
+
+- [#134](https://github.com/seek-oss/crackle/pull/134) [`3f7e51a`](https://github.com/seek-oss/crackle/commit/3f7e51a289dc2880e4884f9dc685a9943250e1ec) Thanks [@mrm007](https://github.com/mrm007)! - Use `tsx` for dev entry points
+
 ## 0.28.0
 
 ### Minor Changes
