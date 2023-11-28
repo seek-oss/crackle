@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 neverBuiltDependencies:
   - sku
 
@@ -65,7 +69,7 @@ importers:
     dependencies:
       '@crackle/cli':
         specifier: 0.12.2
-        version: 0.12.2(typescript@5.2.2)
+        version: 0.12.2(typescript@5.2.2)(webpack@5.89.0)
 
   fixtures/braid-site:
     dependencies:
@@ -284,6 +288,12 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
     devDependencies:
+      '@types/react':
+        specifier: ^18.0.28
+        version: 18.0.28
+      '@types/react-dom':
+        specifier: ^18.0.11
+        version: 18.0.11
       '@vocab/cli':
         specifier: ^1.3.3
         version: 1.3.3
@@ -541,8 +551,8 @@ importers:
         specifier: ^17.0.24
         version: 17.0.24
       dedent:
-        specifier: ^0.7.0
-        version: 0.7.0
+        specifier: ^1.5.1
+        version: 1.5.1
       enquirer:
         specifier: ^2.3.6
         version: 2.3.6
@@ -1418,11 +1428,11 @@ packages:
       - supports-color
     dev: false
 
-  /@crackle/cli@0.12.2(typescript@5.2.2):
+  /@crackle/cli@0.12.2(typescript@5.2.2)(webpack@5.89.0):
     resolution: {integrity: sha512-YftLszmG9QW4VAyZp8q68+zLS4v27TQobpgczGiB5tdBIfdViaXPBBHqajox0ISVXH+QiDugPCWaSNJIPoSYKw==}
     hasBin: true
     dependencies:
-      '@crackle/core': 0.27.1(typescript@5.2.2)
+      '@crackle/core': 0.27.1(typescript@5.2.2)(webpack@5.89.0)
       yargs: 17.6.2
     transitivePeerDependencies:
       - '@swc/helpers'
@@ -1442,7 +1452,7 @@ packages:
       - webpack
     dev: false
 
-  /@crackle/core@0.27.1(typescript@5.2.2):
+  /@crackle/core@0.27.1(typescript@5.2.2)(webpack@5.89.0):
     resolution: {integrity: sha512-UQcjd/awsHZRFWTbOqJy9IqoiHqgi2JZpP/wfqkQrDCmMIu1wtOUx0MhhRZzx8upZjiF6nzo/veuzS5UM394DQ==}
     peerDependencies:
       typescript: '>=5.0.4'
@@ -1451,11 +1461,11 @@ packages:
       '@babel/plugin-syntax-jsx': 7.23.3(@babel/core@7.23.3)
       '@babel/plugin-syntax-typescript': 7.23.3(@babel/core@7.23.3)
       '@crackle/babel-plugin-remove-exports': 0.2.1
-      '@crackle/router': 0.3.0(react-dom@18.2.0)
+      '@crackle/router': 0.3.0(react-dom@18.2.0)(react@18.2.0)
       '@ungap/structured-clone': 1.2.0
       '@vanilla-extract/css': 1.14.0
       '@vanilla-extract/integration': 6.2.4(@types/node@18.18.12)
-      '@vanilla-extract/vite-plugin': 3.9.2(@types/node@18.18.12)(vite@5.0.2)
+      '@vanilla-extract/vite-plugin': 3.9.2(vite@4.4.7)
       '@vitejs/plugin-react-swc': 3.5.0(vite@4.4.7)
       '@vocab/webpack': 1.2.5(webpack@5.89.0)
       builtin-modules: 3.3.0
@@ -1504,9 +1514,10 @@ packages:
       - webpack
     dev: false
 
-  /@crackle/router@0.3.0(react-dom@18.2.0):
+  /@crackle/router@0.3.0(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-1UpUv85cVXzDx1pFr8cRVlPAEzG/qDF8lt+21CDl/vZxrLEe9nh6DpEtqCwACS6AhtJ69zm1S6jlJlaUJL2ddQ==}
     peerDependencies:
+      react: ^18.2.0
       react-dom: ^18.2.0
     dependencies:
       react: 18.2.0
@@ -3896,6 +3907,28 @@ packages:
       postcss: 8.4.27
       postcss-load-config: 4.0.2(postcss@8.4.27)
       vite: 5.0.2(@types/node@18.18.12)
+    transitivePeerDependencies:
+      - '@types/node'
+      - less
+      - lightningcss
+      - sass
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+      - ts-node
+    dev: false
+
+  /@vanilla-extract/vite-plugin@3.9.2(vite@4.4.7):
+    resolution: {integrity: sha512-WYgWiEs+nw+lNazyW0Ixp0MMgtNgPL+8fFKrol1V5XoNIzRrYPGfuLhRI7PwheSWQVGF7OOer0kUWQcLey1vOQ==}
+    peerDependencies:
+      vite: ^2.2.3 || ^3.0.0 || ^4.0.3 || ^5.0.0
+    dependencies:
+      '@vanilla-extract/integration': 6.2.4(@types/node@18.18.12)
+      outdent: 0.8.0
+      postcss: 8.4.27
+      postcss-load-config: 4.0.2(postcss@8.4.27)
+      vite: 4.4.7(@types/node@18.18.12)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -7173,7 +7206,7 @@ packages:
     resolution: {integrity: sha512-firNp1q3xxTzoItj/eOOSZQnYSlyrWks5llCTVX37nJ59K3eXbQ8PtzCguqo8YI19EELo5QxaKnJd4VxzhU8tg==}
     engines: {node: '>=10'}
     peerDependencies:
-      '@types/react': '>=16.8.0'
+      '@types/react': ^18
       react: '>=16.8.0'
     peerDependenciesMeta:
       '@types/react':
@@ -10105,6 +10138,30 @@ packages:
       terser: 5.16.9
       webpack: 5.89.0(esbuild@0.19.3)
 
+  /terser-webpack-plugin@5.3.7(webpack@5.79.0):
+    resolution: {integrity: sha512-AfKwIktyP7Cu50xNjXF/6Qb5lBNzYaWpU6YfoX3uZicTx0zTy0stDDCsvjDapKsSDvOeWo5MEq4TmdBy2cNoHw==}
+    engines: {node: '>= 10.13.0'}
+    peerDependencies:
+      '@swc/core': '*'
+      esbuild: '*'
+      uglify-js: '*'
+      webpack: ^5.1.0
+    peerDependenciesMeta:
+      '@swc/core':
+        optional: true
+      esbuild:
+        optional: true
+      uglify-js:
+        optional: true
+    dependencies:
+      '@jridgewell/trace-mapping': 0.3.17
+      jest-worker: 27.5.1
+      schema-utils: 3.1.1
+      serialize-javascript: 6.0.1
+      terser: 5.16.9
+      webpack: 5.79.0(webpack-cli@5.0.1)
+    dev: true
+
   /terser@5.16.9:
     resolution: {integrity: sha512-HPa/FdTB9XGI2H1/keLFZHxl6WNvAI4YalHGtDQTlMnJcoqSab1UwL4l1hGEhs6/GmLHBZIg/YgB++jcbzoOEg==}
     engines: {node: '>=10'}
@@ -10835,7 +10892,7 @@ packages:
       neo-async: 2.6.2
       schema-utils: 3.1.1
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.7(esbuild@0.19.3)(webpack@5.89.0)
+      terser-webpack-plugin: 5.3.7(webpack@5.79.0)
       watchpack: 2.4.0
       webpack-cli: 5.0.1(webpack@5.79.0)
       webpack-sources: 3.2.3
