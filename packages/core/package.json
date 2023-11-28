@@ -148,7 +148,7 @@
     "webpack": "^5.89.0"
   },
   "peerDependencies": {
-    "typescript": ">=5.0.4"
+    "typescript": ">=5.2.2"
   },
   "wireit": {
     "unbuild": {
