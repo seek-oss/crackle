@@ -1,1 +1,1 @@
-export { default as memoize } from 'mem';
+export { default as memoize } from 'memoize';

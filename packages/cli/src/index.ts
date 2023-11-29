@@ -1,9 +1,9 @@
 import type { CrackleConfig, CrackleServer } from '@crackle/core';
 import { logger } from '@crackle/core/logger';
 import { resolveConfig } from '@crackle/core/resolve-config';
-import yargs, { type CommandModule } from 'yargs';
+import yargs, { type Arguments, type CommandModule } from 'yargs';
 
-type CrackleConfigWithYargs = CrackleConfig & Pick<yargs.Arguments, '_' | '$0'>;
+type CrackleConfigWithYargs = CrackleConfig & Pick<Arguments, '_' | '$0'>;
 
 const setConfigOverrides = (
   config: CrackleConfig,
