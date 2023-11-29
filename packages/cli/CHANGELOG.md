@@ -1,5 +1,12 @@
 # @crackle/cli
 
+## 0.12.6
+
+### Patch Changes
+
+- Updated dependencies [[`1cbd099`](https://github.com/seek-oss/crackle/commit/1cbd0990e15ec4ae8765b67390e105cd50b1f96c)]:
+  - @crackle/core@0.30.0
+
 ## 0.12.5
 
 ### Patch Changes

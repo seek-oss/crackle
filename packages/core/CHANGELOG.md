@@ -1,5 +1,11 @@
 # @crackle/core
 
+## 0.30.0
+
+### Minor Changes
+
+- [#138](https://github.com/seek-oss/crackle/pull/138) [`1cbd099`](https://github.com/seek-oss/crackle/commit/1cbd0990e15ec4ae8765b67390e105cd50b1f96c) Thanks [@mrm007](https://github.com/mrm007)! - Require TypeScript >= 5.2.2 as a peer dependency
+
 ## 0.29.0
 
 ### Minor Changes
