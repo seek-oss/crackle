@@ -22,7 +22,7 @@
     "test:integration": "wireit",
     "test:integration:ci": "pnpm test:integration -- --run",
     "test:playwright": "wireit",
-    "test:braid": "pnpm fixtures:braid --test",
+    "test:braid": "pnpm fixtures:braid --test=integration",
     "fixtures:add": "tsx ./scripts/add-fixture.ts",
     "fixtures:braid": "tsx ./scripts/braid-fixture.ts",
     "fixtures:dev": "pnpm %fixtures dev",
@@ -70,6 +70,7 @@
       ]
     },
     "overrides": {
+      "braid>@crackle/cli": "workspace:*",
       "ink>@types/react": "^18"
     }
   },

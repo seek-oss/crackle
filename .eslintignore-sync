@@ -3,5 +3,5 @@ fixtures/braid-design-system
 node_modules
 
 [relative]
-fixtures/*/.gitignore
+fixtures/!(braid-design-system)/.gitignore
 packages/*/.gitignore

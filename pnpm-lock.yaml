@@ -8,6 +8,7 @@ neverBuiltDependencies:
   - sku
 
 overrides:
+  braid>@crackle/cli: workspace:*
   ink>@types/react: ^18
 
 patchedDependencies:

@@ -6,5 +6,5 @@ node_modules
 pnpm-lock.yaml
 
 [relative]
-fixtures/*/.gitignore
+fixtures/!(braid-design-system)/.gitignore
 packages/*/.gitignore

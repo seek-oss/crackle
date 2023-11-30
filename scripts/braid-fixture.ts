@@ -13,18 +13,17 @@ const argv = await yargs(process.argv.slice(2))
     requiresArg: true,
   })
   .option('clone', {
-    boolean: true,
+    type: 'boolean',
     default: false,
     implies: 'branch',
   })
   .option('absorb', {
-    boolean: true,
+    type: 'boolean',
     default: false,
     implies: 'branch',
   })
   .option('test', {
-    boolean: true,
-    default: false,
+    choices: [true, 'integration'],
   })
   .help()
   .strict()
@@ -39,7 +38,8 @@ const submodule = 'fixtures/braid-design-system';
 const branch = argv.branch;
 
 const fromRoot = (location: string) => path.resolve(__dirname, '..', location);
-const run: typeof _run = (command) => _run(command, { cwd: fromRoot('.') });
+const run: typeof _run = (command, options) =>
+  _run(command, { cwd: fromRoot('.'), ...options });
 const clean = async (location: string) =>
   (await fse.exists(fromRoot(location))) && run(`rm -fr ${location}`);
 
@@ -77,27 +77,39 @@ if (argv.absorb) {
   await fse.appendFile(
     fromRoot(`.git/modules/${submodule}/info/sparse-checkout`),
     dedent`
+      /fixtures/*
       /packages/braid-design-system/*
+      /jest*
+      /package.json
       /pnpm-lock.yaml
       /tsconfig.json
     `,
   );
 }
 
-// Actually do the checkout
-await run(`git submodule update --force --checkout ${submodule}`);
+if (argv.clone || argv.absorb) {
+  // Actually do the checkout
+  await run(`git submodule update --force --checkout ${submodule}`);
+}
 
 // End of submodule code
 
-const runInBraid: typeof _run = (command) =>
-  _run(command, { cwd: fromRoot(`${submodule}/packages/braid-design-system`) });
+const runInBraid = (command: string) =>
+  run(command, { cwd: fromRoot(`${submodule}/packages/braid-design-system`) });
 
 if (argv.test) {
-  await runInBraid(`pnpm install --no-frozen-lockfile`);
+  await run(`pnpm install --no-frozen-lockfile`, { cwd: fromRoot(submodule) });
 
+  // These are task dependencies of `build`
   await runInBraid(`pnpm generate:icons`);
   await runInBraid(`pnpm generate:snippets`);
+  // Run Braid's build command to make sure it still works & to generate the bundles
   await runInBraid(`pnpm build`);
+
+  if (argv.test === 'integration') {
+    // Run Braid's integration tests
+    await run(`pnpm test:fixtures`, { cwd: fromRoot(submodule) });
+  }
 }
 
 done();

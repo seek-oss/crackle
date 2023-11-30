@@ -24,7 +24,7 @@ export default defineConfig({
       // handle the circular reference between configs
       ...(integrationInclude ?? []),
     ],
-    setupFiles: './test-utils/setup.ts',
+    setupFiles: resolve(__dirname, './test-utils/setup.ts'),
     //* these values are used in test-utils/pkg-serializer.ts
     snapshotFormat: {
       escapeString: false,
