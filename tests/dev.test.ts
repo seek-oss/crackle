@@ -3,7 +3,7 @@ import { resolveConfig } from '@crackle/core/resolve-config';
 import fixturez from 'fixturez';
 import { beforeAll, test } from 'vitest';
 
-import snapshotOutput from './shapshot-output';
+import snapshotOutput from './snapshot-output';
 
 const f = fixturez(__dirname);
 
