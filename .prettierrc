@@ -1,5 +1,14 @@
 {
   "singleQuote": true,
   "tabWidth": 2,
-  "trailingComma": "all"
+  "trailingComma": "all",
+  "overrides": [
+    {
+      "files": ["*.json5"],
+      "options": {
+        "singleQuote": false,
+        "quoteProps": "preserve"
+      }
+    }
+  ]
 }
