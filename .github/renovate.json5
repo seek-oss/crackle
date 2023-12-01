@@ -4,20 +4,20 @@
   "prCreation": "not-pending",
   "lockFileMaintenance": {
     "enabled": true,
-    "schedule": ["before 8am on Monday"]
+    "schedule": ["before 8am on Monday"],
   },
   "packageRules": [
     {
       "groupName": "typescript",
       "packagePatterns": ["^typescript$"],
       "enabled": true,
-      "schedule": ["before 8am on Tuesday"]
+      "schedule": ["before 8am on Tuesday"],
     },
     {
       "matchManagers": ["npm"],
       "matchPackageNames": ["eslint"],
       // rynovate config pins this to < 8
-      "allowedVersions": ">= 8"
-    }
-  ]
+      "allowedVersions": ">= 8",
+    },
+  ],
 }
