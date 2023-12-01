@@ -9,12 +9,12 @@
   "ignorePaths": ["bootstrap/**"],
   "packageRules": [
     {
-      "matchPackageNames": ["@crackle-fixtures/*"],
+      "matchPackagePatterns": ["^@crackle-fixtures/"],
       "enabled": false,
     },
     {
       "groupName": "typescript",
-      "packagePatterns": ["^typescript$"],
+      "matchPackagePatterns": ["^typescript$"],
       "enabled": true,
       "schedule": ["before 8am on Tuesday"],
     },
