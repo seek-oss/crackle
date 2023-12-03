@@ -1,6 +1,6 @@
 import { VocabProvider, useTranslations } from '@vocab/react';
 import { type ReactNode, useState } from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import commonTranslations from './.vocab';
 import clientTranslations from './client.vocab';
@@ -69,11 +69,10 @@ export default () => {
 
   document.body.appendChild(node);
 
-  render(
+  createRoot(node).render(
     <App>
       <AllContent />
       <Content />
     </App>,
-    node,
   );
 };
