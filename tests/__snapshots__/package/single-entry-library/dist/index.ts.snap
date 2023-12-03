@@ -12,13 +12,14 @@ Object.defineProperty(exports, "MultiJobSummary", {
 
 
 /* #region dist/index.d.ts */
+import * as react_jsx_runtime from 'react/jsx-runtime';
 export { JobSummary as MultiJobSummary } from '@crackle-fixtures/multi-entry-library/components';
 
 interface JobSummaryProps {
     title: string;
     isNew: boolean;
 }
-declare const JobSummary: ({ title, isNew }: JobSummaryProps) => JSX.Element;
+declare const JobSummary: ({ title, isNew }: JobSummaryProps) => react_jsx_runtime.JSX.Element;
 
 export { JobSummary };
 /* #endregion */

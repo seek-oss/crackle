@@ -2,7 +2,7 @@
 "use strict";
 const jsxRuntime = require("react/jsx-runtime");
 const React = require("react");
-const reactDom = require("react-dom");
+const client$1 = require("react-dom/client");
 const _vocab_index_cjs = require("./.vocab/index.cjs");
 const client_vocab_index_cjs = require("./client.vocab/index.cjs");
 const _interopDefaultCompat = (e) => e && typeof e === "object" && "default" in e ? e : { default: e };
@@ -139,12 +139,11 @@ function App({ children }) {
 const client = () => {
   const node = document.createElement("div");
   document.body.appendChild(node);
-  reactDom.render(
+  client$1.createRoot(node).render(
     /* @__PURE__ */ jsxRuntime.jsxs(App, { children: [
       /* @__PURE__ */ jsxRuntime.jsx(AllContent, {}),
       /* @__PURE__ */ jsxRuntime.jsx(Content, {})
-    ] }),
-    node
+    ] })
   );
 };
 module.exports = client;
@@ -161,7 +160,7 @@ export { _default as default };
 /* #region dist/index.mjs */
 import { jsx, Fragment, jsxs } from "react/jsx-runtime";
 import React, { useMemo, useReducer, useCallback, isValidElement, cloneElement, useContext, useState } from "react";
-import { render } from "react-dom";
+import { createRoot } from "react-dom/client";
 import { translations } from "./.vocab/index.mjs";
 import { translations as translations$1 } from "./client.vocab/index.mjs";
 const TranslationsContext = /* @__PURE__ */ React.createContext(void 0);
@@ -296,12 +295,11 @@ function App({ children }) {
 const client = () => {
   const node = document.createElement("div");
   document.body.appendChild(node);
-  render(
+  createRoot(node).render(
     /* @__PURE__ */ jsxs(App, { children: [
       /* @__PURE__ */ jsx(AllContent, {}),
       /* @__PURE__ */ jsx(Content, {})
-    ] }),
-    node
+    ] })
   );
 };
 export {
