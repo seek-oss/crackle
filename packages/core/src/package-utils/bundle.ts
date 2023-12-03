@@ -3,8 +3,7 @@ import path from 'path';
 
 import { cssFileFilter as vanillaCssFileFilter } from '@vanilla-extract/integration';
 import fse from 'fs-extra';
-import type { Rollup } from 'vite';
-import { normalizePath, build as viteBuild } from 'vite';
+import { type Rollup, normalizePath, build as viteBuild } from 'vite';
 
 import type { EnhancedConfig } from '../config';
 import { sideEffectsDir, srcDir, stylesDir } from '../constants';

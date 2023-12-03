@@ -9,8 +9,7 @@ import express from 'express';
 import { createServer as createViteServer } from 'vite';
 
 import type { RenderDevPageFn } from '../../entries/types';
-import type { PartialConfig } from '../config';
-import { getConfig } from '../config';
+import { type PartialConfig, getConfig } from '../config';
 import { clientEntry } from '../constants';
 import { fixViteVanillaExtractDepScanPlugin } from '../plugins/esbuild/fix-vite-vanilla-extract-dep-scan';
 import { internalPackageResolution } from '../plugins/vite/internal-package-resolution';
