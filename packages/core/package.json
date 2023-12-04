@@ -141,7 +141,6 @@
     "@types/serve-handler": "^6.1.4",
     "ink-testing-library": "^2.1.0",
     "memfs": "^3.6.0",
-    "strip-ansi": "^7.1.0",
     "sync-dependencies": "^1.0.4",
     "typescript": "*",
     "unbuild": "^1.2.1",
