@@ -1,0 +1,14 @@
+ignores:
+  # used on release
+  - '@changesets/changelog-github'
+  # internal packages
+  - '@crackle/cli'
+  - '@crackle/core'
+  - '@crackle/router'
+  # testing
+  - vitest
+  - '~utils'
+  # aliases used by the web module
+  - __THE_ENTRY
+  - __BROWSER_PAGE_MODULES
+  - __NODE_PAGE_MODULES
