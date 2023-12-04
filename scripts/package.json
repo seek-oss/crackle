@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "@types/fs-extra": "^11.0.1",
-    "@types/node": "^18.17.1",
+    "@types/node": "^20.10.3",
     "@types/yargs": "^17.0.24",
     "dedent": "^1.5.1",
     "enquirer": "^2.3.6",
