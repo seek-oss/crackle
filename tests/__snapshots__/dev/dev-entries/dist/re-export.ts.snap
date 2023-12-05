@@ -5,6 +5,12 @@ module.exports = require("../src/entries/re-export.ts");
 /* #endregion */
 
 
+/* #region dist/re-export.d.mts */
+export * from "../src/entries/re-export";
+export { default } from "../src/entries/re-export";
+/* #endregion */
+
+
 /* #region dist/re-export.d.ts */
 export * from "../src/entries/re-export";
 export { default } from "../src/entries/re-export";

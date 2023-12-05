@@ -5,6 +5,11 @@ module.exports = apac;
 /* #endregion */
 
 
+/* #region dist/themes/apac.d.mts */
+export { _default as default } from '../apac.chunk.js';
+/* #endregion */
+
+
 /* #region dist/themes/apac.d.ts */
 export { _default as default } from '../apac.chunk.js';
 /* #endregion */

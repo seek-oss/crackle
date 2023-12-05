@@ -12,6 +12,11 @@ exports.logger = logger;
 /* #endregion */
 
 
+/* #region dist/extras.d.mts */
+export { DevDepType, calcAndLog, logger } from './apac.chunk.js';
+/* #endregion */
+
+
 /* #region dist/extras.d.ts */
 export { DevDepType, calcAndLog, logger } from './apac.chunk.js';
 /* #endregion */
