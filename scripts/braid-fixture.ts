@@ -1,3 +1,4 @@
+import assert from 'assert';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -9,7 +10,7 @@ import { run as _run, done } from './utils';
 
 const argv = await yargs(process.argv.slice(2))
   .option('branch', {
-    default: 'master',
+    default: '__current__',
     requiresArg: true,
   })
   .option('clone', {
@@ -35,13 +36,27 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const repo = 'git@github.com:seek-oss/braid-design-system.git';
 const submodule = 'fixtures/braid-design-system';
-const branch = argv.branch;
+let branch = argv.branch;
 
 const fromRoot = (location: string) => path.resolve(__dirname, '..', location);
 const run: typeof _run = (command, options) =>
   _run(command, { cwd: fromRoot('.'), ...options });
 const clean = async (location: string) =>
   (await fse.exists(fromRoot(location))) && run(`rm -fr ${location}`);
+
+// Get the current branch name
+if (branch === '__current__') {
+  const result = await run(
+    `git config --file .gitmodules --get submodule.${submodule}.branch`,
+    {
+      encoding: 'utf-8',
+      stdio: 'pipe',
+    },
+  );
+  branch = result.toString().trim();
+
+  assert(branch, 'Could not get current branch name');
+}
 
 // Modified from https://stackoverflow.com/questions/45688121/how-to-do-submodule-sparse-checkout-with-git/45689692//45689692
 
@@ -77,8 +92,8 @@ if (argv.absorb) {
   await fse.appendFile(
     fromRoot(`.git/modules/${submodule}/info/sparse-checkout`),
     dedent`
-      /fixtures/*
       /packages/braid-design-system/*
+      /integration/
       /jest*
       /package.json
       /pnpm-lock.yaml
@@ -108,7 +123,7 @@ if (argv.test) {
 
   if (argv.test === 'integration') {
     // Run Braid's integration tests
-    await run(`pnpm test:fixtures`, { cwd: fromRoot(submodule) });
+    await run(`pnpm test:integration`, { cwd: fromRoot(submodule) });
   }
 }
 

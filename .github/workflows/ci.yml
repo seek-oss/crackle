@@ -126,7 +126,7 @@ jobs:
           echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
       - name: Clone Braid repo
-        run: pnpm fixtures:braid --branch master --clone --absorb
+        run: pnpm fixtures:braid --clone --absorb
 
       - name: Cache Braid dependencies
         uses: actions/cache@v3
