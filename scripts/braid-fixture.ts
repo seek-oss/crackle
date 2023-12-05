@@ -77,8 +77,8 @@ if (argv.absorb) {
   await fse.appendFile(
     fromRoot(`.git/modules/${submodule}/info/sparse-checkout`),
     dedent`
-      /fixtures/*
       /packages/braid-design-system/*
+      /integration/
       /jest*
       /package.json
       /pnpm-lock.yaml
@@ -108,7 +108,7 @@ if (argv.test) {
 
   if (argv.test === 'integration') {
     // Run Braid's integration tests
-    await run(`pnpm test:fixtures`, { cwd: fromRoot(submodule) });
+    await run(`pnpm test:integration`, { cwd: fromRoot(submodule) });
   }
 }
 

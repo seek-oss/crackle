@@ -2,7 +2,7 @@ packages:
   - 'packages/*'
   - 'fixtures/*'
   - fixtures/braid-design-system # Braid monorepo deps (required for integration tests)
-  - fixtures/braid-design-system/fixtures/* # Braid's integration tests
+  - fixtures/braid-design-system/integration # Braid's integration tests
   - fixtures/braid-design-system/packages/braid-design-system
   - bootstrap
   - scripts
