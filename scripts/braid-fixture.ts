@@ -46,17 +46,16 @@ const clean = async (location: string) =>
 
 // Get the current branch name
 if (branch === '__current__') {
-  const buffer = await run(`git submodule status ${submodule}`, {
-    encoding: 'utf-8',
-    stdio: 'pipe',
-  });
-  const current = new RegExp(`.*${submodule}.*\\(heads/(?<current>.*)\\)`).exec(
-    buffer.toString(),
-  )?.groups?.current;
+  const result = await run(
+    `git config --file .gitmodules --get submodule.${submodule}.branch`,
+    {
+      encoding: 'utf-8',
+      stdio: 'pipe',
+    },
+  );
+  branch = result.toString().trim();
 
-  assert(current, 'Could not get current branch name');
-
-  branch = current;
+  assert(branch, 'Could not get current branch name');
 }
 
 // Modified from https://stackoverflow.com/questions/45688121/how-to-do-submodule-sparse-checkout-with-git/45689692//45689692
