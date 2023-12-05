@@ -24,7 +24,7 @@ export type Difference =
 
 type ExportString = `./${string}`;
 type ExportObject = {
-  types: ExportString;
+  types: ExportString | Omit<ExportObject, 'types'>;
   import: ExportString;
   require: ExportString;
 };
@@ -64,7 +64,10 @@ const getExportsForPackage = (entries: Entry[], options: { from: string }) => {
   const exports: Exports = {};
   for (const entry of sortedEntries) {
     exports[entry.isDefaultEntry ? '.' : makeRelative(entry.entryName)] = {
-      types: makeRelative(entry.getOutputPath('dts', options)),
+      types: {
+        import: makeRelative(entry.getOutputPath('dtsm', options)),
+        require: makeRelative(entry.getOutputPath('dts', options)),
+      },
       import: makeRelative(entry.getOutputPath('esm', options)),
       require: makeRelative(entry.getOutputPath('cjs', options)),
     };
