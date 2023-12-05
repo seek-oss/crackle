@@ -8,6 +8,7 @@ import {
   createEntryPackageJsons,
   getPackageEntryPoints,
 } from './entry-points';
+import { formats } from './files';
 
 const root = '/___';
 const volume = {
@@ -37,6 +38,9 @@ vi.mock('mlly', () => ({
     }
   },
 }));
+
+const byFormat = (cb: (format: (typeof formats)[number]) => string) =>
+  Object.fromEntries(formats.map((format) => [format, cb(format)]));
 
 describe('getPackageEntryPoints', () => {
   beforeEach(() => {
@@ -93,54 +97,60 @@ describe('getPackageEntryPoints', () => {
     const entryPoints = await getPackageEntryPoints(root);
     const entry = entryPoints.find(({ isDefaultEntry }) => isDefaultEntry)!;
 
-    expect(entry.getOutputPath('esm')).toMatchInlineSnapshot('"index.mjs"');
-    expect(entry.getOutputPath('cjs')).toMatchInlineSnapshot('"index.cjs"');
-    expect(entry.getOutputPath('dts')).toMatchInlineSnapshot('"index.d.ts"');
+    expect(byFormat((format) => entry.getOutputPath(format)))
+      .toMatchInlineSnapshot(`
+      {
+        "cjs": "index.cjs",
+        "dts": "index.d.ts",
+        "dtsm": "index.d.mts",
+        "esm": "index.mjs",
+      }
+    `);
   });
 
   test('getOutputPath (from root) for index', async () => {
     const entryPoints = await getPackageEntryPoints(root);
     const entry = entryPoints.find(({ isDefaultEntry }) => isDefaultEntry)!;
 
-    expect(entry.getOutputPath('esm', { from: root })).toMatchInlineSnapshot(
-      '"dist/index.mjs"',
-    );
-    expect(entry.getOutputPath('cjs', { from: root })).toMatchInlineSnapshot(
-      '"dist/index.cjs"',
-    );
-    expect(entry.getOutputPath('dts', { from: root })).toMatchInlineSnapshot(
-      '"dist/index.d.ts"',
-    );
+    expect(byFormat((format) => entry.getOutputPath(format, { from: root })))
+      .toMatchInlineSnapshot(`
+      {
+        "cjs": "dist/index.cjs",
+        "dts": "dist/index.d.ts",
+        "dtsm": "dist/index.d.mts",
+        "esm": "dist/index.mjs",
+      }
+    `);
   });
 
   test('getOutputPath for entry', async () => {
     const entryPoints = await getPackageEntryPoints(root);
     const entry = entryPoints.find(({ isDefaultEntry }) => !isDefaultEntry)!;
 
-    expect(entry.getOutputPath('esm')).toMatchInlineSnapshot(
-      '"components.mjs"',
-    );
-    expect(entry.getOutputPath('cjs')).toMatchInlineSnapshot(
-      '"components.cjs"',
-    );
-    expect(entry.getOutputPath('dts')).toMatchInlineSnapshot(
-      '"components.d.ts"',
-    );
+    expect(byFormat((format) => entry.getOutputPath(format)))
+      .toMatchInlineSnapshot(`
+      {
+        "cjs": "components.cjs",
+        "dts": "components.d.ts",
+        "dtsm": "components.d.mts",
+        "esm": "components.mjs",
+      }
+    `);
   });
 
   test('getOutputPath (from root) for entry', async () => {
     const entryPoints = await getPackageEntryPoints(root);
     const entry = entryPoints.find(({ isDefaultEntry }) => !isDefaultEntry)!;
 
-    expect(entry.getOutputPath('esm', { from: root })).toMatchInlineSnapshot(
-      '"dist/components.mjs"',
-    );
-    expect(entry.getOutputPath('cjs', { from: root })).toMatchInlineSnapshot(
-      '"dist/components.cjs"',
-    );
-    expect(entry.getOutputPath('dts', { from: root })).toMatchInlineSnapshot(
-      '"dist/components.d.ts"',
-    );
+    expect(byFormat((format) => entry.getOutputPath(format, { from: root })))
+      .toMatchInlineSnapshot(`
+      {
+        "cjs": "dist/components.cjs",
+        "dts": "dist/components.d.ts",
+        "dtsm": "dist/components.d.mts",
+        "esm": "dist/components.mjs",
+      }
+    `);
   });
 
   test('createEntryPackageJsons', async () => {
