@@ -1,12 +1,11 @@
 import path from 'path';
-import { fileURLToPath } from 'url';
 
 import enquirer from 'enquirer';
 import glob from 'fast-glob';
 import fse from 'fs-extra';
 import type { PackageJson } from 'type-fest';
 
-import { done, run } from './utils';
+import { fromRoot, done, run } from './utils';
 
 type Answers = {
   name: string;
@@ -39,9 +38,7 @@ const template = {
   index: (_answers: Answers) => `export default {}`,
 };
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-const fixturesDir = path.join(__dirname, '../fixtures');
+const fixturesDir = fromRoot('fixtures');
 
 const existingFixtures = (
   await glob([`${fixturesDir}/*`], {
