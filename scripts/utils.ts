@@ -2,13 +2,18 @@ import { execSync } from 'child_process';
 
 export const run = async (
   command: string,
-  { cwd }: Parameters<typeof execSync>[1] = {},
+  { cwd, ...options }: Parameters<typeof execSync>[1] = {},
 ) => {
   const cwdSuffix = cwd ? ` (in ${cwd})` : '';
   console.log(`🛠  ${command}${cwdSuffix}...`);
-  execSync(command, { cwd, stdio: 'inherit' });
+  const output = execSync(command, {
+    cwd,
+    stdio: 'inherit',
+    ...options,
+  });
   console.log(`✅ ${command}`);
   console.log();
+  return output;
 };
 
 export const done = () => console.log('✨ Done.');
