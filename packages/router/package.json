@@ -6,17 +6,26 @@
   "sideEffects": false,
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
+      "types": {
+        "import": "./dist/index.d.mts",
+        "require": "./dist/index.d.ts"
+      },
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
     "./routes": {
-      "types": "./dist/routes.d.ts",
+      "types": {
+        "import": "./dist/routes.d.mts",
+        "require": "./dist/routes.d.ts"
+      },
       "import": "./dist/routes.mjs",
       "require": "./dist/routes.cjs"
     },
     "./server": {
-      "types": "./dist/server.d.ts",
+      "types": {
+        "import": "./dist/server.d.mts",
+        "require": "./dist/server.d.ts"
+      },
       "import": "./dist/server.mjs",
       "require": "./dist/server.cjs"
     },
