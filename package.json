@@ -78,7 +78,7 @@
   },
   "wireit": {
     "build:ci": {
-      "command": "pnpm build",
+      "command": "pnpm build --fix",
       "dependencies": [
         "bootstrap"
       ]

@@ -6,6 +6,11 @@ exports.maybe = maybe;
 /* #endregion */
 
 
+/* #region dist/index.d.mts */
+export { Maybe, maybe } from './some/other/file.js';
+/* #endregion */
+
+
 /* #region dist/index.d.ts */
 export { Maybe, maybe } from './some/other/file.js';
 /* #endregion */

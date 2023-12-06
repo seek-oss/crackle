@@ -6,6 +6,15 @@ exports.Component = styles_Component_cjs.Component;
 /* #endregion */
 
 
+/* #region dist/index.d.mts */
+import * as react_jsx_runtime from 'react/jsx-runtime';
+
+declare const _default: () => react_jsx_runtime.JSX.Element;
+
+export { _default as Component };
+/* #endregion */
+
+
 /* #region dist/index.d.ts */
 import * as react_jsx_runtime from 'react/jsx-runtime';
 

@@ -8,6 +8,11 @@ exports.add = add;
 /* #endregion */
 
 
+/* #region dist/index.d.mts */
+export { JobSummary, add } from './apac.chunk.js';
+/* #endregion */
+
+
 /* #region dist/index.d.ts */
 export { JobSummary, add } from './apac.chunk.js';
 /* #endregion */

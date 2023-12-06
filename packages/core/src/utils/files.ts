@@ -20,6 +20,8 @@ const exists = async (filePath: string) => {
   }
 };
 
+export const copyFile = (from: string, to: string) => fse.copy(from, to);
+
 export const writeFile = async ({ dir, fileName, contents }: WriteFileOpts) => {
   await fse.mkdir(dir, { recursive: true });
   return fse.writeFile(path.join(dir, fileName), contents, 'utf-8');
@@ -83,5 +85,7 @@ export const emptyDir = async (dir: string, skip = ['.git']): Promise<void> => {
   }
 };
 
+export const formats: Format[] = ['cjs', 'esm', 'dts', 'dtsm'];
+
 export const extensionForFormat = (format: Format) =>
-  (({ esm: 'mjs', cjs: 'cjs', dts: 'd.ts' } as const)[format]);
+  (({ cjs: 'cjs', esm: 'mjs', dts: 'd.ts', dtsm: 'd.mts' } as const)[format]);

@@ -144,6 +144,7 @@ export const generateDevFiles = async () => {
       await writeFile(entry, 'cjs', getCjsContents);
       await writeFile(entry, 'esm', getEsmContents);
       await writeFile(entry, 'dts', getDtsContents);
+      await writeFile(entry, 'dtsm', getDtsContents);
 
       logger.info(`✅ Created stubs for ${entry.entryName}`);
     });

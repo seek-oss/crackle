@@ -6,12 +6,18 @@
   "author": "SEEK",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
+      "types": {
+        "import": "./dist/index.d.mts",
+        "require": "./dist/index.d.ts"
+      },
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
     "./cli": {
-      "types": "./dist/cli.d.ts",
+      "types": {
+        "import": "./dist/cli.d.mts",
+        "require": "./dist/cli.d.ts"
+      },
       "import": "./dist/cli.mjs",
       "require": "./dist/cli.cjs"
     },

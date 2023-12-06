@@ -7,6 +7,11 @@ module.exports = hiddenPackageJson__default.default;
 /* #endregion */
 
 
+/* #region dist/index.d.mts */
+export { default } from '@crackle-fixtures/hidden-package-json';
+/* #endregion */
+
+
 /* #region dist/index.d.ts */
 export { default } from '@crackle-fixtures/hidden-package-json';
 /* #endregion */

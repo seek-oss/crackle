@@ -119,7 +119,7 @@ if (argv.test) {
   await runInBraid(`pnpm generate:icons`);
   await runInBraid(`pnpm generate:snippets`);
   // Run Braid's build command to make sure it still works & to generate the bundles
-  await runInBraid(`pnpm build`);
+  await runInBraid(`pnpm build --fix`);
 
   if (argv.test === 'integration') {
     // Run Braid's integration tests

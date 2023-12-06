@@ -6,6 +6,15 @@ exports.maybe = maybe;
 /* #endregion */
 
 
+/* #region dist/index.d.mts */
+import { Maybe } from '@crackle-fixtures/graphql-schema/types';
+
+declare const maybe: Maybe<string>;
+
+export { maybe };
+/* #endregion */
+
+
 /* #region dist/index.d.ts */
 import { Maybe } from '@crackle-fixtures/graphql-schema/types';
 
