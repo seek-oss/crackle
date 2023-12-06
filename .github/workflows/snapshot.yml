@@ -21,6 +21,8 @@ jobs:
     steps:
       - name: Checkout & Install
         uses: seek-oss/crackle/.github/actions/init@master
+        with:
+          token: ${{ secrets.SEEK_OSS_CI_GITHUB_TOKEN }}
 
       - name: Publish
         uses: seek-oss/changesets-snapshot@v0
