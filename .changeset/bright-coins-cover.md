@@ -5,4 +5,4 @@
 '@crackle/cli': minor
 ---
 
-Now generating types correctly according do https://arethetypeswrong.github.io
+Now generating types correctly according to https://arethetypeswrong.github.io
