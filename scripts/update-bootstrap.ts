@@ -3,7 +3,7 @@ import assert from 'assert';
 import cliPkg from '@crackle/cli/package.json';
 import bootstrapPkg from '@crackle-private/bootstrap/package.json';
 
-import { run, done, fromRoot } from './utils';
+import { run, done } from './utils';
 
 if (cliPkg.version.startsWith('0.0.0')) {
   console.log('Not updating bootstrap because @crackle/cli is a snapshot');
@@ -36,12 +36,10 @@ if (version === bootstrapPkg.dependencies['@crackle/cli']) {
 await run(`npm dist-tag add @crackle/cli@${version} bootstrap`);
 
 await run(
-  `pnpm install --filter='@crackle-private/bootstrap' @crackle/cli@${version}`,
+  `pnpm add --filter='@crackle-private/bootstrap' @crackle/cli@${version}`,
 );
 
-await run(`git add bootstrap/package.json pnpm-lock.yaml`, {
-  cwd: fromRoot('.'),
-});
+await run(`git add bootstrap/package.json pnpm-lock.yaml`);
 await run(`git commit -m "Update bootstrap to @crackle/cli@${version}"`);
 
 // We don't need to push the commit because `changeset publish` does it with `git push --tags`

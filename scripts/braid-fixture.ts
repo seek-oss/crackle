@@ -4,7 +4,7 @@ import dedent from 'dedent';
 import fse from 'fs-extra';
 import yargs from 'yargs';
 
-import { fromRoot, run as _run, done } from './utils';
+import { fromRoot, run, done } from './utils';
 
 const argv = await yargs(process.argv.slice(2))
   .option('branch', {
@@ -34,8 +34,6 @@ const repo = 'git@github.com:seek-oss/braid-design-system.git';
 const submodule = 'fixtures/braid-design-system';
 let branch = argv.branch;
 
-const run: typeof _run = (command, options) =>
-  _run(command, { cwd: fromRoot('.'), ...options });
 const clean = async (location: string) =>
   (await fse.exists(fromRoot(location))) && run(`rm -fr ${location}`);
 
