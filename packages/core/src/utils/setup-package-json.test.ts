@@ -58,17 +58,26 @@ describe('diffPackageJson', () => {
   const correctPackageJson = {
     exports: {
       '.': {
-        types: './dist/index.d.ts',
+        types: {
+          import: './dist/index.d.mts',
+          require: './dist/index.d.ts',
+        },
         import: './dist/index.mjs',
         require: './dist/index.cjs',
       },
       './css': {
-        types: './dist/css.d.ts',
+        types: {
+          import: './dist/css.d.mts',
+          require: './dist/css.d.ts',
+        },
         import: './dist/css.mjs',
         require: './dist/css.cjs',
       },
       './themes/apac': {
-        types: './dist/themes/apac.d.ts',
+        types: {
+          import: './dist/themes/apac.d.mts',
+          require: './dist/themes/apac.d.ts',
+        },
         import: './dist/themes/apac.mjs',
         require: './dist/themes/apac.cjs',
       },

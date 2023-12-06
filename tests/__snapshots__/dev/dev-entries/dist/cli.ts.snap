@@ -5,6 +5,11 @@ module.exports = require("../src/entries/cli.ts");
 /* #endregion */
 
 
+/* #region dist/cli.d.mts */
+export * from "../src/entries/cli";
+/* #endregion */
+
+
 /* #region dist/cli.d.ts */
 export * from "../src/entries/cli";
 /* #endregion */

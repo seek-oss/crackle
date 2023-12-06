@@ -8,6 +8,11 @@ exports.Box = Box;
 /* #endregion */
 
 
+/* #region dist/index.d.mts */
+export { Box, BraidProvider } from './reset.chunk.js';
+/* #endregion */
+
+
 /* #region dist/index.d.ts */
 export { Box, BraidProvider } from './reset.chunk.js';
 /* #endregion */

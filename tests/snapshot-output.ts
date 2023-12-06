@@ -23,7 +23,7 @@ export default async function snapshotOutput(
     onlyFiles: true,
   });
   const groups = _.groupBy(distFiles, (fileName) =>
-    fileName.replace(/(.cjs|.mjs|.d.ts)$/, '.ts'),
+    fileName.replace(/(.cjs|.mjs|.d.ts|.d.mts)$/, '.ts'),
   );
 
   await promiseMap(Object.entries(groups), async ([groupName, files]) => {

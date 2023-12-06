@@ -150,6 +150,13 @@ module.exports = client;
 /* #endregion */
 
 
+/* #region dist/index.d.mts */
+declare const _default: () => void;
+
+export { _default as default };
+/* #endregion */
+
+
 /* #region dist/index.d.ts */
 declare const _default: () => void;
 

@@ -5,6 +5,12 @@ module.exports = require("../src/index.ts");
 /* #endregion */
 
 
+/* #region dist/index.d.mts */
+export * from "../src/index";
+export { default } from "../src/index";
+/* #endregion */
+
+
 /* #region dist/index.d.ts */
 export * from "../src/index";
 export { default } from "../src/index";

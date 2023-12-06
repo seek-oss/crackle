@@ -2,7 +2,7 @@ import type React from 'react';
 
 export type { PackageJson } from 'type-fest';
 
-export type Format = 'esm' | 'cjs' | 'dts';
+export type Format = 'cjs' | 'esm' | 'dts' | 'dtsm';
 
 type RoutePath = string;
 export type AppShell<MetadataType extends Record<string, any> | void = void> =

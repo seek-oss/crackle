@@ -6,6 +6,11 @@ exports.atoms = styles_lib_atoms_atoms_cjs.atoms;
 /* #endregion */
 
 
+/* #region dist/css.d.mts */
+export { atoms } from './reset.chunk.js';
+/* #endregion */
+
+
 /* #region dist/css.d.ts */
 export { atoms } from './reset.chunk.js';
 /* #endregion */

@@ -36,6 +36,19 @@ exports.render = render;
 /* #endregion */
 
 
+/* #region dist/index.d.mts */
+export { default as cjsDirIndex } from 'autosuggest-highlight/parse';
+export { default as cjsFauxEsm } from 'react-keyed-flatten-children';
+export { default as scopedSubpath } from '@crackle-fixtures/dep-with-exports/subpath';
+export { default as scopedPatchedSubpath } from '@crackle-fixtures/dep-with-exports-always-patch/subpath';
+
+declare const App: React.FC;
+declare const render: () => string;
+
+export { App, render };
+/* #endregion */
+
+
 /* #region dist/index.d.ts */
 export { default as cjsDirIndex } from 'autosuggest-highlight/parse';
 export { default as cjsFauxEsm } from 'react-keyed-flatten-children';

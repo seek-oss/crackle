@@ -1,3 +1,5 @@
+import path from 'path';
+
 import { rollup } from 'rollup';
 import dts from 'rollup-plugin-dts';
 
@@ -5,7 +7,8 @@ import type { EnhancedConfig } from '../config';
 import { logger } from '../entries/logger';
 import { externals } from '../plugins/rollup/externals';
 import type { PackageEntryPoint } from '../types';
-import { extensionForFormat } from '../utils/files';
+import { copyFile, extensionForFormat } from '../utils/files';
+import { promiseMap } from '../utils/promise-map';
 import { commonOutputOptions } from '../vite-config';
 
 export const createDtsBundle = async (
@@ -58,6 +61,13 @@ export const createDtsBundle = async (
   });
 
   await bundle.close();
+
+  await promiseMap(entries, async (entry) => {
+    await copyFile(
+      path.join(entry.outputDir, entry.getOutputPath('dts')),
+      path.join(entry.outputDir, entry.getOutputPath('dtsm')),
+    );
+  });
 
   return result;
 };

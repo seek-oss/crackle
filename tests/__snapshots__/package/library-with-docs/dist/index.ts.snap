@@ -6,6 +6,19 @@ exports.JobSummary = styles_components_JobSummary_JobSummary_cjs.JobSummary;
 /* #endregion */
 
 
+/* #region dist/index.d.mts */
+import * as react_jsx_runtime from 'react/jsx-runtime';
+
+interface JobSummaryProps {
+    title: string;
+    isNew: boolean;
+}
+declare const JobSummary: ({ title, isNew }: JobSummaryProps) => react_jsx_runtime.JSX.Element;
+
+export { JobSummary };
+/* #endregion */
+
+
 /* #region dist/index.d.ts */
 import * as react_jsx_runtime from 'react/jsx-runtime';
 
