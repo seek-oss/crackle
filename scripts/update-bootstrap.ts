@@ -40,7 +40,7 @@ await run(
 await run(`git add bootstrap/package.json pnpm-lock.yaml`, {
   cwd: fromRoot('.'),
 });
-await run(`git commit -m "Update bootstrap with @crackle/cli@${version}"`);
+await run(`git commit -m "Update bootstrap to @crackle/cli@${version}"`);
 await run(`git push`);
 
 done();
