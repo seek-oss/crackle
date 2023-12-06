@@ -5,7 +5,7 @@ import bootstrapPkg from '@crackle-private/bootstrap/package.json';
 
 import { run, done } from './utils';
 
-if (false && cliPkg.version.startsWith('0.0.0')) {
+if (cliPkg.version.startsWith('0.0.0')) {
   console.log('Not updating bootstrap because @crackle/cli is a snapshot');
 
   // eslint-disable-next-line no-process-exit
