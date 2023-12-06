@@ -1,5 +1,11 @@
 # @crackle/core
 
+## 0.31.0
+
+### Minor Changes
+
+- [#157](https://github.com/seek-oss/crackle/pull/157) [`8b2a4ba`](https://github.com/seek-oss/crackle/commit/8b2a4baf796a03e5a3f0d5219eaca68ff9c459f4) Thanks [@mrm007](https://github.com/mrm007)! - Test snapshot
+
 ## 0.30.0
 
 ### Minor Changes
