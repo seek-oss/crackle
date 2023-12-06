@@ -5,14 +5,10 @@ import bootstrapPkg from '@crackle-private/bootstrap/package.json';
 
 import { run, done, fromRoot } from './utils';
 
-const distTags = JSON.parse(
-  `${await run(`npm info @crackle/cli dist-tags --json`, {
-    encoding: 'utf-8',
-    stdio: 'pipe',
-  })}`,
-) as Record<string, string | undefined>;
-
-let version = distTags.bootstrap;
+let version = `${await run(`npm info @crackle/cli dist-tags.bootstrap`, {
+  encoding: 'utf-8',
+  stdio: 'pipe',
+})}`.trim();
 
 if (!version) {
   console.log('No bootstrap tag found. Getting latest version...');
