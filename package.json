@@ -6,6 +6,7 @@
     "%packages": "pnpm --filter='@crackle/*' --aggregate-output",
     "%fixtures": "pnpm --filter='@crackle-fixtures/*' --aggregate-output",
     "bootstrap": "pnpm %packages exec crackle-bootstrap package --fix",
+    "bootstrap:update": "tsx ./scripts/update-bootstrap.ts",
     "dev": "pnpm %packages dev",
     "build": "pnpm %packages build",
     "build:ci": "wireit",
@@ -34,7 +35,7 @@
     "changeset": "changeset",
     "version": "changeset version && pnpm install --lockfile-only",
     "prepare-publish": "pnpm build:ci",
-    "release": "pnpm prepare-publish && changeset publish"
+    "release": "pnpm prepare-publish && pnpm bootstrap:update && changeset publish"
   },
   "dependencies": {
     "@changesets/changelog-github": "^0.5.0",

@@ -30,9 +30,7 @@
   ],
   "scripts": {
     "build": "crackle package",
-    "dev": "crackle dev",
-    "prepublishOnly": "tsx ../../scripts/tag-bootstrap.ts",
-    "postversion": "tsx ../../scripts/update-bootstrap.ts"
+    "dev": "crackle dev"
   },
   "dependencies": {
     "@crackle/core": "^0.30.0",
