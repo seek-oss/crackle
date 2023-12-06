@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - auto-update-bootstrap # TODO: remove
 
 env:
   CI: true
