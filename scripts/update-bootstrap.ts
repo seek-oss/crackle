@@ -12,9 +12,9 @@ if (false && cliPkg.version.startsWith('0.0.0')) {
   process.exit(0);
 }
 
-// We tag the latest version because this is meant to run before `changeset publish`.
-// It means we have a new local version to be published to npm, so bootstrap will be latest-1 after we publish.
-// That way we can install the latest from npm without pnpm linking to the workspace package, which is not desired.
+// This is meant to run after `changeset version`.
+// It means we have a new local version that will eventually be published to npm.
+// Because the local version and the latest from npm are different, we can install without pnpm linking to the workspace package, which is not desired.
 
 const version = `${await run(`npm info @crackle/cli@latest version`, {
   encoding: 'utf-8',
@@ -33,15 +33,10 @@ if (version === bootstrapPkg.dependencies['@crackle/cli']) {
   process.exit(0);
 }
 
-await run(`npm dist-tag add @crackle/cli@${version} bootstrap`);
-
 await run(
   `pnpm add --filter='@crackle-private/bootstrap' @crackle/cli@${version}`,
 );
 
-await run(`git add bootstrap/package.json pnpm-lock.yaml`);
-await run(`git commit -m "Update bootstrap to @crackle/cli@${version}"`);
-
-// We don't need to push the commit because `changeset publish` does it with `git push --tags`
+// We don't need to commit and push the changes because `changesets/action` will do it
 
 done();

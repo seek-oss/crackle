@@ -6,6 +6,7 @@
     "%packages": "pnpm --filter='@crackle/*' --aggregate-output",
     "%fixtures": "pnpm --filter='@crackle-fixtures/*' --aggregate-output",
     "bootstrap": "pnpm %packages exec crackle-bootstrap package --fix",
+    "bootstrap:tag": "tsx ./scripts/tag-bootstrap.ts",
     "bootstrap:update": "tsx ./scripts/update-bootstrap.ts",
     "dev": "pnpm %packages dev",
     "build": "pnpm %packages build",
@@ -33,8 +34,8 @@
     "sync:prettierignore": "ignore-sync .prettierignore-sync",
     "sync:eslintignore": "ignore-sync .eslintignore-sync",
     "changeset": "changeset",
-    "version": "changeset version && pnpm install --lockfile-only",
-    "prepare-publish": "pnpm build:ci && pnpm bootstrap:update",
+    "version": "changeset version && pnpm install --lockfile-only && pnpm bootstrap:update",
+    "prepare-publish": "pnpm build:ci && pnpm bootstrap:tag",
     "release": "pnpm prepare-publish && changeset publish"
   },
   "dependencies": {
