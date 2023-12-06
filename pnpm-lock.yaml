@@ -72,8 +72,8 @@ importers:
   bootstrap:
     dependencies:
       '@crackle/cli':
-        specifier: npm:@crackle/cli@0.12.5
-        version: 0.12.5(typescript@5.3.2)(webpack@5.89.0)
+        specifier: 0.12.6
+        version: 0.12.6(typescript@5.3.2)(webpack@5.89.0)
 
   fixtures/braid-site:
     dependencies:
@@ -345,7 +345,7 @@ importers:
   packages/cli:
     dependencies:
       '@crackle/core':
-        specifier: ^0.30.0
+        specifier: ^0.31.0
         version: link:../core
       yargs:
         specifier: ^17.6.2
@@ -367,10 +367,10 @@ importers:
         specifier: ^7.23.3
         version: 7.23.3(@babel/core@7.23.5)
       '@crackle/babel-plugin-remove-exports':
-        specifier: ^0.2.1
+        specifier: ^0.3.0
         version: link:../babel-plugin-remove-exports
       '@crackle/router':
-        specifier: ^0.3.0
+        specifier: ^0.4.0
         version: link:../router
       '@ungap/structured-clone':
         specifier: ^1.2.0
@@ -1241,11 +1241,11 @@ packages:
       - supports-color
     dev: false
 
-  /@crackle/cli@0.12.5(typescript@5.3.2)(webpack@5.89.0):
-    resolution: {integrity: sha512-eRpq/yp7JzivXgkfuYKwU8BtKg1iK8LYP9zgxfcLGPY8fIZquwXQP+ZWMYv7oCagV86166fWo9Py6YfUWE2qRQ==}
+  /@crackle/cli@0.12.6(typescript@5.3.2)(webpack@5.89.0):
+    resolution: {integrity: sha512-AR2xXsNIe5XxsDgzcbLNYKouCCaNX0CHuJm0r5kS+DTWG/xryUJ3yEcgHsmN6xcsn5JWhyjsbLIjy3fVrviRcA==}
     hasBin: true
     dependencies:
-      '@crackle/core': 0.29.0(typescript@5.3.2)(webpack@5.89.0)
+      '@crackle/core': 0.30.0(typescript@5.3.2)(webpack@5.89.0)
       yargs: 17.7.2
     transitivePeerDependencies:
       - '@swc/helpers'
@@ -1266,10 +1266,10 @@ packages:
       - webpack
     dev: false
 
-  /@crackle/core@0.29.0(typescript@5.3.2)(webpack@5.89.0):
-    resolution: {integrity: sha512-Knc4fT2SoeTSF7UVv1nCRqcZ8m8/fweFkHzTpfLHNhFlf93RgHwfLVccCL2DddjaHR0W0B1sly5YeZ3vUALy9A==}
+  /@crackle/core@0.30.0(typescript@5.3.2)(webpack@5.89.0):
+    resolution: {integrity: sha512-7EGnPXeI1+JdOBLJxK3BEsLAOyqEp9zkqEZ2+bm8n0JkceQNPvWu3H5CNmbXP2wKa22M7cSj5e+EOg//Q3UjTg==}
     peerDependencies:
-      typescript: '>=5.0.4'
+      typescript: '>=5.2.2'
     dependencies:
       '@babel/core': 7.23.5
       '@babel/plugin-syntax-jsx': 7.23.3(@babel/core@7.23.5)

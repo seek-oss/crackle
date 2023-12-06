@@ -1,5 +1,16 @@
 # @crackle/cli
 
+## 0.13.0
+
+### Minor Changes
+
+- [#156](https://github.com/seek-oss/crackle/pull/156) [`4633a23`](https://github.com/seek-oss/crackle/commit/4633a230c74a7079e7f9cf581993ac54fdccce5c) Thanks [@mrm007](https://github.com/mrm007)! - Now generating types correctly according to https://arethetypeswrong.github.io
+
+### Patch Changes
+
+- Updated dependencies [[`4633a23`](https://github.com/seek-oss/crackle/commit/4633a230c74a7079e7f9cf581993ac54fdccce5c)]:
+  - @crackle/core@0.31.0
+
 ## 0.12.6
 
 ### Patch Changes
