@@ -1,6 +1,6 @@
 {
   "name": "@crackle/core",
-  "version": "0.30.0",
+  "version": "0.31.0",
   "license": "MIT",
   "author": "SEEK",
   "sideEffects": false,
@@ -124,8 +124,8 @@
     "@babel/core": "^7.23.3",
     "@babel/plugin-syntax-jsx": "^7.23.3",
     "@babel/plugin-syntax-typescript": "^7.23.3",
-    "@crackle/babel-plugin-remove-exports": "^0.2.1",
-    "@crackle/router": "^0.3.0",
+    "@crackle/babel-plugin-remove-exports": "^0.3.0",
+    "@crackle/router": "^0.4.0",
     "@ungap/structured-clone": "^1.2.0",
     "@vanilla-extract/css": "^1.14.0",
     "@vanilla-extract/integration": "^6.2.4",
