@@ -19,11 +19,11 @@ export interface CrackleServer {
   close: () => Promise<void>;
 }
 
-export type PackageEntryPoint = {
+export interface PackageEntryPoint {
   isDefaultEntry: boolean;
   entryName: string;
   entryPath: string;
   outputDir: string;
   packageDir: string;
   getOutputPath: (format: Format, options?: { from?: string }) => string;
-};
+}

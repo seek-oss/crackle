@@ -3,10 +3,10 @@ import snapshotDiff from 'snapshot-diff';
 import type { Plugin } from './types';
 
 type DiffOptions = Parameters<typeof snapshotDiff>[2];
-type ExpectDiff = {
+interface ExpectDiff {
   diffA: unknown;
   diffB: unknown;
-};
+}
 
 const defaultOptions = {
   aAnnotation: 'Diff A',

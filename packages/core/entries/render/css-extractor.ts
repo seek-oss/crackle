@@ -9,7 +9,7 @@ function stringifyFileScope({ packageName, filePath }: FileScope): string {
   return packageName ? `${filePath}$$$${packageName}` : filePath;
 }
 
-const bufferedCSSObjs = new Map<string, Array<CSSObj>>();
+const bufferedCSSObjs = new Map<string, CSSObj[]>();
 const cssByFileScope = new Map<string, string>();
 const localClassNames = new Set<string>();
 const composedClassLists = new Array<any>();

@@ -63,14 +63,8 @@ jobs:
           key: build-${{ github.sha }}
           enableCrossOsArchive: true
 
-      - name: ESLint
-        run: pnpm lint:eslint
-
-      - name: Prettier
-        run: pnpm lint:prettier
-
-      - name: TypeScript
-        run: pnpm lint:tsc
+      - name: Run All Linters
+        run: pnpm lint
 
   test:
     name: Test
