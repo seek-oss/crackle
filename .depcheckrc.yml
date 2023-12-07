@@ -2,9 +2,10 @@ ignores:
   # used on release
   - '@changesets/changelog-github'
   # internal packages
+  - '@crackle-private/bootstrap'
   - '@crackle/cli'
   - '@crackle/core'
-  - '@crackle/router'
+  - '@crackle/router' # broken code that needs to be updated in packages/router/src/entries/routes.ts
   # testing
   - vitest
   - '~utils'
