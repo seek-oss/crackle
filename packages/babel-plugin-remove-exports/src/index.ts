@@ -4,9 +4,9 @@ import type { NodePath, Visitor } from '@babel/traverse';
 interface Context extends PluginPass {
   identifiersToKeep: Set<string>;
   opts: {
-    retainExports?: Array<string>;
+    retainExports?: string[];
     retainDefault?: boolean;
-    retainIdentifiers?: Array<string>;
+    retainIdentifiers?: string[];
   };
 }
 

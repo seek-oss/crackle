@@ -42,7 +42,10 @@
   },
   "settings": {
     "jest": {
-      "version": 27 // otherwise ESLint fails because it can't detect Jest version
+      "version": 29 // otherwise ESLint fails because it can't detect Jest version
+    },
+    "react": {
+      "version": "18" // suppress ESLint warning about missing React version
     }
   }
 }

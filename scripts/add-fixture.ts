@@ -7,10 +7,10 @@ import type { PackageJson } from 'type-fest';
 
 import { fromRoot, done, run } from './utils';
 
-type Answers = {
+interface Answers {
   name: string;
-  type: ('site' | 'library')[];
-};
+  type: Array<'site' | 'library'>;
+}
 
 const template = {
   packageJson: ({ name, type }: Answers) =>

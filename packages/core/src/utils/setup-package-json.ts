@@ -23,11 +23,11 @@ export type Difference =
   | { key: 'order' };
 
 type ExportString = `./${string}`;
-type ExportObject = {
+interface ExportObject {
   types: ExportString | Omit<ExportObject, 'types'>;
   import: ExportString;
   require: ExportString;
-};
+}
 type Exports = Record<string, ExportString | ExportObject>;
 
 const structuredClone = global.structuredClone ?? structuredClonePolyfill;
@@ -74,7 +74,7 @@ const getExportsForPackage = (entries: Entry[], options: { from: string }) => {
   }
   exports[makeRelative('package.json')] = makeRelative('package.json');
 
-  return exports;
+  return exports as PackageJson['exports'];
 };
 
 const getSideEffectsForPackage = (
@@ -259,7 +259,7 @@ export const updatePackageJsonExports = async (
   }
   packageExports[lastKey] = lastExport;
 
-  packageJson.exports = packageExports;
+  packageJson.exports = packageExports as PackageJson['exports'];
 
   await writePackageJson({
     dir: packageRoot,

@@ -1,9 +1,9 @@
 declare module 'fixturez' {
-  type Opts = {
-    glob?: string | Array<string>;
+  interface Opts {
+    glob?: string | string[];
     root?: string;
     cleanup?: boolean;
-  };
+  }
 
   export default function (
     cwd: string,
