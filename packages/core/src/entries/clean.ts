@@ -1,5 +1,3 @@
-import chalk from 'chalk';
-
 import { type PartialConfig, getConfig } from '../config';
 import {
   cleanPackageEntryPoints,
@@ -14,6 +12,8 @@ export const clean = async (inlineConfig?: PartialConfig) => {
   const entries = await getPackageEntryPoints(config.root);
 
   await cleanPackageEntryPoints(entries, (entryPoint) => {
-    logger.info(`🧹  Cleaning ${chalk.bold(entryPoint.entryName)}`);
+    logger.info(`Cleaning \`${entryPoint.entryName}\``);
   });
+
+  logger.success('Done!');
 };

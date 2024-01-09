@@ -1,9 +1,9 @@
-import chalk from 'chalk';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import type { Manifest } from 'vite';
 
-import { logger } from '../../logger';
+import { logger } from '@crackle/core/logger';
+
 import type { RenderAllPagesFn } from '../types';
 
 import { createRouteMap, nodePageModules, Page } from './shared';
@@ -73,7 +73,7 @@ export const renderAllPages: RenderAllPagesFn = async (
   const totalPages = Object.keys(nodePageModules).length;
   const noun = totalPages === 1 ? 'page' : 'pages';
 
-  logger.info(`🛠  Rendering ${chalk.bold(`${totalPages} ${noun}`)}...`);
+  logger.start(`Rendering \`${totalPages} ${noun}\`...`);
 
   const pageModules = [];
 
@@ -102,9 +102,7 @@ export const renderAllPages: RenderAllPagesFn = async (
 
     pageModules.push({ route, html });
 
-    logger.info(
-      `   📜 [${pageModules.length}/${totalPages}] ${chalk.bold(route)}`,
-    );
+    logger.log(`  └─ [${pageModules.length}/${totalPages}] \`${route}\``);
   }
 
   return pageModules;

@@ -17,6 +17,8 @@ import { writeIfRequired } from './files';
 import { promiseMap } from './promise-map';
 import { resolveFrom } from './resolve-from';
 
+const debugLogger = logger.withDefaults({ tag: 'dev' });
+
 const getHookLoader = async (entry: PackageEntryPoint, format: Format) => {
   const stringifyRelative = (p: string) =>
     JSON.stringify(path.relative(entry.outputDir, p));
@@ -66,7 +68,7 @@ async function writeFile(
     entry.entryPath.replace(path.extname(entry.entryPath), ''),
   );
 
-  logger.debug(dedent`
+  debugLogger.debug(dedent`
     [writeFile ${format}]
       entryPath: ${entry.entryPath}
       outputDir: ${entry.outputDir}
@@ -99,9 +101,9 @@ const getEsmContents: GetContents = async (entry) => {
 
   if (exports.length === 0) {
     logger.info(
-      `Could not find ESM exports for ${
+      `Could not find ESM exports for \`${
         entry.isDefaultEntry ? 'index' : entry.entryName
-      }`,
+      }\`. Stubbing with empty exports.`,
     );
     return dedent`
       ${setup}
@@ -146,7 +148,7 @@ export const generateDevFiles = async () => {
       await writeFile(entry, 'dts', getDtsContents);
       await writeFile(entry, 'dtsm', getDtsContents);
 
-      logger.info(`✅ Created stubs for ${entry.entryName}`);
+      logger.success(`Created stubs for \`${entry.entryName}\``);
     });
 
     await createEntryPackageJsons(entryPaths);

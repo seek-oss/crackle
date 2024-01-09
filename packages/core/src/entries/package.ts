@@ -1,7 +1,7 @@
 import fs from 'fs/promises';
 import path from 'path';
+import process from 'process';
 
-import chalk from 'chalk';
 import type { Rollup } from 'vite';
 
 import { type EnhancedConfig, type PartialConfig, getConfig } from '../config';
@@ -9,7 +9,6 @@ import { distDir } from '../constants';
 import { createBundle } from '../package-utils/bundle';
 import { createDtsBundle } from '../package-utils/dts';
 import { renderPackageJsonValidationError } from '../reporters/package';
-import { renderBuildError } from '../reporters/shared';
 import type { PackageJson } from '../types';
 import {
   cleanPackageEntryPoints,
@@ -47,18 +46,25 @@ const build = async (config: EnhancedConfig, packageName: string) => {
   if (diffs.length) {
     if (config.fix) {
       await fix(config);
+      logger.log('');
     } else {
-      logger.errorWithExitCode(
-        renderPackageJsonValidationError(packageName, diffs),
-      );
+      logger.box({
+        title: `\`${packageName}\``,
+        message: renderPackageJsonValidationError(diffs),
+        style: {
+          borderColor: 'red',
+          padding: 1,
+        },
+      });
+      process.exitCode = 1;
       return;
     }
   }
 
-  logger.info(`🛠  Building ${chalk.bold.green(packageName)}...`);
+  logger.start(`Building \`${packageName}\`...`);
 
   if (config.clean) {
-    logger.info('🧹 Cleaning output directories...');
+    logger.info('Cleaning output directories...');
     await cleanPackageEntryPoints(entries);
   }
 
@@ -66,9 +72,9 @@ const build = async (config: EnhancedConfig, packageName: string) => {
     bundle: typeof createBundle | typeof createDtsBundle,
     label: string,
   ) => {
-    logger.info(`⚙️  Creating ${chalk.bold(label)} bundle...`);
+    logger.info(`Creating _${label}_ bundle...`);
     const result = await bundle(config, entries);
-    logger.info(`⚙️  Finished creating ${chalk.bold(label)} bundle`);
+    logger.info(`Finished creating _${label}_ bundle`);
     return result;
   };
 
@@ -89,7 +95,7 @@ const build = async (config: EnhancedConfig, packageName: string) => {
 
   await updatePackageJsonExports(config.root, cssExports);
 
-  logger.info(`✅ Successfully built ${chalk.bold.green(packageName)}!`);
+  logger.success(`Finished building \`${packageName}\`!`);
 };
 
 export const buildPackage = async (partialConfig?: PartialConfig) => {
@@ -99,6 +105,7 @@ export const buildPackage = async (partialConfig?: PartialConfig) => {
   try {
     await build(config, packageName);
   } catch (err: any) {
-    logger.errorWithExitCode(renderBuildError(packageName, err));
+    logger.error(err);
+    process.exitCode = 1;
   }
 };
