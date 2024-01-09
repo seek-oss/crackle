@@ -6,7 +6,6 @@ import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import react from '@vitejs/plugin-react-swc';
 import builtinModules from 'builtin-modules';
 import express from 'express';
-import { createServer as createViteServer } from 'vite';
 
 import type { RenderDevPageFn } from '../../entries/types';
 import { type PartialConfig, getConfig } from '../config';
@@ -41,6 +40,8 @@ export const start = async (
 
   const app = express();
   const connections = new Map<string, Socket>();
+
+  const { createServer: createViteServer } = await import('vite');
 
   const vite = await createViteServer({
     ...commonViteConfig(config),

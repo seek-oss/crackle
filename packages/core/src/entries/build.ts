@@ -8,11 +8,7 @@ import builtinModules from 'builtin-modules';
 import chalk from 'chalk';
 import fse from 'fs-extra';
 import type { RollupOutput } from 'rollup';
-import {
-  type UserConfig as ViteConfig,
-  type Manifest,
-  build as viteBuild,
-} from 'vite';
+import type { UserConfig as ViteConfig, Manifest } from 'vite';
 
 import type { RenderAllPagesFn } from '../../entries/types';
 import { type PartialConfig, getConfig } from '../config';
@@ -58,6 +54,8 @@ export const build = async (inlineConfig?: PartialConfig) => {
       noExternal: ssrExternals.noExternal,
     },
   };
+
+  const { build: viteBuild } = await import('vite');
 
   const manifestPath = 'manifest.json';
 

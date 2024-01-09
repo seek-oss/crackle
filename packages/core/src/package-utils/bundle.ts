@@ -3,7 +3,7 @@ import path from 'path';
 
 import { cssFileFilter as vanillaCssFileFilter } from '@vanilla-extract/integration';
 import fse from 'fs-extra';
-import { type Rollup, normalizePath, build as viteBuild } from 'vite';
+import type { Rollup } from 'vite';
 
 import type { EnhancedConfig } from '../config';
 import { sideEffectsDir, srcDir, stylesDir } from '../constants';
@@ -29,6 +29,8 @@ export const createBundle = async (
   const packageJson: PackageJson = await fse.readJson(packagePath, { fs });
 
   const formats = ['cjs', 'esm'] as const;
+
+  const { normalizePath, build: viteBuild } = await import('vite');
 
   const getRelativePath = (id: string) => path.relative(config.root, id);
   const getSrcPath = (id: string) =>

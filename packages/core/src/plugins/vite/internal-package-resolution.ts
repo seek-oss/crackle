@@ -1,6 +1,6 @@
 import path from 'path';
 
-import { type Plugin, normalizePath } from 'vite';
+import type { Plugin } from 'vite';
 
 import type { EnhancedConfig } from '../../config';
 import {
@@ -9,11 +9,13 @@ import {
   type Packages,
 } from '../../utils/entry-points';
 
-export const internalPackageResolution = (config: EnhancedConfig): Plugin => {
+export const internalPackageResolution = async (config: EnhancedConfig) => {
   let packages: Packages | undefined;
   let packageMatchRegex: RegExp | undefined;
   // cache package entries so we don't have to hit the file system on every request
   const packageEntries = new Map<string, string[]>();
+
+  const { normalizePath } = await import('vite');
 
   return {
     enforce: 'pre',
@@ -60,5 +62,5 @@ export const internalPackageResolution = (config: EnhancedConfig): Plugin => {
 
       return undefined;
     },
-  };
+  } satisfies Plugin;
 };
