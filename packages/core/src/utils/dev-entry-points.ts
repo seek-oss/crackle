@@ -17,7 +17,7 @@ import { writeIfRequired } from './files';
 import { promiseMap } from './promise-map';
 import { resolveFrom } from './resolve-from';
 
-const debugLogger = logger.withDefaults({ tag: 'dev' });
+const localLogger = logger.withDefaults({ tag: 'dev' });
 
 const getHookLoader = async (entry: PackageEntryPoint, format: Format) => {
   const stringifyRelative = (p: string) =>
@@ -68,7 +68,7 @@ async function writeFile(
     entry.entryPath.replace(path.extname(entry.entryPath), ''),
   );
 
-  debugLogger.debug(dedent`
+  localLogger.debug(dedent`
     [writeFile ${format}]
       entryPath: ${entry.entryPath}
       outputDir: ${entry.outputDir}

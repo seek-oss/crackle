@@ -8,7 +8,7 @@ import type { PartialConfig } from '../config';
 
 import { logger } from './logger';
 
-const debugLogger = logger.withDefaults({ tag: 'config' });
+const localLogger = logger.withDefaults({ tag: 'config' });
 
 const evaluateConfig = (
   configFilePath: string,
@@ -37,7 +37,7 @@ export const resolveConfig = async ({
   // eslint-disable-next-line no-sync
   if (!fs.existsSync(configFilePath)) {
     // eslint-disable-next-line no-console
-    debugLogger.debug(
+    localLogger.debug(
       'No crackle.config.ts file found, using default configuration.',
     );
     return { root: cwd };

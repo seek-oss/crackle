@@ -41,7 +41,7 @@ export const createBundle = async (
     const replaceExtension = (srcPath: string) =>
       srcPath.replace(path.extname(srcPath), `.${extension}`);
 
-    const debugLogger = logger.withDefaults({ tag: format });
+    const localLogger = logger.withDefaults({ tag: format });
 
     return {
       ...commonOutputOptions(config, entries, format),
@@ -56,7 +56,7 @@ export const createBundle = async (
 
         // internal package resolved by plugins/vite/internal-package-resolution.ts
         if (srcPath.startsWith('../')) {
-          debugLogger.debug(`Internal package: ${id}`);
+          localLogger.debug(`Internal package: ${id}`);
           return;
         }
 
@@ -65,15 +65,15 @@ export const createBundle = async (
         if (!moduleInfo) return;
 
         if (moduleInfo.isExternal) {
-          debugLogger.debug(`External module: ${id}`);
+          localLogger.debug(`External module: ${id}`);
           return;
         }
         if (isVanillaFile(id)) {
-          debugLogger.debug(`Vanilla file: ${getRelativePath(id)}`);
+          localLogger.debug(`Vanilla file: ${getRelativePath(id)}`);
           return normalizePath(`${stylesDir}/${srcPath}`);
         }
         if (isVocabFile(moduleInfo.id)) {
-          debugLogger.debug(`Vocab file: ${getRelativePath(id)}`);
+          localLogger.debug(`Vocab file: ${getRelativePath(id)}`);
           return normalizePath(srcPath);
         }
         if (
@@ -81,7 +81,7 @@ export const createBundle = async (
           moduleHasSideEffects(srcPath, packageJson.sideEffects) &&
           !moduleInfo.isEntry
         ) {
-          debugLogger.debug(`Has side-effects: ${getRelativePath(id)}`);
+          localLogger.debug(`Has side-effects: ${getRelativePath(id)}`);
           return normalizePath(`${sideEffectsDir}/${srcPath}`);
         }
         if (
@@ -90,7 +90,7 @@ export const createBundle = async (
           // Prevent concatenation of files which import Vanilla Extract styles, to ensure only the CSS for one file is extracted at build time. Concatenating these files would cause the CSS for all of them to be extracted at build time.
           moduleInfo.importedIds.some(isVanillaFile)
         ) {
-          debugLogger.debug(`Vanilla deps: ${getRelativePath(id)}`);
+          localLogger.debug(`Vanilla deps: ${getRelativePath(id)}`);
           return normalizePath(`${stylesDir}/${srcPath}`);
         }
       },

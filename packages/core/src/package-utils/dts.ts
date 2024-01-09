@@ -15,7 +15,7 @@ export const createDtsBundle = async (
   config: EnhancedConfig,
   entries: PackageEntryPoint[],
 ) => {
-  const debugLogger = logger.withDefaults({ tag: 'dts' });
+  const localLogger = logger.withDefaults({ tag: 'dts' });
 
   const bundle = await rollup({
     input: entries.map((entry) => entry.entryPath),
@@ -43,7 +43,7 @@ export const createDtsBundle = async (
           )
             return false;
       }
-      debugLogger.debug(`onLog ${log.code}: ${log.message}`);
+      localLogger.debug(`onLog ${log.code}: ${log.message}`);
       defaultHandler(level, log);
     },
     preserveEntrySignatures: 'strict',
