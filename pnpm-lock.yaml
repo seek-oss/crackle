@@ -527,7 +527,7 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       react-router-dom:
-        specifier: 6.21.1
+        specifier: ^6.21.1
         version: 6.21.1(react-dom@18.2.0)(react@18.2.0)
     devDependencies:
       '@types/react':
