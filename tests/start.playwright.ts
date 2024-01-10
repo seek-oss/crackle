@@ -15,7 +15,9 @@ const serverTest = test.extend<
       const config = await resolveConfig({ cwd });
       const server = await crackleStart({
         ...config,
-        port: 9000,
+        web: {
+          port: 9000,
+        },
       });
       await use(server);
 
