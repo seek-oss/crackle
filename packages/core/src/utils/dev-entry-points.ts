@@ -145,10 +145,12 @@ export const generateDevFiles = async () => {
     const entryPaths = await getPackageEntryPoints(pkg.root);
 
     await promiseMap(entryPaths, async (entry) => {
-      await writeFile(entry, 'cjs', getCjsContents);
-      await writeFile(entry, 'esm', getEsmContents);
-      await writeFile(entry, 'dts', getDtsContents);
-      await writeFile(entry, 'dtsm', getDtsContents);
+      await Promise.all([
+        writeFile(entry, 'cjs', getCjsContents),
+        writeFile(entry, 'esm', getEsmContents),
+        writeFile(entry, 'dts', getDtsContents),
+        writeFile(entry, 'dtsm', getDtsContents),
+      ]);
 
       logger.success(`Created stubs for \`${getReadableEntryName(entry)}\``);
     });
