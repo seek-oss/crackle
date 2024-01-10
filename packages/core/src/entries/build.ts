@@ -27,7 +27,7 @@ import { commonViteConfig } from '../vite-config';
 import { logger } from './logger';
 
 export const build = async (inlineConfig?: PartialConfig) => {
-  const config = getConfig(inlineConfig);
+  const config = await getConfig(inlineConfig);
   const depGraph = await extractDependencyGraph(config.root);
   const ssrExternals = getSsrExternalsForCompiledDependency(
     '@vanilla-extract/css',
@@ -62,7 +62,7 @@ export const build = async (inlineConfig?: PartialConfig) => {
     logger.start('Building `client`...');
     await viteBuild({
       ...commonBuildConfig,
-      base: config.publicPath,
+      base: config.web.publicPath,
       build: {
         manifest: manifestPath,
         rollupOptions: {
@@ -89,7 +89,7 @@ export const build = async (inlineConfig?: PartialConfig) => {
     } = (await viteBuild({
       ...commonBuildConfig,
       mode: 'development',
-      base: config.publicPath,
+      base: config.web.publicPath,
       build: {
         minify: false,
         ssr: true,
@@ -113,7 +113,7 @@ export const build = async (inlineConfig?: PartialConfig) => {
     const manifest = (await fse.readJson(
       `${outDir}/${manifestPath}`,
     )) as Manifest;
-    const pages = await renderAllPages(manifest, config.publicPath);
+    const pages = await renderAllPages(manifest, config.web.publicPath);
 
     await promiseMap(pages, async ({ route, html }) => {
       const routeDir = path.join(outDir, route);

@@ -43,6 +43,7 @@ export const resolveConfig = async ({
     return { root: cwd };
   }
 
+  // TODO: use c12's `watchConfig` https://github.com/unjs/c12#watching-configuration
   let watching = false;
 
   const context = await esbuild.context({
@@ -82,3 +83,5 @@ export const resolveConfig = async ({
 
   return evaluateConfig(configFilePath, configSource);
 };
+
+export { mergeConfig } from '../config';

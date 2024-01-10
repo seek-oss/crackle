@@ -31,7 +31,7 @@ type Socket = http.IncomingMessage['socket'];
 export const start = async (
   inlineConfig?: PartialConfig,
 ): Promise<CrackleServer> => {
-  const config = getConfig(inlineConfig);
+  const config = await getConfig(inlineConfig);
   const depGraph = await extractDependencyGraph(config.root);
   const ssrExternals = getSsrExternalsForCompiledDependency(
     '@vanilla-extract/css',
@@ -46,7 +46,7 @@ export const start = async (
   const vite = await createViteServer({
     ...commonViteConfig(config),
     appType: 'custom',
-    server: { middlewareMode: true, port: config.port },
+    server: { middlewareMode: true, port: config.web.port },
     plugins: [
       stripRouteData(),
       react(),
@@ -62,10 +62,10 @@ export const start = async (
     },
     optimizeDeps: {
       entries: [
-        ...config.pageRoots.map((pageRoot) =>
+        ...config.web.pageRoots.map((pageRoot) =>
           path.join(pageRoot, pageGlobSuffix),
         ),
-        config.appShell,
+        config.web.appShell,
       ],
       // Vite doesn't allow dependency bundling if the entry file is inside node_modules, so our client entry file is not scanned for deps.
       // https://github.com/vitejs/vite/blob/bf0b631e7479ed70d02b98b780cf7e4b02d0344b/packages/vite/src/node/optimizer/scan.ts#L56-L61
@@ -127,9 +127,9 @@ export const start = async (
     logger.info(`Request completed in ${calculateTime(startTime)}`);
   });
 
-  const url = `http://localhost:${config.port}`;
+  const url = `http://localhost:${config.web.port}`;
 
-  const server = app.listen(config.port, () => {
+  const server = app.listen(config.web.port, () => {
     logger.info(`Server running at ${url}`);
   });
 

@@ -27,7 +27,7 @@ export const createDtsBundle = async (
       ),
       dts({
         respectExternal: true,
-        compilerOptions: config.dtsOptions as any,
+        compilerOptions: config.dts.options as any,
       }),
     ],
     onLog(level, log, defaultHandler) {
@@ -54,7 +54,7 @@ export const createDtsBundle = async (
     exports: 'named',
     format: 'esm',
     experimentalMinChunkSize: Infinity,
-    ...(config.dtsMode === 'preserve'
+    ...(config.dts.mode === 'preserve'
       ? {
           preserveModules: true,
           entryFileNames: `[name].${extensionForFormat('dts')}`,

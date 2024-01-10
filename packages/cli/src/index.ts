@@ -1,16 +1,11 @@
-import type { CrackleConfig, CrackleServer } from '@crackle/core';
+import type { CrackleServer, UserConfig } from '@crackle/core';
 import { logger } from '@crackle/core/logger';
-import { resolveConfig } from '@crackle/core/resolve-config';
-import yargs, { type Arguments, type CommandModule } from 'yargs';
+import { mergeConfig, resolveConfig } from '@crackle/core/resolve-config';
+import yargs, { type ArgumentsCamelCase, type CommandModule } from 'yargs';
 
-type CrackleConfigWithYargs = CrackleConfig & Pick<Arguments, '_' | '$0'>;
-
-const setConfigOverrides = (
-  config: CrackleConfig,
-  overrides: CrackleConfigWithYargs,
-) => {
-  const { _, $0, ...overridesWithoutYargs } = overrides;
-  Object.assign(config, overridesWithoutYargs);
+const withoutYargs = <T>(obj: T & Pick<ArgumentsCamelCase<T>, '_' | '$0'>) => {
+  const { _, $0, ...objWithoutYargs } = obj;
+  return objWithoutYargs;
 };
 
 yargs(process.argv.slice(2))
@@ -30,23 +25,23 @@ yargs(process.argv.slice(2))
 
       let server: CrackleServer | null = null;
 
-      const config = await resolveConfig({
+      let config = await resolveConfig({
         onUpdate: async (newConfig) => {
-          setConfigOverrides(newConfig, overrides);
+          config = mergeConfig(newConfig, { web: withoutYargs(overrides) });
 
           if (server) {
             logger.info('Updated config found. Restarting server...');
             await server.close();
             server = null;
-            server = await start(newConfig);
+            server = await start(config);
           }
         },
       });
-      setConfigOverrides(config, overrides);
+      config = mergeConfig(config, { web: withoutYargs(overrides) });
 
       server = await start(config);
     },
-  } satisfies CommandModule<unknown, Pick<CrackleConfig, 'port'>>)
+  } satisfies CommandModule<unknown, UserConfig['web']>)
   .command({
     command: 'build',
     describe: 'Build a static version the site (e.g. for deploying to S3)',
@@ -69,24 +64,24 @@ yargs(process.argv.slice(2))
     handler: async (overrides) => {
       let server: CrackleServer | null = null;
 
-      const config = await resolveConfig({
+      let config = await resolveConfig({
         onUpdate: async (newConfig) => {
-          setConfigOverrides(newConfig, overrides);
+          config = mergeConfig(newConfig, { web: withoutYargs(overrides) });
 
           if (server) {
             logger.info('Updated config found. Restarting server...');
             await server.close();
             server = null;
           }
-          server = serve(newConfig);
+          server = await serve(config);
         },
       });
-      setConfigOverrides(config, overrides);
+      config = mergeConfig(config, { web: withoutYargs(overrides) });
 
       const { serve } = await import('@crackle/core/serve');
-      server = serve(config);
+      server = await serve(config);
     },
-  } satisfies CommandModule<unknown, Pick<CrackleConfig, 'port'>>)
+  } satisfies CommandModule<unknown, UserConfig['web']>)
   .command({
     command: 'routes',
     describe: 'Show website routes',
@@ -111,13 +106,14 @@ yargs(process.argv.slice(2))
       },
     },
     handler: async (overrides) => {
-      const config = await resolveConfig();
-      setConfigOverrides(config, overrides);
+      const config = mergeConfig(await resolveConfig(), {
+        package: withoutYargs(overrides),
+      });
 
       const { buildPackage } = await import('@crackle/core/package');
       await buildPackage(config);
     },
-  } satisfies CommandModule<unknown, Pick<CrackleConfig, 'fix' | 'clean'>>)
+  } satisfies CommandModule<unknown, UserConfig['package']>)
   .command({
     command: 'dev',
     describe: 'Generate entry points for local development',
@@ -128,13 +124,14 @@ yargs(process.argv.slice(2))
       },
     },
     handler: async (overrides) => {
-      const config = await resolveConfig();
-      const { dev } = await import('@crackle/core/dev');
+      const config = mergeConfig(await resolveConfig(), {
+        dev: withoutYargs(overrides),
+      });
 
-      setConfigOverrides(config, overrides);
+      const { dev } = await import('@crackle/core/dev');
       await dev(config);
     },
-  } satisfies CommandModule<unknown, Pick<CrackleConfig, 'webpack'>>)
+  } satisfies CommandModule<unknown, UserConfig['dev']>)
   .command({
     command: 'fix',
     describe: 'Fixes invalid project configuration',

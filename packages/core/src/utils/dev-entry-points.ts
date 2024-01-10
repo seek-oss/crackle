@@ -32,7 +32,7 @@ const getHookLoader = async (entry: PackageEntryPoint, format: Format) => {
   const rekwire = 'req' + 'uire';
 
   let setup = '';
-  if (!config.webpack) {
+  if (!config.dev.webpack) {
     const shims = dedent`
       import { createRequire } from "module";
 

@@ -44,7 +44,7 @@ const build = async (config: EnhancedConfig, packageName: string) => {
   const diffs = await validatePackageJson(config.root, entries);
 
   if (diffs.length) {
-    if (config.fix) {
+    if (config.package.fix) {
       await fix(config);
       logger.log('');
     } else {
@@ -63,7 +63,7 @@ const build = async (config: EnhancedConfig, packageName: string) => {
 
   logger.start(`Building \`${packageName}\`...`);
 
-  if (config.clean) {
+  if (config.package.clean) {
     logger.info('Cleaning output directories...');
     await cleanPackageEntryPoints(entries);
   }
@@ -99,7 +99,7 @@ const build = async (config: EnhancedConfig, packageName: string) => {
 };
 
 export const buildPackage = async (partialConfig?: PartialConfig) => {
-  const config = getConfig(partialConfig);
+  const config = await getConfig(partialConfig);
   const packageName = await getPackageName(config);
 
   try {

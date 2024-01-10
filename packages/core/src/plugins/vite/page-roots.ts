@@ -31,13 +31,13 @@ export const addPageRoots = (config: EnhancedConfig): Plugin => ({
 
     // Vite v3 supports multiple patterns
     // https://vitejs.dev/guide/features.html#glob-import
-    const combinedPageRoots = config.pageRoots
+    const combinedPageRoots = config.web.pageRoots
       // Remove any leading/trailing slash, e.g. /src/pages
       .map((pageRoot) => pageRoot.replace(/^\/+|\/$/g, ''))
       .join(',');
 
     const output =
-      config.pageRoots.length > 1
+      config.web.pageRoots.length > 1
         ? `{${combinedPageRoots}}`
         : combinedPageRoots;
 

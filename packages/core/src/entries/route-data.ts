@@ -41,7 +41,10 @@ const transformWithBabel = async (file: string) => {
 };
 
 export const getAllRoutes = async (inlineConfig?: PartialConfig) => {
-  const { root, pageRoots } = getConfig(inlineConfig);
+  const {
+    root,
+    web: { pageRoots },
+  } = await getConfig(inlineConfig);
 
   const pageFiles = await glob(
     pageRoots.map((pageRoot) => path.join(pageRoot, pageGlobSuffix)),
