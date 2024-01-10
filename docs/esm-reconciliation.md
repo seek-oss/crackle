@@ -85,31 +85,31 @@ Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/___/node_modules/react/jsx-ru
 Did you mean to import node_modules/react/jsx-runtime.js?
 ```
 
-Crackle can be instructed to handle this via the `reconcileDependencies` option, listing the packages and versions that require ESM reconciliation.
+Crackle can be instructed to handle this via the `esm.reconcileDependencies` option, listing the packages and versions that require ESM reconciliation.
 
 ```ts
 // crackle.config.ts
-import type { CrackleConfig } from '@crackle/cli';
+import { defineConfig } from '@crackle/cli/config';
 
-export default {
-  reconcileDependencies: {
-    react: '<18',
+export default defineConfig({
+  esm: {
+    reconcileDependencies: {
+      react: '<18',
+    },
   },
-} satisfies CrackleConfig;
+});
 ```
 
-When the [semver range] specified in `reconcileDependencies` intersects the range in `peerDependencies` then Crackle will reconcile the imports specifiers from `react`.
+When the [semver range] specified in `esm.reconcileDependencies` intersects the range in `peerDependencies` then Crackle will reconcile the imports specifiers from `react`.
 
 [semver range]: https://github.com/npm/node-semver#ranges
 
 With Crackle now reconciling `react@<18`, the ESM build will successfully resolve the import to the actual file:
 
-```tsx
-// src/Component.tsx
-import * as React from 'react';
-const Component: React.FC = () => <div>Component</div>;
-
-// dist/Component.mjs
-import { jsx } from 'react/jsx-runtime.js';
-const Component = () => /* @__PURE__ */ jsx('div', { children: 'Component' });
+```diff
+ // dist/Component.mjs
+-import { jsx } from 'react/jsx-runtime';
++import { jsx } from 'react/jsx-runtime.js';
+ export const Component = () =>
+   /* @__PURE__ */ jsx('div', { children: 'Component' });
 ```
