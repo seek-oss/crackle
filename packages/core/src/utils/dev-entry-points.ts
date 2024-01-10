@@ -19,6 +19,9 @@ import { resolveFrom } from './resolve-from';
 
 const localLogger = logger.withDefaults({ tag: 'dev' });
 
+const getReadableEntryName = (entry: PackageEntryPoint) =>
+  entry.isDefaultEntry ? 'index' : entry.entryName;
+
 const getHookLoader = async (entry: PackageEntryPoint, format: Format) => {
   const stringifyRelative = (p: string) =>
     JSON.stringify(path.relative(entry.outputDir, p));
@@ -101,9 +104,8 @@ const getEsmContents: GetContents = async (entry) => {
 
   if (exports.length === 0) {
     logger.info(
-      `Could not find ESM exports for \`${
-        entry.isDefaultEntry ? 'index' : entry.entryName
-      }\`. Stubbing with empty exports.`,
+      `Could not find ESM exports for \`${getReadableEntryName(entry)}\`.`,
+      `Stubbing with empty exports.`,
     );
     return dedent`
       ${setup}
@@ -148,7 +150,7 @@ export const generateDevFiles = async () => {
       await writeFile(entry, 'dts', getDtsContents);
       await writeFile(entry, 'dtsm', getDtsContents);
 
-      logger.success(`Created stubs for \`${entry.entryName}\``);
+      logger.success(`Created stubs for \`${getReadableEntryName(entry)}\``);
     });
 
     await createEntryPackageJsons(entryPaths);
