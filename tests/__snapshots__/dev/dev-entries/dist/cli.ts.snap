@@ -1,5 +1,5 @@
 /* #region dist/cli.cjs */
-require("../../../node_modules/.pnpm/tsx@4.6.1/node_modules/tsx/dist/cjs/index.cjs");
+require("../../../node_modules/.pnpm/tsx@[version]/node_modules/tsx/dist/cjs/index.cjs");
 
 module.exports = require("../src/entries/cli.ts");
 /* #endregion */
@@ -20,7 +20,7 @@ import { createRequire } from "module";
 
 const require = createRequire(import.meta.url);
 
-require("../../../node_modules/.pnpm/tsx@4.6.1/node_modules/tsx/dist/cjs/index.cjs");
+require("../../../node_modules/.pnpm/tsx@[version]/node_modules/tsx/dist/cjs/index.cjs");
 
 export {};
 /* #endregion */

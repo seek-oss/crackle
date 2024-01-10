@@ -32,8 +32,16 @@ export default async function snapshotOutput(
       return `/* #region ${fileName} */\n${contents}/* #endregion */\n`;
     });
 
+    const output = bundle
+      .join('\n\n')
+      // make snapshots more stable by replacing version numbers
+      .replaceAll(
+        new RegExp('(/node_modules/.pnpm)/tsx@[\\d.]+/', 'g'),
+        '$1/tsx@[version]/',
+      );
+
     const snapshotDir = `__snapshots__/${suiteName}/${fixtureName}`;
-    await expect(bundle.join('\n\n')).toMatchFileSnapshot(
+    await expect(output).toMatchFileSnapshot(
       `${snapshotDir}/${groupName}.snap`,
     );
   });
