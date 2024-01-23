@@ -8,7 +8,7 @@ import { fixPackageJson } from '../utils/setup-package-json';
 import { logger } from './logger';
 
 export const fix = async (inlineConfig?: PartialConfig) => {
-  const config = getConfig(inlineConfig);
+  const config = await getConfig(inlineConfig);
   const packages = await getPackages(config);
   const packageList = Array.from(packages.values());
 

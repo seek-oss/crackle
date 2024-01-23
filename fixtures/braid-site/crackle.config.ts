@@ -1,8 +1,10 @@
-import type { CrackleConfig } from '@crackle/core';
+import type { UserConfig } from '@crackle/core';
 
-const config: CrackleConfig = {
-  pageRoots: ['src'],
-  appShell: 'src/App.tsx',
+const config: UserConfig = {
+  web: {
+    pageRoots: ['src'],
+    appShell: 'src/App.tsx',
+  },
 };
 
 export default config;

@@ -123,10 +123,10 @@ export function externals(
   });
   const shouldReconcilePackage = memoize(
     (packageId: string) =>
-      config.reconcileDependencies[packageId] &&
+      config.esm.reconcileDependencies[packageId] &&
       semverIntersects(
         rootPackageJson.peerDependencies?.[packageId] ?? '*',
-        config.reconcileDependencies[packageId],
+        config.esm.reconcileDependencies[packageId],
       ),
   );
 

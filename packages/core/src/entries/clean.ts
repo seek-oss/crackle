@@ -7,7 +7,7 @@ import {
 import { logger } from './logger';
 
 export const clean = async (inlineConfig?: PartialConfig) => {
-  const config = getConfig(inlineConfig);
+  const config = await getConfig(inlineConfig);
 
   const entries = await getPackageEntryPoints(config.root);
 

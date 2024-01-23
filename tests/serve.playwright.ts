@@ -18,7 +18,9 @@ const serverTest = test.extend<
       await build(config);
       const server = await serve({
         ...config,
-        port: 10000,
+        web: {
+          port: 10000,
+        },
       });
       await use(server);
 

@@ -2,6 +2,12 @@ import type React from 'react';
 
 export type { PackageJson } from 'type-fest';
 
+export type PartialDeep<T> = T extends object
+  ? {
+      [P in keyof T]?: PartialDeep<T[P]>;
+    }
+  : T;
+
 export type Format = 'cjs' | 'esm' | 'dts' | 'dtsm';
 
 type RoutePath = string;

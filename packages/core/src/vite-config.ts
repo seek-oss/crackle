@@ -13,7 +13,7 @@ export const commonViteConfig = (config: EnhancedConfig) =>
     root: config.root,
     resolve: {
       alias: {
-        __THE_ENTRY: config.appShell,
+        __THE_ENTRY: config.web.appShell,
       },
     },
     define: {

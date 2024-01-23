@@ -9,11 +9,11 @@ import type { CrackleServer } from '../types';
 
 import { logger } from './logger';
 
-export const serve = (inlineConfig?: PartialConfig): CrackleServer => {
-  const config = getConfig(inlineConfig);
+export const serve = async (inlineConfig?: PartialConfig) => {
+  const config = await getConfig(inlineConfig);
   const outDir = config.resolveFromRoot(siteBuild.outDir);
   const relativeOutDir = path.relative(process.cwd(), outDir);
-  const url = `http://localhost:${config.port}`;
+  const url = `http://localhost:${config.web.port}`;
 
   const server = http.createServer((request, response) =>
     handler(request, response, {
@@ -33,7 +33,7 @@ export const serve = (inlineConfig?: PartialConfig): CrackleServer => {
     }),
   );
 
-  server.listen(config.port, () => {
+  server.listen(config.web.port, () => {
     logger.info(`Serving static build from ./${relativeOutDir} at ${url}`);
   });
 
@@ -49,5 +49,5 @@ export const serve = (inlineConfig?: PartialConfig): CrackleServer => {
         });
       }),
     url,
-  };
+  } satisfies CrackleServer;
 };

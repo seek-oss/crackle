@@ -1,1 +1,5 @@
-export { type CrackleConfig, defineConfig } from '@crackle/core';
+export {
+  type UserConfig,
+  type ResolvedConfig,
+  defineConfig,
+} from '@crackle/core';
