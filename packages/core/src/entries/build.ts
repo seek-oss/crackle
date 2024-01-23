@@ -1,18 +1,14 @@
 import fs from 'fs/promises';
 import path from 'path';
+import process from 'process';
 
 import { mockAdapter, setAdapter } from '@vanilla-extract/css/adapter';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import react from '@vitejs/plugin-react-swc';
 import builtinModules from 'builtin-modules';
-import chalk from 'chalk';
 import fse from 'fs-extra';
 import type { RollupOutput } from 'rollup';
-import {
-  type UserConfig as ViteConfig,
-  type Manifest,
-  build as viteBuild,
-} from 'vite';
+import type { UserConfig as ViteConfig, Manifest } from 'vite';
 
 import type { RenderAllPagesFn } from '../../entries/types';
 import { type PartialConfig, getConfig } from '../config';
@@ -20,7 +16,6 @@ import { clientEntry, siteBuild } from '../constants';
 import { internalPackageResolution } from '../plugins/vite/internal-package-resolution';
 import { addPageRoots } from '../plugins/vite/page-roots';
 import { stripRouteData } from '../plugins/vite/strip-route-data';
-import { renderBuildError } from '../reporters/shared';
 import {
   extractDependencyGraph,
   getSsrExternalsForCompiledDependency,
@@ -59,10 +54,12 @@ export const build = async (inlineConfig?: PartialConfig) => {
     },
   };
 
+  const { build: viteBuild } = await import('vite');
+
   const manifestPath = 'manifest.json';
 
   try {
-    logger.info(`🛠  Building ${chalk.bold('client')}...`);
+    logger.start('Building `client`...');
     await viteBuild({
       ...commonBuildConfig,
       base: config.publicPath,
@@ -74,11 +71,10 @@ export const build = async (inlineConfig?: PartialConfig) => {
       },
     });
 
-    logger.info(`✅ Successfully built ${chalk.bold('client')}!`);
+    logger.success('Successfully built `client`!\n');
   } catch (error: any) {
-    logger.errorWithExitCode(
-      renderBuildError(`Build failed for ${chalk.bold('client')}`, error),
-    );
+    logger.error('Build failed for `client`:', error);
+    process.exitCode = 1;
     return;
   }
 
@@ -86,7 +82,7 @@ export const build = async (inlineConfig?: PartialConfig) => {
   const rendererDir = config.resolveFromRoot(siteBuild.rendererDir);
 
   try {
-    logger.info(`🛠  Building ${chalk.bold('renderer')}...`);
+    logger.start('Building `renderer`...');
 
     const {
       output: [rendererOutput],
@@ -104,7 +100,7 @@ export const build = async (inlineConfig?: PartialConfig) => {
       },
     })) as RollupOutput;
 
-    logger.info(`✅ Successfully built ${chalk.bold('renderer')}!`);
+    logger.success('Successfully built `renderer`!\n');
 
     setAdapter(mockAdapter);
 
@@ -125,9 +121,10 @@ export const build = async (inlineConfig?: PartialConfig) => {
       return fs.writeFile(`${routeDir}/index.html`, html);
     });
 
-    logger.info('✅ Rendered all pages');
+    logger.success('Rendered all pages');
   } catch (error: any) {
-    logger.errorWithExitCode(renderBuildError(`Render pages failed`, error));
+    logger.error(error);
+    process.exitCode = 1;
   } finally {
     await fs.rm(rendererDir, {
       recursive: true,

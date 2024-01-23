@@ -2,8 +2,8 @@
   "name": "@crackle-private/test-utils",
   "private": true,
   "dependencies": {
+    "consola": "^3.2.3",
     "pretty-format": "^29.0.0",
-    "snapshot-diff": "^0.10.0",
-    "strip-ansi": "^7.0.1"
+    "snapshot-diff": "^0.10.0"
   }
 }

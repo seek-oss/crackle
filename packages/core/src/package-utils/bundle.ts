@@ -3,7 +3,7 @@ import path from 'path';
 
 import { cssFileFilter as vanillaCssFileFilter } from '@vanilla-extract/integration';
 import fse from 'fs-extra';
-import { type Rollup, normalizePath, build as viteBuild } from 'vite';
+import type { Rollup } from 'vite';
 
 import type { EnhancedConfig } from '../config';
 import { sideEffectsDir, srcDir, stylesDir } from '../constants';
@@ -30,6 +30,8 @@ export const createBundle = async (
 
   const formats = ['cjs', 'esm'] as const;
 
+  const { normalizePath, build: viteBuild } = await import('vite');
+
   const getRelativePath = (id: string) => path.relative(config.root, id);
   const getSrcPath = (id: string) =>
     path.relative(`${config.root}/${srcDir}`, id);
@@ -38,6 +40,8 @@ export const createBundle = async (
     const extension = extensionForFormat(format);
     const replaceExtension = (srcPath: string) =>
       srcPath.replace(path.extname(srcPath), `.${extension}`);
+
+    const localLogger = logger.withDefaults({ tag: format });
 
     return {
       ...commonOutputOptions(config, entries, format),
@@ -52,7 +56,7 @@ export const createBundle = async (
 
         // internal package resolved by plugins/vite/internal-package-resolution.ts
         if (srcPath.startsWith('../')) {
-          logger.debug(`Internal package: ${id}`);
+          localLogger.debug(`Internal package: ${id}`);
           return;
         }
 
@@ -61,15 +65,15 @@ export const createBundle = async (
         if (!moduleInfo) return;
 
         if (moduleInfo.isExternal) {
-          logger.debug(`External module: ${id}`);
+          localLogger.debug(`External module: ${id}`);
           return;
         }
         if (isVanillaFile(id)) {
-          logger.debug(`Vanilla file: ${getRelativePath(id)}`);
+          localLogger.debug(`Vanilla file: ${getRelativePath(id)}`);
           return normalizePath(`${stylesDir}/${srcPath}`);
         }
         if (isVocabFile(moduleInfo.id)) {
-          logger.debug(`Vocab file: ${getRelativePath(id)}`);
+          localLogger.debug(`Vocab file: ${getRelativePath(id)}`);
           return normalizePath(srcPath);
         }
         if (
@@ -77,7 +81,7 @@ export const createBundle = async (
           moduleHasSideEffects(srcPath, packageJson.sideEffects) &&
           !moduleInfo.isEntry
         ) {
-          logger.debug(`Has side-effects: ${getRelativePath(id)}`);
+          localLogger.debug(`Has side-effects: ${getRelativePath(id)}`);
           return normalizePath(`${sideEffectsDir}/${srcPath}`);
         }
         if (
@@ -86,7 +90,7 @@ export const createBundle = async (
           // Prevent concatenation of files which import Vanilla Extract styles, to ensure only the CSS for one file is extracted at build time. Concatenating these files would cause the CSS for all of them to be extracted at build time.
           moduleInfo.importedIds.some(isVanillaFile)
         ) {
-          logger.debug(`Vanilla deps: ${getRelativePath(id)}`);
+          localLogger.debug(`Vanilla deps: ${getRelativePath(id)}`);
           return normalizePath(`${stylesDir}/${srcPath}`);
         }
       },

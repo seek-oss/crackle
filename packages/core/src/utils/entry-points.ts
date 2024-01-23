@@ -26,6 +26,8 @@ export interface Package {
 
 export type Packages = Map<string, Package>;
 
+const localLogger = logger.withDefaults({ tag: 'entryPoints' });
+
 export const getExports = async (filePath: string) => {
   const config = getConfigFromContext();
 
@@ -34,7 +36,7 @@ export const getExports = async (filePath: string) => {
     extensions: ['.js', '.ts', '.tsx'],
   });
 
-  logger.debug(dedent`
+  localLogger.debug(dedent`
     [getExports]
       filePath: ${path.relative(config.root, filePath)}
       exports: ${exports}

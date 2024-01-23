@@ -1,9 +1,11 @@
 import { type PartialConfig, getConfig } from '../config';
-import { type PackageDiffDetails, renderApp } from '../reporters/fix';
+import { type PackageDiffDetails, renderDiffs } from '../reporters/fix';
 import { getPackageEntryPoints, getPackages } from '../utils/entry-points';
 import { updateGitignore } from '../utils/gitignore';
 import { promiseMap } from '../utils/promise-map';
 import { fixPackageJson } from '../utils/setup-package-json';
+
+import { logger } from './logger';
 
 export const fix = async (inlineConfig?: PartialConfig) => {
   const config = getConfig(inlineConfig);
@@ -23,5 +25,10 @@ export const fix = async (inlineConfig?: PartialConfig) => {
     await updateGitignore(pkg.root, entries);
   });
 
-  renderApp(packageDiffs);
+  if (packageDiffs.length === 0) {
+    logger.info('Nothing to fix');
+  } else {
+    logger.info(renderDiffs(packageDiffs));
+    logger.success('`crackle fix` completed successfully');
+  }
 };
