@@ -1,5 +1,11 @@
 # @crackle/router
 
+## 0.4.1
+
+### Patch Changes
+
+- [#147](https://github.com/seek-oss/crackle/pull/147) [`d70335d`](https://github.com/seek-oss/crackle/commit/d70335d1228dd9480aea5953260d322a832da639) Thanks [@renovate](https://github.com/apps/renovate)! - Update dependencies
+
 ## 0.4.0
 
 ### Minor Changes

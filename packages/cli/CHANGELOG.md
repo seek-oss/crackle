@@ -1,5 +1,18 @@
 # @crackle/cli
 
+## 0.14.0
+
+### Minor Changes
+
+- [#164](https://github.com/seek-oss/crackle/pull/164) [`e5c5b67`](https://github.com/seek-oss/crackle/commit/e5c5b67e6436c899e697a1569c01850ec3f76eae) Thanks [@mrm007](https://github.com/mrm007)! - Export `UserConfig` and `ResolvedConfig` types
+
+  Remove `CrackleConfig` export type
+
+### Patch Changes
+
+- Updated dependencies [[`5a559cc`](https://github.com/seek-oss/crackle/commit/5a559cc8323f01fdd787db75349bc46070442b33), [`e5c5b67`](https://github.com/seek-oss/crackle/commit/e5c5b67e6436c899e697a1569c01850ec3f76eae), [`5a559cc`](https://github.com/seek-oss/crackle/commit/5a559cc8323f01fdd787db75349bc46070442b33), [`e5c5b67`](https://github.com/seek-oss/crackle/commit/e5c5b67e6436c899e697a1569c01850ec3f76eae)]:
+  - @crackle/core@0.32.0
+
 ## 0.13.0
 
 ### Minor Changes
