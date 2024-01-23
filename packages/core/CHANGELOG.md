@@ -1,5 +1,56 @@
 # @crackle/core
 
+## 0.32.0
+
+### Minor Changes
+
+- [#162](https://github.com/seek-oss/crackle/pull/162) [`5a559cc`](https://github.com/seek-oss/crackle/commit/5a559cc8323f01fdd787db75349bc46070442b33) Thanks [@mrm007](https://github.com/mrm007)! - Improved logging using [🐨 Consola](https://github.com/unjs/consola)
+
+- [#164](https://github.com/seek-oss/crackle/pull/164) [`e5c5b67`](https://github.com/seek-oss/crackle/commit/e5c5b67e6436c899e697a1569c01850ec3f76eae) Thanks [@mrm007](https://github.com/mrm007)! - Overhaul configuration options, grouping them by feature or command.
+
+  The default config now looks like this:
+
+  ```js
+  const defaultConfig = {
+    root: process.cwd(),
+    cjs: {},
+    esm: {
+      reconcileDependencies: {},
+    },
+    dts: {
+      mode: 'bundle',
+      options: {
+        incremental: false,
+        noEmitOnError: false,
+      },
+    },
+    dev: {
+      webpack: false,
+    },
+    package: {
+      clean: true,
+      fix: false,
+    },
+    web: {
+      appShell: 'src/App.tsx',
+      pageRoots: ['src'],
+      port: 5000,
+      publicPath: '/',
+    },
+  };
+  ```
+
+- [#164](https://github.com/seek-oss/crackle/pull/164) [`e5c5b67`](https://github.com/seek-oss/crackle/commit/e5c5b67e6436c899e697a1569c01850ec3f76eae) Thanks [@mrm007](https://github.com/mrm007)! - Export `UserConfig` and `ResolvedConfig` types
+
+  Remove `CrackleConfig` export type
+
+### Patch Changes
+
+- [#162](https://github.com/seek-oss/crackle/pull/162) [`5a559cc`](https://github.com/seek-oss/crackle/commit/5a559cc8323f01fdd787db75349bc46070442b33) Thanks [@mrm007](https://github.com/mrm007)! - Lazy load Vite to avoid the CJS warning
+
+- Updated dependencies [[`d70335d`](https://github.com/seek-oss/crackle/commit/d70335d1228dd9480aea5953260d322a832da639)]:
+  - @crackle/router@0.4.1
+
 ## 0.31.0
 
 ### Minor Changes
