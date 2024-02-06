@@ -1,7 +1,9 @@
 /* #region dist/cli.cjs */
 require("../../../node_modules/.pnpm/tsx@[version]/node_modules/tsx/dist/cjs/index.cjs");
 
-module.exports = require("../src/entries/cli.ts");
+const _mod = require("../src/entries/cli.ts");
+
+module.exports = _mod;
 /* #endregion */
 
 
