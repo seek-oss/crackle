@@ -56,11 +56,14 @@ export interface Config {
   };
   dev: {
     /**
-     * Generate Webpack-compatible shims.
+     * Controls whether Crackle should generate a shim.
      *
-     * @default false
+     * - 'require' creates a `require` shim using `createRequire`
+     * - 'none' does not add a shim
+     *
+     * @default 'require'
      */
-    webpack?: boolean;
+    shim?: 'require' | 'none';
   };
   package: {
     /**
@@ -124,7 +127,7 @@ export const defaultConfig: Config = {
     },
   },
   dev: {
-    webpack: false,
+    shim: 'require',
   },
   package: {
     clean: true,
