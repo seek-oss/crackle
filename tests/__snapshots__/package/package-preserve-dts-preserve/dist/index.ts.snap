@@ -1,0 +1,30 @@
+/* #region dist/index.cjs */
+"use strict";
+Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+const some_other_file_cjs = require("./some/other/file.cjs");
+const lib_Component_cjs = require("./lib/Component.cjs");
+exports.maybe = some_other_file_cjs.maybe;
+exports.Component = lib_Component_cjs.Component;
+/* #endregion */
+
+
+/* #region dist/index.d.mts */
+export { Maybe, maybe } from './some/other/file.js';
+export { default as Component } from './lib/Component.js';
+/* #endregion */
+
+
+/* #region dist/index.d.ts */
+export { Maybe, maybe } from './some/other/file.js';
+export { default as Component } from './lib/Component.js';
+/* #endregion */
+
+
+/* #region dist/index.mjs */
+import { maybe } from "./some/other/file.mjs";
+import { Component } from "./lib/Component.mjs";
+export {
+  Component,
+  maybe
+};
+/* #endregion */

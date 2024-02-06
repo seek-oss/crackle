@@ -44,6 +44,14 @@ fixtures/multi-entry-library/themes/apac
 # end managed by crackle
 
 # managed by crackle
+fixtures/package-preserve/dist
+# end managed by crackle
+
+# managed by crackle
+fixtures/package-preserve-dts-preserve/dist
+# end managed by crackle
+
+# managed by crackle
 fixtures/single-entry-library/dist
 # end managed by crackle
 

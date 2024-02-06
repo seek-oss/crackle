@@ -211,6 +211,32 @@ importers:
         specifier: ^18.0.6
         version: 18.2.18
 
+  fixtures/package-preserve:
+    dependencies:
+      '@vanilla-extract/css':
+        specifier: ^1.12.0
+        version: 1.14.0
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+    devDependencies:
+      '@types/react':
+        specifier: ^18.0.21
+        version: 18.2.47
+
+  fixtures/package-preserve-dts-preserve:
+    dependencies:
+      '@vanilla-extract/css':
+        specifier: ^1.12.0
+        version: 1.14.0
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+    devDependencies:
+      '@types/react':
+        specifier: ^18.0.21
+        version: 18.2.47
+
   fixtures/single-entry-library:
     dependencies:
       '@crackle-fixtures/multi-entry-library':
@@ -1274,7 +1300,7 @@ packages:
       '@babel/plugin-syntax-jsx': 7.23.3(@babel/core@7.23.7)
       '@babel/plugin-syntax-typescript': 7.23.3(@babel/core@7.23.7)
       '@crackle/babel-plugin-remove-exports': 0.3.0
-      '@crackle/router': 0.4.0(react-dom@18.2.0)(react@18.2.0)
+      '@crackle/router': 0.4.1(react-dom@18.2.0)(react@18.2.0)
       '@ungap/structured-clone': 1.2.0
       '@vanilla-extract/css': 1.14.0
       '@vanilla-extract/integration': 6.2.4(@types/node@20.10.8)
@@ -1328,15 +1354,15 @@ packages:
       - webpack
     dev: false
 
-  /@crackle/router@0.4.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-vewQyRdCW3UH2+6N/Dnm3ER31eKi2ctP8dyN7530GBUEO6R4FLqaLIueAi8lf8L4k13HnEjxUQSp4UOvx6K+FQ==}
+  /@crackle/router@0.4.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-OzNGV90yzXoWomv3xuKTmG7DKgTbT3PIjVIqoS066UYZucRWvQ4Ek+v8XV8sriXkWXmN1CltCYWu7/XrQznuGg==}
     peerDependencies:
       react: ^18.2.0
       react-dom: ^18.2.0
     dependencies:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      react-router-dom: 6.4.3(react-dom@18.2.0)(react@18.2.0)
+      react-router-dom: 6.21.1(react-dom@18.2.0)(react@18.2.0)
     dev: false
 
   /@discoveryjs/json-ext@0.5.7:
@@ -2388,11 +2414,6 @@ packages:
       - supports-color
       - typescript
     dev: true
-
-  /@remix-run/router@1.0.3:
-    resolution: {integrity: sha512-ceuyTSs7PZ/tQqi19YZNBc5X7kj1f8p+4DIyrcIYFY9h+hd1OKm4RqtiWldR9eGEvIiJfsqwM4BsuCtRIuEw6Q==}
-    engines: {node: '>=14'}
-    dev: false
 
   /@remix-run/router@1.14.1:
     resolution: {integrity: sha512-Qg4DMQsfPNAs88rb2xkdk03N3bjK4jgX5fR24eHCTR9q6PrhZQZ4UJBPzCHJkIpTRN1UKxx2DzjZmnC+7Lj0Ow==}
@@ -8451,19 +8472,6 @@ packages:
       react-router: 6.21.1(react@18.2.0)
     dev: false
 
-  /react-router-dom@6.4.3(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-MiaYQU8CwVCaOfJdYvt84KQNjT78VF0TJrA17SIQgNHRvLnXDJO6qsFqq8F/zzB1BWZjCFIrQpu4QxcshitziQ==}
-    engines: {node: '>=14'}
-    peerDependencies:
-      react: '>=16.8'
-      react-dom: '>=16.8'
-    dependencies:
-      '@remix-run/router': 1.0.3
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      react-router: 6.4.3(react@18.2.0)
-    dev: false
-
   /react-router@6.21.1(react@18.2.0):
     resolution: {integrity: sha512-W0l13YlMTm1YrpVIOpjCADJqEUpz1vm+CMo47RuFX4Ftegwm6KOYsL5G3eiE52jnJpKvzm6uB/vTKTPKM8dmkA==}
     engines: {node: '>=14.0.0'}
@@ -8471,16 +8479,6 @@ packages:
       react: '>=16.8'
     dependencies:
       '@remix-run/router': 1.14.1
-      react: 18.2.0
-    dev: false
-
-  /react-router@6.4.3(react@18.2.0):
-    resolution: {integrity: sha512-BT6DoGn6aV1FVP5yfODMOiieakp3z46P1Fk0RNzJMACzE7C339sFuHebfvWtnB4pzBvXXkHP2vscJzWRuUjTtA==}
-    engines: {node: '>=14'}
-    peerDependencies:
-      react: '>=16.8'
-    dependencies:
-      '@remix-run/router': 1.0.3
       react: 18.2.0
     dev: false
 
