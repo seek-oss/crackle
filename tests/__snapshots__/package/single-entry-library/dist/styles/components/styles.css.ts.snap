@@ -3,7 +3,7 @@
 const fileScope = require("@vanilla-extract/css/fileScope");
 const css = require("@vanilla-extract/css");
 const styles_components_addFn_cjs = require("./add-fn.cjs");
-fileScope.setFileScope("src/components/styles.css.ts", "single-entry-library");
+fileScope.setFileScope("src/components/styles.css.ts", "@crackle-fixtures/single-entry-library");
 const redBorder = css.style({
   border: "5px solid papayawhip",
   margin: styles_components_addFn_cjs.add(10, 5)
@@ -17,7 +17,7 @@ exports.redBorder = redBorder;
 import { setFileScope, endFileScope } from "@vanilla-extract/css/fileScope";
 import { style } from "@vanilla-extract/css";
 import { add } from "./add-fn.mjs";
-setFileScope("src/components/styles.css.ts", "single-entry-library");
+setFileScope("src/components/styles.css.ts", "@crackle-fixtures/single-entry-library");
 const redBorder = style({
   border: "5px solid papayawhip",
   margin: add(10, 5)

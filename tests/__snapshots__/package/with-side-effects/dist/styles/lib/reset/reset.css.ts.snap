@@ -2,7 +2,7 @@
 "use strict";
 const fileScope = require("@vanilla-extract/css/fileScope");
 const css = require("@vanilla-extract/css");
-fileScope.setFileScope("src/lib/reset/reset.css.ts", "with-side-effects");
+fileScope.setFileScope("src/lib/reset/reset.css.ts", "@crackle-fixtures/with-side-effects");
 const hideFocusRingsDataAttribute = "data-braid-hidefocusrings";
 const base = css.style({
   margin: 0,
@@ -34,7 +34,7 @@ exports.element = element;
 /* #region dist/styles/lib/reset/reset.css.mjs */
 import { setFileScope, endFileScope } from "@vanilla-extract/css/fileScope";
 import { style } from "@vanilla-extract/css";
-setFileScope("src/lib/reset/reset.css.ts", "with-side-effects");
+setFileScope("src/lib/reset/reset.css.ts", "@crackle-fixtures/with-side-effects");
 const hideFocusRingsDataAttribute = "data-braid-hidefocusrings";
 const base = style({
   margin: 0,

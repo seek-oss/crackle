@@ -5,7 +5,7 @@ const css = require("@vanilla-extract/css");
 const sprinkles$1 = require("@vanilla-extract/sprinkles");
 const styles_lib_breakpoints_cjs = require("../breakpoints.cjs");
 const styles_lib_atoms_atomicProperties_cjs = require("./atomicProperties.cjs");
-fileScope.setFileScope("src/lib/atoms/sprinkles.css.ts", "with-side-effects");
+fileScope.setFileScope("src/lib/atoms/sprinkles.css.ts", "@crackle-fixtures/with-side-effects");
 css.style({}, "darkMode");
 const responsiveAtomicProperties = sprinkles$1.defineProperties({
   defaultCondition: "mobile",
@@ -43,7 +43,7 @@ import { style } from "@vanilla-extract/css";
 import { defineProperties, createSprinkles, createNormalizeValueFn, createMapValueFn } from "@vanilla-extract/sprinkles";
 import { breakpoints, breakpointNames } from "../breakpoints.mjs";
 import { responsiveProperties } from "./atomicProperties.mjs";
-setFileScope("src/lib/atoms/sprinkles.css.ts", "with-side-effects");
+setFileScope("src/lib/atoms/sprinkles.css.ts", "@crackle-fixtures/with-side-effects");
 style({}, "darkMode");
 const responsiveAtomicProperties = defineProperties({
   defaultCondition: "mobile",
