@@ -1,4 +1,5 @@
 import assert from 'assert';
+import path from 'path';
 
 import type { OutputOptions } from 'rollup';
 import type { UserConfig } from 'vite';
@@ -28,6 +29,8 @@ export const commonOutputOptions = (
   format: Format = 'esm',
 ) => {
   const extension = extensionForFormat(format);
+  const replaceExtension = (filePath: string) =>
+    filePath.replace(path.extname(filePath), `.${extension}`);
 
   return {
     dir: `${config.root}/${distDir}`,
@@ -37,11 +40,14 @@ export const commonOutputOptions = (
       const entry = entryPoints.find(
         ({ entryPath }) => chunkInfo.facadeModuleId === entryPath,
       );
-      assert(entry, `entry not found for ${chunkInfo.facadeModuleId}`);
+      assert(entry, `Entry not found for ${chunkInfo.facadeModuleId}`);
 
       return entry.getOutputPath(format);
     },
-    chunkFileNames: ({ name }) =>
-      name.endsWith(extension) ? name : `${name}.chunk.${extension}`,
+    chunkFileNames: ({ name }) => {
+      if (name.endsWith(`.${extension}`)) return name;
+      if (name.endsWith('.ts')) return replaceExtension(name);
+      return `${name}.chunk.${extension}`;
+    },
   } satisfies OutputOptions;
 };

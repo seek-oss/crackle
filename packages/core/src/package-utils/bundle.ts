@@ -35,11 +35,12 @@ export const createBundle = async (
   const getRelativePath = (id: string) => path.relative(config.root, id);
   const getSrcPath = (id: string) =>
     path.relative(`${config.root}/${srcDir}`, id);
+  const getVocabPath = getSrcPath;
 
   const createOutputOptionsForFormat = (format: (typeof formats)[number]) => {
     const extension = extensionForFormat(format);
-    const replaceExtension = (srcPath: string) =>
-      srcPath.replace(path.extname(srcPath), `.${extension}`);
+    const replaceExtension = (filePath: string) =>
+      filePath.replace(path.extname(filePath), `.${extension}`);
 
     const localLogger = logger.withDefaults({ tag: format });
 
@@ -68,13 +69,17 @@ export const createBundle = async (
           localLogger.debug(`External module: ${id}`);
           return;
         }
+        if (config.package.mode === 'preserve') {
+          localLogger.debug(`Preserved module: ${getRelativePath(id)}`);
+          return normalizePath(srcPath);
+        }
         if (isVanillaFile(id)) {
           localLogger.debug(`Vanilla file: ${getRelativePath(id)}`);
           return normalizePath(`${stylesDir}/${srcPath}`);
         }
         if (isVocabFile(moduleInfo.id)) {
           localLogger.debug(`Vocab file: ${getRelativePath(id)}`);
-          return normalizePath(srcPath);
+          return normalizePath(getVocabPath(id));
         }
         if (
           typeof packageJson.sideEffects !== 'undefined' &&
@@ -98,15 +103,15 @@ export const createBundle = async (
   };
 
   const result = (await viteBuild({
-    ...commonViteConfig,
+    ...commonViteConfig(config),
     esbuild: {
       jsx: 'automatic',
     },
     plugins: [
-      addVanillaDebugIds(config),
       // because we don't know ahead of time what the output format will be, we always patch imports
       externals(config, 'esm'),
-      vocabTranslations(config, { toDistPath: getSrcPath }),
+      addVanillaDebugIds(config),
+      vocabTranslations(config, { toDistPath: getVocabPath }),
     ],
     logLevel: 'warn',
     build: {
