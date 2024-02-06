@@ -25,7 +25,7 @@ fixtures/dev-entries-webpack/dist
 # end managed by crackle
 
 # managed by crackle
-fixtures/dts-compat/dist
+fixtures/dts-preserve/dist
 # end managed by crackle
 
 # managed by crackle

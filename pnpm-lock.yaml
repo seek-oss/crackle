@@ -113,7 +113,7 @@ importers:
 
   fixtures/dev-entries-webpack: {}
 
-  fixtures/dts-compat: {}
+  fixtures/dts-preserve: {}
 
   fixtures/esm-compat:
     dependencies:
