@@ -27,8 +27,10 @@ _A build tool for apps and packages, static and server-rendered sites. Built on 
   - [`crackle package`](#crackle-package)
     - [Entry points](#entry-points)
     - [Externals](#externals)
+    - [`--mode`](#--mode)
   - [`crackle fix`](#crackle-fix)
   - [`crackle dev`](#crackle-dev)
+    - [`--mode`](#--mode-1)
 - [Side-effects](#side-effects)
 - [ESM reconciliation](#esm-reconciliation)
 - [DTS bundles](#dts-bundles)
@@ -59,14 +61,14 @@ or
 
 ```ts
 // crackle.config.ts
-import type { CrackleConfig } from '@crackle/cli/config';
+import type { UserConfig } from '@crackle/cli/config';
 
 export default {
   // ...
-} satisfies CrackleConfig;
+} satisfies UserConfig;
 ```
 
-(the default config values are documented in the type `CrackleConfig`)
+(the default config values are documented in the type `UserConfig`)
 
 ## Commands
 
@@ -109,6 +111,21 @@ my-project/themes/apac (mapped to src/entries/themes/apac.ts)
 If a dependency is present in `devDependencies` (but not in `peerDependencies`) it is bundled along with the project's source code.
 `dependencies`, `peerDependencies` and `optionalDependencies` are marked as external and not bundled.
 
+#### `--mode`
+
+```bash
+crackle package --mode=bundle
+crackle package --mode=preserve
+```
+
+This controls how Crackle generates output files.
+
+- `bundle` rolls up output files into as few chunks as possible (default behaviour)
+- `preserve` creates separate files for all modules using the original module names as file names.
+  This is similar to Rollup's [`output.preserveModules`](https://rollupjs.org/configuration-options/#output-preservemodules), but allows more fine-grained control because we hook into [`output.manualChunks`](https://rollupjs.org/configuration-options/#output-manualchunks).
+
+The mode can also be configured via `crackle.config.ts`.
+
 ### `crackle fix`
 
 Updates `package.json` exports, files, [`sideEffects` field](#side-effects) and more:
@@ -124,6 +141,22 @@ Updates `package.json` exports, files, [`sideEffects` field](#side-effects) and 
 Generate entry points for local development.
 This will generate stub entry points for local development.
 Stub entry points import the source files directly instead of the compiled files.
+
+#### `--mode`
+
+Some libraries declare namespaces, which are hard/impossible to bundle.
+For such cases, Crackle has an option to preserve the file structure of the generated `.d.ts` files.
+
+```bash
+crackle dev --mode=bundle
+crackle dev --mode=preserve
+```
+
+- `bundle` rolls up output files into as few chunks as possible (default behaviour)
+- `preserve` creates separate files for all modules using the original module names as file names.
+  This is similar to Rollup's [`output.preserveModules`](https://rollupjs.org/configuration-options/#output-preservemodules).
+
+The mode can also be configured via `crackle.config.ts`.
 
 ## Side-effects
 
