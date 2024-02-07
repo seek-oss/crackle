@@ -114,7 +114,7 @@ export const createBundle = async (
         identifiers: 'debug',
         unstable_mode: 'transform',
       }),
-      vocabTranslations(config, { toDistPath: getSrcPath }),
+      vocabTranslations(config, { toDistPath: getVocabPath }),
     ],
     logLevel: 'warn',
     build: {
