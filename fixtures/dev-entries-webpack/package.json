@@ -31,7 +31,7 @@
     "dist"
   ],
   "scripts": {
-    "dev": "crackle dev --webpack",
+    "dev": "crackle dev --shim=none",
     "fix": "crackle fix",
     "package": "crackle package"
   },

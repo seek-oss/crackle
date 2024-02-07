@@ -1,8 +1,10 @@
-import { type PartialConfig, getConfig } from '../config';
+import { type PartialConfig, getConfig, context } from '../config';
 import { generateDevFiles } from '../utils/dev-entry-points';
 
 export const dev = async (inlineConfig?: PartialConfig) => {
-  await getConfig(inlineConfig);
+  const config = await getConfig(inlineConfig);
 
-  await generateDevFiles();
+  await context.run(config, async () => {
+    await generateDevFiles();
+  });
 };

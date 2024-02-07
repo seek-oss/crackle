@@ -22,7 +22,14 @@ const localLogger = logger.withDefaults({ tag: 'dev' });
 const getReadableEntryName = (entry: PackageEntryPoint) =>
   entry.isDefaultEntry ? 'index' : entry.entryName;
 
-const getHookLoader = async (entry: PackageEntryPoint, format: Format) => {
+interface HookLoader {
+  setup: string;
+  load: (importName: string) => string;
+}
+const getHookLoader = async (
+  entry: PackageEntryPoint,
+  format: Format,
+): Promise<HookLoader> => {
   const stringifyRelative = (p: string) =>
     JSON.stringify(path.relative(entry.outputDir, p));
 
@@ -31,8 +38,17 @@ const getHookLoader = async (entry: PackageEntryPoint, format: Format) => {
   // ! don't change this ! unbuild searches for the string and inserts its own shims
   const rekwire = 'req' + 'uire';
 
-  let setup = '';
-  if (!config.dev.webpack) {
+  let setup: HookLoader['setup'] = '';
+  let load: HookLoader['load'] = (mod: string) =>
+    format === 'esm'
+      ? `import * as ${mod} from ${stringifyRelative(entry.entryPath)};`
+      : `const ${mod} = ${rekwire}(${stringifyRelative(entry.entryPath)});`;
+
+  if (config.dev.shim === 'none') {
+    return { setup, load };
+  }
+
+  if (config.dev.shim === 'require') {
     const shims = dedent`
       import { createRequire } from "module";
 
@@ -46,8 +62,9 @@ const getHookLoader = async (entry: PackageEntryPoint, format: Format) => {
 
       ${rekwire}(${stringifyRelative(hookPath)});
     `;
+    load = (mod) =>
+      `const ${mod} = ${rekwire}(${stringifyRelative(entry.entryPath)});`;
   }
-  const load = `${rekwire}(${stringifyRelative(entry.entryPath)})`;
 
   return {
     setup,
@@ -94,7 +111,9 @@ const getCjsContents: GetContents = async (entry) => {
   return dedent`
     ${setup}
 
-    module.exports = ${load};
+    ${load('_mod')}
+
+    module.exports = _mod;
   `;
 };
 
@@ -117,7 +136,7 @@ const getEsmContents: GetContents = async (entry) => {
   return dedent`
     ${setup}
 
-    const _mod = ${load};
+    ${load('_mod')}
 
     ${exports
       .map((specifier) =>

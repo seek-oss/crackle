@@ -1,3 +1,4 @@
+import type { UserConfig } from '@crackle/core';
 import { dev } from '@crackle/core/dev';
 import { resolveConfig } from '@crackle/core/resolve-config';
 import fixturez from 'fixturez';
@@ -14,14 +15,14 @@ beforeAll(() => {
 test.each`
   name                     | options
   ${'dev-entries'}         | ${undefined}
-  ${'dev-entries-webpack'} | ${{ webpack: true }}
+  ${'dev-entries-webpack'} | ${{ shim: 'none' } satisfies UserConfig['dev']}
 `(
   'fixture $name',
   async ({ name: fixtureName, options }) => {
     const fixtureDir = f.find(fixtureName);
 
     const config = await resolveConfig({ cwd: fixtureDir });
-    await dev({ ...config, ...options });
+    await dev({ ...config, dev: options });
 
     await snapshotOutput('dev', fixtureName);
   },
