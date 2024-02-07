@@ -1,4 +1,4 @@
-import type { CrackleServer, UserConfig } from '@crackle/core';
+import type { CrackleServer, UserConfig, ResolvedConfig } from '@crackle/core';
 import { logger } from '@crackle/core/logger';
 import { mergeConfig, resolveConfig } from '@crackle/core/resolve-config';
 import yargs, { type ArgumentsCamelCase, type CommandModule } from 'yargs';
@@ -118,9 +118,11 @@ yargs(process.argv.slice(2))
     command: 'dev',
     describe: 'Generate entry points for local development',
     builder: {
-      webpack: {
-        description: 'Generate Webpack-compatible shims',
-        type: 'boolean',
+      shim: {
+        description: 'Controls whether Crackle should generate a shim',
+        choices: ['require', 'none'] satisfies Array<
+          ResolvedConfig['dev']['shim']
+        >,
       },
     },
     handler: async (overrides) => {

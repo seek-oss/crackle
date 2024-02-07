@@ -37,7 +37,7 @@ export const commonOutputOptions = (
       const entry = entryPoints.find(
         ({ entryPath }) => chunkInfo.facadeModuleId === entryPath,
       );
-      assert(entry, `entry not found for ${chunkInfo.facadeModuleId}`);
+      assert(entry, `Entry not found for ${chunkInfo.facadeModuleId}`);
 
       return entry.getOutputPath(format);
     },

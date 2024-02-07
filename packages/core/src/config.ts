@@ -56,11 +56,14 @@ export interface Config {
   };
   dev: {
     /**
-     * Generate Webpack-compatible shims.
+     * Controls whether Crackle should generate a shim.
      *
-     * @default false
+     * - 'require' creates a `require` shim using `createRequire`
+     * - 'none' does not add a shim
+     *
+     * @default 'require'
      */
-    webpack?: boolean;
+    shim?: 'require' | 'none';
   };
   package: {
     /**
@@ -75,6 +78,15 @@ export interface Config {
      * @default false
      */
     fix: boolean;
+    /**
+     * Controls how Crackle generates output files.
+     *
+     * - 'bundle' rolls up output files into as few chunks as possible
+     * - 'preserve' creates separate files for all modules using the original module names as file names
+     *
+     * @default 'bundle'
+     */
+    mode: 'bundle' | 'preserve';
   };
   web: {
     /**
@@ -124,11 +136,12 @@ export const defaultConfig: Config = {
     },
   },
   dev: {
-    webpack: false,
+    shim: 'require',
   },
   package: {
     clean: true,
     fix: false,
+    mode: 'bundle',
   },
   web: {
     appShell: 'src/App.tsx',

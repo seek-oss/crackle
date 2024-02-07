@@ -1,0 +1,13 @@
+/* #region dist/some/other/file.cjs */
+"use strict";
+const maybe = "something";
+exports.maybe = maybe;
+/* #endregion */
+
+
+/* #region dist/some/other/file.mjs */
+const maybe = "something";
+export {
+  maybe
+};
+/* #endregion */

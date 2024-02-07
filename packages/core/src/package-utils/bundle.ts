@@ -34,12 +34,13 @@ export const createBundle = async (
 
   const getRelativePath = (id: string) => path.relative(config.root, id);
   const getSrcPath = (id: string) =>
-    path.relative(`${config.root}/${srcDir}`, id);
+    normalizePath(path.relative(`${config.root}/${srcDir}`, id));
+  const getVocabPath = getSrcPath;
 
   const createOutputOptionsForFormat = (format: (typeof formats)[number]) => {
     const extension = extensionForFormat(format);
-    const replaceExtension = (srcPath: string) =>
-      srcPath.replace(path.extname(srcPath), `.${extension}`);
+    const replaceExtension = (filePath: string) =>
+      `${filePath.slice(0, -path.extname(filePath).length)}.${extension}`;
 
     const localLogger = logger.withDefaults({ tag: format });
 
@@ -68,13 +69,17 @@ export const createBundle = async (
           localLogger.debug(`External module: ${id}`);
           return;
         }
+        if (config.package.mode === 'preserve') {
+          localLogger.debug(`Preserved module: ${getRelativePath(id)}`);
+          return srcPath;
+        }
         if (isVanillaFile(id)) {
           localLogger.debug(`Vanilla file: ${getRelativePath(id)}`);
-          return normalizePath(`${stylesDir}/${srcPath}`);
+          return `${stylesDir}/${srcPath}`;
         }
         if (isVocabFile(moduleInfo.id)) {
           localLogger.debug(`Vocab file: ${getRelativePath(id)}`);
-          return normalizePath(srcPath);
+          return replaceExtension(getVocabPath(id));
         }
         if (
           typeof packageJson.sideEffects !== 'undefined' &&
@@ -82,7 +87,7 @@ export const createBundle = async (
           !moduleInfo.isEntry
         ) {
           localLogger.debug(`Has side-effects: ${getRelativePath(id)}`);
-          return normalizePath(`${sideEffectsDir}/${srcPath}`);
+          return `${sideEffectsDir}/${srcPath}`;
         }
         if (
           // Prevent concatenation of files imported by Vanilla Extract styles, to improve performance of the Vanilla Extract compiler
@@ -91,7 +96,7 @@ export const createBundle = async (
           moduleInfo.importedIds.some(isVanillaFile)
         ) {
           localLogger.debug(`Vanilla deps: ${getRelativePath(id)}`);
-          return normalizePath(`${stylesDir}/${srcPath}`);
+          return `${stylesDir}/${srcPath}`;
         }
       },
     } satisfies Rollup.OutputOptions;
