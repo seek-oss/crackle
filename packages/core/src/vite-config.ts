@@ -1,5 +1,4 @@
 import assert from 'assert';
-import path from 'path';
 
 import type { OutputOptions } from 'rollup';
 import type { UserConfig } from 'vite';
@@ -29,8 +28,6 @@ export const commonOutputOptions = (
   format: Format = 'esm',
 ) => {
   const extension = extensionForFormat(format);
-  const replaceExtension = (filePath: string) =>
-    filePath.replace(path.extname(filePath), `.${extension}`);
 
   return {
     dir: `${config.root}/${distDir}`,
@@ -44,10 +41,7 @@ export const commonOutputOptions = (
 
       return entry.getOutputPath(format);
     },
-    chunkFileNames: ({ name }) => {
-      if (name.endsWith(`.${extension}`)) return name;
-      if (name.endsWith('.ts')) return replaceExtension(name);
-      return `${name}.chunk.${extension}`;
-    },
+    chunkFileNames: ({ name }) =>
+      name.endsWith(extension) ? name : `${name}.chunk.${extension}`,
   } satisfies OutputOptions;
 };
