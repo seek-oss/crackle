@@ -2,8 +2,6 @@ import fs from 'fs/promises';
 import path from 'path';
 import process from 'process';
 
-import type { Rollup } from 'vite';
-
 import { type EnhancedConfig, type PartialConfig, getConfig } from '../config';
 import { distDir } from '../constants';
 import { createBundle } from '../package-utils/bundle';
@@ -87,13 +85,17 @@ const build = async (config: EnhancedConfig, packageName: string) => {
 
   await updateGitignore(config.root, entries);
 
-  const cssExports = (bundles as Rollup.RollupOutput[])
-    .flatMap((bundle) => bundle.output)
-    .map((output) => output.fileName)
-    .filter((fileName) => fileName.endsWith('.css'))
-    .map((fileName) => path.join(distDir, fileName));
+  const cssExports =
+    Array.isArray(bundles) &&
+    bundles
+      .flatMap((bundle) => bundle.output)
+      .map((output) => output.fileName)
+      .filter((fileName) => fileName.endsWith('.css'))
+      .map((fileName) => path.join(distDir, fileName));
 
-  await updatePackageJsonExports(config.root, cssExports);
+  if (cssExports && cssExports.length > 0) {
+    await updatePackageJsonExports(config.root, cssExports);
+  }
 
   logger.success(`Finished building \`${packageName}\`!`);
 };
