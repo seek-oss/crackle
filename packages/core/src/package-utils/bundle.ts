@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 import { cssFileFilter as vanillaCssFileFilter } from '@vanilla-extract/integration';
+import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import fse from 'fs-extra';
 import type { Rollup } from 'vite';
 
@@ -9,7 +10,6 @@ import type { EnhancedConfig } from '../config';
 import { sideEffectsDir, srcDir, stylesDir } from '../constants';
 import { logger } from '../entries/logger';
 import { externals } from '../plugins/rollup/externals';
-import { addVanillaDebugIds } from '../plugins/rollup/vanilla-extract-debug-ids';
 import {
   isVocabFile,
   vocabTranslations,
@@ -110,7 +110,10 @@ export const createBundle = async (
     plugins: [
       // because we don't know ahead of time what the output format will be, we always patch imports
       externals(config, 'esm'),
-      addVanillaDebugIds(config),
+      vanillaExtractPlugin({
+        identifiers: 'debug',
+        unstable_mode: 'transform',
+      }),
       vocabTranslations(config, { toDistPath: getVocabPath }),
     ],
     logLevel: 'warn',
