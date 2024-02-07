@@ -78,6 +78,15 @@ export interface Config {
      * @default false
      */
     fix: boolean;
+    /**
+     * Controls how Crackle generates output files.
+     *
+     * - 'bundle' rolls up output files into as few chunks as possible
+     * - 'preserve' creates separate files for all modules using the original module names as file names
+     *
+     * @default 'bundle'
+     */
+    mode: 'bundle' | 'preserve';
   };
   web: {
     /**
@@ -132,6 +141,7 @@ export const defaultConfig: Config = {
   package: {
     clean: true,
     fix: false,
+    mode: 'bundle',
   },
   web: {
     appShell: 'src/App.tsx',

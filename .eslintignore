@@ -22,7 +22,7 @@ fixtures/dev-entries-webpack/dist
 # end managed by crackle
 
 # managed by crackle
-fixtures/dts-compat/dist
+fixtures/dts-preserve/dist
 # end managed by crackle
 
 # managed by crackle
@@ -38,6 +38,14 @@ fixtures/multi-entry-library/components
 fixtures/multi-entry-library/dist
 fixtures/multi-entry-library/extras
 fixtures/multi-entry-library/themes/apac
+# end managed by crackle
+
+# managed by crackle
+fixtures/package-preserve/dist
+# end managed by crackle
+
+# managed by crackle
+fixtures/package-preserve-dts-preserve/dist
 # end managed by crackle
 
 # managed by crackle
