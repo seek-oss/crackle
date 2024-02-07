@@ -113,7 +113,7 @@ importers:
 
   fixtures/dev-entries-webpack: {}
 
-  fixtures/dts-compat: {}
+  fixtures/dts-preserve: {}
 
   fixtures/esm-compat:
     dependencies:
@@ -210,6 +210,32 @@ importers:
       '@types/react-dom':
         specifier: ^18.0.6
         version: 18.2.18
+
+  fixtures/package-preserve:
+    dependencies:
+      '@vanilla-extract/css':
+        specifier: ^1.12.0
+        version: 1.14.0
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+    devDependencies:
+      '@types/react':
+        specifier: ^18.0.21
+        version: 18.2.47
+
+  fixtures/package-preserve-dts-preserve:
+    dependencies:
+      '@vanilla-extract/css':
+        specifier: ^1.12.0
+        version: 1.14.0
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+    devDependencies:
+      '@types/react':
+        specifier: ^18.0.21
+        version: 18.2.47
 
   fixtures/single-entry-library:
     dependencies:

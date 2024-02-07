@@ -12,10 +12,12 @@ beforeAll(() => {
 });
 
 test.each([
-  'dts-compat',
+  'dts-preserve',
   'esm-compat',
   'library-with-docs',
   'multi-entry-library',
+  'package-preserve',
+  'package-preserve-dts-preserve',
   'single-entry-library',
   'with-dep-hidden-package-json',
   'with-graphql-schema-types',
