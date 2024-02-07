@@ -226,7 +226,7 @@ const setupPackageJson =
       entries,
     );
 
-    if (write) {
+    if (write && diffs.length > 0) {
       await writePackageJson({
         dir: packageRoot,
         contents: expectedPackageJson,
@@ -249,9 +249,7 @@ export const updatePackageJsonExports = async (
   const packageJson: PackageJson = await fse.readJson(packagePath, { fs });
 
   const packageExports = packageJson.exports as Exports;
-
-  const lastKey = Object.keys(packageExports).pop()!;
-  const lastExport = packageExports[lastKey];
+  const [lastKey, lastExport] = Object.entries(packageExports).pop()!;
 
   delete packageExports[lastKey];
   for (const entry of exports) {
