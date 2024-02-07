@@ -1,5 +1,11 @@
 # @crackle/core
 
+## 0.32.1
+
+### Patch Changes
+
+- [#169](https://github.com/seek-oss/crackle/pull/169) [`6125c6b`](https://github.com/seek-oss/crackle/commit/6125c6b60b72b4311ec932463c1cebb18c563f7b) Thanks [@mrm007](https://github.com/mrm007)! - `crackle fix`: don't overwrite `package.json` if not needed
+
 ## 0.32.0
 
 ### Minor Changes
