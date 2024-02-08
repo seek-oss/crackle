@@ -1,5 +1,25 @@
 # @crackle/cli
 
+## 0.15.0
+
+### Minor Changes
+
+- [#168](https://github.com/seek-oss/crackle/pull/168) [`3e954b6`](https://github.com/seek-oss/crackle/commit/3e954b6cbc1b55e5be4510820deeff8415b2f47c) Thanks [@mrm007](https://github.com/mrm007)! - Add a `crackle dev --shim` option with choices `none` and `require` (default)
+
+  The `--webpack` option has been removed from the `dev` command in favour of the more generic `--shim` option.
+
+  Consumers should migrate to use `--shim=none` as follows:
+
+  ```diff
+  -crackle dev --webpack
+  +crackle dev --shim=none
+  ```
+
+### Patch Changes
+
+- Updated dependencies [[`750e012`](https://github.com/seek-oss/crackle/commit/750e012d38928ed2a13c273b110a471aef8237ac), [`3e954b6`](https://github.com/seek-oss/crackle/commit/3e954b6cbc1b55e5be4510820deeff8415b2f47c), [`82675c6`](https://github.com/seek-oss/crackle/commit/82675c6862fd0f6afa1e62254b6216aec7931451)]:
+  - @crackle/core@0.33.0
+
 ## 0.14.1
 
 ### Patch Changes
