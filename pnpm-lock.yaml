@@ -72,8 +72,8 @@ importers:
   bootstrap:
     dependencies:
       '@crackle/cli':
-        specifier: 0.14.0
-        version: 0.14.0(typescript@5.3.3)(webpack@5.89.0)
+        specifier: 0.14.1
+        version: 0.14.1(typescript@5.3.3)(webpack@5.89.0)
 
   fixtures/braid-site:
     dependencies:
@@ -371,7 +371,7 @@ importers:
   packages/cli:
     dependencies:
       '@crackle/core':
-        specifier: ^0.32.1
+        specifier: ^0.33.0
         version: link:../core
       yargs:
         specifier: ^17.6.2
@@ -1257,11 +1257,11 @@ packages:
       - supports-color
     dev: false
 
-  /@crackle/cli@0.14.0(typescript@5.3.3)(webpack@5.89.0):
-    resolution: {integrity: sha512-8X6lUQb03AsN58JYcQfxD6kqUfg+/3zBZcZIXH6Z6x2zAEpVRL8w88F04A6bxRzzih4Ah+YTdwvbkgBz5I4sUQ==}
+  /@crackle/cli@0.14.1(typescript@5.3.3)(webpack@5.89.0):
+    resolution: {integrity: sha512-gsDIFV4zNW8X22nShW6Vb0b4QF7BvEMhdZ532EuioBWbf6/RXbkEUYd65R7qshwJwSLBHSW5NLdGujCsaQgwMw==}
     hasBin: true
     dependencies:
-      '@crackle/core': 0.32.0(typescript@5.3.3)(webpack@5.89.0)
+      '@crackle/core': 0.32.1(typescript@5.3.3)(webpack@5.89.0)
       yargs: 17.7.2
     transitivePeerDependencies:
       - '@swc/helpers'
@@ -1279,8 +1279,8 @@ packages:
       - webpack
     dev: false
 
-  /@crackle/core@0.32.0(typescript@5.3.3)(webpack@5.89.0):
-    resolution: {integrity: sha512-y+tEkXIKRQSFMMh2zbYT6KZZaStukd33r3vqjF/VsdYo3ZYuyf+9X6ziea42TaN40vlttJR4wzcHBhahDmRgAQ==}
+  /@crackle/core@0.32.1(typescript@5.3.3)(webpack@5.89.0):
+    resolution: {integrity: sha512-02eYvry/864IvY57AzJpjld/A2jmkHY7BuvifQ5lGOHi4Sp6QJBmIkOpfi3iNM06lAGvRu7stGiTpMMpKP7cOQ==}
     peerDependencies:
       typescript: '>=5.2.2'
     dependencies:

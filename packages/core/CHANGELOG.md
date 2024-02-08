@@ -1,5 +1,24 @@
 # @crackle/core
 
+## 0.33.0
+
+### Minor Changes
+
+- [#168](https://github.com/seek-oss/crackle/pull/168) [`3e954b6`](https://github.com/seek-oss/crackle/commit/3e954b6cbc1b55e5be4510820deeff8415b2f47c) Thanks [@mrm007](https://github.com/mrm007)! - Add a `dev.shim` config option with choices `none` and `require` (default)
+
+  The `dev.webpack` config option has been removed, replaced with `dev.shim: 'none'`
+
+- [#167](https://github.com/seek-oss/crackle/pull/167) [`82675c6`](https://github.com/seek-oss/crackle/commit/82675c6862fd0f6afa1e62254b6216aec7931451) Thanks [@mrm007](https://github.com/mrm007)! - Add a `package.mode` config option with choices `preserve` and `bundle` (default)
+
+  This controls how Crackle generates output files:
+
+  - `bundle` rolls up output files into as few chunks as possible
+  - `preserve` creates separate files for all modules using the original module names as file names
+
+### Patch Changes
+
+- [#170](https://github.com/seek-oss/crackle/pull/170) [`750e012`](https://github.com/seek-oss/crackle/commit/750e012d38928ed2a13c273b110a471aef8237ac) Thanks [@mrm007](https://github.com/mrm007)! - Update Vite plugin for Vanilla Extract
+
 ## 0.32.1
 
 ### Patch Changes
