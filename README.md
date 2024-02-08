@@ -10,7 +10,7 @@ _A build tool for apps and packages, static and server-rendered sites. Built on 
 
 - [Compile TypeScript to JavaScript](#crackle-package) and generate bundles for CJS and ESM
 - [Generates type declaration files](#dts-bundles) (`.d.ts`) for entry points
-- Supports multiple (nested) entry points
+- [Supports multiple (nested) entry points](#entry-points)
 - [Generate stub entry points](#crackle-dev) for local development
 - [ESM reconciliation](#esm-reconciliation)
 - [Handles side-effects](#side-effects) for generated bundles
