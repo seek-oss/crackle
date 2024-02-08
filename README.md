@@ -27,10 +27,11 @@ _A build tool for apps and packages, static and server-rendered sites. Built on 
   - [`crackle package`](#crackle-package)
     - [Entry points](#entry-points)
     - [Externals](#externals)
-    - [`--mode`](#--mode)
+    - [Package mode](#package-mode)
+    - [DTS mode](#dts-mode)
   - [`crackle fix`](#crackle-fix)
   - [`crackle dev`](#crackle-dev)
-    - [`--mode`](#--mode-1)
+    - [Shim mode](#shim-mode)
 - [Side-effects](#side-effects)
 - [ESM reconciliation](#esm-reconciliation)
 - [DTS bundles](#dts-bundles)
@@ -111,7 +112,7 @@ my-project/themes/apac (mapped to src/entries/themes/apac.ts)
 If a dependency is present in `devDependencies` (but not in `peerDependencies`) it is bundled along with the project's source code.
 `dependencies`, `peerDependencies` and `optionalDependencies` are marked as external and not bundled.
 
-#### `--mode`
+#### Package mode
 
 ```bash
 crackle package --mode=bundle
@@ -124,7 +125,38 @@ This controls how Crackle generates output files.
 - `preserve` creates separate files for all modules using the original module names as file names.
   This is similar to Rollup's [`output.preserveModules`](https://rollupjs.org/configuration-options/#output-preservemodules), but allows more fine-grained control because we hook into [`output.manualChunks`](https://rollupjs.org/configuration-options/#output-manualchunks).
 
-The mode can also be configured via `crackle.config.ts`.
+The mode can also be configured via `crackle.config.ts`:
+
+```ts
+// crackle.config.ts
+import { defineConfig } from '@crackle/cli/config';
+
+export default defineConfig({
+  package: {
+    mode: 'preserve',
+  },
+});
+```
+
+#### DTS mode
+
+Some libraries declare namespaces, which are hard/impossible to bundle.
+For such cases, Crackle has an option to preserve the file structure of the generated `.d.ts` files.
+
+```ts
+// crackle.config.ts
+import { defineConfig } from '@crackle/cli/config';
+
+export default defineConfig({
+  dts: {
+    mode: 'preserve',
+  },
+});
+```
+
+- `bundle` rolls up output files into as few chunks as possible (default behaviour)
+- `preserve` creates separate files for all modules using the original module names as file names.
+  This is similar to Rollup's [`output.preserveModules`](https://rollupjs.org/configuration-options/#output-preservemodules).
 
 ### `crackle fix`
 
@@ -142,21 +174,32 @@ Generate entry points for local development.
 This will generate stub entry points for local development.
 Stub entry points import the source files directly instead of the compiled files.
 
-#### `--mode`
+#### Shim mode
 
-Some libraries declare namespaces, which are hard/impossible to bundle.
-For such cases, Crackle has an option to preserve the file structure of the generated `.d.ts` files.
+By default, Crackle generates a `require` shim which enables the loading of TypeScript files in Node.js using a require hook.
+There are situations where this is not _required_, such as when using a bundler that supports TypeScript natively, e.g. esbuild or Vite.
+In these cases, the `--shim` option can be set to `none`.
 
 ```bash
-crackle dev --mode=bundle
-crackle dev --mode=preserve
+crackle dev --shim=require
+crackle dev --shim=none
 ```
 
-- `bundle` rolls up output files into as few chunks as possible (default behaviour)
-- `preserve` creates separate files for all modules using the original module names as file names.
-  This is similar to Rollup's [`output.preserveModules`](https://rollupjs.org/configuration-options/#output-preservemodules).
+- `require` generates a shim for use in Node.js (default behaviour)
+- `none` doesn't generate a `require` shim
 
-The mode can also be configured via `crackle.config.ts`.
+This can also be configured via `crackle.config.ts`:
+
+```ts
+// crackle.config.ts
+import { defineConfig } from '@crackle/cli/config';
+
+export default defineConfig({
+  dev: {
+    shim: 'none',
+  },
+});
+```
 
 ## Side-effects
 
