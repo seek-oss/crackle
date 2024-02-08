@@ -29,9 +29,9 @@ _A build tool for apps and packages, static and server-rendered sites. Built on 
     - [Externals](#externals)
     - [Package mode](#package-mode)
     - [DTS mode](#dts-mode)
-  - [`crackle fix`](#crackle-fix)
   - [`crackle dev`](#crackle-dev)
     - [Shim mode](#shim-mode)
+  - [`crackle fix`](#crackle-fix)
 - [Side-effects](#side-effects)
 - [ESM reconciliation](#esm-reconciliation)
 - [DTS bundles](#dts-bundles)
@@ -158,16 +158,6 @@ export default defineConfig({
 - `preserve` creates separate files for all modules using the original module names as file names.
   This is similar to Rollup's [`output.preserveModules`](https://rollupjs.org/configuration-options/#output-preservemodules).
 
-### `crackle fix`
-
-Updates `package.json` exports, files, [`sideEffects` field](#side-effects) and more:
-
-- `package.json`: `"main"`, `"module"` and `"types"` are updated to point to the generated files in `dist`
-- `package.json`: `"exports"` and `"files"` are updated to include generated entry points
-- `package.json`: [`"sideEffects"` flag](#side-effects) is updated to match the generated files in `dist`
-- `package.json`: keys are sorted using [`sort-package-json`](https://github.com/keithamus/sort-package-json)
-- `.gitignore` is updated to ignore [backwards-compatible entry points](#backwards-compatible-entry-points)
-
 ### `crackle dev`
 
 Generate entry points for local development.
@@ -200,6 +190,16 @@ export default defineConfig({
   },
 });
 ```
+
+### `crackle fix`
+
+Updates `package.json` exports, files, [`sideEffects` field](#side-effects) and more:
+
+- `package.json`: `"main"`, `"module"` and `"types"` are updated to point to the generated files in `dist`
+- `package.json`: `"exports"` and `"files"` are updated to include generated entry points
+- `package.json`: [`"sideEffects"` flag](#side-effects) is updated to match the generated files in `dist`
+- `package.json`: keys are sorted using [`sort-package-json`](https://github.com/keithamus/sort-package-json)
+- `.gitignore` is updated to ignore [backwards-compatible entry points](#backwards-compatible-entry-points)
 
 ## Side-effects
 
