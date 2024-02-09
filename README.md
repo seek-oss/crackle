@@ -221,7 +221,7 @@ In the ESM build, Crackle will automatically reconcile import specifiers in the 
 More details in [ESM reconciliation].
 
 [`"exports"` field]: https://nodejs.org/api/packages.html#exports
-[ESM reconciliation]: /docs/esm-reconciliation.md
+[ESM reconciliation]: https://github.com/seek-oss/crackle/blob/master/docs/esm-reconciliation.md
 
 ## DTS bundles
 
