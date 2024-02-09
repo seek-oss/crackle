@@ -1,0 +1,33 @@
+/* #region dist/deep/re-export.cjs */
+require("../../../node_modules/.pnpm/tsx@[version]/node_modules/tsx/dist/cjs/index.cjs");
+
+const _mod = require("../src/entries/deep/re-export.ts");
+
+module.exports = _mod;
+/* #endregion */
+
+
+/* #region dist/deep/re-export.d.mts */
+export * from "../../src/entries/deep/re-export";
+export { default } from "../../src/entries/deep/re-export";
+/* #endregion */
+
+
+/* #region dist/deep/re-export.d.ts */
+export * from "../../src/entries/deep/re-export";
+export { default } from "../../src/entries/deep/re-export";
+/* #endregion */
+
+
+/* #region dist/deep/re-export.mjs */
+import { createRequire } from "module";
+
+const require = createRequire(import.meta.url);
+
+require("../../../node_modules/.pnpm/tsx@[version]/node_modules/tsx/dist/cjs/index.cjs");
+
+const _mod = require("../src/entries/deep/re-export.ts");
+
+export const something = _mod.something;
+export default _mod.default;
+/* #endregion */
