@@ -1,5 +1,11 @@
 # @crackle/cli
 
+## 0.15.1
+
+### Patch Changes
+
+- [#182](https://github.com/seek-oss/crackle/pull/182) [`05b234e`](https://github.com/seek-oss/crackle/commit/05b234e06d951b681522ad9994670fd402f66fb4) Thanks [@mrm007](https://github.com/mrm007)! - Add a README
+
 ## 0.15.0
 
 ### Minor Changes
