@@ -31,7 +31,7 @@ const getHookLoader = async (
   format: Format,
 ): Promise<HookLoader> => {
   const stringifyRelative = (p: string) =>
-    JSON.stringify(path.relative(entry.outputDir, p));
+    JSON.stringify(path.relative(entry.packageDir, p));
 
   const config = getConfigFromContext();
 

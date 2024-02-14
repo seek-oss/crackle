@@ -1,5 +1,5 @@
 # managed by crackle
 /cli
+/deep/re-export
 /dist
-/re-export
 # end managed by crackle

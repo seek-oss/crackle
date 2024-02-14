@@ -21,13 +21,13 @@
       "import": "./dist/cli.mjs",
       "require": "./dist/cli.cjs"
     },
-    "./re-export": {
+    "./deep/re-export": {
       "types": {
-        "import": "./dist/re-export.d.mts",
-        "require": "./dist/re-export.d.ts"
+        "import": "./dist/deep/re-export.d.mts",
+        "require": "./dist/deep/re-export.d.ts"
       },
-      "import": "./dist/re-export.mjs",
-      "require": "./dist/re-export.cjs"
+      "import": "./dist/deep/re-export.mjs",
+      "require": "./dist/deep/re-export.cjs"
     },
     "./package.json": "./package.json"
   },
@@ -36,8 +36,8 @@
   "types": "./dist/index.d.ts",
   "files": [
     "cli",
-    "dist",
-    "re-export"
+    "deep/re-export",
+    "dist"
   ],
   "scripts": {
     "dev": "crackle dev",
