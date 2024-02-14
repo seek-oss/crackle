@@ -72,8 +72,8 @@ importers:
   bootstrap:
     dependencies:
       '@crackle/cli':
-        specifier: 0.15.0
-        version: 0.15.0(typescript@5.3.3)(webpack@5.89.0)
+        specifier: 0.15.1
+        version: 0.15.1(typescript@5.3.3)(webpack@5.89.0)
 
   fixtures/braid-site:
     dependencies:
@@ -371,7 +371,7 @@ importers:
   packages/cli:
     dependencies:
       '@crackle/core':
-        specifier: ^0.33.0
+        specifier: ^0.33.1
         version: link:../core
       yargs:
         specifier: ^17.6.2
@@ -1257,8 +1257,8 @@ packages:
       - supports-color
     dev: false
 
-  /@crackle/cli@0.15.0(typescript@5.3.3)(webpack@5.89.0):
-    resolution: {integrity: sha512-t8+Xlm2sJ1ruvXWSyR+1Ijn/xsz705/3UBI64yXQPwVrKZ2fK3BLYY2FpiHjxYfaW4gGa3KDrPf9/1UN8pYPLQ==}
+  /@crackle/cli@0.15.1(typescript@5.3.3)(webpack@5.89.0):
+    resolution: {integrity: sha512-M83Yra2xXGOXy3q2OEn21Cb1l13ybjYfA/gGe8lUwt0tnFRmusW6UW2zOCB9KL+HjCobvFa3FNNQTrtuo8dc1Q==}
     hasBin: true
     dependencies:
       '@crackle/core': 0.33.0(typescript@5.3.3)(webpack@5.89.0)
