@@ -1,5 +1,11 @@
 # @crackle/core
 
+## 0.33.1
+
+### Patch Changes
+
+- [#184](https://github.com/seek-oss/crackle/pull/184) [`e00526c`](https://github.com/seek-oss/crackle/commit/e00526c0ed1d96aa9d49bcb4fd0623122140b2c8) Thanks [@mrm007](https://github.com/mrm007)! - Correctly generate import paths in stub entry points for deeply nested entries
+
 ## 0.33.0
 
 ### Minor Changes
