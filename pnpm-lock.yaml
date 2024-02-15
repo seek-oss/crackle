@@ -477,8 +477,8 @@ importers:
         specifier: ^6.1.0
         version: 6.1.0(rollup@4.9.4)(typescript@5.3.3)
       rollup-plugin-node-externals:
-        specifier: ^6.1.2
-        version: 6.1.2(rollup@4.9.4)
+        specifier: ^7.0.0
+        version: 7.0.1(rollup@4.9.4)
       semver:
         specifier: ^7.5.4
         version: 7.5.4
@@ -1261,7 +1261,7 @@ packages:
     resolution: {integrity: sha512-M83Yra2xXGOXy3q2OEn21Cb1l13ybjYfA/gGe8lUwt0tnFRmusW6UW2zOCB9KL+HjCobvFa3FNNQTrtuo8dc1Q==}
     hasBin: true
     dependencies:
-      '@crackle/core': 0.33.0(typescript@5.3.3)(webpack@5.89.0)
+      '@crackle/core': 0.33.1(typescript@5.3.3)(webpack@5.89.0)
       yargs: 17.7.2
     transitivePeerDependencies:
       - '@swc/helpers'
@@ -1278,8 +1278,8 @@ packages:
       - webpack
     dev: false
 
-  /@crackle/core@0.33.0(typescript@5.3.3)(webpack@5.89.0):
-    resolution: {integrity: sha512-bbhCw8S/IQG615/TTFWg/Zz53PjkxAXiHOq2kN44PVVYbMku7x1Qz+4kg9udXVKU+pbGZv4EFOYn66Gli14zUw==}
+  /@crackle/core@0.33.1(typescript@5.3.3)(webpack@5.89.0):
+    resolution: {integrity: sha512-nDBljqHyc4EiVmB1AlUN8JxZNIsJONi3yGOUVJDB5zUEBThnanjtuj7kOdtdoyLB+cg2xSMk48Ax83TnltTcaQ==}
     peerDependencies:
       typescript: '>=5.2.2'
     dependencies:
@@ -8100,6 +8100,15 @@ packages:
   /rollup-plugin-node-externals@6.1.2(rollup@4.9.4):
     resolution: {integrity: sha512-2TWan0u0/zHcgPrKpIPgKSY8OMqwDAYD380I0hxx7iUQw8mrN34DWwG9sQUMEo5Yy4xd6/5QEAySYgiKN9fdBQ==}
     engines: {node: '>=16.0.0'}
+    peerDependencies:
+      rollup: ^3.0.0 || ^4.0.0
+    dependencies:
+      rollup: 4.9.4
+    dev: false
+
+  /rollup-plugin-node-externals@7.0.1(rollup@4.9.4):
+    resolution: {integrity: sha512-NIGBhcuhyKn8slRsIt2mCHmxj5zRjXfkYjJ5FPjmg1Q3/rHvvMhOzj07kg0qVX/X6SEP2iubswIc0sL+CbXruA==}
+    engines: {node: '>= 21 || ^20.6.0 || ^18.19.0'}
     peerDependencies:
       rollup: ^3.0.0 || ^4.0.0
     dependencies:

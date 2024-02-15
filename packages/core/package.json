@@ -152,7 +152,7 @@
     "resolve-from": "^5.0.0",
     "rollup": "^4.2.0",
     "rollup-plugin-dts": "^6.1.0",
-    "rollup-plugin-node-externals": "^6.1.2",
+    "rollup-plugin-node-externals": "^7.0.0",
     "semver": "^7.5.4",
     "serialize-javascript": "^6.0.0",
     "serve-handler": "^6.1.5",
