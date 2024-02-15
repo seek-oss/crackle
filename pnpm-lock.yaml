@@ -124,8 +124,8 @@ importers:
         specifier: ^3.3.4
         version: 3.3.4
       react-keyed-flatten-children:
-        specifier: ^1.3.0
-        version: 1.3.0(react@18.2.0)
+        specifier: ^3.0.0
+        version: 3.0.0(react@18.2.0)
     devDependencies:
       '@crackle-fixtures/dep-with-exports-always-patch':
         specifier: link:./dep-with-exports-always-patch
@@ -1261,7 +1261,7 @@ packages:
     resolution: {integrity: sha512-M83Yra2xXGOXy3q2OEn21Cb1l13ybjYfA/gGe8lUwt0tnFRmusW6UW2zOCB9KL+HjCobvFa3FNNQTrtuo8dc1Q==}
     hasBin: true
     dependencies:
-      '@crackle/core': 0.33.0(typescript@5.3.3)(webpack@5.89.0)
+      '@crackle/core': 0.33.1(typescript@5.3.3)(webpack@5.89.0)
       yargs: 17.7.2
     transitivePeerDependencies:
       - '@swc/helpers'
@@ -1278,8 +1278,8 @@ packages:
       - webpack
     dev: false
 
-  /@crackle/core@0.33.0(typescript@5.3.3)(webpack@5.89.0):
-    resolution: {integrity: sha512-bbhCw8S/IQG615/TTFWg/Zz53PjkxAXiHOq2kN44PVVYbMku7x1Qz+4kg9udXVKU+pbGZv4EFOYn66Gli14zUw==}
+  /@crackle/core@0.33.1(typescript@5.3.3)(webpack@5.89.0):
+    resolution: {integrity: sha512-nDBljqHyc4EiVmB1AlUN8JxZNIsJONi3yGOUVJDB5zUEBThnanjtuj7kOdtdoyLB+cg2xSMk48Ax83TnltTcaQ==}
     peerDependencies:
       typescript: '>=5.2.2'
     dependencies:
@@ -7767,13 +7767,13 @@ packages:
   /react-is@18.2.0:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
 
-  /react-keyed-flatten-children@1.3.0(react@18.2.0):
-    resolution: {integrity: sha512-qB7A6n+NHU0x88qTZGAJw6dsqwI941jcRPBB640c/CyWqjPQQ+YUmXOuzPziuHb7iqplM3xksWAbGYwkQT0tXA==}
+  /react-keyed-flatten-children@3.0.0(react@18.2.0):
+    resolution: {integrity: sha512-tSH6gvOyQjt3qtjG+kU9sTypclL1672yjpVufcE3aHNM0FhvjBUQZqsb/awIux4zEuVC3k/DP4p0GdTT/QUt/Q==}
     peerDependencies:
       react: '>=15.0.0'
     dependencies:
       react: 18.2.0
-      react-is: 16.13.1
+      react-is: 18.2.0
     dev: false
 
   /react-popper-tooltip@4.4.2(react-dom@18.2.0)(react@18.2.0):
