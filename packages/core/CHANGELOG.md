@@ -1,5 +1,11 @@
 # @crackle/core
 
+## 0.33.2
+
+### Patch Changes
+
+- [#176](https://github.com/seek-oss/crackle/pull/176) [`4c60648`](https://github.com/seek-oss/crackle/commit/4c60648a3f7779a0a224bd458e476256c839c48e) Thanks [@renovate](https://github.com/apps/renovate)! - Update `rollup-plugin-node-externals` to v7
+
 ## 0.33.1
 
 ### Patch Changes
