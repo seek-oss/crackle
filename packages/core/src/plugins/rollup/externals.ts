@@ -2,8 +2,7 @@ import path from 'path';
 
 import fse from 'fs-extra';
 import type { FunctionPluginHooks, Plugin } from 'rollup';
-import {
-  externals as rollupExternals,
+import rollupExternals, {
   type ExternalsOptions,
 } from 'rollup-plugin-node-externals';
 import semverIntersects from 'semver/ranges/intersects.js';
