@@ -1,6 +1,11 @@
 {
   "name": "@crackle/babel-plugin-remove-exports",
   "version": "0.3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seek-oss/crackle.git",
+    "directory": "packages/babel-plugin-remove-exports"
+  },
   "license": "MIT",
   "author": "SEEK",
   "sideEffects": false,
