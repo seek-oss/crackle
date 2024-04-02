@@ -1,6 +1,11 @@
 {
   "name": "@crackle/cli",
   "version": "0.15.3",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seek-oss/crackle.git",
+    "directory": "packages/cli"
+  },
   "license": "MIT",
   "author": "SEEK",
   "exports": {
