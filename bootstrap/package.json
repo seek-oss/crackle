@@ -5,6 +5,6 @@
     "crackle-bootstrap": "bin.js"
   },
   "dependencies": {
-    "@crackle/cli": "0.15.2"
+    "@crackle/cli": "0.15.3"
   }
 }
