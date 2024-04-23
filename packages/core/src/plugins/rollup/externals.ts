@@ -1,7 +1,7 @@
 import path from 'path';
 
 import fse from 'fs-extra';
-import type { FunctionPluginHooks, Plugin } from 'rollup';
+import type { Plugin } from 'rollup';
 import rollupExternals, {
   type ExternalsOptions,
 } from 'rollup-plugin-node-externals';
@@ -135,8 +135,17 @@ export function externals(
     name: `crackle:patched-${plugin.name}`,
 
     async buildStart(...args) {
+      if (!plugin.buildStart) {
+        throw new Error(
+          "Unable to find 'buildStart' hook in 'rollup-plugin-node-externals'",
+        );
+      }
+
+      const buildStartHook = plugin.buildStart;
+      const buildStartHandler =
+        'handler' in buildStartHook ? buildStartHook.handler : buildStartHook;
       await Promise.all([
-        (plugin as FunctionPluginHooks).buildStart.call(this, ...args),
+        buildStartHandler.call(this, ...args),
         findDependencies(options).then((result) => (packagesById = result)),
       ]);
     },
@@ -144,7 +153,16 @@ export function externals(
     resolveId: {
       order: 'pre',
       async handler(id, importer, hookOptions) {
-        const resolved = await (plugin as FunctionPluginHooks).resolveId.call(
+        if (!plugin.resolveId) {
+          throw new Error(
+            "Unable to find 'resolveId' hook in 'rollup-plugin-node-externals'",
+          );
+        }
+
+        const resolveIdHook = plugin.resolveId;
+        const resolveIdHandler =
+          'handler' in resolveIdHook ? resolveIdHook.handler : resolveIdHook;
+        const resolved = await resolveIdHandler.call(
           this,
           id,
           importer,
