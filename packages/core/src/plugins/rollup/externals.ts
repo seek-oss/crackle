@@ -1,7 +1,7 @@
 import path from 'path';
 
 import fse from 'fs-extra';
-import type { FunctionPluginHooks, Plugin } from 'rollup';
+import type { FunctionPluginHooks, Plugin, PluginHooks } from 'rollup';
 import rollupExternals, {
   type ExternalsOptions,
 } from 'rollup-plugin-node-externals';
@@ -144,12 +144,10 @@ export function externals(
     resolveId: {
       order: 'pre',
       async handler(id, importer, hookOptions) {
-        const resolved = await (plugin as FunctionPluginHooks).resolveId.call(
-          this,
-          id,
-          importer,
-          hookOptions,
-        );
+        const resolveIdHook = (plugin as PluginHooks).resolveId;
+        const handler =
+          'handler' in resolveIdHook ? resolveIdHook.handler : resolveIdHook;
+        const resolved = await handler.call(this, id, importer, hookOptions);
 
         if (
           (typeof resolved === 'boolean' && !resolved) ||
