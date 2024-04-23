@@ -1,5 +1,13 @@
 # @crackle/core
 
+## 0.33.3
+
+### Patch Changes
+
+- [#197](https://github.com/seek-oss/crackle/pull/197) [`be1da6c`](https://github.com/seek-oss/crackle/commit/be1da6cb880739c855648fcc9a027874459edc40) Thanks [@askoufis](https://github.com/askoufis)! - Fix a bug caused by newer versions of `rollup-plugin-node-externals`
+
+  We were assuming that `rollup-plugin-node-externals` hooks would always be functions, but they can be objects too. We now check for this at runtime.
+
 ## 0.33.2
 
 ### Patch Changes
