@@ -250,3 +250,4 @@ This is done by running `pnpm bootstrap` at the root of the monorepo.
 
 Once the bootstrap script is done, the current version of Crackle can be used to build itself.
 If anything goes wrong and the bootstrap script fails, there's a fallback script to build `@crackle/core` using [unbuild](https://github.com/unjs/unbuild) by running `pnpm unbuild` in the `packages/core` directory.
+
