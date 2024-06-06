@@ -495,8 +495,8 @@ importers:
         specifier: ^4.3.0
         version: 4.7.2
       type-fest:
-        specifier: ^3.13.1
-        version: 3.13.1
+        specifier: ^4.0.0
+        version: 4.19.0
       used-styles:
         specifier: ^2.4.3
         version: 2.6.4
@@ -587,8 +587,8 @@ importers:
         specifier: ^11.1.1
         version: 11.2.0
       type-fest:
-        specifier: ^3.2.0
-        version: 3.13.1
+        specifier: ^4.0.0
+        version: 4.19.0
       yargs:
         specifier: ^17.6.2
         version: 17.7.2
@@ -9253,6 +9253,11 @@ packages:
   /type-fest@3.13.1:
     resolution: {integrity: sha512-tLq3bSNx+xSpwvAJnzrK0Ep5CLNWjvFTOp71URMaAEWBfRb9nnJiBoUe0tF8bI4ZFO3omgBR6NvnbzVUT3Ly4g==}
     engines: {node: '>=14.16'}
+    dev: false
+
+  /type-fest@4.19.0:
+    resolution: {integrity: sha512-CN2l+hWACRiejlnr68vY0/7734Kzu+9+TOslUXbSCQ1ruY9XIHDBSceVXCcHm/oXrdzhtLMMdJEKfemf1yXiZQ==}
+    engines: {node: '>=16'}
     dev: false
 
   /type-is@1.6.18:
