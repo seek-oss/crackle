@@ -143,7 +143,7 @@
     "dedent": "^1.5.1",
     "defu": "^6.1.4",
     "ensure-gitignore": "^1.2.0",
-    "esbuild": "^0.19.3",
+    "esbuild": "^0.23.0",
     "eval": "^0.1.8",
     "express": "^4.18.2",
     "fast-glob": "^3.3.2",
