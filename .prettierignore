@@ -15,8 +15,8 @@ fixtures/braid-site/dist
 
 # managed by crackle
 fixtures/dev-entries/cli
+fixtures/dev-entries/deep/re-export
 fixtures/dev-entries/dist
-fixtures/dev-entries/re-export
 # end managed by crackle
 
 # managed by crackle
@@ -88,6 +88,8 @@ packages/babel-plugin-remove-exports/dist
 packages/cli/config
 packages/cli/dist
 # end managed by crackle
+
+packages/cli/**/README.md
 
 # managed by crackle
 packages/core/build
