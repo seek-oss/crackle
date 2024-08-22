@@ -1,5 +1,11 @@
 # @crackle/core
 
+## 0.33.4
+
+### Patch Changes
+
+- [#200](https://github.com/seek-oss/crackle/pull/200) [`9993725`](https://github.com/seek-oss/crackle/commit/9993725ca4af0d51ba1665864552581ffb85a734) Thanks [@renovate](https://github.com/apps/renovate)! - Update dependencies
+
 ## 0.33.3
 
 ### Patch Changes
