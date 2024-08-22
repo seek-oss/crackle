@@ -181,7 +181,7 @@
     "memfs": "^4.0.0",
     "sync-dependencies": "^1.0.4",
     "typescript": "*",
-    "unbuild": "^2.0.0"
+    "unbuild": "^1.2.1"
   },
   "peerDependencies": {
     "typescript": ">=5.2.2"
