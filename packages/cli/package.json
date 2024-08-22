@@ -44,7 +44,7 @@
     "dev": "crackle dev"
   },
   "dependencies": {
-    "@crackle/core": "^0.33.3",
+    "@crackle/core": "workspace:^",
     "yargs": "^17.6.2"
   },
   "devDependencies": {
