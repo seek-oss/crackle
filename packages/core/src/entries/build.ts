@@ -5,7 +5,6 @@ import process from 'process';
 import { mockAdapter, setAdapter } from '@vanilla-extract/css/adapter';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import react from '@vitejs/plugin-react-swc';
-import builtinModules from 'builtin-modules';
 import fse from 'fs-extra';
 import type { RollupOutput } from 'rollup';
 import type { UserConfig as ViteConfig, Manifest } from 'vite';
@@ -33,6 +32,7 @@ export const build = async (inlineConfig?: PartialConfig) => {
     '@vanilla-extract/css',
     depGraph,
   );
+  const builtinModules = (await import('builtin-modules')).default;
 
   const commonBuildConfig: ViteConfig = {
     ...commonViteConfig(config),

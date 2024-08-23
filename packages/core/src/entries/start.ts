@@ -4,7 +4,6 @@ import { performance } from 'perf_hooks';
 
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import react from '@vitejs/plugin-react-swc';
-import builtinModules from 'builtin-modules';
 import express from 'express';
 
 import type { RenderDevPageFn } from '../../entries/types';
@@ -42,6 +41,8 @@ export const start = async (
   const connections = new Map<string, Socket>();
 
   const { createServer: createViteServer } = await import('vite');
+
+  const builtinModules = (await import('builtin-modules')).default;
 
   const vite = await createViteServer({
     ...commonViteConfig(config),
