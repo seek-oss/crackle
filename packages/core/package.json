@@ -137,7 +137,7 @@
     "@vanilla-extract/vite-plugin": "^4.0.3",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "@vocab/webpack": "^1.2.5",
-    "builtin-modules": "^3.3.0",
+    "builtin-modules": "^4.0.0",
     "c12": "^1.6.1",
     "consola": "^3.2.3",
     "dedent": "^1.5.1",
