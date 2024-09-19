@@ -86,7 +86,7 @@ importers:
         version: 1.15.5(babel-plugin-macros@3.1.0)
       braid-design-system:
         specifier: ^32.0.0
-        version: 32.17.0(@types/react@18.2.79)(babel-plugin-macros@3.1.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sku@13.0.4(@types/node@20.12.7)(@types/react@18.2.79)(react@18.2.0)(terser@5.30.4)(type-fest@3.13.1))
+        version: 32.17.0(@types/react@18.2.79)(babel-plugin-macros@3.1.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sku@13.0.4(@types/node@20.12.7)(@types/react@18.2.79)(react@18.2.0)(terser@5.30.4)(type-fest@4.26.1))
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -160,7 +160,7 @@ importers:
         version: 1.15.5(babel-plugin-macros@3.1.0)
       braid-design-system:
         specifier: ^32.0.0
-        version: 32.17.0(@types/react@18.2.79)(babel-plugin-macros@3.1.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sku@13.0.4(@types/node@20.12.7)(@types/react@18.2.79)(react@18.2.0)(terser@5.30.4)(type-fest@3.13.1))
+        version: 32.17.0(@types/react@18.2.79)(babel-plugin-macros@3.1.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sku@13.0.4(@types/node@20.12.7)(@types/react@18.2.79)(react@18.2.0)(terser@5.30.4)(type-fest@4.26.1))
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -191,7 +191,7 @@ importers:
     dependencies:
       braid-design-system:
         specifier: ^32.0.0
-        version: 32.17.0(@types/react@18.2.79)(babel-plugin-macros@3.1.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sku@13.0.4(@types/node@20.12.7)(@types/react@18.2.79)(react@18.2.0)(terser@5.30.4)(type-fest@3.13.1))
+        version: 32.17.0(@types/react@18.2.79)(babel-plugin-macros@3.1.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sku@13.0.4(@types/node@20.12.7)(@types/react@18.2.79)(react@18.2.0)(terser@5.30.4)(type-fest@4.26.1))
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -245,7 +245,7 @@ importers:
         version: 1.15.5(babel-plugin-macros@3.1.0)
       braid-design-system:
         specifier: ^32.0.0
-        version: 32.17.0(@types/react@18.2.79)(babel-plugin-macros@3.1.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sku@13.0.4(@types/node@20.12.7)(@types/react@18.2.79)(react@18.2.0)(terser@5.30.4)(type-fest@3.13.1))
+        version: 32.17.0(@types/react@18.2.79)(babel-plugin-macros@3.1.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sku@13.0.4(@types/node@20.12.7)(@types/react@18.2.79)(react@18.2.0)(terser@5.30.4)(type-fest@4.26.1))
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -493,8 +493,8 @@ importers:
         specifier: ^4.16.5
         version: 4.16.5
       type-fest:
-        specifier: ^3.13.1
-        version: 3.13.1
+        specifier: ^4.0.0
+        version: 4.26.1
       used-styles:
         specifier: ^2.4.3
         version: 2.6.4
@@ -585,8 +585,8 @@ importers:
         specifier: ^11.1.1
         version: 11.2.0
       type-fest:
-        specifier: ^3.2.0
-        version: 3.13.1
+        specifier: ^4.0.0
+        version: 4.26.1
       yargs:
         specifier: ^17.6.2
         version: 17.7.2
@@ -2054,6 +2054,7 @@ packages:
   '@playwright/test@1.40.1':
     resolution: {integrity: sha512-EaaawMTOeEItCRvfmkI9v6rBkF1svM8wjl/YPRrg2N2Wmp+4qJYkWtJsbew1szfKKDm6fPLy4YAanBhIlf9dWw==}
     engines: {node: '>=16'}
+    deprecated: Please update to the latest version of Playwright to test up-to-date browsers.
     hasBin: true
 
   '@pmmmwh/react-refresh-webpack-plugin@0.5.15':
@@ -7068,6 +7069,10 @@ packages:
     resolution: {integrity: sha512-tLq3bSNx+xSpwvAJnzrK0Ep5CLNWjvFTOp71URMaAEWBfRb9nnJiBoUe0tF8bI4ZFO3omgBR6NvnbzVUT3Ly4g==}
     engines: {node: '>=14.16'}
 
+  type-fest@4.26.1:
+    resolution: {integrity: sha512-yOGpmOAL7CkKe/91I5O3gPICmJNLJ1G4zFYVAsRHg7M64biSnPtRj0WNQt++bRkjYOqjWXrhnUw1utzmVErAdg==}
+    engines: {node: '>=16'}
+
   type-is@1.6.18:
     resolution: {integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==}
     engines: {node: '>= 0.6'}
@@ -9301,7 +9306,7 @@ snapshots:
     dependencies:
       playwright: 1.40.1
 
-  '@pmmmwh/react-refresh-webpack-plugin@0.5.15(react-refresh@0.14.2)(type-fest@3.13.1)(webpack-dev-server@5.0.4(debug@4.3.6)(webpack@5.91.0(@swc/core@1.7.14)(esbuild@0.21.5)))(webpack@5.91.0(@swc/core@1.7.14)(esbuild@0.21.5))':
+  '@pmmmwh/react-refresh-webpack-plugin@0.5.15(react-refresh@0.14.2)(type-fest@4.26.1)(webpack-dev-server@5.0.4(debug@4.3.6)(webpack@5.91.0(@swc/core@1.7.14)(esbuild@0.21.5)))(webpack@5.91.0(@swc/core@1.7.14)(esbuild@0.21.5))':
     dependencies:
       ansi-html: 0.0.9
       core-js-pure: 3.38.1
@@ -9313,7 +9318,7 @@ snapshots:
       source-map: 0.7.4
       webpack: 5.91.0(esbuild@0.21.5)
     optionalDependencies:
-      type-fest: 3.13.1
+      type-fest: 4.26.1
       webpack-dev-server: 5.0.4(debug@4.3.6)(webpack@5.91.0(@swc/core@1.7.14)(esbuild@0.21.5))
 
   '@polka/url@1.0.0-next.25': {}
@@ -10733,7 +10738,7 @@ snapshots:
     dependencies:
       fill-range: 7.0.1
 
-  braid-design-system@32.17.0(@types/react@18.2.79)(babel-plugin-macros@3.1.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sku@13.0.4(@types/node@20.12.7)(@types/react@18.2.79)(react@18.2.0)(terser@5.30.4)(type-fest@3.13.1)):
+  braid-design-system@32.17.0(@types/react@18.2.79)(babel-plugin-macros@3.1.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sku@13.0.4(@types/node@20.12.7)(@types/react@18.2.79)(react@18.2.0)(terser@5.30.4)(type-fest@4.26.1)):
     dependencies:
       '@capsizecss/core': 4.1.0
       '@capsizecss/metrics': 2.2.0
@@ -10760,7 +10765,7 @@ snapshots:
       react-is: 18.2.0
       react-popper-tooltip: 4.4.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       react-remove-scroll: 2.5.9(@types/react@18.2.79)(react@18.2.0)
-      sku: 13.0.4(@types/node@20.12.7)(@types/react@18.2.79)(react@18.2.0)(terser@5.30.4)(type-fest@3.13.1)
+      sku: 13.0.4(@types/node@20.12.7)(@types/react@18.2.79)(react@18.2.0)(terser@5.30.4)(type-fest@4.26.1)
       utility-types: 3.11.0
       uuid: 8.3.2
     transitivePeerDependencies:
@@ -14847,7 +14852,7 @@ snapshots:
 
   sisteransi@1.0.5: {}
 
-  sku@13.0.4(@types/node@20.12.7)(@types/react@18.2.79)(react@18.2.0)(terser@5.30.4)(type-fest@3.13.1):
+  sku@13.0.4(@types/node@20.12.7)(@types/react@18.2.79)(react@18.2.0)(terser@5.30.4)(type-fest@4.26.1):
     dependencies:
       '@antfu/ni': 0.21.12
       '@babel/core': 7.24.4
@@ -14863,7 +14868,7 @@ snapshots:
       '@loadable/server': 5.16.5(@loadable/component@5.16.4(react@18.2.0))(react@18.2.0)
       '@loadable/webpack-plugin': 5.15.2(webpack@5.91.0(@swc/core@1.7.14)(esbuild@0.21.5))
       '@manypkg/find-root': 2.2.3
-      '@pmmmwh/react-refresh-webpack-plugin': 0.5.15(react-refresh@0.14.2)(type-fest@3.13.1)(webpack-dev-server@5.0.4(debug@4.3.6)(webpack@5.91.0(@swc/core@1.7.14)(esbuild@0.21.5)))(webpack@5.91.0(@swc/core@1.7.14)(esbuild@0.21.5))
+      '@pmmmwh/react-refresh-webpack-plugin': 0.5.15(react-refresh@0.14.2)(type-fest@4.26.1)(webpack-dev-server@5.0.4(debug@4.3.6)(webpack@5.91.0(@swc/core@1.7.14)(esbuild@0.21.5)))(webpack@5.91.0(@swc/core@1.7.14)(esbuild@0.21.5))
       '@swc/core': 1.7.14
       '@types/express': 4.17.21
       '@types/jest': 29.5.12
@@ -15427,6 +15432,8 @@ snapshots:
   type-fest@0.21.3: {}
 
   type-fest@3.13.1: {}
+
+  type-fest@4.26.1: {}
 
   type-is@1.6.18:
     dependencies:
