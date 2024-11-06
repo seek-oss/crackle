@@ -64,6 +64,7 @@ yargs(process.argv.slice(2))
     handler: async (overrides) => {
       let server: CrackleServer | null = null;
 
+      const { serve } = await import('@crackle/core/serve');
       let config = await resolveConfig({
         onUpdate: async (newConfig) => {
           config = mergeConfig(newConfig, { web: withoutYargs(overrides) });
@@ -78,7 +79,6 @@ yargs(process.argv.slice(2))
       });
       config = mergeConfig(config, { web: withoutYargs(overrides) });
 
-      const { serve } = await import('@crackle/core/serve');
       server = await serve(config);
     },
   } satisfies CommandModule<unknown, UserConfig['web']>)
