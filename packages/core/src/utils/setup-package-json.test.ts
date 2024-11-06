@@ -93,7 +93,9 @@ describe('diffPackageJson', () => {
     diffs,
     packageJson,
     expectedPackageJson,
-  }: ReturnType<typeof diffPackageJson> & { packageJson?: PackageJson }) => {
+  }: Awaited<ReturnType<typeof diffPackageJson>> & {
+    packageJson?: PackageJson;
+  }) => {
     expect(diffs).toMatchSnapshot('diffs');
     expect(
       packageJson
@@ -103,7 +105,7 @@ describe('diffPackageJson', () => {
   };
 
   test('empty package.json', async () => {
-    const { diffs, expectedPackageJson } = diffPackageJson(
+    const { diffs, expectedPackageJson } = await diffPackageJson(
       packageRoot,
       {},
       entries,
@@ -113,17 +115,21 @@ describe('diffPackageJson', () => {
   });
 
   test('correct package.json', async () => {
-    const { diffs } = diffPackageJson(packageRoot, correctPackageJson, entries);
+    const { diffs } = await diffPackageJson(
+      packageRoot,
+      correctPackageJson,
+      entries,
+    );
 
     expect(diffs).toHaveLength(0);
   });
 
   describe('incorrect package.json', () => {
-    test('main', () => {
+    test('main', async () => {
       const packageJson = structuredClone(correctPackageJson);
       packageJson.main = 'index.js';
 
-      const { diffs, expectedPackageJson } = diffPackageJson(
+      const { diffs, expectedPackageJson } = await diffPackageJson(
         packageRoot,
         packageJson,
         entries,
@@ -132,11 +138,11 @@ describe('diffPackageJson', () => {
       expectSnapshots({ diffs, packageJson, expectedPackageJson });
     });
 
-    test('module', () => {
+    test('module', async () => {
       const packageJson = structuredClone(correctPackageJson);
       packageJson.module = 'something/else.js';
 
-      const { diffs, expectedPackageJson } = diffPackageJson(
+      const { diffs, expectedPackageJson } = await diffPackageJson(
         packageRoot,
         packageJson,
         entries,
@@ -145,12 +151,12 @@ describe('diffPackageJson', () => {
       expectSnapshots({ diffs, packageJson, expectedPackageJson });
     });
 
-    test('types', () => {
+    test('types', async () => {
       const packageJson = structuredClone(correctPackageJson);
       // @ts-ignore
       delete packageJson.types;
 
-      const { diffs, expectedPackageJson } = diffPackageJson(
+      const { diffs, expectedPackageJson } = await diffPackageJson(
         packageRoot,
         packageJson,
         entries,
@@ -159,10 +165,10 @@ describe('diffPackageJson', () => {
       expectSnapshots({ diffs, packageJson, expectedPackageJson });
     });
 
-    test('exports missing', () => {
+    test('exports missing', async () => {
       const { exports, ...packageJson } = structuredClone(correctPackageJson);
 
-      const { diffs, expectedPackageJson } = diffPackageJson(
+      const { diffs, expectedPackageJson } = await diffPackageJson(
         packageRoot,
         packageJson,
         entries,
@@ -171,12 +177,12 @@ describe('diffPackageJson', () => {
       expectSnapshots({ diffs, packageJson, expectedPackageJson });
     });
 
-    test('files missing', () => {
+    test('files missing', async () => {
       const packageJson = structuredClone(correctPackageJson);
       // @ts-ignore
       delete packageJson.files;
 
-      const { diffs, expectedPackageJson } = diffPackageJson(
+      const { diffs, expectedPackageJson } = await diffPackageJson(
         packageRoot,
         packageJson,
         entries,
@@ -185,12 +191,12 @@ describe('diffPackageJson', () => {
       expectSnapshots({ diffs, packageJson, expectedPackageJson });
     });
 
-    test('files out of order', () => {
+    test('files out of order', async () => {
       const packageJson = structuredClone(correctPackageJson);
       const [first, ...otherFiles] = packageJson.files;
       packageJson.files = [...otherFiles, first];
 
-      const { diffs, expectedPackageJson } = diffPackageJson(
+      const { diffs, expectedPackageJson } = await diffPackageJson(
         packageRoot,
         packageJson,
         entries,
@@ -199,7 +205,7 @@ describe('diffPackageJson', () => {
       expectSnapshots({ diffs, packageJson, expectedPackageJson });
     });
 
-    test('keys out of order', () => {
+    test('keys out of order', async () => {
       const { main, types, ...everythingElse } = correctPackageJson;
       const packageJson = {
         types,
@@ -207,7 +213,7 @@ describe('diffPackageJson', () => {
         main,
       };
 
-      const { diffs, expectedPackageJson } = diffPackageJson(
+      const { diffs, expectedPackageJson } = await diffPackageJson(
         packageRoot,
         packageJson,
         entries,
@@ -217,10 +223,10 @@ describe('diffPackageJson', () => {
     });
 
     describe('sideEffects', () => {
-      test('no flag', () => {
+      test('no flag', async () => {
         const packageJson = structuredClone(correctPackageJson);
 
-        const { diffs, expectedPackageJson } = diffPackageJson(
+        const { diffs, expectedPackageJson } = await diffPackageJson(
           packageRoot,
           packageJson,
           entries,
@@ -229,13 +235,13 @@ describe('diffPackageJson', () => {
         expectSnapshots({ diffs, packageJson, expectedPackageJson });
       });
 
-      test.each([true, false])('boolean flag %s', (flag) => {
+      test.each([true, false])('boolean flag %s', async (flag) => {
         const packageJson = sortPackageJson({
           ...correctPackageJson,
           sideEffects: flag,
         });
 
-        const { diffs, expectedPackageJson } = diffPackageJson(
+        const { diffs, expectedPackageJson } = await diffPackageJson(
           packageRoot,
           packageJson,
           entries,
@@ -244,7 +250,7 @@ describe('diffPackageJson', () => {
         expectSnapshots({ diffs, packageJson, expectedPackageJson });
       });
 
-      test('string flag', () => {
+      test('string flag', async () => {
         const packageJson = sortPackageJson({
           ...correctPackageJson,
           // Parcel says sideEffects can be a string
@@ -252,7 +258,7 @@ describe('diffPackageJson', () => {
           sideEffects: 'src/reset/**' as any,
         });
 
-        const { diffs, expectedPackageJson } = diffPackageJson(
+        const { diffs, expectedPackageJson } = await diffPackageJson(
           packageRoot,
           packageJson,
           entries,
@@ -261,13 +267,13 @@ describe('diffPackageJson', () => {
         expectSnapshots({ diffs, packageJson, expectedPackageJson });
       });
 
-      test('array flag with no overlap', () => {
+      test('array flag with no overlap', async () => {
         const packageJson = sortPackageJson({
           ...correctPackageJson,
           sideEffects: ['src/reset/**'],
         });
 
-        const { diffs, expectedPackageJson } = diffPackageJson(
+        const { diffs, expectedPackageJson } = await diffPackageJson(
           packageRoot,
           packageJson,
           entries,
@@ -276,13 +282,13 @@ describe('diffPackageJson', () => {
         expectSnapshots({ diffs, packageJson, expectedPackageJson });
       });
 
-      test('array flag with partial overlap', () => {
+      test('array flag with partial overlap', async () => {
         const packageJson = sortPackageJson({
           ...correctPackageJson,
           sideEffects: ['dist/side-effects/**', 'src/entries/css.*'],
         });
 
-        const { diffs, expectedPackageJson } = diffPackageJson(
+        const { diffs, expectedPackageJson } = await diffPackageJson(
           packageRoot,
           packageJson,
           entries,
@@ -291,13 +297,13 @@ describe('diffPackageJson', () => {
         expectSnapshots({ diffs, packageJson, expectedPackageJson });
       });
 
-      test('array flag with complete overlap', () => {
+      test('array flag with complete overlap', async () => {
         const packageJson = sortPackageJson({
           ...correctPackageJson,
           sideEffects: ['dist/side-effects/**', '**/themes/**'],
         });
 
-        const { diffs, expectedPackageJson } = diffPackageJson(
+        const { diffs, expectedPackageJson } = await diffPackageJson(
           packageRoot,
           packageJson,
           entries,
@@ -338,7 +344,7 @@ describe('diffPackageJson', () => {
         types: 'index.d.ts',
       } satisfies PackageJson;
 
-      const { diffs, expectedPackageJson } = diffPackageJson(
+      const { diffs, expectedPackageJson } = await diffPackageJson(
         packageRoot,
         packageJson,
         entries,

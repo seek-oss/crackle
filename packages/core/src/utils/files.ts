@@ -1,7 +1,6 @@
 import path from 'path';
 
 import fse from 'fs-extra';
-import sortPackageJson from 'sort-package-json';
 
 import type { Format, PackageJson } from '../types';
 
@@ -64,12 +63,15 @@ export const writePackageJson = async <T extends PackageJson>({
 }: {
   dir: string;
   contents: T;
-}) =>
-  writeIfRequired({
+}) => {
+  const { default: sortPackageJson } = await import('sort-package-json');
+
+  return writeIfRequired({
     dir,
     fileName: 'package.json',
     contents: JSON.stringify(sortPackageJson(contents), null, 2).concat('\n'),
   });
+};
 
 export const emptyDir = async (dir: string, skip = ['.git']): Promise<void> => {
   if (!(await exists(dir))) {
