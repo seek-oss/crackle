@@ -1,28 +1,28 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["github>seek-oss/rynovate"],
-  "prCreation": "immediate",
-  "lockFileMaintenance": {
-    "enabled": true,
-    "schedule": ["before 8am on Monday"],
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  extends: ["github>seek-oss/rynovate"],
+  prCreation: "immediate",
+  lockFileMaintenance: {
+    enabled: true,
+    schedule: ["before 8am on Monday"],
   },
-  "ignorePaths": ["bootstrap/**"],
-  "packageRules": [
+  ignorePaths: ["bootstrap/**"],
+  packageRules: [
     {
-      "matchPackagePatterns": ["^@crackle-fixtures/"],
-      "enabled": false,
+      enabled: false,
+      matchPackageNames: ["/^@crackle-fixtures//"],
     },
     {
-      "groupName": "typescript",
-      "matchPackagePatterns": ["^typescript$"],
-      "enabled": true,
-      "schedule": ["before 8am on Tuesday"],
+      groupName: "typescript",
+      enabled: true,
+      schedule: ["before 8am on Tuesday"],
+      matchPackageNames: ["/^typescript$/"],
     },
     {
-      "matchManagers": ["npm"],
-      "matchPackageNames": ["eslint"],
+      matchManagers: ["npm"],
+      matchPackageNames: ["eslint"],
       // rynovate config pins this to < 8
-      "allowedVersions": ">= 8",
+      allowedVersions: ">= 8",
     },
   ],
 }
