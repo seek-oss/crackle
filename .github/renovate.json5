@@ -21,6 +21,7 @@
     {
       matchManagers: ["npm"],
       matchPackageNames: ["eslint"],
+      // rynovate config pins this to < 8
       allowedVersions: ">= 8",
     },
   ],
