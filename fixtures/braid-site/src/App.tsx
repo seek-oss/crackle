@@ -9,10 +9,10 @@ import {
   Heading,
   Stack,
 } from 'braid-design-system';
-import apac from 'braid-design-system/themes/apac';
+import seekJobs from 'braid-design-system/themes/seekJobs';
 
 const App: AppShell = ({ children }) => (
-  <BraidProvider theme={apac}>
+  <BraidProvider theme={seekJobs}>
     <Stack space="medium">
       <Card tone="promote">
         <ContentBlock>
