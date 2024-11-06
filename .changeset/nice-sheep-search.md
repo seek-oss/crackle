@@ -2,4 +2,4 @@
 '@crackle/cli': patch
 ---
 
-Fix `crackle serve`
+Fix error when running `crackle serve`
