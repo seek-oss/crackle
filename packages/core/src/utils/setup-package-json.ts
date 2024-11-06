@@ -6,7 +6,6 @@ import { isDeepStrictEqual } from 'util';
 // @ts-ignore no declaration file
 import structuredClonePolyfill from '@ungap/structured-clone';
 import fse from 'fs-extra';
-import { sortPackageJson } from 'sort-package-json';
 
 import { distDir, sideEffectsDir } from '../constants';
 import type { PackageEntryPoint as Entry, PackageJson } from '../types';
@@ -132,14 +131,14 @@ const getSideEffectsForPackage = (
   };
 };
 
-export const diffPackageJson = (
+export const diffPackageJson = async (
   packageRoot: string,
   packageJson: PackageJson,
   entries: Entry[],
-): {
+): Promise<{
   diffs: Difference[];
   expectedPackageJson: PackageJson;
-} => {
+}> => {
   const diffs: Difference[] = [];
 
   // create expected package.json
@@ -169,6 +168,7 @@ export const diffPackageJson = (
     expected.sideEffects = sideEffects;
   }
 
+  const { default: sortPackageJson } = await import('sort-package-json');
   expected = sortPackageJson(expected);
 
   // do checks against expected package.json
@@ -220,7 +220,7 @@ const setupPackageJson =
     const packagePath = path.join(packageRoot, 'package.json');
     const packageJson: PackageJson = await fse.readJson(packagePath, { fs });
 
-    const { diffs, expectedPackageJson } = diffPackageJson(
+    const { diffs, expectedPackageJson } = await diffPackageJson(
       packageRoot,
       packageJson,
       entries,
