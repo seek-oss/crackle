@@ -74,7 +74,7 @@ declare const sprinkles: ((props: {
         wide?: "none" | "medium" | undefined;
     } | undefined) | _vanilla_extract_sprinkles.ResponsiveArray<4 | 3 | 2 | 1, "none" | "medium" | null>;
 }) => string) & {
-    properties: Set<"padding" | "paddingBottom" | "paddingTop" | "paddingLeft" | "paddingRight" | "paddingY" | "paddingX" | "display" | "position">;
+    properties: Set<"padding" | "display" | "paddingBottom" | "paddingTop" | "paddingLeft" | "paddingRight" | "paddingY" | "paddingX" | "position">;
 };
 
 type Sprinkles = Parameters<typeof sprinkles>[0];
