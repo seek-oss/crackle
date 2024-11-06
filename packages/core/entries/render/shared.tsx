@@ -36,7 +36,7 @@ export const Page = ({
       <head>{headTags}</head>
       <body>
         {criticalCssPlaceholder ?? null}
-        <LoadingIcon />
+        {import.meta.env.DEV && <LoadingIcon />}
         <div id="app">
           <StaticRouter location={path}>
             <AppShell routeMetadata={metadata}>{children}</AppShell>
