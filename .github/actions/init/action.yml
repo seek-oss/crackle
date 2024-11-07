@@ -19,7 +19,7 @@ runs:
         fetch-depth: 0
         token: ${{ inputs.token }}
 
-    - uses: pnpm/action-setup@v2
+    - uses: pnpm/action-setup@v4
 
     - uses: actions/setup-node@v4
       with:
