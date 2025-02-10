@@ -1,5 +1,14 @@
 # @crackle/cli
 
+## 0.15.6
+
+### Patch Changes
+
+- [#213](https://github.com/seek-oss/crackle/pull/213) [`f8cfe89`](https://github.com/seek-oss/crackle/commit/f8cfe899dcecbb92fd3c5d248715e7a2834a1411) Thanks [@askoufis](https://github.com/askoufis)! - Fix error when running `crackle serve`
+
+- Updated dependencies [[`f8cfe89`](https://github.com/seek-oss/crackle/commit/f8cfe899dcecbb92fd3c5d248715e7a2834a1411), [`ae4bf65`](https://github.com/seek-oss/crackle/commit/ae4bf655549df4dad3730a768d793931cff97ae9)]:
+  - @crackle/core@0.33.5
+
 ## 0.15.5
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @crackle/core
 
+## 0.33.5
+
+### Patch Changes
+
+- [#213](https://github.com/seek-oss/crackle/pull/213) [`f8cfe89`](https://github.com/seek-oss/crackle/commit/f8cfe899dcecbb92fd3c5d248715e7a2834a1411) Thanks [@askoufis](https://github.com/askoufis)! - Only render loader during development
+
+- [#208](https://github.com/seek-oss/crackle/pull/208) [`ae4bf65`](https://github.com/seek-oss/crackle/commit/ae4bf655549df4dad3730a768d793931cff97ae9) Thanks [@renovate](https://github.com/apps/renovate)! - Update `sort-package-json` dependency
+
 ## 0.33.4
 
 ### Patch Changes
