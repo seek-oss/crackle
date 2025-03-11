@@ -15,6 +15,7 @@ _A build tool for apps and packages, static and server-rendered sites. Built on 
 - [ESM reconciliation](#esm-reconciliation)
 - [Handles side-effects](#side-effects) for generated bundles
 - Compile Vanilla Extract stylesheets to JavaScript
+- Creates an entrypoint for third-party CSS
 - 🚧 Start an HTTP server (with hot reloading) to preview your site **(WIP)**
 - 🚧 Build a static version of your site (e.g. for deploying to S3) **(WIP)**
 
@@ -26,6 +27,7 @@ _A build tool for apps and packages, static and server-rendered sites. Built on 
 - [Commands](#commands)
   - [`crackle package`](#crackle-package)
     - [Entry points](#entry-points)
+    - [Third-party CSS](#third-party-css)
     - [Externals](#externals)
     - [Package mode](#package-mode)
     - [DTS mode](#dts-mode)
@@ -107,6 +109,20 @@ my-project/components (mapped to src/entries/components.ts)
 my-project/themes/apac (mapped to src/entries/themes/apac.ts)
 ```
 
+#### Third-party CSS
+
+If 3rd-party CSS is emitted as part of the bundling process, Crackle will generate an entry point
+for it named after the package. For example:
+
+````json
+{
+  "name": "my-package",
+  "exports": {
+    "./dist/my-package.css": "./dist/my-package.css"
+  }
+}
+`
+
 #### Externals
 
 If a dependency is present in `devDependencies` (but not in `peerDependencies`) it is bundled along with the project's source code.
@@ -117,7 +133,7 @@ If a dependency is present in `devDependencies` (but not in `peerDependencies`) 
 ```bash
 crackle package --mode=bundle
 crackle package --mode=preserve
-```
+````
 
 This controls how Crackle generates output files.
 
