@@ -114,14 +114,14 @@ my-project/themes/apac (mapped to src/entries/themes/apac.ts)
 If 3rd-party CSS is emitted as part of the bundling process, Crackle will generate an entry point
 for it named after the package. For example:
 
-````json
+```json
 {
   "name": "my-package",
   "exports": {
     "./dist/my-package.css": "./dist/my-package.css"
   }
 }
-`
+```
 
 #### Externals
 
@@ -133,7 +133,7 @@ If a dependency is present in `devDependencies` (but not in `peerDependencies`) 
 ```bash
 crackle package --mode=bundle
 crackle package --mode=preserve
-````
+```
 
 This controls how Crackle generates output files.
 
