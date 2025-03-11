@@ -52,7 +52,7 @@
     "ignore-sync": "^7.0.1",
     "prettier": "^2.8.8",
     "tsx": "^4.16.5",
-    "typescript": "~5.4.0",
+    "typescript": "~5.8.0",
     "vitest": "^2.0.0",
     "wireit": "^0.14.1"
   },
