@@ -58,7 +58,7 @@
   },
   "packageManager": "pnpm@9.12.3",
   "volta": {
-    "node": "20.16.0"
+    "node": "20.18.3"
   },
   "pnpm": {
     "neverBuiltDependencies": [
