@@ -114,14 +114,14 @@ my-project/themes/apac (mapped to src/entries/themes/apac.ts)
 If 3rd-party CSS is emitted as part of the bundling process, Crackle will generate an entry point
 for it named after the package. For example:
 
-````json
+```json
 {
   "name": "my-package",
   "exports": {
     "./dist/my-package.css": "./dist/my-package.css"
   }
 }
-`
+```
 
 #### Externals
 
@@ -133,7 +133,7 @@ If a dependency is present in `devDependencies` (but not in `peerDependencies`) 
 ```bash
 crackle package --mode=bundle
 crackle package --mode=preserve
-````
+```
 
 This controls how Crackle generates output files.
 
@@ -252,7 +252,7 @@ Although there is good support in bundlers and Node.js, there are still some too
 ## Contributing
 
 - Clone this repository
-- Set up Node.js using [Volta](https://volta.sh/)
+- Set up Node.js using a Node version manager of your choice
 - Enable [Corepack](https://github.com/nodejs/corepack) using `corepack enable`
 - Install dependencies using `pnpm install`
 - Run bootstrap script using `pnpm bootstrap`
