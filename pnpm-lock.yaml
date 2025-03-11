@@ -406,8 +406,8 @@ importers:
         specifier: ^7.0.0
         version: 7.1.12(@types/node@20.17.17)(babel-plugin-macros@3.1.0)(less@4.2.2)(terser@5.38.1)
       '@vanilla-extract/vite-plugin':
-        specifier: ^4.0.3
-        version: 4.0.20(@types/node@20.17.17)(babel-plugin-macros@3.1.0)(jiti@2.4.2)(less@4.2.2)(terser@5.38.1)(tsx@4.19.2)(vite@6.2.1(@types/node@20.17.17)(jiti@2.4.2)(less@4.2.2)(terser@5.38.1)(tsx@4.19.2)(yaml@2.7.0))(yaml@2.7.0)
+        specifier: ^5.0.0
+        version: 5.0.1(@types/node@20.17.17)(babel-plugin-macros@3.1.0)(jiti@2.4.2)(less@4.2.2)(terser@5.38.1)(tsx@4.19.2)(vite@6.2.1(@types/node@20.17.17)(jiti@2.4.2)(less@4.2.2)(terser@5.38.1)(tsx@4.19.2)(yaml@2.7.0))(yaml@2.7.0)
       '@vitejs/plugin-react-swc':
         specifier: ^3.5.0
         version: 3.8.0(vite@6.2.1(@types/node@20.17.17)(jiti@2.4.2)(less@4.2.2)(terser@5.38.1)(tsx@4.19.2)(yaml@2.7.0))
@@ -2367,8 +2367,8 @@ packages:
   '@vanilla-extract/babel-plugin-debug-ids@1.2.0':
     resolution: {integrity: sha512-z5nx2QBnOhvmlmBKeRX5sPVLz437wV30u+GJL+Hzj1rGiJYVNvgIIlzUpRNjVQ0MgAgiQIqIUbqPnmMc6HmDlQ==}
 
-  '@vanilla-extract/compiler@0.1.1':
-    resolution: {integrity: sha512-OJk31hrDZlDKP7K3Yr5y731Wrm1vf7fNyM5eXjfGyDovZLcVAFuB8tt7pXqpdCz0RnrKsMzlvJD3f6WT2MaIug==}
+  '@vanilla-extract/compiler@0.1.2':
+    resolution: {integrity: sha512-B4T5P+Fz2Big0GRspQSi4BIyPF3cJ2/+/NWSI6Lw5Tq2JXv9nzjTGU4gKlWzyvaxt/0CLPE+Zo40fUsUv5lttQ==}
 
   '@vanilla-extract/css-utils@0.1.4':
     resolution: {integrity: sha512-3WRxMGa/VQaL32jZqRUpnnoVFSws5iPIUpQr+XlT4jXhtMeKYcA20rFK2k2Amkg04sqrO84A8hNMeABWZQesEg==}
@@ -2397,6 +2397,11 @@ packages:
     resolution: {integrity: sha512-IAK0oa+az95NxDQ0ooQ9QKV/mG7EdLYnc2ANRSzJPO81lu3K5Hw//VYNUiUGuKNigU13jCCoII7S0wVk6W/fVw==}
     peerDependencies:
       vite: ^4.0.3 || ^5.0.0
+
+  '@vanilla-extract/vite-plugin@5.0.1':
+    resolution: {integrity: sha512-65IhqaNEAv/KjO1jJ52hSXiKUJqeFPlyY/hpRT71Y6bFoasHhzOcZKIQ/ze4fQovjjDL4US565rEiIn1I2qhFA==}
+    peerDependencies:
+      vite: ^5.0.0 || ^6.0.0
 
   '@vitejs/plugin-react-swc@3.8.0':
     resolution: {integrity: sha512-T4sHPvS+DIqDP51ifPqa9XIRAz/kIvIi8oXcnOZZgHmMotgmmdxe/DD5tMFlt5nuIRzT0/QuiwmKlH0503Aapw==}
@@ -8325,7 +8330,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vanilla-extract/compiler@0.1.1(@types/node@20.17.17)(babel-plugin-macros@3.1.0)(jiti@2.4.2)(less@4.2.2)(terser@5.38.1)(tsx@4.19.2)(yaml@2.7.0)':
+  '@vanilla-extract/compiler@0.1.2(@types/node@20.17.17)(babel-plugin-macros@3.1.0)(jiti@2.4.2)(less@4.2.2)(terser@5.38.1)(tsx@4.19.2)(yaml@2.7.0)':
     dependencies:
       '@vanilla-extract/css': 1.17.1(babel-plugin-macros@3.1.0)
       '@vanilla-extract/integration': 8.0.1(babel-plugin-macros@3.1.0)
@@ -8417,11 +8422,11 @@ snapshots:
     dependencies:
       '@vanilla-extract/css': 1.17.1(babel-plugin-macros@3.1.0)
 
-  '@vanilla-extract/vite-plugin@4.0.20(@types/node@20.17.17)(babel-plugin-macros@3.1.0)(jiti@2.4.2)(less@4.2.2)(terser@5.38.1)(tsx@4.19.2)(vite@6.2.1(@types/node@20.17.17)(jiti@2.4.2)(less@4.2.2)(terser@5.38.1)(tsx@4.19.2)(yaml@2.7.0))(yaml@2.7.0)':
+  '@vanilla-extract/vite-plugin@4.0.20(@types/node@20.17.17)(babel-plugin-macros@3.1.0)(less@4.2.2)(terser@5.38.1)(tsx@4.19.2)(vite@5.4.14(@types/node@20.17.17)(less@4.2.2)(terser@5.38.1))':
     dependencies:
-      '@vanilla-extract/compiler': 0.1.1(@types/node@20.17.17)(babel-plugin-macros@3.1.0)(jiti@2.4.2)(less@4.2.2)(terser@5.38.1)(tsx@4.19.2)(yaml@2.7.0)
+      '@vanilla-extract/compiler': 0.1.2(@types/node@20.17.17)(babel-plugin-macros@3.1.0)(jiti@2.4.2)(less@4.2.2)(terser@5.38.1)(tsx@4.19.2)(yaml@2.7.0)
       '@vanilla-extract/integration': 8.0.1(babel-plugin-macros@3.1.0)
-      vite: 6.2.1(@types/node@20.17.17)(jiti@2.4.2)(less@4.2.2)(terser@5.38.1)(tsx@4.19.2)(yaml@2.7.0)
+      vite: 5.4.14(@types/node@20.17.17)(less@4.2.2)(terser@5.38.1)
     transitivePeerDependencies:
       - '@types/node'
       - babel-plugin-macros
@@ -8437,11 +8442,11 @@ snapshots:
       - tsx
       - yaml
 
-  '@vanilla-extract/vite-plugin@4.0.20(@types/node@20.17.17)(babel-plugin-macros@3.1.0)(less@4.2.2)(terser@5.38.1)(tsx@4.19.2)(vite@5.4.14(@types/node@20.17.17)(less@4.2.2)(terser@5.38.1))':
+  '@vanilla-extract/vite-plugin@5.0.1(@types/node@20.17.17)(babel-plugin-macros@3.1.0)(jiti@2.4.2)(less@4.2.2)(terser@5.38.1)(tsx@4.19.2)(vite@6.2.1(@types/node@20.17.17)(jiti@2.4.2)(less@4.2.2)(terser@5.38.1)(tsx@4.19.2)(yaml@2.7.0))(yaml@2.7.0)':
     dependencies:
-      '@vanilla-extract/compiler': 0.1.1(@types/node@20.17.17)(babel-plugin-macros@3.1.0)(jiti@2.4.2)(less@4.2.2)(terser@5.38.1)(tsx@4.19.2)(yaml@2.7.0)
+      '@vanilla-extract/compiler': 0.1.2(@types/node@20.17.17)(babel-plugin-macros@3.1.0)(jiti@2.4.2)(less@4.2.2)(terser@5.38.1)(tsx@4.19.2)(yaml@2.7.0)
       '@vanilla-extract/integration': 8.0.1(babel-plugin-macros@3.1.0)
-      vite: 5.4.14(@types/node@20.17.17)(less@4.2.2)(terser@5.38.1)
+      vite: 6.2.1(@types/node@20.17.17)(jiti@2.4.2)(less@4.2.2)(terser@5.38.1)(tsx@4.19.2)(yaml@2.7.0)
     transitivePeerDependencies:
       - '@types/node'
       - babel-plugin-macros
