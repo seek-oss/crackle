@@ -252,7 +252,7 @@ Although there is good support in bundlers and Node.js, there are still some too
 ## Contributing
 
 - Clone this repository
-- Set up Node.js using [Volta](https://volta.sh/)
+- Set up Node.js using a Node version manager of your choice
 - Enable [Corepack](https://github.com/nodejs/corepack) using `corepack enable`
 - Install dependencies using `pnpm install`
 - Run bootstrap script using `pnpm bootstrap`
