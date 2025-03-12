@@ -34,7 +34,7 @@ const template = {
       license: 'MIT',
       dependencies: {},
       devDependencies: {},
-    } satisfies PackageJson),
+    }) satisfies PackageJson,
   index: (_answers: Answers) => `export default {}`,
 };
 

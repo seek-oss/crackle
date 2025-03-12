@@ -20,7 +20,7 @@ export const commonViteConfig = (config: EnhancedConfig) =>
       'process.env.NODE_DEBUG': JSON.stringify(false),
       global: JSON.stringify({}),
     },
-  } satisfies UserConfig);
+  }) satisfies UserConfig;
 
 export const commonOutputOptions = (
   config: EnhancedConfig,

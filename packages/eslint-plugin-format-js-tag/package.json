@@ -29,19 +29,20 @@
     "dist"
   ],
   "scripts": {
-    "build": "crackle package"
+    "build": "crackle package",
+    "dev": "crackle dev"
   },
   "engines": {
     "node": ">=20.18.3"
   },
   "dependencies": {
+    "@prettier/sync": "^0.5.2",
     "@typescript-eslint/utils": "^8.26.1"
   },
   "devDependencies": {
-    "@types/prettier": "^2.7.3",
-    "prettier": "^2.8.8"
+    "prettier": "^3.5.3"
   },
   "peerDependencies": {
-    "prettier": "^2.8.8"
+    "prettier": "^3.5.3"
   }
 }

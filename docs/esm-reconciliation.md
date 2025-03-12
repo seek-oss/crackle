@@ -57,11 +57,11 @@ Let's have a look at an example project:
 {
   "name": "my-library",
   "peerDependencies": {
-    "react": "^17 || ^18"
+    "react": "^17 || ^18",
   },
   "devDependencies": {
-    "react": "^18.2.0"
-  }
+    "react": "^18.2.0",
+  },
 }
 ```
 

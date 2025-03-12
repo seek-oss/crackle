@@ -11,7 +11,7 @@ globalAny.it = it;
 globalAny.expect = expect;
 
 // used with eslint-plugin-format-js-tag to format TypeSscript code inside template literals
-const ts = String.raw;
+const tsx = String.raw;
 
 expect.addSnapshotSerializer(stringSerializer);
 
@@ -21,7 +21,7 @@ const tests = [
     pluginOptions: {
       retainExports: ['routeData'],
     },
-    code: ts/* ts */ `
+    code: tsx/* tsx */ `
       import { createRouteData } from "@crackle/router";
       import { Card, Stack } from "braid-design-system";
       import React from "react";
@@ -61,7 +61,7 @@ const tests = [
       retainDefault: true,
       retainIdentifiers: ['React'],
     },
-    code: ts/* ts */ `
+    code: tsx/* tsx */ `
       import { createRouteData } from "@crackle/router";
       import React from "react";
 
@@ -92,7 +92,7 @@ const tests = [
     pluginOptions: {
       retainExports: ['routeData'],
     },
-    code: ts/* ts */ `
+    code: tsx/* tsx */ `
       import { createRouteData } from "@crackle/router";
       import React from "react";
 
@@ -123,7 +123,7 @@ const tests = [
     pluginOptions: {
       retainExports: ['routeData'],
     },
-    code: ts/* ts */ `
+    code: tsx/* tsx */ `
       import { createRouteData } from "@crackle/router";
       import React from "react";
 
@@ -151,7 +151,7 @@ const tests = [
     pluginOptions: {
       retainExports: ['routeData'],
     },
-    code: ts/* ts */ `
+    code: tsx/* tsx */ `
       import { createRouteData } from "@crackle/router";
       import React from "react";
 
@@ -177,7 +177,7 @@ const tests = [
     pluginOptions: {
       retainExports: ['routeData'],
     },
-    code: ts/* ts */ `
+    code: tsx/* tsx */ `
       import { createRouteData } from "@crackle/router";
       import React from "react";
 
@@ -203,7 +203,7 @@ const tests = [
     pluginOptions: {
       retainExports: ['routeData'],
     },
-    code: ts/* ts */ `
+    code: tsx/* tsx */ `
       import { createRouteData } from "@crackle/router";
       import React from "react";
 
@@ -233,7 +233,7 @@ const tests = [
     pluginOptions: {
       retainExports: ['routeData'],
     },
-    code: ts/* ts */ `
+    code: tsx/* tsx */ `
       import { createRouteData } from "@crackle/router";
       import React from "react";
 
@@ -263,7 +263,7 @@ const tests = [
     pluginOptions: {
       retainExports: ['routeData'],
     },
-    code: ts/* ts */ `
+    code: tsx/* tsx */ `
       import { createRouteData } from "@crackle/router";
       import React from "react";
 
