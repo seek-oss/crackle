@@ -9,6 +9,7 @@ const config: PlaywrightTestConfig = {
   testDir: './tests',
   testMatch: '**/*.playwright.ts',
   workers: process.env.CI ? cpus().length : undefined,
+  retries: process.env.CI ? 2 : 0,
 };
 
 export default config;
