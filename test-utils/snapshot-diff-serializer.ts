@@ -26,6 +26,6 @@ export const createSerializer = (options?: DiffOptions) =>
       const { diffA, diffB } = value as ExpectDiff;
       return diffWithOptions(serialize(diffA), serialize(diffB), options);
     },
-  } satisfies Plugin);
+  }) satisfies Plugin;
 
 export default createSerializer();
