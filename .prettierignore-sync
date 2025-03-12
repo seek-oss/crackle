@@ -4,6 +4,7 @@ dist
 fixtures/braid-design-system
 node_modules
 pnpm-lock.yaml
+test-results/
 
 [relative]
 fixtures/!(braid-design-system)/.gitignore

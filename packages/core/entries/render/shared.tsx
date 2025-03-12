@@ -1,10 +1,10 @@
 // The AppShell must be imported before the __NODE_PAGE_MODULES to ensure CSS order consistancy
 // @ts-expect-error
-// eslint-disable-next-line import/order
+// eslint-disable-next-line import-x/order
 import AppShell from '__THE_ENTRY';
 
 import { StaticRouter } from '@crackle/router/server';
-// eslint-disable-next-line import/order
+// eslint-disable-next-line import-x/order
 import nodePageModules from '__NODE_PAGE_MODULES';
 
 import serializeJavascript from 'serialize-javascript';

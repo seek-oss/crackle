@@ -147,7 +147,7 @@ export const start = async (
   return {
     url,
     close: async () => {
-      for (const [_key, conn] of connections) {
+      for (const [, conn] of connections) {
         conn.destroy();
       }
 
