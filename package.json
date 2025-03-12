@@ -32,7 +32,6 @@
     "fixtures:package": "pnpm %fixtures package",
     "sync:dependencies": "pnpm --recursive sync:dependencies && pnpm install",
     "sync:prettierignore": "ignore-sync .prettierignore-sync",
-    "sync:eslintignore": "ignore-sync .eslintignore-sync",
     "changeset": "changeset",
     "version": "changeset version && pnpm install --lockfile-only && pnpm bootstrap:update",
     "prepare-publish": "pnpm build:ci && tsx ./scripts/copy-readme.ts",
@@ -45,10 +44,12 @@
     "@crackle/cli": "workspace:*",
     "@crackle/core": "workspace:*",
     "@crackle/eslint-plugin-format-js-tag": "workspace:*",
+    "@eslint/compat": "^1.2.7",
     "@playwright/test": "^1.40.0",
     "depcheck": "^1.4.7",
     "eslint": "^9.22.0",
     "eslint-config-seek": "^14.0.0",
+    "fast-glob": "^3.3.3",
     "ignore-sync": "^7.0.1",
     "prettier": "^2.8.8",
     "tsx": "^4.16.5",
@@ -104,10 +105,7 @@
       ]
     },
     "lint:eslint": {
-      "command": "eslint --cache .",
-      "dependencies": [
-        "sync:eslintignore"
-      ]
+      "command": "eslint --cache ."
     },
     "lint:prettier": {
       "command": "prettier --cache --check .",
