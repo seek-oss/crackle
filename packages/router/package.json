@@ -48,6 +48,9 @@
   "scripts": {
     "build": "crackle package"
   },
+  "engines": {
+    "node": ">=20.18.3"
+  },
   "dependencies": {
     "react": "^18.2.0",
     "react-router-dom": "^6.21.1"
