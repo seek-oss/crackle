@@ -1,5 +1,5 @@
 // The css-extractor must be imported first to ensure all CSS is collected
-// eslint-disable-next-line import/order
+// eslint-disable-next-line import-x/order
 import { inlineCriticalCss } from './css-extractor';
 
 import type * as React from 'react';

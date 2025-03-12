@@ -48,7 +48,7 @@ export const writeIfRequired = async ({
   try {
     const existingContents = await fse.readFile(filePath, 'utf-8');
     write = existingContents !== contents;
-  } catch (e) {
+  } catch {
     write = true;
   }
 

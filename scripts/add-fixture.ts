@@ -96,7 +96,7 @@ await fse.writeFile(path.join(packageDir, 'src/index.ts'), index);
 try {
   console.log('Trying `bat`...');
   await run(`bat ${packageJsonPath}`);
-} catch (e: any) {
+} catch {
   console.log('File:', packageJsonPath);
   console.log(await fse.readFile(packageJsonPath, { encoding: 'utf8' }));
 }

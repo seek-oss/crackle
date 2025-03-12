@@ -93,7 +93,7 @@ export const extractDependencyGraph = async (rootDir: string) => {
   await promiseMap(deps, async (childDep) => {
     try {
       await anaylyseDependency(ROOT, childDep, rootDir, depGraph);
-    } catch (e) {
+    } catch {
       // Ignore dep errors
     }
   });

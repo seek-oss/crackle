@@ -2,11 +2,11 @@
 
 // The AppShell must be imported before the __NODE_PAGE_MODULES to ensure CSS order consistancy
 // @ts-expect-error
-// eslint-disable-next-line import/order
+// eslint-disable-next-line import-x/order
 import AppShell from '__THE_ENTRY';
 
 import { BrowserRouter, Route, Routes } from '@crackle/router';
-// eslint-disable-next-line import/order
+// eslint-disable-next-line import-x/order
 import browserPageModules from '__BROWSER_PAGE_MODULES';
 
 import type * as React from 'react';

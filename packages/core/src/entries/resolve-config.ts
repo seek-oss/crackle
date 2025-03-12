@@ -36,7 +36,6 @@ export const resolveConfig = async ({
 
   // eslint-disable-next-line no-sync
   if (!fs.existsSync(configFilePath)) {
-    // eslint-disable-next-line no-console
     localLogger.debug(
       'No crackle.config.ts file found, using default configuration.',
     );

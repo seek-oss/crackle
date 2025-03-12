@@ -1,4 +1,3 @@
-/* eslint-disable import/order */
 declare module '__NODE_PAGE_MODULES' {
   import type { RouteData } from '@crackle/router';
   import type React from 'react';
