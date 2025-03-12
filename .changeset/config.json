@@ -1,13 +1,14 @@
 {
-  "$schema": "https://unpkg.com/@changesets/config@3.0.2/schema.json",
+  "$schema": "https://unpkg.com/@changesets/config@3.0.3/schema.json",
   "changelog": ["@changesets/changelog-github", { "repo": "seek-oss/crackle" }],
   "commit": false,
   "linked": [],
-  "ignore": ["@crackle-private/*", "@crackle-fixtures/*"],
   "access": "public",
   "baseBranch": "master",
   "updateInternalDependencies": "patch",
   "___experimentalUnsafeOptions_WILL_CHANGE_IN_PATCH": {
     "updateInternalDependents": "always"
-  }
+  },
+  "privatePackages": { "version": false, "tag": false },
+  "snapshot": { "useCalculatedVersion": true }
 }
