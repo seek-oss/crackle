@@ -50,7 +50,7 @@ const rules = {
                   path.dirname(context.filename),
                   `lint.${node.tag.name}`,
                 ),
-                parser: 'babel-ts',
+                parser: 'typescript',
               })
               .split('\n');
             const formatted = `\n${lines
