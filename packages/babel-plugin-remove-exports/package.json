@@ -30,6 +30,9 @@
   "scripts": {
     "build": "crackle package"
   },
+  "engines": {
+    "node": ">=20.18.3"
+  },
   "dependencies": {
     "@babel/core": "^7.21.4",
     "@babel/traverse": "^7.21.4"
