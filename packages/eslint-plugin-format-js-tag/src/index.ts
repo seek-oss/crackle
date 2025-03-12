@@ -1,8 +1,8 @@
 // Modified from https://github.com/preconstruct/preconstruct/blob/9c1c51be18856f7a7fca601186692cef58e7b154/packages/eslint-plugin-format-js-tag/src/index.ts
 import path from 'path';
 
+import prettier from '@prettier/sync';
 import { ESLintUtils } from '@typescript-eslint/utils';
-import prettier from 'prettier';
 
 // eslint-disable-next-line new-cap
 const createRule = ESLintUtils.RuleCreator((name) => `${name}.md`);
@@ -50,6 +50,7 @@ const rules = {
                   path.dirname(context.filename),
                   `lint.${node.tag.name}`,
                 ),
+                parser: 'babel-ts',
               })
               .split('\n');
             const formatted = `\n${lines
