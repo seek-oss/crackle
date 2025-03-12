@@ -32,7 +32,7 @@ export const build = async (inlineConfig?: PartialConfig) => {
     '@vanilla-extract/css',
     depGraph,
   );
-  const { default: builtinModules } = await import('builtin-modules');
+  const { builtinModules } = await import('node:module');
 
   const commonBuildConfig: ViteConfig = {
     ...commonViteConfig(config),

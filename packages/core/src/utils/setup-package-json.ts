@@ -3,8 +3,6 @@ import fs from 'fs';
 import path from 'path';
 import { isDeepStrictEqual } from 'util';
 
-// @ts-ignore no declaration file
-import structuredClonePolyfill from '@ungap/structured-clone';
 import fse from 'fs-extra';
 
 import { distDir, sideEffectsDir } from '../constants';
@@ -28,8 +26,6 @@ interface ExportObject {
   require: ExportString;
 }
 type Exports = Record<string, ExportString | ExportObject>;
-
-const structuredClone = global.structuredClone ?? structuredClonePolyfill;
 
 const sort = <T>(items: Iterable<T>, key?: keyof T) =>
   Array.from(items).sort((a, b) => {
