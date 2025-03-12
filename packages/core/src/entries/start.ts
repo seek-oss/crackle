@@ -42,7 +42,7 @@ export const start = async (
 
   const { createServer: createViteServer } = await import('vite');
 
-  const { default: builtinModules } = await import('builtin-modules');
+  const { builtinModules } = await import('node:module');
 
   const vite = await createViteServer({
     ...commonViteConfig(config),
