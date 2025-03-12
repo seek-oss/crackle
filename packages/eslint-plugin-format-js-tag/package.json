@@ -31,6 +31,9 @@
   "scripts": {
     "build": "crackle package"
   },
+  "engines": {
+    "node": ">=20.18.3"
+  },
   "dependencies": {
     "@typescript-eslint/utils": "^8.26.1"
   },
