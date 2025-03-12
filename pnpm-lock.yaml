@@ -397,8 +397,8 @@ importers:
         specifier: ^7.23.3
         version: 7.25.9(@babel/core@7.26.10)
       '@crackle/babel-plugin-remove-exports':
-        specifier: ^0.3.0
-        version: 0.3.0
+        specifier: workspace:^
+        version: link:../babel-plugin-remove-exports
       '@crackle/router':
         specifier: workspace:^
         version: link:../router
