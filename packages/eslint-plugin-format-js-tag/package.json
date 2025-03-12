@@ -1,0 +1,44 @@
+{
+  "name": "@crackle/eslint-plugin-format-js-tag",
+  "version": "0.0.1",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seek-oss/crackle.git",
+    "directory": "packages/eslint-plugin-format-js-tag"
+  },
+  "license": "MIT",
+  "author": "SEEK",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": {
+        "import": "./dist/index.d.mts",
+        "require": "./dist/index.d.ts"
+      },
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "CHANGELOG.md",
+    "dist"
+  ],
+  "scripts": {
+    "build": "crackle package"
+  },
+  "dependencies": {
+    "@typescript-eslint/utils": "^8.26.1"
+  },
+  "devDependencies": {
+    "@types/prettier": "^2.7.3",
+    "prettier": "^2.8.8"
+  },
+  "peerDependencies": {
+    "prettier": "^2.8.8"
+  }
+}
