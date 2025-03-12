@@ -1,5 +1,45 @@
 # @crackle/core
 
+## 0.34.0
+
+### Minor Changes
+
+- [#217](https://github.com/seek-oss/crackle/pull/217) [`4738b24`](https://github.com/seek-oss/crackle/commit/4738b244629bcac3b064288f46cd88d5f6113015) Thanks [@renovate](https://github.com/apps/renovate)! - `package`: CSS entrypoints are now named after the package
+
+  BREAKING CHANGE:
+
+  `vite` used to bundle CSS into a `style.css` file by default. `crackle` would then generate a `./dist/style.css` entrypoint for that file. Since `vite@6`, CSS is now bunled into a file named after the package. This means that the entrypoint for bundled CSS files is now named after the package. For example, if your package is named `my-package`, the entrypoint for the CSS file will be `./dist/my-package.css`.
+
+  Consumers may need to remove the old `./dist/style.css` entrypoint from their `package.json` files. Crackle will automatically add the new entrypoint for you.
+
+- [#226](https://github.com/seek-oss/crackle/pull/226) [`c369023`](https://github.com/seek-oss/crackle/commit/c369023159db40d2e470a01ec51a8789d5a510c3) Thanks [@askoufis](https://github.com/askoufis)! - Update minimum node version to `20.18.3`
+
+  BREAKING CHANGE: Drop support for node versions below `20.18.3`
+
+### Patch Changes
+
+- [#227](https://github.com/seek-oss/crackle/pull/227) [`a1b8463`](https://github.com/seek-oss/crackle/commit/a1b8463e53a9b53ac8836f2b03cd612b1449d675) Thanks [@askoufis](https://github.com/askoufis)! - Replace `builtin-modules` dependency with native `builtinModules` from `node:module`
+
+- [#217](https://github.com/seek-oss/crackle/pull/217) [`4738b24`](https://github.com/seek-oss/crackle/commit/4738b244629bcac3b064288f46cd88d5f6113015) Thanks [@renovate](https://github.com/apps/renovate)! - Update `vite` dependency to `^6.0.0`. Update `esbuild` dependency to `^0.25.0`.
+
+- [#227](https://github.com/seek-oss/crackle/pull/227) [`a1b8463`](https://github.com/seek-oss/crackle/commit/a1b8463e53a9b53ac8836f2b03cd612b1449d675) Thanks [@askoufis](https://github.com/askoufis)! - Update various dependencies
+
+- [#227](https://github.com/seek-oss/crackle/pull/227) [`a1b8463`](https://github.com/seek-oss/crackle/commit/a1b8463e53a9b53ac8836f2b03cd612b1449d675) Thanks [@askoufis](https://github.com/askoufis)! - Remove polyfill for `structuredClone`
+
+- [#213](https://github.com/seek-oss/crackle/pull/213) [`f8cfe89`](https://github.com/seek-oss/crackle/commit/f8cfe899dcecbb92fd3c5d248715e7a2834a1411) Thanks [@askoufis](https://github.com/askoufis)! - Only render loader during development
+
+- [#208](https://github.com/seek-oss/crackle/pull/208) [`ae4bf65`](https://github.com/seek-oss/crackle/commit/ae4bf655549df4dad3730a768d793931cff97ae9) Thanks [@renovate](https://github.com/apps/renovate)! - Update `sort-package-json` dependency
+
+- [#224](https://github.com/seek-oss/crackle/pull/224) [`fce462d`](https://github.com/seek-oss/crackle/commit/fce462daa2d21d2d76ace5a98d91572bb5bb8048) Thanks [@renovate](https://github.com/apps/renovate)! - Update Vanilla Extract dependencies:
+
+  - `@vanilla-extract/css@^1.17.1`
+  - `@vanilla-extract/integration@^8.0.0`
+  - `@vanilla-extract/vite-plugin@^5.0.0`
+
+- Updated dependencies [[`c369023`](https://github.com/seek-oss/crackle/commit/c369023159db40d2e470a01ec51a8789d5a510c3)]:
+  - @crackle/babel-plugin-remove-exports@0.4.0
+  - @crackle/router@0.5.0
+
 ## 0.33.4
 
 ### Patch Changes
