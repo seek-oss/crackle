@@ -1,5 +1,13 @@
 # @crackle/babel-plugin-remove-exports
 
+## 0.4.0
+
+### Minor Changes
+
+- [#226](https://github.com/seek-oss/crackle/pull/226) [`c369023`](https://github.com/seek-oss/crackle/commit/c369023159db40d2e470a01ec51a8789d5a510c3) Thanks [@askoufis](https://github.com/askoufis)! - Update minimum node version to `20.18.3`
+
+  BREAKING CHANGE: Drop support for node versions below `20.18.3`
+
 ## 0.3.0
 
 ### Minor Changes
