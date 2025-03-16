@@ -77,7 +77,7 @@
     "overrides": {
       "@braid-design-system/source.macro": "latest",
       "braid>@crackle/cli": "workspace:*",
-      "ink>@types/react": "^18"
+      "ink>@types/react": "^19.0.0"
     }
   },
   "wireit": {
