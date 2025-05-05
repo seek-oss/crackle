@@ -50,7 +50,7 @@
     "eslint": "^9.22.0",
     "eslint-config-seek": "^14.0.0",
     "fast-glob": "^3.3.3",
-    "ignore-sync": "^7.0.1",
+    "ignore-sync": "^8.0.0",
     "prettier": "^3.5.3",
     "tsx": "^4.16.5",
     "typescript": "~5.8.0",
