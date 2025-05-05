@@ -53,7 +53,7 @@
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-router-dom": "^6.21.1"
+    "react-router-dom": "^7.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
