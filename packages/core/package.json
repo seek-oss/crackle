@@ -125,9 +125,6 @@
     "unbuild": "wireit",
     "unbuild:entries": "tsx ./scripts/unbuild-entries.cts"
   },
-  "engines": {
-    "node": ">=20.18.3"
-  },
   "dependencies": {
     "@babel/core": "^7.23.3",
     "@babel/plugin-syntax-jsx": "^7.23.3",
@@ -186,6 +183,9 @@
   },
   "peerDependencies": {
     "typescript": ">=5.2.2"
+  },
+  "engines": {
+    "node": ">=20.18.3"
   },
   "wireit": {
     "unbuild": {
