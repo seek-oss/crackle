@@ -1,1 +1,1 @@
-export * from 'react-router-dom/server';
+export * from 'react-router';

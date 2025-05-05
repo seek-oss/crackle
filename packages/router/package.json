@@ -48,12 +48,9 @@
   "scripts": {
     "build": "crackle package"
   },
-  "engines": {
-    "node": ">=20.18.3"
-  },
   "dependencies": {
     "react": "^18.2.0",
-    "react-router-dom": "^7.0.0"
+    "react-router": "^7.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
@@ -63,5 +60,8 @@
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
+  },
+  "engines": {
+    "node": ">=20.18.3"
   }
 }

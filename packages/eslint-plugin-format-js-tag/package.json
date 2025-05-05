@@ -32,9 +32,6 @@
     "build": "crackle package",
     "dev": "crackle dev"
   },
-  "engines": {
-    "node": ">=20.18.3"
-  },
   "dependencies": {
     "@prettier/sync": "^0.5.2",
     "@typescript-eslint/utils": "^8.26.1"
@@ -44,5 +41,8 @@
   },
   "peerDependencies": {
     "prettier": "^3.5.3"
+  },
+  "engines": {
+    "node": ">=20.18.3"
   }
 }

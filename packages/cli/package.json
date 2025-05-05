@@ -43,14 +43,14 @@
     "build": "crackle package",
     "dev": "crackle dev"
   },
-  "engines": {
-    "node": ">=20.18.3"
-  },
   "dependencies": {
     "@crackle/core": "workspace:^",
     "yargs": "^17.6.2"
   },
   "devDependencies": {
     "@types/yargs": "^17.0.32"
+  },
+  "engines": {
+    "node": ">=20.18.3"
   }
 }

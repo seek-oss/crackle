@@ -7,4 +7,4 @@ export { createRouteData } from './create-route-data';
 export type { ValidRoute } from './valid-routes';
 
 // eslint-disable-next-line import-x/export
-export * from 'react-router-dom';
+export * from 'react-router';
