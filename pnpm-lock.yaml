@@ -11,7 +11,7 @@ overrides:
 
 patchedDependencies:
   sync-dependencies@1.0.4:
-    hash: kz43vugpxzze664l527a72jrc4
+    hash: 79779a90215834531080f5a52d5287521f8da91faf2e3b32691910faa12d5aa1
     path: patches/sync-dependencies@1.0.4.patch
 
 importers:
@@ -537,7 +537,7 @@ importers:
         version: 4.17.0
       sync-dependencies:
         specifier: ^1.0.4
-        version: 1.0.4(patch_hash=kz43vugpxzze664l527a72jrc4)
+        version: 1.0.4(patch_hash=79779a90215834531080f5a52d5287521f8da91faf2e3b32691910faa12d5aa1)
       typescript:
         specifier: '*'
         version: 5.8.2
@@ -638,7 +638,7 @@ importers:
         version: 4.17.21
       sync-dependencies:
         specifier: ^1.0.4
-        version: 1.0.4(patch_hash=kz43vugpxzze664l527a72jrc4)
+        version: 1.0.4(patch_hash=79779a90215834531080f5a52d5287521f8da91faf2e3b32691910faa12d5aa1)
 
 packages:
 
@@ -11884,7 +11884,7 @@ snapshots:
       csso: 5.0.5
       picocolors: 1.1.1
 
-  sync-dependencies@1.0.4(patch_hash=kz43vugpxzze664l527a72jrc4):
+  sync-dependencies@1.0.4(patch_hash=79779a90215834531080f5a52d5287521f8da91faf2e3b32691910faa12d5aa1):
     dependencies:
       npm-package-arg: 6.1.1
       request: 2.88.2
