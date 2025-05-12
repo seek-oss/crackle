@@ -43,6 +43,7 @@ export default async function snapshotOutput(
     const snapshotDir = `__snapshots__/${suiteName}/${fixtureName}`;
     await expect(output).toMatchFileSnapshot(
       `${snapshotDir}/${groupName}.snap`,
+      `Failed to match snapshot for ${groupName}.snap`,
     );
   });
 }

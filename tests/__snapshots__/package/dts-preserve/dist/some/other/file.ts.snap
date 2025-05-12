@@ -2,5 +2,6 @@
 type Maybe = 'something' | 'other';
 declare const maybe: Maybe;
 
-export { type Maybe, maybe };
+export { maybe };
+export type { Maybe };
 /* #endregion */
