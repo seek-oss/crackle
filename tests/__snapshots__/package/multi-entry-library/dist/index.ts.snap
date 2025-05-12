@@ -9,12 +9,52 @@ exports.add = add;
 
 
 /* #region dist/index.d.mts */
-export { JobSummary, add } from './apac.chunk.js';
+import * as react_jsx_runtime from 'react/jsx-runtime';
+
+interface JobSummaryProps {
+    title: string;
+    isNew: boolean;
+}
+declare const JobSummary: ({ title, isNew }: JobSummaryProps) => react_jsx_runtime.JSX.Element;
+
+declare const add: (a: number, b: number) => number;
+
+type DevDepType = 'string';
+
+type MathsFn = (a: number, b: number) => number;
+
+declare const logger: (...args: any[]) => void;
+declare const calcAndLog: (a: number, b: number, fn: MathsFn) => void;
+
+declare const _default: "I am theme";
+
+export { JobSummary, _default, add, calcAndLog, logger };
+export type { DevDepType };
 /* #endregion */
 
 
 /* #region dist/index.d.ts */
-export { JobSummary, add } from './apac.chunk.js';
+import * as react_jsx_runtime from 'react/jsx-runtime';
+
+interface JobSummaryProps {
+    title: string;
+    isNew: boolean;
+}
+declare const JobSummary: ({ title, isNew }: JobSummaryProps) => react_jsx_runtime.JSX.Element;
+
+declare const add: (a: number, b: number) => number;
+
+type DevDepType = 'string';
+
+type MathsFn = (a: number, b: number) => number;
+
+declare const logger: (...args: any[]) => void;
+declare const calcAndLog: (a: number, b: number, fn: MathsFn) => void;
+
+declare const _default: "I am theme";
+
+export { JobSummary, _default, add, calcAndLog, logger };
+export type { DevDepType };
 /* #endregion */
 
 
