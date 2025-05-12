@@ -83,5 +83,6 @@ interface Atoms extends Sprinkles {
 }
 declare const atoms: ({ reset, ...rest }: Atoms) => string;
 
-export { Box, BraidProvider, type Breakpoint, atoms, breakpointNames, breakpoints };
+export { Box, BraidProvider, atoms, breakpointNames, breakpoints };
+export type { Breakpoint };
 /* #endregion */
