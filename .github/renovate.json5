@@ -24,5 +24,15 @@
       // rynovate config pins this to < 8
       allowedVersions: ">= 8",
     },
+    {
+      groupName: "Ignored packages",
+      matchUpdateTypes: "major",
+      matchPackageNames: [
+        // The esm-compat fixture intentionally tests against an old version of this package.
+        // Newer versions are ESM-only so are not suitable for the test.
+        "react-keyed-flatten-children",
+      ],
+      enabled: false,
+    },
   ],
 }
