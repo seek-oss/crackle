@@ -13,12 +13,12 @@ exports.logger = logger;
 
 
 /* #region dist/extras.d.mts */
-export { DevDepType, calcAndLog, logger } from './apac.chunk.js';
+export { DevDepType, calcAndLog, logger } from './index.js';
 /* #endregion */
 
 
 /* #region dist/extras.d.ts */
-export { DevDepType, calcAndLog, logger } from './apac.chunk.js';
+export { DevDepType, calcAndLog, logger } from './index.js';
 /* #endregion */
 
 

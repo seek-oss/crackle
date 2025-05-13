@@ -7,12 +7,12 @@ exports.JobSummary = JobSummary.JobSummary;
 
 
 /* #region dist/components.d.mts */
-export { JobSummary } from './apac.chunk.js';
+export { JobSummary } from './index.js';
 /* #endregion */
 
 
 /* #region dist/components.d.ts */
-export { JobSummary } from './apac.chunk.js';
+export { JobSummary } from './index.js';
 /* #endregion */
 
 
