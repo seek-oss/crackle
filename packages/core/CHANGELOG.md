@@ -1,5 +1,12 @@
 # @crackle/core
 
+## 0.34.1
+
+### Patch Changes
+
+- Updated dependencies [[`025c4b7`](https://github.com/seek-oss/crackle/commit/025c4b72b9f8c086ebf297b4fbc6ee9c8af54584)]:
+  - @crackle/router@0.6.0
+
 ## 0.34.0
 
 ### Minor Changes
