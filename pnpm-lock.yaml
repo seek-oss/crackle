@@ -439,8 +439,8 @@ importers:
         specifier: ^0.1.8
         version: 0.1.8
       express:
-        specifier: ^4.18.2
-        version: 4.21.2
+        specifier: ^5.0.0
+        version: 5.1.0
       fast-glob:
         specifier: ^3.3.2
         version: 3.3.3
