@@ -58,7 +58,9 @@ export const resolveConfig = async ({
             name: 'onReload',
             setup(build) {
               build.onEnd((result) => {
-                if (!watching) return;
+                if (!watching) {
+                  return;
+                }
 
                 const [{ text: configSource }] = result.outputFiles!;
                 onUpdate(evaluateConfig(configFilePath, configSource));

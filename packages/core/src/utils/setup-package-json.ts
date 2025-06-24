@@ -100,7 +100,9 @@ const getSideEffectsForPackage = (
   const sideEffects = [...existingSideEffects];
 
   const addIfRequired = (flag: string) => {
-    if (!sideEffects.includes(flag)) sideEffects.push(flag);
+    if (!sideEffects.includes(flag)) {
+      sideEffects.push(flag);
+    }
   };
 
   for (const entry of entries) {
@@ -239,7 +241,9 @@ export const updatePackageJsonExports = async (
   packageRoot: string,
   exports: string[],
 ) => {
-  if (exports.length === 0) return;
+  if (exports.length === 0) {
+    return;
+  }
 
   const packagePath = path.join(packageRoot, 'package.json');
   const packageJson: PackageJson = await fse.readJson(packagePath, { fs });
