@@ -63,7 +63,9 @@ export const createBundle = async (
 
         const moduleInfo = getModuleInfo(id);
 
-        if (!moduleInfo) return;
+        if (!moduleInfo) {
+          return;
+        }
 
         if (moduleInfo.isExternal) {
           localLogger.debug(`External module: ${id}`);

@@ -21,7 +21,7 @@ const tests = [
     pluginOptions: {
       retainExports: ['routeData'],
     },
-    code: tsx/* tsx */ `
+    code: tsx /* tsx */ `
       import { createRouteData } from "@crackle/router";
       import { Card, Stack } from "braid-design-system";
       import React from "react";
@@ -61,7 +61,7 @@ const tests = [
       retainDefault: true,
       retainIdentifiers: ['React'],
     },
-    code: tsx/* tsx */ `
+    code: tsx /* tsx */ `
       import { createRouteData } from "@crackle/router";
       import React from "react";
 
@@ -92,7 +92,7 @@ const tests = [
     pluginOptions: {
       retainExports: ['routeData'],
     },
-    code: tsx/* tsx */ `
+    code: tsx /* tsx */ `
       import { createRouteData } from "@crackle/router";
       import React from "react";
 
@@ -123,7 +123,7 @@ const tests = [
     pluginOptions: {
       retainExports: ['routeData'],
     },
-    code: tsx/* tsx */ `
+    code: tsx /* tsx */ `
       import { createRouteData } from "@crackle/router";
       import React from "react";
 
@@ -151,7 +151,7 @@ const tests = [
     pluginOptions: {
       retainExports: ['routeData'],
     },
-    code: tsx/* tsx */ `
+    code: tsx /* tsx */ `
       import { createRouteData } from "@crackle/router";
       import React from "react";
 
@@ -177,7 +177,7 @@ const tests = [
     pluginOptions: {
       retainExports: ['routeData'],
     },
-    code: tsx/* tsx */ `
+    code: tsx /* tsx */ `
       import { createRouteData } from "@crackle/router";
       import React from "react";
 
@@ -203,7 +203,7 @@ const tests = [
     pluginOptions: {
       retainExports: ['routeData'],
     },
-    code: tsx/* tsx */ `
+    code: tsx /* tsx */ `
       import { createRouteData } from "@crackle/router";
       import React from "react";
 
@@ -233,7 +233,7 @@ const tests = [
     pluginOptions: {
       retainExports: ['routeData'],
     },
-    code: tsx/* tsx */ `
+    code: tsx /* tsx */ `
       import { createRouteData } from "@crackle/router";
       import React from "react";
 
@@ -263,7 +263,7 @@ const tests = [
     pluginOptions: {
       retainExports: ['routeData'],
     },
-    code: tsx/* tsx */ `
+    code: tsx /* tsx */ `
       import { createRouteData } from "@crackle/router";
       import React from "react";
 
