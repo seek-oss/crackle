@@ -40,8 +40,9 @@ export const createDtsBundle = async (
             log.message.startsWith(
               '"RefAttributes" is imported from external module "react" but never used in',
             )
-          )
+          ) {
             return false;
+          }
       }
       localLogger.debug(`onLog ${log.code}: ${log.message}`);
       defaultHandler(level, log);
