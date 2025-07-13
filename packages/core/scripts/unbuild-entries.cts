@@ -6,7 +6,7 @@ import config from '../build.config';
 import { promiseMap } from '../src/utils/promise-map';
 
 (async () => {
-  const { entries } = config as { entries: string[] };
+  const { entries } = config[0] as { entries: string[] };
 
   const root = path.resolve(__dirname, '..');
   const pkgPath = path.join(root, 'package.json');

@@ -20,7 +20,7 @@
     "lint:prettier": "wireit",
     "lint:tsc": "wireit",
     "test": "pnpm test:unit:ci && pnpm test:integration:ci && pnpm test:playwright",
-    "test:unit": "vitest",
+    "test:unit": "vitest --project=unit",
     "test:unit:ci": "pnpm test:unit --run",
     "test:integration": "wireit",
     "test:integration:ci": "pnpm test:integration -- --run",
@@ -50,36 +50,17 @@
     "eslint": "^9.22.0",
     "eslint-config-seek": "^14.0.0",
     "fast-glob": "^3.3.3",
-    "ignore-sync": "^7.0.1",
+    "ignore-sync": "^8.0.0",
     "prettier": "^3.5.3",
     "tsx": "^4.16.5",
     "typescript": "~5.8.0",
-    "vitest": "^3.0.8",
+    "vitest": "^3.2.4",
     "wireit": "^0.14.1"
   },
   "engines": {
     "node": ">=20.18.3"
   },
   "packageManager": "pnpm@10.11.0",
-  "pnpm": {
-    "neverBuiltDependencies": [
-      "sku"
-    ],
-    "patchedDependencies": {
-      "sync-dependencies@1.0.4": "patches/sync-dependencies@1.0.4.patch"
-    },
-    "peerDependencyRules": {
-      "ignoreMissing": [
-        "jest",
-        "sku"
-      ]
-    },
-    "overrides": {
-      "@braid-design-system/source.macro": "latest",
-      "braid>@crackle/cli": "workspace:*",
-      "ink>@types/react": "^18"
-    }
-  },
   "wireit": {
     "build:ci": {
       "command": "pnpm build --fix",
@@ -124,7 +105,7 @@
       ]
     },
     "test:integration": {
-      "command": "vitest --config vitest.config.integration.ts",
+      "command": "vitest --project=integration",
       "dependencies": [
         "fixtures:dev"
       ]

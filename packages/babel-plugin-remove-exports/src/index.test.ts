@@ -1,4 +1,4 @@
-import pluginTester from 'babel-plugin-tester/pure';
+import { pluginTester } from 'babel-plugin-tester/pure';
 import { describe, expect, it } from 'vitest';
 import stringSerializer from '~utils/string-serializer';
 

@@ -87,9 +87,9 @@ if (argv.absorb) {
     dedent`
       /packages/braid-design-system/*
       /integration/
-      /jest*
       /package.json
       /pnpm-lock.yaml
+      /vitest.config.ts
       /tsconfig.json
     `,
   );
@@ -116,7 +116,9 @@ if (argv.test) {
 
   if (argv.test === 'integration') {
     // Run Braid's integration tests
-    await run(`pnpm test:integration`, { cwd: fromRoot(submodule) });
+    await run(`pnpm test:integration`, {
+      cwd: fromRoot(submodule),
+    });
   }
 }
 
