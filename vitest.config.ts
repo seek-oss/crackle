@@ -2,12 +2,7 @@ import { resolve } from 'path';
 
 import { configDefaults, defineConfig } from 'vitest/config';
 
-import { include as integrationInclude } from './vitest.config.integration';
-
-export const exclude = [
-  ...configDefaults.exclude,
-  'fixtures/braid-design-system/**',
-];
+const integrationInclude = './tests/**/*.test.ts';
 
 export default defineConfig({
   esbuild: {
@@ -19,16 +14,31 @@ export default defineConfig({
     },
   },
   test: {
-    exclude: [
-      ...exclude,
-      // handle the circular reference between configs
-      ...(integrationInclude ?? []),
-    ],
-    setupFiles: resolve(__dirname, './test-utils/setup.ts'),
-    //* these values are used in test-utils/pkg-serializer.ts
     snapshotFormat: {
       escapeString: false,
       printBasicPrototype: false,
     },
+    projects: [
+      {
+        extends: true,
+        test: {
+          name: 'unit',
+          exclude: [
+            ...configDefaults.exclude,
+            'fixtures/braid-design-system/**',
+            integrationInclude,
+          ],
+          setupFiles: resolve(__dirname, './test-utils/setup.ts'),
+          //* these values are used in test-utils/pkg-serializer.ts
+        },
+      },
+      {
+        extends: true,
+        test: {
+          name: 'integration',
+          include: [integrationInclude],
+        },
+      },
+    ],
   },
 });

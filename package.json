@@ -20,7 +20,7 @@
     "lint:prettier": "wireit",
     "lint:tsc": "wireit",
     "test": "pnpm test:unit:ci && pnpm test:integration:ci && pnpm test:playwright",
-    "test:unit": "vitest",
+    "test:unit": "vitest --project=unit",
     "test:unit:ci": "pnpm test:unit --run",
     "test:integration": "wireit",
     "test:integration:ci": "pnpm test:integration -- --run",
@@ -54,7 +54,7 @@
     "prettier": "^3.5.3",
     "tsx": "^4.16.5",
     "typescript": "~5.8.0",
-    "vitest": "^3.0.8",
+    "vitest": "^3.2.4",
     "wireit": "^0.14.1"
   },
   "engines": {
@@ -124,7 +124,7 @@
       ]
     },
     "test:integration": {
-      "command": "vitest --config vitest.config.integration.ts",
+      "command": "vitest --project=integration",
       "dependencies": [
         "fixtures:dev"
       ]
