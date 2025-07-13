@@ -8,3 +8,7 @@ packages:
   - scripts
   - test-utils
   - tests
+onlyBuiltDependencies:
+  # For the braid fixture
+  - sku
+  - '@vscode/ripgrep'
