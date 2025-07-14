@@ -167,10 +167,10 @@
   },
   "devDependencies": {
     "@types/babel__core": "^7.20.5",
-    "@types/express": "^4.17.21",
+    "@types/express": "^5.0.0",
     "@types/fs-extra": "^11.0.4",
     "@types/glob-to-regexp": "^0.4.4",
-    "@types/node": "^20.10.3",
+    "@types/node": "^22.0.0",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.9",
     "@types/semver": "^7.5.6",
