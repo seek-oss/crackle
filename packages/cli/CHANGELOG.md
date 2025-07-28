@@ -1,5 +1,12 @@
 # @crackle/cli
 
+## 0.16.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @crackle/core@0.34.1
+
 ## 0.16.0
 
 ### Minor Changes
