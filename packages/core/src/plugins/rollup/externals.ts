@@ -92,11 +92,11 @@ async function findDependencies(options: ExternalsOptions) {
   return packagesById;
 }
 
-export function externals(
+export async function externals(
   config: EnhancedConfig,
   format?: Format,
   forceExternal?: RegExp,
-): Plugin {
+): Promise<Plugin> {
   const packageRoot = config.root;
   const packagePath = path.join(packageRoot, 'package.json');
   // eslint-disable-next-line no-sync
@@ -108,7 +108,7 @@ export function externals(
     peerDeps: true,
     optDeps: true,
   } satisfies ExternalsOptions;
-  const plugin = rollupExternals(options);
+  const plugin = await rollupExternals(options);
 
   let packagesById: PackagesById;
 
