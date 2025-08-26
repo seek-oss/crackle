@@ -1,5 +1,14 @@
 # @crackle/core
 
+## 0.34.1
+
+### Patch Changes
+
+- [#249](https://github.com/seek-oss/crackle/pull/249) [`05815c1`](https://github.com/seek-oss/crackle/commit/05815c1c3669c77c14c618fe68639656de73d2de) Thanks [@renovate](https://github.com/apps/renovate)! - Fix compatibility issue with `rollup-plugin-node-externals>=8.1.0`
+
+- Updated dependencies [[`025c4b7`](https://github.com/seek-oss/crackle/commit/025c4b72b9f8c086ebf297b4fbc6ee9c8af54584)]:
+  - @crackle/router@0.6.0
+
 ## 0.34.0
 
 ### Minor Changes
@@ -31,7 +40,6 @@
 - [#208](https://github.com/seek-oss/crackle/pull/208) [`ae4bf65`](https://github.com/seek-oss/crackle/commit/ae4bf655549df4dad3730a768d793931cff97ae9) Thanks [@renovate](https://github.com/apps/renovate)! - Update `sort-package-json` dependency
 
 - [#224](https://github.com/seek-oss/crackle/pull/224) [`fce462d`](https://github.com/seek-oss/crackle/commit/fce462daa2d21d2d76ace5a98d91572bb5bb8048) Thanks [@renovate](https://github.com/apps/renovate)! - Update Vanilla Extract dependencies:
-
   - `@vanilla-extract/css@^1.17.1`
   - `@vanilla-extract/integration@^8.0.0`
   - `@vanilla-extract/vite-plugin@^5.0.0`
@@ -77,7 +85,6 @@
 - [#167](https://github.com/seek-oss/crackle/pull/167) [`82675c6`](https://github.com/seek-oss/crackle/commit/82675c6862fd0f6afa1e62254b6216aec7931451) Thanks [@mrm007](https://github.com/mrm007)! - Add a `package.mode` config option with choices `preserve` and `bundle` (default)
 
   This controls how Crackle generates output files:
-
   - `bundle` rolls up output files into as few chunks as possible
   - `preserve` creates separate files for all modules using the original module names as file names
 
@@ -599,7 +606,6 @@
 
 - 46c92de: Fix .css.ts format extension bug.
 - 62e72a7: Bug fixes:
-
   - Generated chunks are now also built in esm and cjs
   - The package entries rollup plugin was limiting itself to packages called multi-entry-library
 

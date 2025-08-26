@@ -1,5 +1,11 @@
 # @crackle/router
 
+## 0.6.0
+
+### Minor Changes
+
+- [#234](https://github.com/seek-oss/crackle/pull/234) [`025c4b7`](https://github.com/seek-oss/crackle/commit/025c4b72b9f8c086ebf297b4fbc6ee9c8af54584) Thanks [@renovate](https://github.com/apps/renovate)! - Replace `react-router-dom` dependency with `react-router`. Update to `react-router@^7`
+
 ## 0.5.0
 
 ### Minor Changes
