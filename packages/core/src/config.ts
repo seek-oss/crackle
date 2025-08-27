@@ -4,7 +4,6 @@ import fs from 'fs';
 import path from 'path';
 import process from 'process';
 
-import { loadConfig } from 'c12';
 import { defu } from 'defu';
 
 import type { PartialDeep } from './types';
@@ -181,6 +180,7 @@ export const mergeConfig = <
   defu(override, config) as M;
 
 export const getConfig = async (inlineConfig?: PartialConfig) => {
+  const { loadConfig } = await import('c12');
   const { config } = await loadConfig({
     name: 'crackle',
     defaultConfig,
