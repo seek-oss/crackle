@@ -1,5 +1,11 @@
 # @crackle/core
 
+## 0.34.2
+
+### Patch Changes
+
+- [#232](https://github.com/seek-oss/crackle/pull/232) [`dff6fc5`](https://github.com/seek-oss/crackle/commit/dff6fc5478cb30aaaa2aaf61058e54aa166c920d) Thanks [@renovate](https://github.com/apps/renovate)! - Update `c12` dependency to `^3.0.0`
+
 ## 0.34.1
 
 ### Patch Changes
