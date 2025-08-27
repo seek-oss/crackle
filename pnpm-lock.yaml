@@ -76,8 +76,8 @@ importers:
   bootstrap:
     dependencies:
       '@crackle/cli':
-        specifier: 0.16.0
-        version: 0.16.0(@types/node@20.19.11)(jiti@2.5.1)(terser@5.43.1)(typescript@5.8.3)(webpack@5.101.3)
+        specifier: 0.16.1
+        version: 0.16.1(@types/node@20.19.11)(jiti@2.5.1)(terser@5.43.1)(typescript@5.8.3)(webpack@5.101.3)
 
   fixtures/braid-site:
     dependencies:
@@ -899,19 +899,19 @@ packages:
     resolution: {integrity: sha512-VfSSQwXSN9BEVQppsgb9I/+9FaQI7DJEyytaLv2c6hMo2CJVi2RDuWseyybKXfs/3ZHXT6Tg6nCmwcD0evidkA==}
     engines: {node: '>=20.18.3'}
 
-  '@crackle/cli@0.16.0':
-    resolution: {integrity: sha512-Oq6slsamnTZEHhq4fd3dYCqqIYsH7wepiMqD8c0VOIdqUYnLVmKCHU/25xuSR68kqdsv1K8WoXeVp8BnVlUZpg==}
+  '@crackle/cli@0.16.1':
+    resolution: {integrity: sha512-2ZOfc2zaT1KlP4gdAcMccgx+ft0zgpD6LOrTrXeLSejkDOkM1W056CuCPTptBvvnkjC+v6SxJx9IVx31aqco6g==}
     engines: {node: '>=20.18.3'}
     hasBin: true
 
-  '@crackle/core@0.34.0':
-    resolution: {integrity: sha512-HOb3h2SuIziNR59Nweb7nC9RejzxzgoaM5E5CxFr27p7vGkN+ZotRx45PjX3/aobjtB7KF/Ro7QP9TynzmWOIg==}
+  '@crackle/core@0.34.1':
+    resolution: {integrity: sha512-pJA/4X5EJj+H+82dWQjyinz0/CH7KOZ4/nO7GAJ+Pf5k7nMriZhBF3m+V1dzuRUK+uwzN2jA/ak0ZNBcM4w+nA==}
     engines: {node: '>=20.18.3'}
     peerDependencies:
       typescript: '>=5.2.2'
 
-  '@crackle/router@0.5.0':
-    resolution: {integrity: sha512-UW+HW818wPzyDfMEHFkKyYIrTkPs55hE5CTdX6dzQydyrss50KLvEef7qCPNzfHf4mykLj9vAztzGTcajr/+cg==}
+  '@crackle/router@0.6.0':
+    resolution: {integrity: sha512-Nepo2++nIXDf5Fh1GiO/siv5gFZbT0CUZhmyXq5nwo36JvnKIIOIFt5qzKbOz8t8YEoa6aXqS8ZV/rHBo5xbjQ==}
     engines: {node: '>=20.18.3'}
     peerDependencies:
       react: ^18.2.0
@@ -1388,10 +1388,6 @@ packages:
     resolution: {integrity: sha512-6BMtNr7aQhyNcGzmumkL0tgr1YQGfm9d7ZdmRpWqWuqpc9vZBind4xMe5NMiRECOhjuSiWHfBWLBnXkpeE90bw==}
     peerDependencies:
       prettier: '*'
-
-  '@remix-run/router@1.23.0':
-    resolution: {integrity: sha512-O3rHJzAQKamUz1fvE0Qaw0xSFqsA/yafi2iqeE0pvdFtCO1viYx8QL6f3Ln/aCCTLxs68SLf0KPM9eSeM8yBnA==}
-    engines: {node: '>=14.0.0'}
 
   '@rolldown/pluginutils@1.0.0-beta.27':
     resolution: {integrity: sha512-+d0F4MKMCbeVUJwG96uQ4SgAznZNSq93I3V+9NHA4OpvqG8mRCpGdKmK8l/dl02h2CCDHwW2FqilnTyDcAnqjA==}
@@ -4991,19 +4987,6 @@ packages:
       '@types/react':
         optional: true
 
-  react-router-dom@6.30.1:
-    resolution: {integrity: sha512-llKsgOkZdbPU1Eg3zK8lCn+sjD9wMRZZPuzmdWWX5SUs8OFkN5HnFVC0u5KMeMaC9aoancFI/KoLuKPqN+hxHw==}
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      react: '>=16.8'
-      react-dom: '>=16.8'
-
-  react-router@6.30.1:
-    resolution: {integrity: sha512-X1m21aEmxGXqENEPG3T6u0Th7g0aS4ZmoNynhbs+Cn+q+QGTLt+d5IQ2bHAXKzKcxGJjxACpVbnYQSCRcfxHlQ==}
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      react: '>=16.8'
-
   react-router@7.8.2:
     resolution: {integrity: sha512-7M2fR1JbIZ/jFWqelpvSZx+7vd7UlBTfdZqf6OSdF9g6+sfdqJDAWcak6ervbHph200ePlu+7G8LdoiC3ReyAQ==}
     engines: {node: '>=20.0.0'}
@@ -6356,9 +6339,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@crackle/cli@0.16.0(@types/node@20.19.11)(jiti@2.5.1)(terser@5.43.1)(typescript@5.8.3)(webpack@5.101.3)':
+  '@crackle/cli@0.16.1(@types/node@20.19.11)(jiti@2.5.1)(terser@5.43.1)(typescript@5.8.3)(webpack@5.101.3)':
     dependencies:
-      '@crackle/core': 0.34.0(@types/node@20.19.11)(jiti@2.5.1)(terser@5.43.1)(typescript@5.8.3)(webpack@5.101.3)
+      '@crackle/core': 0.34.1(@types/node@20.19.11)(jiti@2.5.1)(terser@5.43.1)(typescript@5.8.3)(webpack@5.101.3)
       yargs: 17.7.2
     transitivePeerDependencies:
       - '@swc/helpers'
@@ -6378,13 +6361,13 @@ snapshots:
       - webpack
       - yaml
 
-  '@crackle/core@0.34.0(@types/node@20.19.11)(jiti@2.5.1)(terser@5.43.1)(typescript@5.8.3)(webpack@5.101.3)':
+  '@crackle/core@0.34.1(@types/node@20.19.11)(jiti@2.5.1)(terser@5.43.1)(typescript@5.8.3)(webpack@5.101.3)':
     dependencies:
       '@babel/core': 7.28.3
       '@babel/plugin-syntax-jsx': 7.27.1(@babel/core@7.28.3)
       '@babel/plugin-syntax-typescript': 7.27.1(@babel/core@7.28.3)
       '@crackle/babel-plugin-remove-exports': 0.4.0
-      '@crackle/router': 0.5.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@crackle/router': 0.6.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@vanilla-extract/css': 1.17.4
       '@vanilla-extract/integration': 8.0.4
       '@vanilla-extract/vite-plugin': 5.1.1(@types/node@20.19.11)(jiti@2.5.1)(terser@5.43.1)(tsx@4.20.5)(vite@6.3.5(@types/node@20.19.11)(jiti@2.5.1)(terser@5.43.1)(tsx@4.20.5))
@@ -6436,11 +6419,11 @@ snapshots:
       - webpack
       - yaml
 
-  '@crackle/router@0.5.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@crackle/router@0.6.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
-      react-router-dom: 6.30.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-router: 7.8.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
   '@discoveryjs/json-ext@0.6.3': {}
 
@@ -6977,8 +6960,6 @@ snapshots:
     dependencies:
       make-synchronized: 0.4.2
       prettier: 3.6.2
-
-  '@remix-run/router@1.23.0': {}
 
   '@rolldown/pluginutils@1.0.0-beta.27': {}
 
@@ -11108,18 +11089,6 @@ snapshots:
       use-sidecar: 1.1.3(@types/react@18.3.24)(react@18.3.1)
     optionalDependencies:
       '@types/react': 18.3.24
-
-  react-router-dom@6.30.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
-    dependencies:
-      '@remix-run/router': 1.23.0
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      react-router: 6.30.1(react@18.3.1)
-
-  react-router@6.30.1(react@18.3.1):
-    dependencies:
-      '@remix-run/router': 1.23.0
-      react: 18.3.1
 
   react-router@7.8.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
