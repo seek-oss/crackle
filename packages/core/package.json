@@ -163,7 +163,7 @@
     "tsx": "^4.19.3",
     "type-fest": "^4.37.0",
     "used-styles": "^3.0.0",
-    "vite": "^6.0.0"
+    "vite": "^7.0.0"
   },
   "devDependencies": {
     "@types/babel__core": "^7.20.5",
