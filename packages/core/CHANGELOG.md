@@ -1,5 +1,15 @@
 # @crackle/core
 
+## 0.34.2
+
+### Patch Changes
+
+- [#232](https://github.com/seek-oss/crackle/pull/232) [`dff6fc5`](https://github.com/seek-oss/crackle/commit/dff6fc5478cb30aaaa2aaf61058e54aa166c920d) Thanks [@renovate](https://github.com/apps/renovate)! - Update `c12` dependency to `^3.0.0`
+
+- [#259](https://github.com/seek-oss/crackle/pull/259) [`6013332`](https://github.com/seek-oss/crackle/commit/6013332597887816488f622a08dc34d3e2d893ea) Thanks [@renovate](https://github.com/apps/renovate)! - `deps`: Update `vite` from `^6.0.0` to `^7.0.0`
+
+- [#255](https://github.com/seek-oss/crackle/pull/255) [`d7eac08`](https://github.com/seek-oss/crackle/commit/d7eac08947f09336366d171db9eedfbc40416300) Thanks [@renovate](https://github.com/apps/renovate)! - `deps`: Update `@vitejs/plugin-react-swc` from `^3.8.0` to `^4.0.0`
+
 ## 0.34.1
 
 ### Patch Changes
