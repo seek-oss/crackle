@@ -76,8 +76,8 @@ importers:
   bootstrap:
     dependencies:
       '@crackle/cli':
-        specifier: 0.16.0
-        version: 0.16.0(@types/node@20.19.13)(jiti@2.5.1)(terser@5.44.0)(typescript@5.9.2)(webpack@5.101.3)
+        specifier: 0.16.1
+        version: 0.16.1(@types/node@20.19.13)(jiti@2.5.1)(terser@5.44.0)(typescript@5.9.2)(webpack@5.101.3)
 
   fixtures/braid-site:
     dependencies:
@@ -895,8 +895,8 @@ packages:
     resolution: {integrity: sha512-VfSSQwXSN9BEVQppsgb9I/+9FaQI7DJEyytaLv2c6hMo2CJVi2RDuWseyybKXfs/3ZHXT6Tg6nCmwcD0evidkA==}
     engines: {node: '>=20.18.3'}
 
-  '@crackle/cli@0.16.0':
-    resolution: {integrity: sha512-Oq6slsamnTZEHhq4fd3dYCqqIYsH7wepiMqD8c0VOIdqUYnLVmKCHU/25xuSR68kqdsv1K8WoXeVp8BnVlUZpg==}
+  '@crackle/cli@0.16.1':
+    resolution: {integrity: sha512-2ZOfc2zaT1KlP4gdAcMccgx+ft0zgpD6LOrTrXeLSejkDOkM1W056CuCPTptBvvnkjC+v6SxJx9IVx31aqco6g==}
     engines: {node: '>=20.18.3'}
     hasBin: true
 
@@ -6387,7 +6387,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@crackle/cli@0.16.0(@types/node@20.19.13)(jiti@2.5.1)(terser@5.44.0)(typescript@5.9.2)(webpack@5.101.3)':
+  '@crackle/cli@0.16.1(@types/node@20.19.13)(jiti@2.5.1)(terser@5.44.0)(typescript@5.9.2)(webpack@5.101.3)':
     dependencies:
       '@crackle/core': 0.34.1(@types/node@20.19.13)(jiti@2.5.1)(terser@5.44.0)(typescript@5.9.2)(webpack@5.101.3)
       yargs: 17.7.2
