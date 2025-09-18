@@ -610,8 +610,8 @@ importers:
         specifier: ^3.2.3
         version: 3.4.2
       pretty-format:
-        specifier: ^29.0.0
-        version: 29.7.0
+        specifier: ^30.0.0
+        version: 30.0.5
       snapshot-diff:
         specifier: ^0.10.0
         version: 0.10.0(jest@30.1.3(@types/node@20.19.13))
