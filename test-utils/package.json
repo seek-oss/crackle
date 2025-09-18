@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "consola": "^3.2.3",
-    "pretty-format": "^29.0.0",
+    "pretty-format": "^30.0.0",
     "snapshot-diff": "^0.10.0"
   }
 }
