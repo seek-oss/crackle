@@ -14,6 +14,8 @@ jobs:
     name: Publish
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
     steps:
       - name: Checkout & Install
         uses: seek-oss/crackle/.github/actions/init@master
@@ -36,6 +38,8 @@ jobs:
     name: Snapshot
     if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
     steps:
       - name: Checkout & Install
         uses: seek-oss/crackle/.github/actions/init@master
