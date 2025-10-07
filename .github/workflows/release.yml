@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch:
 
 env:
   CI: true
@@ -11,12 +12,19 @@ env:
 jobs:
   release:
     name: Publish
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
     steps:
       - name: Checkout & Install
         uses: seek-oss/crackle/.github/actions/init@master
         with:
           token: ${{ secrets.SEEK_OSS_CI_GITHUB_TOKEN }}
+
+      # Ensure npm 11.5.1 or later is installed
+      - name: Install latest npm
+        run: npm install -g npm@latest
 
       - name: Create Release PR / Publish to npm
         uses: changesets/action@v1
@@ -25,4 +33,24 @@ jobs:
           publish: pnpm run release
         env:
           GITHUB_TOKEN: ${{ secrets.SEEK_OSS_CI_GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  snapshot:
+    name: Snapshot
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    steps:
+      - name: Checkout & Install
+        uses: seek-oss/crackle/.github/actions/init@master
+
+      # Ensure npm 11.5.1 or later is installed
+      - name: Install latest npm
+        run: npm install -g npm@latest
+
+      - name: Publish
+        uses: seek-oss/changesets-snapshot@v0
+        with:
+          pre-publish: pnpm prepare-publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.SEEK_OSS_CI_GITHUB_TOKEN }}
