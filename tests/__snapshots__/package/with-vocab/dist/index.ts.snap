@@ -7,67 +7,44 @@ const _vocab_index_cjs = require("./.vocab/index.cjs");
 const client_vocab_index_cjs = require("./client.vocab/index.cjs");
 const _interopDefaultCompat = (e) => e && typeof e === "object" && "default" in e ? e : { default: e };
 const React__default = /* @__PURE__ */ _interopDefaultCompat(React);
-const TranslationsContext = /* @__PURE__ */ React__default.default.createContext(void 0);
-const VocabProvider = ({
-  children,
-  language,
-  locale
-}) => {
+const TranslationsContext = React__default.default.createContext(void 0);
+const VocabProvider = ({ children, language, locale }) => {
   const value = React.useMemo(() => ({
     language,
     locale
   }), [language, locale]);
-  return /* @__PURE__ */ React__default.default.createElement(TranslationsContext.Provider, {
-    value
-  }, children);
+  return /* @__PURE__ */ React__default.default.createElement(TranslationsContext.Provider, { value }, children);
 };
 const useLanguage = () => {
   const context = React.useContext(TranslationsContext);
-  if (!context) {
-    throw new Error("Attempted to access translation without Vocab context set. Did you forget to render VocabProvider?");
-  }
-  if (!context.language) {
-    throw new Error("Attempted to access translation without language set. Did you forget to pass language to VocabProvider?");
-  }
+  if (!context) throw new Error("Attempted to access translation without Vocab context set. Did you forget to render VocabProvider?");
+  if (!context.language) throw new Error("Attempted to access translation without language set. Did you forget to pass language to VocabProvider?");
   return context;
 };
 const SERVER_RENDERING = typeof window === "undefined";
 function useTranslations(translations) {
-  const {
-    language,
-    locale
-  } = useLanguage();
+  const { language, locale } = useLanguage();
   const [, forceRender] = React.useReducer((s) => s + 1, 0);
   const translationsObject = translations.getLoadedMessages(language, locale || language);
   let ready = true;
   if (!translationsObject) {
-    if (SERVER_RENDERING) {
-      throw new Error(`Translations not synchronously available on server render. Applying translations dynamically server-side is not supported.`);
-    }
+    if (SERVER_RENDERING) throw new Error(`Translations not synchronously available on server render. Applying translations dynamically server-side is not supported.`);
     translations.load(language).then(() => {
       forceRender();
     });
     ready = false;
   }
   const t = React.useCallback((key, params) => {
-    if (!translationsObject) {
-      return " ";
-    }
-    const message = translationsObject === null || translationsObject === void 0 ? void 0 : translationsObject[key];
+    if (!translationsObject) return " ";
+    const message = translationsObject?.[key];
     if (!message) {
       console.error(`Unable to find translation for key "${key}". Possible keys are ${Object.keys(translationsObject).map((v) => `"${v}"`).join(", ")}`);
       return "";
     }
     const result = message.format(params);
-    if (Array.isArray(result)) {
-      for (let i = 0; i < result.length; i++) {
-        const item = result[i];
-        if (typeof item === "object" && item && !item.key && /* @__PURE__ */ React.isValidElement(item)) {
-          result[i] = /* @__PURE__ */ React.cloneElement(item, {
-            key: `_vocab-${i}`
-          });
-        }
-      }
+    if (Array.isArray(result)) for (let i = 0; i < result.length; i++) {
+      const item = result[i];
+      if (typeof item === "object" && item && !item.key && React.isValidElement(item)) result[i] = React.cloneElement(item, { key: `_vocab-${i}` });
     }
     return result;
   }, [translationsObject]);
@@ -170,67 +147,44 @@ import React, { useMemo, useReducer, useCallback, isValidElement, cloneElement, 
 import { createRoot } from "react-dom/client";
 import { translations } from "./.vocab/index.mjs";
 import { translations as translations$1 } from "./client.vocab/index.mjs";
-const TranslationsContext = /* @__PURE__ */ React.createContext(void 0);
-const VocabProvider = ({
-  children,
-  language,
-  locale
-}) => {
+const TranslationsContext = React.createContext(void 0);
+const VocabProvider = ({ children, language, locale }) => {
   const value = useMemo(() => ({
     language,
     locale
   }), [language, locale]);
-  return /* @__PURE__ */ React.createElement(TranslationsContext.Provider, {
-    value
-  }, children);
+  return /* @__PURE__ */ React.createElement(TranslationsContext.Provider, { value }, children);
 };
 const useLanguage = () => {
   const context = useContext(TranslationsContext);
-  if (!context) {
-    throw new Error("Attempted to access translation without Vocab context set. Did you forget to render VocabProvider?");
-  }
-  if (!context.language) {
-    throw new Error("Attempted to access translation without language set. Did you forget to pass language to VocabProvider?");
-  }
+  if (!context) throw new Error("Attempted to access translation without Vocab context set. Did you forget to render VocabProvider?");
+  if (!context.language) throw new Error("Attempted to access translation without language set. Did you forget to pass language to VocabProvider?");
   return context;
 };
 const SERVER_RENDERING = typeof window === "undefined";
 function useTranslations(translations2) {
-  const {
-    language,
-    locale
-  } = useLanguage();
+  const { language, locale } = useLanguage();
   const [, forceRender] = useReducer((s) => s + 1, 0);
   const translationsObject = translations2.getLoadedMessages(language, locale || language);
   let ready = true;
   if (!translationsObject) {
-    if (SERVER_RENDERING) {
-      throw new Error(`Translations not synchronously available on server render. Applying translations dynamically server-side is not supported.`);
-    }
+    if (SERVER_RENDERING) throw new Error(`Translations not synchronously available on server render. Applying translations dynamically server-side is not supported.`);
     translations2.load(language).then(() => {
       forceRender();
     });
     ready = false;
   }
   const t = useCallback((key, params) => {
-    if (!translationsObject) {
-      return " ";
-    }
-    const message = translationsObject === null || translationsObject === void 0 ? void 0 : translationsObject[key];
+    if (!translationsObject) return " ";
+    const message = translationsObject?.[key];
     if (!message) {
       console.error(`Unable to find translation for key "${key}". Possible keys are ${Object.keys(translationsObject).map((v) => `"${v}"`).join(", ")}`);
       return "";
     }
     const result = message.format(params);
-    if (Array.isArray(result)) {
-      for (let i = 0; i < result.length; i++) {
-        const item = result[i];
-        if (typeof item === "object" && item && !item.key && /* @__PURE__ */ isValidElement(item)) {
-          result[i] = /* @__PURE__ */ cloneElement(item, {
-            key: `_vocab-${i}`
-          });
-        }
-      }
+    if (Array.isArray(result)) for (let i = 0; i < result.length; i++) {
+      const item = result[i];
+      if (typeof item === "object" && item && !item.key && isValidElement(item)) result[i] = cloneElement(item, { key: `_vocab-${i}` });
     }
     return result;
   }, [translationsObject]);
