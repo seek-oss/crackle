@@ -44,7 +44,7 @@
     "@crackle/cli": "workspace:*",
     "@crackle/core": "workspace:*",
     "@crackle/eslint-plugin-format-js-tag": "workspace:*",
-    "@eslint/compat": "^1.2.7",
+    "@eslint/compat": "^2.0.0",
     "@playwright/test": "^1.40.0",
     "depcheck": "^1.4.7",
     "eslint": "^9.22.0",
@@ -54,7 +54,7 @@
     "prettier": "^3.5.3",
     "tsx": "^4.16.5",
     "typescript": "~5.9.0",
-    "vitest": "^3.2.4",
+    "vitest": "^4.0.0",
     "wireit": "^0.14.1"
   },
   "engines": {
