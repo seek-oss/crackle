@@ -114,10 +114,6 @@ export default [
     languageOptions: {
       ecmaVersion: 6,
       sourceType: 'module',
-
-      parserOptions: {
-        project: ['./tsconfig.json', './scripts/tsconfig.json'],
-      },
     },
   },
 ];
