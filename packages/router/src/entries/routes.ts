@@ -3,9 +3,8 @@ import { promises as fs } from 'fs';
 const routeTypePrefix = 'export declare type ValidRoute';
 
 export const defineRoutes = async (routes: string[]) => {
-  const linkDeclarationFilePath = require.resolve(
-    '@crackle/router/dist/declarations/src/valid-routes.d.ts',
-  );
+  const linkDeclarationFilePath =
+    require.resolve('@crackle/router/dist/declarations/src/valid-routes.d.ts');
 
   const contents = await fs.readFile(linkDeclarationFilePath, 'utf-8');
 
