@@ -416,7 +416,7 @@ importers:
         version: 4.2.2(vite@7.2.6(@types/node@20.19.25)(jiti@2.6.1)(terser@5.44.1)(tsx@4.21.0))
       '@vocab/webpack':
         specifier: ^1.2.5
-        version: 1.2.14(webpack@5.103.0(esbuild@0.25.12))
+        version: 1.2.14(webpack@5.103.0(esbuild@0.27.0))
       c12:
         specifier: ^3.0.0
         version: 3.3.2
@@ -433,8 +433,8 @@ importers:
         specifier: ^1.2.0
         version: 1.2.0
       esbuild:
-        specifier: ^0.25.0
-        version: 0.25.12
+        specifier: ^0.27.0
+        version: 0.27.0
       eval:
         specifier: ^0.1.8
         version: 0.1.8
@@ -7748,7 +7748,7 @@ snapshots:
       '@vanilla-extract/babel-plugin-debug-ids': 1.2.2
       '@vanilla-extract/css': 1.17.5
       dedent: 1.7.0
-      esbuild: 0.25.12
+      esbuild: 0.27.0
       eval: 0.1.8
       find-up: 5.0.0
       javascript-stringify: 2.1.0
@@ -7871,7 +7871,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vocab/webpack@1.2.14(webpack@5.103.0(esbuild@0.25.12))':
+  '@vocab/webpack@1.2.14(webpack@5.103.0(esbuild@0.27.0))':
     dependencies:
       '@vocab/core': 1.6.6
       cjs-module-lexer: 2.1.1
@@ -7879,7 +7879,7 @@ snapshots:
       es-module-lexer: 1.7.0
       picocolors: 1.1.1
       virtual-resource-loader: 2.0.1
-      webpack: 5.103.0(esbuild@0.25.12)
+      webpack: 5.103.0(esbuild@0.27.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -11889,16 +11889,16 @@ snapshots:
 
   term-size@2.2.1: {}
 
-  terser-webpack-plugin@5.3.14(esbuild@0.25.12)(webpack@5.103.0(esbuild@0.25.12)):
+  terser-webpack-plugin@5.3.14(esbuild@0.27.0)(webpack@5.103.0(esbuild@0.27.0)):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       jest-worker: 27.5.1
       schema-utils: 4.3.3
       serialize-javascript: 6.0.2
       terser: 5.44.1
-      webpack: 5.103.0(esbuild@0.25.12)
+      webpack: 5.103.0(esbuild@0.27.0)
     optionalDependencies:
-      esbuild: 0.25.12
+      esbuild: 0.27.0
 
   terser-webpack-plugin@5.3.14(webpack@5.103.0):
     dependencies:
@@ -12308,7 +12308,7 @@ snapshots:
 
   webpack-sources@3.3.3: {}
 
-  webpack@5.103.0(esbuild@0.25.12):
+  webpack@5.103.0(esbuild@0.27.0):
     dependencies:
       '@types/eslint-scope': 3.7.7
       '@types/estree': 1.0.8
@@ -12332,7 +12332,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 4.3.3
       tapable: 2.3.0
-      terser-webpack-plugin: 5.3.14(esbuild@0.25.12)(webpack@5.103.0(esbuild@0.25.12))
+      terser-webpack-plugin: 5.3.14(esbuild@0.27.0)(webpack@5.103.0(esbuild@0.27.0))
       watchpack: 2.4.4
       webpack-sources: 3.3.3
     transitivePeerDependencies:
