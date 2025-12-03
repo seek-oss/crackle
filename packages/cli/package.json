@@ -1,6 +1,6 @@
 {
   "name": "@crackle/cli",
-  "version": "0.16.2",
+  "version": "0.16.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/seek-oss/crackle.git",
