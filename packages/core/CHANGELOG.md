@@ -1,5 +1,11 @@
 # @crackle/core
 
+## 0.34.3
+
+### Patch Changes
+
+- [#273](https://github.com/seek-oss/crackle/pull/273) [`f6fbbff`](https://github.com/seek-oss/crackle/commit/f6fbbffd1571a28c77d9a653a4c301bd0817b39c) Thanks [@renovate](https://github.com/apps/renovate)! - Update `esbuild` to `^0.27.0`
+
 ## 0.34.2
 
 ### Patch Changes
