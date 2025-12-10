@@ -59,15 +59,6 @@ export default [
     },
     rules: {
       'react/react-in-jsx-scope': 'off',
-      '@typescript-eslint/no-unused-vars': [
-        'error',
-        {
-          varsIgnorePattern: '^_',
-          argsIgnorePattern: '^_',
-          ignoreRestSiblings: true,
-        },
-      ],
-
       'no-debugger': 'warn',
 
       'import-x/order': [
