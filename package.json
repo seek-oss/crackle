@@ -48,7 +48,7 @@
     "@playwright/test": "^1.40.0",
     "depcheck": "^1.4.7",
     "eslint": "^9.22.0",
-    "eslint-config-seek": "^14.0.0",
+    "eslint-config-seek": "^15.0.0",
     "fast-glob": "^3.3.3",
     "ignore-sync": "^8.0.0",
     "prettier": "^3.5.3",
