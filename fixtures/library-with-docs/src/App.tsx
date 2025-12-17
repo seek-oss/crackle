@@ -10,7 +10,7 @@ import {
   makeLinkComponent,
   Stack,
 } from 'braid-design-system';
-import apac from 'braid-design-system/themes/apac';
+import seekJobs from 'braid-design-system/themes/seekJobs';
 
 const CustomLink = makeLinkComponent(({ href, ...restProps }, ref) =>
   href[0] === '/' ? (
@@ -21,7 +21,7 @@ const CustomLink = makeLinkComponent(({ href, ...restProps }, ref) =>
 );
 
 const App: AppShell = ({ children }) => (
-  <BraidProvider theme={apac} linkComponent={CustomLink}>
+  <BraidProvider theme={seekJobs} linkComponent={CustomLink}>
     <Stack space="medium">
       <Box background="brand">
         <ContentBlock>
