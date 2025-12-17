@@ -42,7 +42,7 @@ jobs:
         run: pnpm build:ci
 
       - name: Save build cache
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v5
         with:
           path: ${{ env.dist-cache-paths }}
           key: build-${{ github.sha }}
@@ -57,7 +57,7 @@ jobs:
         uses: seek-oss/crackle/.github/actions/init@master
 
       - name: Restore build cache
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           path: ${{ env.dist-cache-paths }}
           key: build-${{ github.sha }}
@@ -75,7 +75,7 @@ jobs:
         uses: seek-oss/crackle/.github/actions/init@master
 
       - name: Restore build cache
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           path: ${{ env.dist-cache-paths }}
           key: build-${{ github.sha }}
@@ -83,7 +83,7 @@ jobs:
 
       - name: Cache browsers
         id: browsers-cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: /home/runner/.cache/ms-playwright
           key: browsers-${{ runner.os }}-${{ hashFiles('./pnpm-lock.yaml') }}
@@ -104,7 +104,7 @@ jobs:
         uses: seek-oss/crackle/.github/actions/init@master
 
       - name: Restore build cache
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           path: ${{ env.dist-cache-paths }}
           key: build-${{ github.sha }}
@@ -123,7 +123,7 @@ jobs:
         run: pnpm fixtures:braid --clone --absorb
 
       - name: Cache Braid dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
           key: braid-${{ runner.os }}-${{ hashFiles('./pnpm-lock.yaml', './fixtures/braid-design-system/pnpm-lock.yaml') }}
