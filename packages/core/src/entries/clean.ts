@@ -1,4 +1,4 @@
-import { type PartialConfig, getConfig } from '../config';
+import { type PartialConfig, getConfig, context } from '../config';
 import {
   cleanPackageEntryPoints,
   getPackageEntryPoints,
@@ -9,11 +9,13 @@ import { logger } from './logger';
 export const clean = async (inlineConfig?: PartialConfig) => {
   const config = await getConfig(inlineConfig);
 
-  const entries = await getPackageEntryPoints(config.root);
+  await context.run(config, async () => {
+    const entries = await getPackageEntryPoints(config.root);
 
-  await cleanPackageEntryPoints(entries, (entryPoint) => {
-    logger.info(`Cleaning \`${entryPoint.entryName}\``);
+    await cleanPackageEntryPoints(entries, (entryPoint) => {
+      logger.info(`Cleaning \`${entryPoint.entryName}\``);
+    });
+
+    logger.success('Done!');
   });
-
-  logger.success('Done!');
 };

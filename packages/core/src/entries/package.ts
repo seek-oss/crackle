@@ -2,7 +2,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import process from 'process';
 
-import { type EnhancedConfig, type PartialConfig, getConfig } from '../config';
+import { type EnhancedConfig, type PartialConfig, getConfig, context } from '../config';
 import { distDir } from '../constants';
 import { createBundle } from '../package-utils/bundle';
 import { createDtsBundle } from '../package-utils/dts';
@@ -105,7 +105,9 @@ export const buildPackage = async (partialConfig?: PartialConfig) => {
   const packageName = await getPackageName(config);
 
   try {
-    await build(config, packageName);
+    await context.run(config, async () => {
+      await build(config, packageName);
+    });
   } catch (err: any) {
     logger.error(err);
     process.exitCode = 1;
