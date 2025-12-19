@@ -35,7 +35,7 @@
     "changeset": "changeset",
     "version": "changeset version && pnpm install --lockfile-only && pnpm bootstrap:update",
     "prepare-publish": "pnpm build:ci && tsx ./scripts/copy-readme.ts",
-    "release": "pnpm prepare-publish && pnpm bootstrap:tag && changeset publish"
+    "release": "pnpm prepare-publish && changeset publish"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.5.0",
