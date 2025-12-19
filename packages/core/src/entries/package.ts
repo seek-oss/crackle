@@ -2,7 +2,12 @@ import fs from 'fs/promises';
 import path from 'path';
 import process from 'process';
 
-import { type EnhancedConfig, type PartialConfig, getConfig, context } from '../config';
+import {
+  type EnhancedConfig,
+  type PartialConfig,
+  getConfig,
+  context,
+} from '../config';
 import { distDir } from '../constants';
 import { createBundle } from '../package-utils/bundle';
 import { createDtsBundle } from '../package-utils/dts';
