@@ -1,5 +1,13 @@
 # @crackle/core
 
+## 0.34.4
+
+### Patch Changes
+
+- [#286](https://github.com/seek-oss/crackle/pull/286) [`df3cfc3`](https://github.com/seek-oss/crackle/commit/df3cfc33639c408f07244758b0a422715cf9b759) Thanks [@michaeltaranto](https://github.com/michaeltaranto)! - Fix compatibility with Node 24
+
+  Wrap async operations in `context.run()` to ensure `AsyncLocalStorage` context propagates correctly across async boundaries.
+
 ## 0.34.3
 
 ### Patch Changes
