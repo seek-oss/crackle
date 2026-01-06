@@ -13,7 +13,10 @@ const VocabProvider = ({ children, language, locale }) => {
     language,
     locale
   }), [language, locale]);
-  return /* @__PURE__ */ React__default.default.createElement(TranslationsContext.Provider, { value }, children);
+  return /* @__PURE__ */ jsxRuntime.jsx(TranslationsContext.Provider, {
+    value,
+    children
+  });
 };
 const useLanguage = () => {
   const context = React.useContext(TranslationsContext);
@@ -153,7 +156,10 @@ const VocabProvider = ({ children, language, locale }) => {
     language,
     locale
   }), [language, locale]);
-  return /* @__PURE__ */ React.createElement(TranslationsContext.Provider, { value }, children);
+  return /* @__PURE__ */ jsx(TranslationsContext.Provider, {
+    value,
+    children
+  });
 };
 const useLanguage = () => {
   const context = useContext(TranslationsContext);
