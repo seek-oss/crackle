@@ -1,3 +1,6 @@
+> [!WARNING]
+> This repo has been archived and all packages have been deprecated. Consider using [tsdown](https://tsdown.dev/) for bundling packages instead instead of `@crackle/cli`. All other packages under the `@crackle` scope have no direct replacement.
+
 # 💥 Crackle <!-- omit in toc -->
 
 _A build tool for apps and packages, static and server-rendered sites. Built on [Vite], [Rollup] and [esbuild]._
